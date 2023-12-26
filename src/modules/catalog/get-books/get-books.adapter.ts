@@ -7,4 +7,5 @@ type Book = {
     type: string;
     subject: string;
     dateOfPublication: string;
+    image: string;
 }

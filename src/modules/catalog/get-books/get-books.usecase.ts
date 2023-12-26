@@ -6,8 +6,6 @@ type RequiresToGetBooks = {
 export const getBooksUseCase = createAppAsyncThunk(
     'catalog/getBooks',
     async(data: RequiresToGetBooks, { extra: { getBooksAdapter } }) => {
-        if (data.connectedUser) {
-            return await getBooksAdapter.getBooks();
-        }
+        return await getBooksAdapter.getBooks(data.connectedUser);
     }
 )

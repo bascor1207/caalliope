@@ -1,0 +1,32 @@
+.container {
+  border: 1px solid red;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  border-radius: 24px;
+
+  .book-image {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 24px;
+  }
+
+  .book-author,
+  .book-type,
+  .book-subject,
+  .book-publication-date {
+    font-size: 1rem;
+  }
+
+  .book-type {
+
+  }
+  .book-subject {
+
+  }
+  .book-publication-date {
+
+  }
+}
