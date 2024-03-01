@@ -3,8 +3,15 @@ import {
     createStore,
     Dependencies,
 } from '@/modules/store/create-store';
-import {FakeGetBooksGateway} from "@/modules/catalog/get-books/infra/fake-get-books-gateway";
+import {FakeGetBooksGateway} from "@/modules/books/get-books/infra/fake-get-books-gateway";
 import {catalog} from "@/modules/catalog";
+import {FakeGetOneBookGateway} from "@/modules/books/get-one-book/infra/fake-get-one-book.gateway";
+
+const book = {
+    id: '1',
+    title: 'Le seigneur des anneaux',
+    author: 'Laura bojon',
+}
 
 
 export class App {
@@ -20,8 +27,13 @@ export class App {
         const getBooksAdapter = new FakeGetBooksGateway();
         getBooksAdapter.returnedResponse = catalog;
         getBooksAdapter.connectedUser = true;
+
+        const getOneBookAdapter = new FakeGetOneBookGateway();
+        getOneBookAdapter.returnedResponse = book;
+
         return {
-            getBooksAdapter: getBooksAdapter,
+            getBooksAdapter,
+            getOneBookAdapter
         };
     }
 }

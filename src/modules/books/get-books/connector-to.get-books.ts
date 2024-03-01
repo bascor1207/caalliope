@@ -1,4 +1,4 @@
-interface GetBooksAdapter {
+interface ConnectorToGetBooks {
     getBooks(connectedUser: boolean): Promise<Book[]>;
 }
 

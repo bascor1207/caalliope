@@ -3,9 +3,9 @@ import React from "react";
 import { useSelector } from 'react-redux';
 
 import {exhaustiveGuard} from "@/modules/exhaustive-guards";
-import {getBooksViewModel} from "@/modules/catalog/get-books/react/get-books.viewmodel";
+import {getBooksViewModel} from "@/modules/books/get-books/ui/get-books.viewmodel";
 
-import {BookCard} from "@/modules/catalog/get-books/BookCard";
+import {BookCard} from "@/modules/books/get-books/ui/components/BookCard";
 
 import styles from './book-catalog.module.scss';
 

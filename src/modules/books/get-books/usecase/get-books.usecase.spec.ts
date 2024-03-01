@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { FakeGetBooksGateway } from "@/modules/catalog/get-books/infra/fake-get-books-gateway";
+import { FakeGetBooksGateway } from "@/modules/books/get-books/infra/fake-get-books-gateway";
 import { createTestStore } from "@/modules/store/create-store";
-import { getBooksUseCase } from "@/modules/catalog/get-books/get-books.usecase";
-import {stateBuilder} from "@/modules/catalog/get-books/core/store/state-builder";
+import { getBooksUseCase } from "./get-books.usecase";
+import {stateBuilder} from "./state-builder";
 
 describe('test to retrieve a range of catalog to display', () => {
     it('should retrieve catalog when user go on catalog page', async () => {

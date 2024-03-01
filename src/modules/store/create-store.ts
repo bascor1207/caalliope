@@ -1,9 +1,12 @@
 import { UnknownAction, configureStore, ThunkDispatch } from '@reduxjs/toolkit';
 import { rootReducer } from '@/modules/store/root-reducer';
-import { FakeGetBooksGateway } from "@/modules/catalog/get-books/infra/fake-get-books-gateway";
+import { FakeGetBooksGateway } from "@/modules/books/get-books/infra/fake-get-books-gateway";
+import {ConnectorToGetOneBook} from "@/modules/books/get-one-book/connector-to.get-one-book";
+import {FakeGetOneBookGateway} from "@/modules/books/get-one-book/infra/fake-get-one-book.gateway";
 
 export type Dependencies = {
-  getBooksAdapter: GetBooksAdapter;
+  getBooksAdapter: ConnectorToGetBooks;
+  getOneBookAdapter: ConnectorToGetOneBook;
 };
 
 export const createStore = (
@@ -24,10 +27,13 @@ export const createStore = (
 };
 
 export const createTestStore = (
-  { getBooksAdapter = new FakeGetBooksGateway() }: Partial<Dependencies> = {},
+  {
+    getBooksAdapter = new FakeGetBooksGateway(),
+    getOneBookAdapter = new FakeGetOneBookGateway()
+  }: Partial<Dependencies> = {},
   preloadedState?: Partial<ReturnType<typeof rootReducer>>,
 ) => {
-  return createStore({ getBooksAdapter }, preloadedState);
+  return createStore({ getBooksAdapter, getOneBookAdapter }, preloadedState);
 };
 type AppStoreWithGetActions = ReturnType<typeof createStore>;
 export type AppStore = Omit<AppStoreWithGetActions, 'getActions'>;

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
-import {stateBuilder} from "@/modules/catalog/get-books/core/store/state-builder";
+import {stateBuilder} from "../../usecase/state-builder";
 import {createTestStore} from "@/modules/store/create-store";
-import {getBooksViewModel, gettingBooks} from "@/modules/catalog/get-books/react/get-books.viewmodel";
+import {getBooksViewModel, gettingBooks} from "@/modules/books/get-books/ui/get-books.viewmodel";
 
 describe('test for the viewModel layer of getting books', () => {
     it('should handle loading when getting books is pending', () => {

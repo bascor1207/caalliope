@@ -1,11 +1,12 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {getBooksUseCase} from "@/modules/catalog/get-books/get-books.usecase";
+import {getBooksUseCase} from "../usecase/get-books.usecase";
 
 type Book = {
     author: string;
     type: string;
     subject: string;
     dateOfPublication: string;
+    image: string;
 }
 
 type InitialState = {
