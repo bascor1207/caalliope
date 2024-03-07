@@ -1,0 +1,25 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+    background-color: #C9A0DC;
+    padding: 20px 60px;
+    height: 100px;
+
+    .footerContent {
+        display: flex;
+        align-items: center;
+        gap: 50px;
+
+        .donation,
+        .contact {
+            display: flex;
+            justify-content: center;
+            font-size: 18px;
+            cursor: pointer;
+
+            &:hover {
+                font-weight: bold;
+            }
+        }
+    }
+}
