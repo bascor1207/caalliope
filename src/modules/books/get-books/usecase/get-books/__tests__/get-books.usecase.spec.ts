@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { FakeGetBooksGateway } from "@/modules/books/get-books/infra/fake-get-books-gateway";
 import { createTestStore } from "@/modules/store/create-store";
-import { getBooksUseCase } from "./get-books.usecase";
+import { getBooksUseCase } from "../get-books.usecase";
 import {stateBuilder} from "./state-builder";
 
 describe('test to retrieve a range of catalog to display', () => {

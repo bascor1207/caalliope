@@ -1,7 +1,7 @@
 import {RootState} from "@/modules/store/create-store";
 import {Book} from "@/modules/books/get-one-book/core/get-book.slice";
 import {createSelector} from "reselect";
-import {gettingBooks} from "@/modules/books/get-books/ui/get-books.viewmodel";
+import { gettingBooks } from "../../get-books/ui/get-books/get-books.viewmodel";
 
 export const gettingBook = {
     pending: 'pending',

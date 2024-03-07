@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector } from 'react-redux';
 
 import {exhaustiveGuard} from "@/modules/exhaustive-guards";
-import {getBooksViewModel} from "@/modules/books/get-books/ui/get-books.viewmodel";
+import {getBooksViewModel} from "../get-books/get-books.viewmodel";
 
 import {BookCard} from "@/modules/books/get-books/ui/components/BookCard";
 

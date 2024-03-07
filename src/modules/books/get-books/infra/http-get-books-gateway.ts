@@ -5,4 +5,9 @@ export class HttpGetBooksGateway implements GetBooksAdapter {
         const apiUrl = 'myBackend'
         return await axios.get(apiUrl) as Book[];
     }
+
+    async getBooksLastRelease(): Promise<Book[]> {
+        const apiUrl = 'myBackend'
+        return await axios.get(apiUrl) as Book[];
+    }
 }

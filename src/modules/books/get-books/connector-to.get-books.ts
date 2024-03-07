@@ -1,8 +1,10 @@
 interface ConnectorToGetBooks {
     getBooks(connectedUser: boolean): Promise<Book[]>;
+    getBooksLastRelease(): Promise<Book[]>;
 }
 
-type Book = {
+export type Book = {
+    title: string;
     author: string;
     type: string;
     subject: string;
