@@ -6,7 +6,7 @@ import {stateBuilder} from "./state-builder";
 
 describe('test to retrieve a range of catalog to display', () => {
     it('should retrieve catalog when user go on catalog page', async () => {
-        givenConnectedUser(true, [{author: "Bastien Corré", type: "Novel", subject: "Fantasy Medieval", dateOfPublication: "2023"}]);
+        givenConnectedUser(true, books);
 
         await whenUserFetchCatalogPage();
 
@@ -28,14 +28,17 @@ const whenUserFetchCatalogPage = async () => {
 const thenTheUserShouldSeeBooks = (): void => {
     const state = stateBuilder().withSuccess({
         connectedUser: true,
-        books: [{author: "Bastien Corré", type: "Novel", subject: "Fantasy Medieval", dateOfPublication: "2023"}]
+        books,
         }).build();
     expect(state).toEqual(store.getState())
 };
+
+const books = [{author: "Bastien Corré", type: "Novel", subject: "Fantasy Medieval",image: "test", dateOfPublication: "2023"}]
 
 type Book = {
     author: string;
     type: string;
     subject: string;
+    image: string;
     dateOfPublication: string;
 };
