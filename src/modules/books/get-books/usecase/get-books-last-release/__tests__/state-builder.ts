@@ -1,19 +1,14 @@
-import { ActionCreatorWithPayload, createAction, createReducer } from '@reduxjs/toolkit';
-import { rootReducer } from '@/modules/store/root-reducer';
-import { RootState } from '@/modules/store/create-store';
-import { Book } from '@/modules/books/get-books/connector-to.get-books';
-
-type PayloadForTest = {
-    connectedUser: boolean;
-    books: Book[];
-}
+import {ActionCreatorWithPayload, createAction, createReducer} from "@reduxjs/toolkit";
+import {rootReducer} from "@/modules/store/root-reducer";
+import { RootState } from "@/modules/store/create-store";
+import { Book } from "../../../connector-to.get-books";
 
 // @ts-expect-error I do not understand the error for now
 const initialState = rootReducer(undefined, createAction(''));
 
-export const withPendingRequest = createAction<boolean>('WithPendingRequest');
-export const withRejectedRequest = createAction<boolean>('WithRejectedRequest');
-export const withSuccess = createAction<PayloadForTest>('WithSuccess');
+export const withPendingRequest = createAction<boolean>("WithPendingRequest");
+export const withRejectedRequest = createAction<boolean>("WithRejectedRequest");
+export const withSuccess = createAction<Book[]>("WithSuccess");
 
 const reducer = createReducer(initialState, (builder) => {
     builder.addCase(withPendingRequest, (state, action) => {
@@ -23,9 +18,7 @@ const reducer = createReducer(initialState, (builder) => {
         state.catalog.getBooks.rejectedRequest = action.payload;
     }),
     builder.addCase(withSuccess, (state, action) => {
-        if (action.payload.connectedUser) {
-            state.catalog.getBooks.books = action.payload.books;
-        }
+        state.catalog.getBooks.books = action.payload;
     });
 });
 
@@ -51,11 +44,11 @@ export const stateBuilderProvider = () => {
         getState() {
             return builder.build();
         },
-        setState(updateFn: (_builder: GetBooksStateBuilder) => GetBooksStateBuilder) {
+        setState(updateFn: (_builder: GetBooksLastReleaseStateBuilder) => GetBooksLastReleaseStateBuilder) {
             builder = updateFn(builder);
         },
     };
 };
 
-export type GetBooksStateBuilder = ReturnType<typeof stateBuilder>;
-export type GetBooksStateBuilderProvider = ReturnType<typeof stateBuilderProvider>;
+export type GetBooksLastReleaseStateBuilder = ReturnType<typeof stateBuilder>;
+export type GetBooksLastReleaseStateBuilderProvider = ReturnType<typeof stateBuilderProvider>;

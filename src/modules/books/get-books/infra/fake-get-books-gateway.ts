@@ -16,5 +16,15 @@ export class FakeGetBooksGateway implements ConnectorToGetBooks {
             }, this.delayToResponse)
         })
     }
+
+    getBooksLastRelease(): Promise<Book[]> {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const response = this.returnedResponse;
+                if (!response) reject();
+                return resolve(response);
+            }, this.delayToResponse)
+        })
+    }
 }
 
