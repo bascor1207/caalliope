@@ -1,6 +1,7 @@
 import styles from './page.module.css'
 import { Header } from '@/modules/core/ui/Header'
 import { Footer } from '@/modules/core/ui/Footer'
+import { BooksCarouselsLastRelease } from '@/modules/books/get-books/ui/components/BooksCarouselsLastRelease'
 
 export default function Home() {
   return (
@@ -11,6 +12,7 @@ export default function Home() {
       <div className={styles.content}>
         <div className={styles.lastRelease}>
           <h1>Dernières sorties</h1>
+          <BooksCarouselsLastRelease />
         </div>
         <div className={styles.popularBook}>
           <h1>Livres du moment</h1>

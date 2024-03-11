@@ -3,6 +3,7 @@ import { getBooksUseCase } from '../usecase/get-books/get-books.usecase';
 import { getBooksLastReleaseUseCase } from '../usecase/get-books-last-release/get-books-last-release.usecase';
 
 type Book = {
+    id: number, 
     title: string;
     author: string;
     type: string;
