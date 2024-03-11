@@ -1,4 +1,5 @@
 import {RootState} from "@/modules/store/create-store";
+import { Book } from "../../connector-to.get-books";
 
 const selectGetBooksState = (state: RootState) => ( state.catalog.getBooks);
 export const gettingBooks = {
