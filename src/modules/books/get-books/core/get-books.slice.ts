@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getBooksUseCase } from '../usecase/get-books/get-books.usecase';
 import { getBooksLastReleaseUseCase } from '../usecase/get-books-last-release/get-books-last-release.usecase';
+import { Book } from '../connector-to.get-books';
 
-type Book = {
+/*type Book = {
     id: number, 
     title: string;
     author: string;
@@ -10,7 +11,7 @@ type Book = {
     subject: string;
     dateOfPublication: string;
     image: string;
-}
+}*/
 
 type InitialState = {
     books: Book[];
@@ -47,9 +48,8 @@ export const getBooksSlice = createSlice( {
             state.pendingRequest = false;
         }),
         builder.addCase(getBooksLastReleaseUseCase.fulfilled, (state, action) => {
-            if (action.payload) {
-                state.books = action.payload;
-            }
+            state.books = action.payload;
+            state.pendingRequest = false;
             state.pendingRequest = false;
         })
     }
