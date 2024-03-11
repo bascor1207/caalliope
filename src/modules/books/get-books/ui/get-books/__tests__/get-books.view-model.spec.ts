@@ -19,7 +19,7 @@ describe('test for the viewModel layer of getting books', () => {
     it('should handle the book list when getting books is fulfilled', () => {
         const payload = {
             connectedUser: true,
-            books: [{title: "novel title", author: "Bastien Corré", type: "Novel", subject: "Fantasy Medieval", dateOfPublication: "2023", image: "test"}]
+            books: [{id: 1, title: "novel title", author: "Bastien Corré", type: "Novel", subject: "Fantasy Medieval", dateOfPublication: "2023", image: "test"}]
         };
         const initialState = stateBuilder().withSuccess(payload).build();
         const state = createTestStore({}, initialState).getState();

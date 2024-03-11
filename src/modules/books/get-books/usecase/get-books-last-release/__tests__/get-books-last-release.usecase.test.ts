@@ -32,6 +32,7 @@ const thenTheUserShouldSeeBooksLastRelease = (payload: typeof books): void => {
 
 const books: Book[] = [
     {
+        id: 1,
         title: "novel title",
         author: "Bastien Corré",
         type: "Novel",

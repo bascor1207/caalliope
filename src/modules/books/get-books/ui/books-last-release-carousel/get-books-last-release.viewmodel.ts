@@ -24,16 +24,16 @@ type BooksGettingFulfilled = {
 
 type ViewModelResponse = BooksGettingPending | BooksGettingRejected | BooksGettingFulfilled;
 
-const selectProductState = (state: RootState) => (state.catalog.getBooks);
+const selectGetBooksState = (state: RootState) => ( state.catalog.getBooks);
 
 export const getBooksLastReleaseViewmodel = () => (state: RootState): ViewModelResponse => {
-const booksState = selectProductState(state)
-const { pendingRequest, rejectedRequest, books } = booksState;
-if (pendingRequest) {
-    return { type: gettingBooks.pending, pendingRequest };
-}
-if (rejectedRequest) {
-    return { type: gettingBooks.rejected, rejectedRequest };
-}
-return { type: gettingBooks.fulfilled, books };
+    const booksState = selectGetBooksState(state)
+    const { pendingRequest, rejectedRequest, books } = booksState;
+    if (pendingRequest) {
+        return { type: gettingBooks.pending, pendingRequest };
+    }
+    if (rejectedRequest) {
+        return { type: gettingBooks.rejected, rejectedRequest };
+    }
+    return { type: gettingBooks.fulfilled, books };
 }

@@ -1,4 +1,6 @@
-export class FakeGetBooksGateway implements GetBooksAdapter {
+import { Book } from "../connector-to.get-books";
+
+export class FakeGetBooksGateway {
 
     constructor(private delayToResponse: number = 0) {}
 
