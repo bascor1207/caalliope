@@ -1,31 +1,31 @@
 import { describe, it, expect } from 'vitest';
 import { FakeGetBooksGateway } from "@/modules/books/get-books/infra/fake-get-books-gateway";
 import { createTestStore } from "@/modules/store/create-store";
-import { getBooksLastReleaseUseCase } from "../get-books-last-release.usecase";
-import { stateBuilder } from "../__tests__/state-builder";
 import { Book } from '../../../connector-to.get-books';
+import { getPopularBooksUseCase } from '../get-popular-books.usecase';
+import { stateBuilder } from './state-builder';
 
-describe('test to retrieve a list of last release books', () => {
-    it('should retrieve a list of last release books', async () => {
-        givenWantingToRetrieveBooksLastRelease(books);
+describe('test to retrieve a list of popular books', () => {
+    it('should retrieve a list of popular books', async () => {
+        givenWantingToRetrievePopularBooks(books);
 
-        await whenRetrievingBooksLastRelease();
+        await whenRetrievingPopularBooks();
 
-        thenTheUserShouldSeeBooksLastRelease(books);
+        thenTheUserShouldSeePopularBooks(books);
     })
 });
 
 const fakeGetBooksAdapter = new FakeGetBooksGateway();
 const store = createTestStore({ getBooksAdapter: fakeGetBooksAdapter })
 
-const givenWantingToRetrieveBooksLastRelease = (payload: typeof books) => {
+const givenWantingToRetrievePopularBooks = (payload: typeof books) => {
     fakeGetBooksAdapter.returnedResponse  = payload;
 }
 
-const whenRetrievingBooksLastRelease = async () => {
-    await store.dispatch(getBooksLastReleaseUseCase());
+const whenRetrievingPopularBooks = async () => {
+    await store.dispatch(getPopularBooksUseCase());
 }
-const thenTheUserShouldSeeBooksLastRelease = (payload: typeof books): void => {
+const thenTheUserShouldSeePopularBooks = (payload: typeof books): void => {
     const state = stateBuilder().withSuccess(payload).build();
     expect(state).toEqual(store.getState())
 };

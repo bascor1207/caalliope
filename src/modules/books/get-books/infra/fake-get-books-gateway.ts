@@ -26,5 +26,15 @@ export class FakeGetBooksGateway {
             }, this.delayToResponse)
         })
     }
+
+    getPopularBooks(): Promise<Book[]> {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const response = this.returnedResponse;
+                if (!response) reject();
+                return resolve(response);
+            }, this.delayToResponse)
+        })
+    }
 }
 

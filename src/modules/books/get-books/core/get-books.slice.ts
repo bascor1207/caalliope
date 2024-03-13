@@ -2,16 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import { getBooksUseCase } from "../usecase/get-books/get-books.usecase";
 import { getBooksLastReleaseUseCase } from "../usecase/get-books-last-release/get-books-last-release.usecase";
 import { Book } from "../connector-to.get-books";
-
-/*type Book = {
-    id: number, 
-    title: string;
-    author: string;
-    type: string;
-    subject: string;
-    dateOfPublication: string;
-    image: string;
-}*/
+import { getPopularBooksUseCase } from "../usecase/get-popular-books/get-popular-books.usecase";
 
 type InitialState = {
     books: Book[];
@@ -39,7 +30,7 @@ export const getBooksSlice = createSlice( {
                 state.books = action.payload;
             }
             state.pendingRequest = false;
-        })
+        }),
         builder.addCase(getBooksLastReleaseUseCase.pending, (state, action) => {
             state.pendingRequest = true;
         }),
@@ -48,6 +39,18 @@ export const getBooksSlice = createSlice( {
             state.pendingRequest = false;
         }),
         builder.addCase(getBooksLastReleaseUseCase.fulfilled, (state, action) => {
+            state.books = action.payload;
+            state.pendingRequest = false;
+            state.pendingRequest = false;
+        }),
+        builder.addCase(getPopularBooksUseCase.pending, (state, action) => {
+            state.pendingRequest = true;
+        }),
+        builder.addCase(getPopularBooksUseCase.rejected, (state, action) => {
+            state.rejectedRequest = true;
+            state.pendingRequest = false;
+        }),
+        builder.addCase(getPopularBooksUseCase.fulfilled, (state, action) => {
             state.books = action.payload;
             state.pendingRequest = false;
             state.pendingRequest = false;
