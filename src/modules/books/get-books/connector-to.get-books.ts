@@ -1,6 +1,7 @@
 export interface ConnectorToGetBooks {
     getBooks(connectedUser: boolean): Promise<Book[]>;
     getBooksLastRelease(): Promise<Book[]>;
+    getPopularBooks(): Promise<Book[]>;
 }
 
 export type Book = {

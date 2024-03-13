@@ -2,6 +2,7 @@ import styles from './page.module.css'
 import { Header } from '@/modules/core/ui/Header'
 import { Footer } from '@/modules/core/ui/Footer'
 import { BooksCarouselsLastRelease } from '@/modules/books/get-books/ui/components/BooksCarouselsLastRelease'
+import { PopularBooksCarousels } from '@/modules/books/get-books/ui/components/PopularBooksCarousel'
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         </div>
         <div className={styles.popularBook}>
           <h1>Livres du moment</h1>
+          <PopularBooksCarousels />
         </div>
       </div>
       <div className={styles.footer}>

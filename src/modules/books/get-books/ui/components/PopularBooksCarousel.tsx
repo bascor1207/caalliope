@@ -3,19 +3,19 @@ import styles from "@/modules/books/get-books/ui/components/books-carousels.modu
 import { ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 import { Carousel } from "react-responsive-carousel";
-import { getBooksLastReleaseViewmodel } from "@/modules/books/get-books/ui/books-last-release-carousel/get-books-last-release.viewmodel";
 import { BookCarouselCard } from "./BookCarouselCard";
+import { getPopularBooksViewmodel } from "../popular-books-carousel/get-popular-books.viewmodel";
 
-export const BooksCarouselsLastRelease = () => {
-  const viewmodel = useSelector(getBooksLastReleaseViewmodel());
+export const PopularBooksCarousels = () => {
+  const viewmodel = useSelector(getPopularBooksViewmodel());
 
   const nodeToRender: ReactNode = (() => {
       switch (viewmodel.type) {
-          case 'gettingBooksLastReleasePending':
+          case 'gettingPopularBooksPending':
               return <div>Loading...</div>;
-          case 'gettingBooksLastReleaseRejected':
+          case 'gettingPopularBooksRejected':
               return <div>Oops...</div>;
-          case 'gettingBooksLastReleaseFulfilled':
+          case 'gettingPopularBooksFulfilled':
               return (
                   <div className={styles.carousel}>
                     <Carousel>

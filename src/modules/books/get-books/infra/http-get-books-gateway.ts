@@ -12,4 +12,9 @@ export class HttpGetBooksGateway implements ConnectorToGetBooks {
         const apiUrl = 'myBackend'
         return await axios.get(apiUrl) as Book[];
     }
+
+    async getPopularBooks(): Promise<Book[]> {
+        const apiUrl = 'myBackend'
+        return await axios.get(apiUrl) as Book[];
+    }
 }
