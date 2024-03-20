@@ -1,0 +1,10 @@
+{
+    "navbar": {
+        "library": "Library",
+        "login": "Log In"
+    }, 
+    "footer": {
+        "donation": "Make a donation",
+        "contact": "Contact us"
+    }
+}

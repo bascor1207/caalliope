@@ -1,0 +1,10 @@
+{
+    "navbar": {
+        "library": "Bibliothèque",
+        "login": "Se Connecter"
+    }, 
+    "footer": {
+        "donation": "Faire un don",
+        "contact": "Nous Contacter"
+    }
+}
