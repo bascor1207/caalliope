@@ -1,5 +1,7 @@
 export const catalog = [
   {
+    "id": 1,
+    "title": "book title",
     "author": "John Doe",
     "type": "Fiction",
     "subject": "Mystery",
@@ -7,6 +9,8 @@ export const catalog = [
     "image": "/livre1.jpg"
   },
   {
+    "id": 2,
+    "title": "book title",
     "author": "Jane Smith",
     "type": "Non-Fiction",
     "subject": "Science",
@@ -14,6 +18,8 @@ export const catalog = [
     "image": "/livre1.jpg"
   },
   {
+    "id": 3,
+    "title": "book title",
     "author": "Robert Johnson",
     "type": "Fantasy",
     "subject": "Adventure",
@@ -21,6 +27,8 @@ export const catalog = [
     "image": "/livre1.jpg"
   },
   {
+    "id": 4,
+    "title": "book title",
     "author": "Alice Williams",
     "type": "Historical Fiction",
     "subject": "History",

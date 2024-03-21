@@ -1,6 +1,9 @@
 import Image from "next/image";
 import { Book } from "@/modules/books/get-books/connector-to.get-books";
+import { SwiperSlide } from 'swiper/react';
 
+import 'swiper/css';
+import 'swiper/css/pagination';
 import styles from "./book-carousel-card.module.scss";
 
 type Props = {
@@ -9,11 +12,9 @@ type Props = {
 
 export const BookCarouselCard: React.FC<Props> = ({ book }: Props) => {
     return (
-        <div>
-            <div key={book.id}>
-                <Image className={styles['book-image']} src={book.image} alt={'livre'} width={100} height={200} />
-                <p>{ book.title }</p>
-            </div>
-        </div>
+        <SwiperSlide key={book.id}>
+            <Image className={styles['book-image']} src={book.image} alt={'livre'} width={100} height={200} />
+            <p className={styles['book-title']}>{ book.title }</p>
+        </SwiperSlide>
       );
 }
