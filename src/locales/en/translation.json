@@ -1,10 +1,98 @@
 {
+    "login": "Login :",
+    "password": "Password :",
+    "valid": "To validate",
+    "inProgress": "In progress",
+    "finish": "Finish",
+    "giveUp": "Give up", 
+    "delete": "Delete",
+    "state": "State",
+    "addABook": "Add a book",
+    "add": "Add",
+    "edit": "Edit",
+    "saga": "Saga",
+    "oneShot": "One shot",
+    "lastname": "Last name :",
+    "firstname": "First name :",
+    "email": "Email :",
     "navbar": {
         "library": "Library",
-        "login": "Log In"
+        "login": "Log In",
+        "account": "Account"
     }, 
     "footer": {
         "donation": "Make a donation",
         "contact": "Contact us"
+    },
+    "home": {
+        "lastRelease": "The latest releases",
+        "popular": "Popular book"
+    },
+    "loginPage": {
+        "title": "Please identify yourself :",
+        "login": "Login :",
+        "password": "Password :",
+        "valid": "To validate",
+        "noAccount": "No account",
+        "register": "Register"
+    },
+    "register": {
+        "title": "Create your account"
+    },
+    "library": {
+        "tag": "Tag",
+        "publishing": "Publishing",
+        "review": "Review",
+        "addReview": "Add a review",
+        "search": "Search for a book or author",
+        "notfound": "No result for this search",
+        "yourReview": "Your review"
+    },
+    "author": {
+        "bibliography": "Bibliography"
+    },
+    "account": {
+        "home": "Home",
+        "myReadings": "My readings",
+        "pal": "My books to read",
+        "wish": "My wishlist",
+        "abandoned": "My abandoned books",
+        "recommendation": "Book recommendation",
+        "editing": "Editing my informations",
+        "refresh": "Refresh",
+        "pages": "pages",
+        "avatar": "Change avatar",
+        "username": "Username",
+        "newPassword": "New password"
+    },
+    "form": {
+        "editing": "Editing a book",
+        "editingAuthor": "Editing author information",
+        "isbn": "ISBN 13",
+        "title": "Title",
+        "author": "Author",
+        "releaseDate": "Release date",
+        "editor": "Editor",
+        "translator": "Translator",
+        "number of pages": "Number of pages",
+        "format": "Format",
+        "book": "Book",
+        "ebook": "E-book",
+        "audio": "Audio",
+        "language": "Language",
+        "cover": "Cover",
+        "noFile": "No file",
+        "birthDate": "Birthdate",
+        "deathDate": "Death date",
+        "nationality": "Nationality",
+        "image": "Image",
+        "choiceFile": "Choose a file"
+    },
+    "admin": {
+        "recentAdd": "Recent add",
+        "addAnAuthor": "Ajdd an author",
+        "bookList": "Book list",
+        "authorList": "Author list",
+        "reject": "Reject"
     }
 }

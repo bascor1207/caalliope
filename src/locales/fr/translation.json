@@ -1,10 +1,97 @@
 {
+    "login": "Identifiant :",
+    "password": "Mot de passe :",
+    "valid": "Valider",
+    "inProgress": "En cours",
+    "finish": "Terminés",
+    "giveUp": "Abandonné", 
+    "delete": "Supprimer",
+    "state": "Status",
+    "addABook": "Ajouter un livre",
+    "add": "Ajouter",
+    "edit": "Modifier",
+    "saga": "Saga",
+    "oneShot": "One shot",   
+    "yes": "Oui",
+    "no": "No",
+    "lastname": "Nom :",
+    "firstname": "Prénom :",
+    "email": "Email :",
     "navbar": {
         "library": "Bibliothèque",
-        "login": "Se Connecter"
+        "login": "Se Connecter",
+        "account": "Profil"
     }, 
     "footer": {
         "donation": "Faire un don",
         "contact": "Nous Contacter"
+    },
+    "home": {
+        "lastRelease": "Les dernières sorties",
+        "popular": "Les livres du moment"
+    },
+    "loginPage": {
+        "title": "Veuillez-vous identifier :",
+        "noAccount": "Pas de compte",
+        "register": "Inscrivez-vous"
+    },
+    "register": {
+        "title": "Créer votre compte"
+    },
+    "library": {
+        "tag": "Tag",
+        "publishing": "Edition",
+        "review": "Critique",
+        "addReview": "Ajouter une critique",
+        "search": "Rechercher un livre ou un auteur",
+        "notfound": "Pas de résultat pour cette recherche",
+        "yourReview": "Votre critique"
+    },
+    "author": {
+        "bibliography": "Bibliographie"
+    },
+    "account": {
+        "home": "Accueil",
+        "myReadings": "Mes lectures",
+        "pal": "Ma pile à lire",
+        "wish": "Ma liste de souhait",
+        "abandoned": "Mes livres abandonnés",
+        "recommendation": "Recommendation de livre",
+        "editing": "Modifier mes informations",
+        "refresh": "Actualiser",
+        "pages": "pages",
+        "avatar": "Changer d'avatar",
+        "username": "Pseudo",
+        "newPassword": "Nouveau mot de passe"
+    },
+    "form": {
+        "editing": "Modifier un livre",
+        "editingAuthor": "Modifier les informations d'un auteur",
+        "isbn": "ISBN 13",
+        "title": "Titre",
+        "author": "Auteur",
+        "releaseDate": "Date de sortie",
+        "editor": "Editeur",
+        "translator": "Traducteurs",
+        "number of pages": "Nombre de page",
+        "format": "Format",
+        "book": "Livre",
+        "ebook": "E-book",
+        "audio": "Audio",
+        "language": "Langue",
+        "cover": "Couverture",
+        "noFile": "Aucun fichier",
+        "birthDate": "Date de naissance",
+        "deathDate": "Date de décés",
+        "nationality": "Nationalité",
+        "image": "Image",
+        "choiceFile": "Choisir un fichier"
+    },
+    "admin": {
+        "recentAdd": "Ajout réçent",
+        "addAnAuthor": "Ajouter un auteur",
+        "bookList": "Liste des livres",
+        "authorList": "Liste des auteurs",
+        "reject": "Refuser"
     }
 }
