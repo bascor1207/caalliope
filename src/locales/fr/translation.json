@@ -20,7 +20,9 @@
     "navbar": {
         "library": "Bibliothèque",
         "login": "Se Connecter",
-        "account": "Profil"
+        "account": "Profil",
+        "en": "Anglais",
+        "fr": "Français"
     }, 
     "footer": {
         "donation": "Faire un don",

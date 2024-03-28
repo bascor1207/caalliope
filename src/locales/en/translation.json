@@ -18,7 +18,9 @@
     "navbar": {
         "library": "Library",
         "login": "Log In",
-        "account": "Account"
+        "account": "Account",
+        "en": "English",
+        "fr": "French"
     }, 
     "footer": {
         "donation": "Make a donation",
