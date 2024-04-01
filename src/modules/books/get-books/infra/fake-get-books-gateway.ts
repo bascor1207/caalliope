@@ -1,4 +1,4 @@
-import { Book } from '@/modules/books/get-books/connector-to.get-books';
+import { Book } from '../connector-to.get-books';
 
 export class FakeGetBooksGateway {
 
