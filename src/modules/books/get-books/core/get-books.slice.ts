@@ -1,13 +1,16 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {getBooksUseCase} from "../usecase/get-books.usecase";
+import { getBooksBySearchUseCase } from "../usecase/get-books-by-search/get-books-by-search.usecase";
 
 type Book = {
+    id: number;
+    title: string;
     author: string;
     type: string;
     subject: string;
     dateOfPublication: string;
     image: string;
-}
+};
 
 type InitialState = {
     books: Book[];
@@ -34,6 +37,18 @@ export const getBooksSlice = createSlice( {
             if (action.payload) {
                 state.books = action.payload;
             }
+            state.pendingRequest = false;
+        }),
+        builder.addCase(getBooksBySearchUseCase.pending, (state, action) => {
+            state.pendingRequest = true;
+        }),
+        builder.addCase(getBooksBySearchUseCase.rejected, (state, action) => {
+            state.rejectedRequest = true;
+            state.pendingRequest = false;
+        }),
+        builder.addCase(getBooksBySearchUseCase.fulfilled, (state, action) => {
+            state.books = action.payload;
+            state.pendingRequest = false;
             state.pendingRequest = false;
         })
     }

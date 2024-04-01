@@ -1,4 +1,6 @@
-export class FakeGetBooksGateway implements GetBooksAdapter {
+import { Book } from "../connector-to.get-books";
+
+export class FakeGetBooksGateway {
 
     constructor(private delayToResponse: number = 0) {}
 
@@ -11,6 +13,13 @@ export class FakeGetBooksGateway implements GetBooksAdapter {
                 if (!this.connectedUser && !response) reject();
                 return resolve(response);
             }, this.delayToResponse)
+        })
+    }
+
+    getBooksBySearch(search: string): Promise<Book[]> {
+        return new Promise((resolve, reject) => {
+            if (!search) return reject();
+            return resolve(this.returnedResponse);
         })
     }
 }
