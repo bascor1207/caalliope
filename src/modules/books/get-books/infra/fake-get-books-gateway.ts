@@ -36,5 +36,12 @@ export class FakeGetBooksGateway {
             }, this.delayToResponse)
         })
     }
+
+    getBooksBySearch(search: string): Promise<Book[]> {
+        return new Promise((resolve, reject) => {
+            if (!search) return reject();
+            return resolve(this.returnedResponse);
+        })
+    }
 }
 
