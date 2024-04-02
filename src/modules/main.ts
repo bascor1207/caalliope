@@ -3,9 +3,10 @@ import {
     createStore,
     Dependencies,
 } from '@/modules/store/create-store';
-import {FakeGetBooksGateway} from "@/modules/books/get-books/infra/fake-get-books-gateway";
-import {catalog} from "@/modules/catalog";
-import {FakeGetOneBookGateway} from "@/modules/books/get-one-book/infra/fake-get-one-book.gateway";
+import { FakeGetBooksGateway } from "@/modules/books/get-books/infra/fake-get-books-gateway";
+import { catalog } from "@/modules/catalog";
+import { FakeGetOneBookGateway } from "@/modules/books/get-one-book/infra/fake-get-one-book.gateway";
+import { initLocale } from '@/i18n';
 
 const book = {
     id: '1',
@@ -19,6 +20,7 @@ export class App {
     public store: AppStore;
 
     constructor() {
+        initLocale();
         this.dependencies = this.setupDependencies();
         this.store = createStore(this.dependencies);
     }
