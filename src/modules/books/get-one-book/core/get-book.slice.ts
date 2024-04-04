@@ -1,5 +1,5 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {getOneBookByAuthor} from "@/modules/books/get-one-book/usecase/get-one-book-by-author.usecase";
+import { createSlice } from '@reduxjs/toolkit';
+import { getOneBookByAuthor } from '@/modules/books/get-one-book/usecase/get-one-book-by-author.usecase';
 
 export type Book = {
     id: string;
@@ -21,7 +21,7 @@ export const getBookSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(getOneBookByAuthor.pending, (state, action) => {
+        builder.addCase(getOneBookByAuthor.pending, (state) => {
             state.requestStatus = 'pending';
         });
         builder.addCase(getOneBookByAuthor.fulfilled, (state, action) => {

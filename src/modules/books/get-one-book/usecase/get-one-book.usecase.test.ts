@@ -1,13 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import {createTestStore} from "@/modules/store/create-store";
-import {FakeGetOneBookGateway} from "@/modules/books/get-one-book/infra/fake-get-one-book.gateway";
-import {getOneBookByAuthor} from "@/modules/books/get-one-book/usecase/get-one-book-by-author.usecase";
-import {stateBuilder} from "@/modules/books/get-one-book/usecase/state-builder";
+import { createTestStore } from '@/modules/store/create-store';
+import { FakeBook, FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
+import { getOneBookByAuthor } from '@/modules/books/get-one-book/usecase/get-one-book-by-author.usecase';
+import { stateBuilder } from '@/modules/books/get-one-book/usecase/state-builder';
 
 
 describe('test to retrieve one book by author', () => {
     it('should retrieve the book and put it in store', async () => {
-        givenExistingBookInBdd({data: book});
+        givenExistingBookInBdd({ data: book });
 
         await whenRetrievingBook();
 
@@ -16,9 +16,9 @@ describe('test to retrieve one book by author', () => {
 });
 
 const fakeGateway = new FakeGetOneBookGateway();
-const store = createTestStore({getOneBookAdapter: fakeGateway});
+const store = createTestStore({ getOneBookAdapter: fakeGateway });
 
-const givenExistingBookInBdd = ({data} : {data: any}) => {
+const givenExistingBookInBdd = ({ data } : {data: FakeBook}) => {
     fakeGateway.returnedResponse = data;
 };
 

@@ -1,11 +1,14 @@
-import useScreenSize from "@/modules/ui/component-level/carousel/useScreenSize";
+import useScreenSize from '@/modules/ui/component-level/carousel/useScreenSize';
 
 import { DesktopReturnType, MobileAndTabletReturnType, useCarouselContext as carouselContext } from './useCarousel';
 
 import styles from './carousel-container.module.scss';
 
+type ComponentReturnType = MobileAndTabletReturnType | DesktopReturnType;
+type RenderComponentParams = { withGap: boolean; withExtraGap: boolean; } & ComponentReturnType;
+
 type CarouselProps = {
-    renderComponent: any;
+    renderComponent: ({ withGap, withExtraGap, ...carouselProps } : RenderComponentParams) => JSX.Element;
     withGap: boolean;
     withExtraGap: boolean;
     title: string;
@@ -28,23 +31,23 @@ export const CarouselContainer = ({ renderComponent, withGap, withExtraGap, titl
         >
             <div className={styles.title}>{title}</div>
             {carouselProps.state.clickNumber.nextClickNumber >= 1 && !isMobileOrTablet && (
-                <div
+                <button
                     className={styles['icon-left-container']}
                     onClick={(carouselProps as DesktopReturnType).handleScrollPrevious}
                 >
                     <div className={styles['icon-previous']} />
-                </div>
+                </button>
             )}
             <div className={styles.component}>
                 {Component}
             </div>
             {!carouselProps.state.isAtLastChild && !isMobileOrTablet && (
-                <div
+                <button
                     className={styles['icon-right-container']}
                     onClick={(carouselProps as DesktopReturnType).handleScrollNext}
                 >
                     <div className={styles['icon-next']} />
-                </div>
+                </button>
             )}
         </div>
     );

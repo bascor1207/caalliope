@@ -1,6 +1,7 @@
-import {ActionCreatorWithPayload, createAction, createReducer} from "@reduxjs/toolkit";
-import {rootReducer} from "@/modules/store/root-reducer";
-import {RootState} from "@/modules/store/create-store";
+import { ActionCreatorWithPayload, createAction, createReducer } from '@reduxjs/toolkit';
+import { rootReducer } from '@/modules/store/root-reducer';
+import { RootState } from '@/modules/store/create-store';
+import { Book } from '@/modules/books/get-books/connector-to.get-books';
 
 type PayloadForTest = {
     connectedUser: boolean;
@@ -10,9 +11,9 @@ type PayloadForTest = {
 // @ts-expect-error I do not understand the error for now
 const initialState = rootReducer(undefined, createAction(''));
 
-export const withPendingRequest = createAction<boolean>("WithPendingRequest");
-export const withRejectedRequest = createAction<boolean>("WithRejectedRequest");
-export const withSuccess = createAction<PayloadForTest>("WithSuccess");
+export const withPendingRequest = createAction<boolean>('WithPendingRequest');
+export const withRejectedRequest = createAction<boolean>('WithRejectedRequest');
+export const withSuccess = createAction<PayloadForTest>('WithSuccess');
 
 const reducer = createReducer(initialState, (builder) => {
     builder.addCase(withPendingRequest, (state, action) => {

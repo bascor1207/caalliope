@@ -1,5 +1,5 @@
 'use client';
-import {Book} from "@/modules/books/get-one-book/ui/components/Book";
+import { Book } from '@/modules/books/get-one-book/ui/components/Book';
 
 const BookPage = () => {
     return (

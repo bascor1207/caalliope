@@ -1,6 +1,7 @@
-import CarouselContainer from "@/modules/ui/component-level/carousel/CarouselContainer";
-import CarouselSlides from "@/modules/ui/component-level/carousel/CarouselSlides";
-import {BookCard} from "@/modules/books/get-books/ui/components/BookCard";
+import CarouselContainer from '@/modules/ui/component-level/carousel/CarouselContainer';
+import CarouselSlides from '@/modules/ui/component-level/carousel/CarouselSlides';
+import { BookCard } from '@/modules/books/get-books/ui/components/BookCard';
+import { Book } from '@/modules/books/get-books/connector-to.get-books';
 
 
 type BooksCarouselProps = {
@@ -12,9 +13,10 @@ type BooksCarouselProps = {
 
 export const BooksCarousel = (
     { withGap = false, withExtraGap = false, slides, title = '' }: BooksCarouselProps
-) =>{
+) => {
     return (
         <CarouselContainer title={title} withGap={withGap} withExtraGap={withExtraGap} renderComponent={
+            //eslint-disable-next-line @typescript-eslint/no-explicit-any
             (props: any) => (
                 <CarouselSlides {...props}>
                     {slides.map((slide, i) => {

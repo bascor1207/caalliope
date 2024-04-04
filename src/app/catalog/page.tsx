@@ -1,17 +1,17 @@
 'use client'
-import {useEffect} from "react";
-import {useDispatch} from "react-redux";
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 
-import {getBooksUseCase} from "@/modules/books/get-books/usecase/get-books.usecase";
-import {AppDispatch} from "@/modules/store/create-store";
-import { BooksCatalog } from "@/modules/books/get-books/ui/components/BooksCatalog";
+import { getBooksUseCase } from '@/modules/books/get-books/usecase/get-books.usecase';
+import { AppDispatch } from '@/modules/store/create-store';
+import { BooksCatalog } from '@/modules/books/get-books/ui/components/BooksCatalog';
 
 const CatalogPage = () => {
     const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
-        dispatch(getBooksUseCase({connectedUser: true}))
+        dispatch(getBooksUseCase({ connectedUser: true }))
     }, []);
 
     return (

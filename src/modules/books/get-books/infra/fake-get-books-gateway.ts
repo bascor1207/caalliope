@@ -1,10 +1,13 @@
+import { Book, ConnectorToGetBooks } from '@/modules/books/get-books/connector-to.get-books';
+
 export class FakeGetBooksGateway implements ConnectorToGetBooks {
 
     constructor(private delayToResponse: number = 0) {}
 
     public connectedUser!: boolean;
     public returnedResponse!: Book[];
-    getBooks(connectedUser: boolean): Promise<Book[]> {
+
+    getBooks(): Promise<Book[]> {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 const response = this.returnedResponse;

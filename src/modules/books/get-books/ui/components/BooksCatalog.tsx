@@ -1,14 +1,13 @@
 'use client';
-import React from "react";
+import React from 'react';
 import { useSelector } from 'react-redux';
 
-import {exhaustiveGuard} from "@/modules/exhaustive-guards";
-import {getBooksViewModel} from "@/modules/books/get-books/ui/get-books.viewmodel";
+import { exhaustiveGuard } from '@/modules/exhaustive-guards';
+import { getBooksViewModel } from '@/modules/books/get-books/ui/get-books.viewmodel';
 
-import {BookCard} from "@/modules/books/get-books/ui/components/BookCard";
+import BooksCarousel from '@/modules/books/get-books/ui/components/BooksCarousel';
 
 import styles from './book-catalog.module.scss';
-import BooksCarousel from "@/modules/books/get-books/ui/components/BooksCarousel";
 
 export const BooksCatalog = () => {
     const viewModel = useSelector(getBooksViewModel());
@@ -29,7 +28,8 @@ export const BooksCatalog = () => {
 
     return (
         <div className={styles.container}>
-            {result}
+            HELLO1
+            { result }
         </div>
     )
 }

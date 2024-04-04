@@ -6,8 +6,8 @@ export const Footer = () => {
     return (
         <footer className={styles.container}>
             <div className={styles.footerContent}>
-                <a className={styles.donation} href="#">{t('donation')}</a>
-                <a className={styles.contact} href="#">{t('contact')}</a>
+                <a className={styles.donation} href='/'>{ t('donation') }</a>
+                <a className={styles.contact} href='/'>{ t('contact') }</a>
             </div>
         </footer>
     )

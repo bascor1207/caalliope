@@ -76,6 +76,7 @@ const initialState = {
     isAtLastChild: false,
 };
 
+//eslint-disable-next-line @typescript-eslint/no-explicit-any
 const reducer = (state: typeof initialState, action: any) => {
     switch (action.type) {
         case 'GET_CHILDREN_REFS':
@@ -234,7 +235,7 @@ export const useCarouselContext = ({ withGap, withExtraGap, withTouch }: UseCaro
     }, [setContainerRef, setContainerWidth]);
 
     useEffect(() => {
-        dispatch({ type: 'GET_CHILDREN_REFS', childrenRefs: childrenRefs.current });
+        dispatch({ type: 'GET_CHILDREN_REFS', payload: { childrenRefs: childrenRefs.current } });
         dispatch({ type: 'SET_CHILDREN_NUMBER', childrenNumber: childrenRefs.current.length });
         dispatch({ type: 'SET_SLIDES_TO_DISPLAY', slidesToDisplay: config?.slidesToDisplay });
     }, [childrenRefs.current, config]);
