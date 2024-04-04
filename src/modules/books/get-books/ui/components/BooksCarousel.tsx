@@ -13,16 +13,17 @@ type BooksCarouselProps = {
 
 export const BooksCarousel = (
     { withGap = false, withExtraGap = false, slides, title = '' }: BooksCarouselProps
-) =>{
+) => {
     return (
         <CarouselContainer title={title} withGap={withGap} withExtraGap={withExtraGap} renderComponent={
-            (props: CarouselSlidesProps) => (
+            //eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (props: any) => (
                 <CarouselSlides {...props}>
-                    { slides.map((slide, i) => {
+                    {slides.map((slide, i) => {
                         return (
                             <BookCard key={i} book={slide} slideSize={props.state.childrenWidth} />
                         );
-                    }) }
+                    })}
                 </CarouselSlides>
             )}
         />

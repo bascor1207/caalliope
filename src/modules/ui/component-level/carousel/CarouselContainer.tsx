@@ -3,9 +3,10 @@ import useScreenSize from '@/modules/ui/component-level/carousel/useScreenSize';
 import { DesktopReturnType, MobileAndTabletReturnType, useCarouselContext as carouselContext } from './useCarousel';
 
 import styles from './carousel-container.module.scss';
+import { ReactNode } from 'react';
 
 type ComponentReturnType = MobileAndTabletReturnType | DesktopReturnType;
-type RenderComponentParams = { withGap: boolean, withExtraGap: boolean } & ComponentReturnType;
+type RenderComponentParams = { withGap: boolean; withExtraGap: boolean; } & ComponentReturnType;
 
 type CarouselProps = {
     renderComponent: ({ withGap, withExtraGap, ...carouselProps } : RenderComponentParams) => JSX.Element;
@@ -29,26 +30,26 @@ export const CarouselContainer = ({ renderComponent, withGap, withExtraGap, titl
             onTouchMove={(e) => (carouselProps as MobileAndTabletReturnType).onTouchMove(e)}
             onTouchEnd={(carouselProps as MobileAndTabletReturnType).onTouchEnd}
         >
-            <div className={styles.title}>{ title }</div>
-            { carouselProps.state.clickNumber.nextClickNumber >= 1 && !isMobileOrTablet && (
+            <div className={styles.title}>{title}</div>
+            {carouselProps.state.clickNumber.nextClickNumber >= 1 && !isMobileOrTablet && (
                 <button
                     className={styles['icon-left-container']}
                     onClick={(carouselProps as DesktopReturnType).handleScrollPrevious}
                 >
                     <div className={styles['icon-previous']} />
                 </button>
-            ) }
+            )}
             <div className={styles.component}>
-                { Component }
+                {Component}
             </div>
-            { !carouselProps.state.isAtLastChild && !isMobileOrTablet && (
+            {!carouselProps.state.isAtLastChild && !isMobileOrTablet && (
                 <button
                     className={styles['icon-right-container']}
                     onClick={(carouselProps as DesktopReturnType).handleScrollNext}
                 >
                     <div className={styles['icon-next']} />
                 </button>
-            ) }
+            )}
         </div>
     );
 };
