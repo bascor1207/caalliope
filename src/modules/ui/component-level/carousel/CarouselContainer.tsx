@@ -3,7 +3,6 @@ import useScreenSize from '@/modules/ui/component-level/carousel/useScreenSize';
 import { DesktopReturnType, MobileAndTabletReturnType, useCarouselContext as carouselContext } from './useCarousel';
 
 import styles from './carousel-container.module.scss';
-import { ReactNode } from 'react';
 
 type ComponentReturnType = MobileAndTabletReturnType | DesktopReturnType;
 type RenderComponentParams = { withGap: boolean; withExtraGap: boolean; } & ComponentReturnType;

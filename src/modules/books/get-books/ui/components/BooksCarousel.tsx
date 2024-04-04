@@ -1,5 +1,5 @@
 import CarouselContainer from '@/modules/ui/component-level/carousel/CarouselContainer';
-import CarouselSlides, { CarouselSlidesProps } from '@/modules/ui/component-level/carousel/CarouselSlides';
+import CarouselSlides from '@/modules/ui/component-level/carousel/CarouselSlides';
 import { BookCard } from '@/modules/books/get-books/ui/components/BookCard';
 import { Book } from '@/modules/books/get-books/connector-to.get-books';
 
