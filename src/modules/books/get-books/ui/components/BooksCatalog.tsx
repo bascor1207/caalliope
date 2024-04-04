@@ -29,7 +29,6 @@ export const BooksCatalog = () => {
 
     return (
         <div className={styles.container}>
-            HELLO
             {result}
         </div>
     )
