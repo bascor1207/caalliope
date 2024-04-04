@@ -1,4 +1,4 @@
-export class FakeGetBooksGateway implements GetBooksAdapter {
+export class FakeGetBooksGateway implements ConnectorToGetBooks {
 
     constructor(private delayToResponse: number = 0) {}
 

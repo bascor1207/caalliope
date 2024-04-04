@@ -1,5 +1,5 @@
 export const PATHS = {
     USER_AUTH: '/',
-    USER_PROFIL: '/user-profil',
+    USER_PROFILE: '/user-profile',
     SEARCH: '/search',
 } as const;

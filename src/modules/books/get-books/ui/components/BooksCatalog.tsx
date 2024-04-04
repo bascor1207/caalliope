@@ -8,6 +8,7 @@ import {getBooksViewModel} from "@/modules/books/get-books/ui/get-books.viewmode
 import {BookCard} from "@/modules/books/get-books/ui/components/BookCard";
 
 import styles from './book-catalog.module.scss';
+import BooksCarousel from "@/modules/books/get-books/ui/components/BooksCarousel";
 
 export const BooksCatalog = () => {
     const viewModel = useSelector(getBooksViewModel());
@@ -18,7 +19,9 @@ export const BooksCatalog = () => {
                 case 'gettingBooksRejected':
                     return <div>OOPS...</div>;
                 case 'gettingBooksFulfilled':
-                    return <div className={styles.catalog}>{viewModel.books.map((book) => <BookCard key={book.dateOfPublication} book={book}/>)}</div>;
+                    return (
+                        <BooksCarousel slides={viewModel.books} withExtraGap title={'Livres'}/>
+                    )
                 default:
                     return exhaustiveGuard(viewModel);
             }
