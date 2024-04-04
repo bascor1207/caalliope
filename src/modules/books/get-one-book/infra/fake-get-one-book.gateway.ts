@@ -1,10 +1,10 @@
-import {ConnectorToGetOneBook} from "@/modules/books/get-one-book/connector-to.get-one-book";
+import { ConnectorToGetOneBook } from '@/modules/books/get-one-book/connector-to.get-one-book';
 
 export class FakeGetOneBookGateway implements ConnectorToGetOneBook {
 
-    returnedResponse!: Book;
+    returnedResponse!: FakeBook;
 
-    getOneBookByAuthor(authorName: string): Promise<Book> {
+    getOneBookByAuthor(authorName: string): Promise<FakeBook> {
         return new Promise((resolve, reject) => {
             if (!authorName) return reject();
             return resolve(this.returnedResponse);
@@ -12,7 +12,7 @@ export class FakeGetOneBookGateway implements ConnectorToGetOneBook {
     }
 }
 
-export type Book = {
+export type FakeBook = {
     id: string;
     author: string;
     title: string;

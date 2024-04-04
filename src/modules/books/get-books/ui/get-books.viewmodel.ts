@@ -1,4 +1,4 @@
-import {RootState} from "@/modules/store/create-store";
+import { RootState } from '@/modules/store/create-store';
 
 const selectGetBooksState = (state: RootState) => ( state.catalog.getBooks);
 export const gettingBooks = {

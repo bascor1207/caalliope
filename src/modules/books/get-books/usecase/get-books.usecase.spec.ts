@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
-import { FakeGetBooksGateway } from "@/modules/books/get-books/infra/fake-get-books-gateway";
-import { createTestStore } from "@/modules/store/create-store";
-import { getBooksUseCase } from "./get-books.usecase";
-import {stateBuilder} from "./state-builder";
+import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books-gateway';
+import { createTestStore } from '@/modules/store/create-store';
+import { getBooksUseCase } from './get-books.usecase';
+import { stateBuilder } from './state-builder';
 
 describe('test to retrieve a range of catalog to display', () => {
     it('should retrieve catalog when user go on catalog page', async () => {
@@ -33,7 +33,7 @@ const thenTheUserShouldSeeBooks = (): void => {
     expect(state).toEqual(store.getState())
 };
 
-const books = [{author: "Bastien Corré", type: "Novel", subject: "Fantasy Medieval",image: "test", dateOfPublication: "2023"}]
+const books = [{ author: 'Bastien Corré', type: 'Novel', subject: 'Fantasy Medieval',image: 'test', dateOfPublication: '2023' }]
 
 type Book = {
     author: string;

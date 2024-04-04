@@ -1,8 +1,8 @@
-interface ConnectorToGetBooks {
+export interface ConnectorToGetBooks {
     getBooks(connectedUser: boolean): Promise<Book[]>;
 }
 
-type Book = {
+export type Book = {
     author: string;
     type: string;
     subject: string;

@@ -1,7 +1,5 @@
-import {RootState} from "@/modules/store/create-store";
-import {Book} from "@/modules/books/get-one-book/core/get-book.slice";
-import {createSelector} from "reselect";
-import {gettingBooks} from "@/modules/books/get-books/ui/get-books.viewmodel";
+import { RootState } from '@/modules/store/create-store';
+import { Book } from '@/modules/books/get-one-book/core/get-book.slice';
 
 export const gettingBook = {
     pending: 'pending',
@@ -28,11 +26,11 @@ type Response = | BooksGettingPending | BooksGettingRejected | BooksGettingFulfi
 export const getOneBookViewmodel = () => (state: RootState): Response => {
     const selectedBookState = state.selectedBook.getBook;
 
-    const {requestStatus, selectedBook} = selectedBookState;
+    const { requestStatus, selectedBook } = selectedBookState;
 
     if (requestStatus === 'pending') {
-        return {type: gettingBook.pending }
+        return { type: gettingBook.pending }
     }
 
-    return {type: gettingBook.fulfilled, selectedBook}
+    return { type: gettingBook.fulfilled, selectedBook }
 }

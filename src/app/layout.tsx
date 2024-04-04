@@ -1,8 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import {FC, PropsWithChildren} from "react";
+import { FC, PropsWithChildren } from 'react';
 
-import { AppWrapper } from "@/modules/AppWrapper";
+import { AppWrapper } from '@/modules/AppWrapper';
 
 import './globals.css'
 import styles from './layout.module.scss';
@@ -15,11 +15,11 @@ export const metadata: Metadata = {
 }
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <html>
+    <html lang='fr'>
       <body className={inter.className}>
         <AppWrapper>
           <div className={styles.container}>
-            <div className={styles.child}>{children}</div>
+            <div className={styles.child}>{ children }</div>
           </div>
         </AppWrapper>
       </body>

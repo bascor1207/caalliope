@@ -4,5 +4,5 @@ import { app } from '@/modules/main';
 import React, { ReactNode } from 'react';
 
 export const AppWrapper = ({ children }: { children: ReactNode }) => {
-    return <Provider store={app.store}>{children}</Provider>;
+    return <Provider store={app.store}>{ children }</Provider>;
 };

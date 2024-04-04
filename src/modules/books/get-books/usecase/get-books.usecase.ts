@@ -1,4 +1,4 @@
-import {createAppAsyncThunk} from "@/modules/store/create-app-thunk";
+import { createAppAsyncThunk } from '@/modules/store/create-app-thunk';
 
 type RequiresToGetBooks = {
     connectedUser: boolean;

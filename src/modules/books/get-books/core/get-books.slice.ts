@@ -1,5 +1,5 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {getBooksUseCase} from "../usecase/get-books.usecase";
+import { createSlice } from '@reduxjs/toolkit';
+import { getBooksUseCase } from '../usecase/get-books.usecase';
 
 type Book = {
     author: string;
@@ -23,10 +23,10 @@ export const getBooksSlice = createSlice( {
     initialState: { books: [], pendingRequest: false, rejectedRequest: false } as GetBooksSliceType,
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(getBooksUseCase.pending, (state, action) => {
+        builder.addCase(getBooksUseCase.pending, (state) => {
             state.pendingRequest = true;
         }),
-        builder.addCase(getBooksUseCase.rejected, (state, action) => {
+        builder.addCase(getBooksUseCase.rejected, (state) => {
             state.rejectedRequest = true;
             state.pendingRequest = false;
         }),
