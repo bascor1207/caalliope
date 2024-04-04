@@ -1,0 +1,75 @@
+.container {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(12, 1fr);
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  .title {
+    grid-row: 1;
+    grid-column: 1 / span 12;
+    font-size: 1rem;
+    text-transform: uppercase;
+  }
+
+  .icon-left-container, .icon-right-container {
+    display: none;
+    grid-row: 2 / 12;
+    align-self: center;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    cursor: pointer;
+    border: solid 1px lightblue;
+    background-color: white;
+    z-index: 2;
+
+    .icon-previous,
+    .icon-next {
+      width: 16px;
+      height: 16px;
+      border: solid;
+      transform: rotate(45deg);
+      color: black;
+    }
+
+    .icon-next {
+      border-width: 3px 3px 0 0;
+      margin-right: 4px;
+    }
+
+    .icon-previous {
+      border-width: 0 0 3px 3px;
+      margin-left: 4px;
+    }
+  }
+
+  .icon-left-container {
+    justify-self: start;
+    grid-column: 1;
+    margin-left: 16px;
+  }
+
+  .icon-right-container {
+    justify-self: end;
+    grid-column: 12;
+    margin-right: 16px;
+  }
+
+  &:hover {
+    .icon-left-container, .icon-right-container {
+      display: flex;
+    }
+  }
+
+  .component {
+    grid-column: 1 / span 12;
+    grid-row: 2 / 12;
+    color: white;
+    width: 100%;
+    overflow-x: hidden;
+    display: flex;
+  }
+}

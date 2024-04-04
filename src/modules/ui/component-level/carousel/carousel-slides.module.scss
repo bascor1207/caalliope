@@ -1,0 +1,14 @@
+.containerWithoutGap, .containerWithGap, .containerWithExtrapGap {
+  display: flex;
+  background-color: white;
+  transition: transform 1s;
+  width: 100%;
+}
+
+.containerWithGap {
+  gap: 32px;
+}
+
+.containerWithExtrapGap {
+  gap: 48px;
+}
