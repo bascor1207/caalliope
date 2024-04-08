@@ -6,9 +6,23 @@ export interface ConnectorToGetBooks {
 export type Book = {
     id: number;
     title: string;
-    author: string;
+    author: Author;
     type: string;
-    subject: string;
+    subject: Subject;
     dateOfPublication: string;
     image: string;
+}
+
+export type Author = {
+    id: number;
+    lastname: string;
+    firstname: string;
+    image: string;
+    email: string;
+    birthDate: string;
+}
+
+export type Subject = {
+    id: number;
+    subject: string;
 }

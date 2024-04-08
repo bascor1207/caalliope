@@ -3,6 +3,7 @@ import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-bo
 import { createTestStore } from '@/modules/store/create-store';
 import { getBooksUseCase } from './get-books.usecase';
 import { stateBuilder } from './state-builder';
+import { Book } from '../connector-to.get-books';
 
 describe('test to retrieve a range of catalog to display', () => {
     it('should retrieve catalog when user go on catalog page', async () => {
@@ -33,12 +34,24 @@ const thenTheUserShouldSeeBooks = (): void => {
     expect(state).toEqual(store.getState())
 };
 
-const books = [{ author: 'Bastien Corré', type: 'Novel', subject: 'Fantasy Medieval',image: 'test', dateOfPublication: '2023' }]
-
-type Book = {
-    author: string;
-    type: string;
-    subject: string;
-    image: string;
-    dateOfPublication: string;
-};
+const books = [
+    {
+        id: 1,
+        title: 'title novel',
+        author: {
+            id: 1, 
+            lastname: 'Corré',
+            firstname: 'Bastien',
+            image: '',
+            email: '',
+            birthDate: ''
+        },
+        type: 'Novel',
+        subject: {
+            id: 1,
+            subject: 'Fantasy Medieval'
+        },
+        image: 'test',
+        dateOfPublication: '2023'
+    }
+]
