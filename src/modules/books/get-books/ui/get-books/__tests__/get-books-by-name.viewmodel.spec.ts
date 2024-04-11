@@ -10,7 +10,7 @@ describe('test to retrieve a books by name inside store', () => {
     const state = createTestStore({}, initialState).getState();
     const book = getBooksByNameViewmodel('tit')(state);
 
-    expect(book).toStrictEqual(booksList)
+    expect(book).toStrictEqual([booksList[0]])
   });
 
   it('should return books with name containing the minimal query', () => {

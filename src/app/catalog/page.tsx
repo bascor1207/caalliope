@@ -11,7 +11,7 @@ const CatalogPage = () => {
     const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
-        dispatch(getBooksUseCase({ connectedUser: true }))
+        dispatch(getBooksUseCase(/*{ connectedUser: true }*/))
     }, []);
 
     return (
