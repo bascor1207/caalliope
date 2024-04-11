@@ -6,13 +6,14 @@ import { Book } from '../../../connector-to.get-books';
 
 describe('test for the viewModel layer of getting books by name or author name', () => {
     it('should return the books which subject match the query', () => {
-        const initialState = stateBuilder().withPendingRequest(true).build();
+        const initialState = stateBuilder().withSuccess({ books: booksList }).build();
         const state = createTestStore({}, initialState).getState();
+        console.log(state.catalog.getBooks.books);
         const books = getBooksBySubjectUtils(state.catalog.getBooks.books, 'fantasy medieval');
         expect(books).toStrictEqual([booksList[0]]);
     });
     it('should handle the error when getting books is rejected', () => {
-        const initialState = stateBuilder().withPendingRequest(true).build();
+        const initialState = stateBuilder().withSuccess({ books: booksList }).build();
         const state = createTestStore({}, initialState).getState();
         const books = getBooksBySubjectUtils(state.catalog.getBooks.books, 'romance');
         expect(books).toStrictEqual([booksList[1]]);

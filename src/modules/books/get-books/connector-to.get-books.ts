@@ -1,8 +1,8 @@
 export interface ConnectorToGetBooks {
-    getBooks(connectedUser: boolean): Promise<Book[]>;
     getPopularBooks(): Promise<Book[]>;
     getLastReleaseBooks(): Promise<Book[]>;
     getBooksBySearch(search: string): Promise<Book[]>;
+    getBooks(/*connectedUser: boolean*/): Promise<Book[]>;
 }
 
 export type Book = {
