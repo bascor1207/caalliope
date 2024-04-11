@@ -6,7 +6,7 @@ import { getBooksByAuthorViewmodel } from '../get-books-by-author.viewmodel';
 
 describe('test to retrieve a books by name inside store', () => {
   it('should return books with name containing the query', () => {
-    const initialState = stateBuilder().withPendingRequest(true).build();
+    const initialState = stateBuilder().withSuccess({ books: booksList }).build();
     const state = createTestStore({}, initialState).getState();
     const books = getBooksByAuthorViewmodel('corr')(state);
 
@@ -14,7 +14,7 @@ describe('test to retrieve a books by name inside store', () => {
   });
 
   it('should return books with name containing the minimal query', () => {
-    const initialState = stateBuilder().withPendingRequest(true).build();
+    const initialState = stateBuilder().withSuccess({ books: booksList }).build();
     const state = createTestStore({}, initialState).getState();
     const books = getBooksByAuthorViewmodel('o')(state);
 

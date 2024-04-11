@@ -2,10 +2,11 @@ import { describe, it, expect } from 'vitest';
 import { stateBuilder } from '../../../usecase/state-builder';
 import { createTestStore } from '@/modules/store/create-store';
 import { getBooksByNameViewmodel } from '../get-books-by-name.viewmodel';
+import { Book } from '../../../connector-to.get-books';
 
 describe('test to retrieve a books by name inside store', () => {
   it('should return books with name containing the query', () => {
-    const initialState = stateBuilder().withPendingRequest(true).build();
+    const initialState = stateBuilder().withSuccess({ books: booksList }).build();
     const state = createTestStore({}, initialState).getState();
     const book = getBooksByNameViewmodel('tit')(state);
 
@@ -13,7 +14,7 @@ describe('test to retrieve a books by name inside store', () => {
   });
 
   it('should return books with name containing the minimal query', () => {
-    const initialState = stateBuilder().withPendingRequest(true).build();
+    const initialState = stateBuilder().withSuccess({ books: booksList }).build();
     const state = createTestStore({}, initialState).getState();
     const book = getBooksByNameViewmodel('o')(state);
 
@@ -21,7 +22,7 @@ describe('test to retrieve a books by name inside store', () => {
   })
 })
 
-const booksList = [
+const booksList: Book[] = [
     {
         id: 1,
         title: 'title novel',
@@ -58,5 +59,6 @@ const booksList = [
             subject: 'Romance'
         },
         image: 'test',
+        dateOfPublication: '2023'
     }
 ];
