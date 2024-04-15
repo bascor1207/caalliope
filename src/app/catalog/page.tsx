@@ -14,9 +14,9 @@ const CatalogPage = () => {
     const [subject, setSubject] = useState('');
     const [query, setQuery] = useState('');
 
-    useEffect(() => {
-        dispatch(getBooksUseCase(/*{ connectedUser: true }*/))
-    }, []);
+    /*useEffect(() => {
+        dispatch(getBooksUseCase())
+    }, []);*/
 
     const viewmodel = useSelector(getBooksByNameViewmodel(query));
 

@@ -1,7 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 
-import styles from '@/modules/product/ui/components/product-list.module.scss';
+import styles from './book-list-by-subject.module.scss';
 import { getBooksViewModel } from '../get-books/get-books.viewmodel';
 import { getBooksBySubjectUtils } from '../get-books/get-books-by-subject.utils';
 import { BookCard } from './BookCard';
