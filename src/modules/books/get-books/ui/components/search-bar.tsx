@@ -10,7 +10,7 @@ export const SearchBar = ({ setQuery, query }: SearchBarProps) => {
     <TextField
       id='search-bar'
       className='text'
-      label='Nom, EAN... '
+      label='Name, Author... '
       variant='outlined'
       value={query}
       placeholder='Search...'
