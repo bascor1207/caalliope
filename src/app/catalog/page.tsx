@@ -14,18 +14,17 @@ const CatalogPage = () => {
     const [subject, setSubject] = useState('');
     const [query, setQuery] = useState('');
 
-    /*useEffect(() => {
+    useEffect(() => {
         dispatch(getBooksUseCase())
-    }, []);*/
+    }, []);
 
     const viewmodel = useSelector(getBooksByNameViewmodel(query));
 
-    
-    const getsubject = (categ: string) => {
-        if (categ === subject) {
+    const getsubject = (subj: string) => {
+        if (subj === subject) {
         return setSubject('');
         }
-        setSubject(categ);
+        setSubject(subj);
     };
 
     const getQuery = (query: string) => {
