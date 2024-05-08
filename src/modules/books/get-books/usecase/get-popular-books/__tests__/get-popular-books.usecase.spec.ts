@@ -19,7 +19,7 @@ const fakeGetBooksAdapter = new FakeGetBooksGateway();
 const store = createTestStore({ getBooksAdapter: fakeGetBooksAdapter })
 
 const givenWantingToRetrievePopularBooks = (payload: typeof books) => {
-    fakeGetBooksAdapter.returnedResponse  = payload;
+    fakeGetBooksAdapter.returnedResponse = payload;
 }
 
 const whenRetrievingPopularBooks = async () => {
@@ -27,6 +27,7 @@ const whenRetrievingPopularBooks = async () => {
 }
 const thenTheUserShouldSeePopularBooks = (payload: typeof books): void => {
     const state = stateBuilder().withSuccess(payload).build();
+    console.log(state)
     expect(state).toEqual(store.getState())
 };
 
@@ -37,7 +38,7 @@ const books: Book[] = [
         author: 'Bastien Corré',
         type: 'Novel',
         subject: 'Fantasy Medieval',
-        image: 'test',
-        dateOfPublication: '2023'
+        dateOfPublication: '2023',
+        image: 'test'
     }
 ];

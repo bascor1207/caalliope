@@ -37,7 +37,7 @@ const books: Book[] = [
         author: 'Bastien Corré',
         type: 'Novel',
         subject: 'Fantasy Medieval',
-        image: 'test',
-        dateOfPublication: '2023'
+        dateOfPublication: '2023',
+        image: 'test'
     }
 ];

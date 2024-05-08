@@ -1,6 +1,6 @@
-import { Book, ConnectorToGetBooks } from '@/modules/books/get-books/connector-to.get-books';
+import { Book } from '@/modules/books/get-books/connector-to.get-books';
 
-export class FakeGetBooksGateway implements ConnectorToGetBooks {
+export class FakeGetBooksGateway {
 
     constructor(private delayToResponse: number = 0) {}
 
@@ -12,6 +12,26 @@ export class FakeGetBooksGateway implements ConnectorToGetBooks {
             setTimeout(() => {
                 const response = this.returnedResponse;
                 if (!this.connectedUser && !response) reject();
+                return resolve(response);
+            }, this.delayToResponse)
+        })
+    }
+
+    getPopularBooks(): Promise<Book[]> {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const response = this.returnedResponse;
+                if (!response) reject();
+                return resolve(response);
+            }, this.delayToResponse)
+        })
+    }
+
+    getLastReleaseBooks(): Promise<Book[]> {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const response = this.returnedResponse;
+                if (!response) reject();
                 return resolve(response);
             }, this.delayToResponse)
         })
