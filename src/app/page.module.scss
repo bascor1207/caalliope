@@ -1,0 +1,26 @@
+.main {
+    padding: auto;
+  
+    .header {
+      margin-bottom: 80px;
+    }
+  
+    .footer {
+      margin-top: 30px;
+    }
+  
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center; 
+      justify-content: center;
+    }
+  
+    .lastRelease {
+      margin: 10px;
+    }
+  
+    .popularBook {
+      margin: 10px;
+    }
+  }

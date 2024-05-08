@@ -1,6 +1,6 @@
-import styles from './page.module.css'
-import { Header } from '@/modules/core/ui/Header'
-import { Footer } from '@/modules/core/ui/Footer'
+import styles from './page.module.scss'
+import { Header } from '@/modules/ui/app-level/Header'
+import { Footer } from '@/modules/ui/app-level/Footer'
 import { BooksCarouselsLastRelease } from '@/modules/books/get-books/ui/components/BooksCarouselsLastRelease'
 import { PopularBooksCarousels } from '@/modules/books/get-books/ui/components/PopularBooksCarousel'
 
