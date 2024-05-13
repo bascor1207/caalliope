@@ -33,12 +33,14 @@ const thenTheUserShouldSeeBooks = (): void => {
     expect(state).toEqual(store.getState())
 };
 
-const books = [{ author: 'Bastien Corré', type: 'Novel', subject: 'Fantasy Medieval',image: 'test', dateOfPublication: '2023' }]
+const books = [{ id: 1, title: 'title', author: 'Bastien Corré', type: 'Novel', subject: 'Fantasy Medieval', dateOfPublication: '2023', image: 'test' }]
 
 type Book = {
+    id: number;
+    title: string;
     author: string;
     type: string;
     subject: string;
-    image: string;
     dateOfPublication: string;
+    image: string;
 };
