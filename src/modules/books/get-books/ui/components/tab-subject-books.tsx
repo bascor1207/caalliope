@@ -1,6 +1,8 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import { FC, useState } from 'react';
 
+import styles from './tab-subject-books.module.scss';
+
 type TabBooksProps = {
   returnSubject: (value: string) => void;
   disabled: boolean;
@@ -33,6 +35,7 @@ export const TabSubjectBooks: FC<TabBooksProps> = ({
   return (
     <Box sx={{ maxWidth: { xs: 320, sm: 480 }, margin: '10px' }}>
       <Tabs
+        className={styles.tabs}
         value={value}
         onChange={(_, newValue) => setValue(newValue)}
         variant='scrollable'
@@ -41,6 +44,7 @@ export const TabSubjectBooks: FC<TabBooksProps> = ({
       >
         {SUBJECTS_TAB.map((tab) => (
           <Tab
+            className={styles.tab}
             key={tab.id}
             value={tab.value}
             label={tab.label}
