@@ -35,9 +35,19 @@ const books: Book[] = [
     {
         id: 1,
         title: 'novel title',
-        author: 'Bastien Corré',
+        author: {
+            id: 1,
+            lastname: 'Medieval',
+            firstname: 'Bastien',
+            image: 'test',
+            email: 'test',
+            birthDate: 'test'
+        },
         type: 'Novel',
-        subject: 'Fantasy Medieval',
+        subject: {
+            id: 1,
+            subject: 'Fantasy Medieval'
+        },
         dateOfPublication: '2023',
         image: 'test'
     }

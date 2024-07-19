@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books-gateway';
 import { createTestStore } from '@/modules/store/create-store';
 import { getBooksLastReleaseUseCase } from '../get-last-release-books.usecase';
-import { stateBuilder } from '../__tests__/state-builder';
+import { stateBuilder } from './state-builder';
 import { Book } from '../../../connector-to.get-books';
 
 describe('test to retrieve a list of last release books', () => {
@@ -34,9 +34,19 @@ const books: Book[] = [
     {
         id: 1,
         title: 'novel title',
-        author: 'Bastien Corré',
+        author: {
+            id: 1,
+            lastname: 'Medieval',
+            firstname: 'Bastien',
+            image: 'test',
+            email: 'test',
+            birthDate: 'test'
+        },
         type: 'Novel',
-        subject: 'Fantasy Medieval',
+        subject: {
+            id: 1,
+            subject: 'Fantasy Medieval'
+        },
         dateOfPublication: '2023',
         image: 'test'
     }
