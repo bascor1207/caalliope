@@ -9,7 +9,7 @@ type Props = {
     book: Book;
 }
 
-export const ProductCard: React.FC<Props> = ({ book }) => {
+export const BookCardCatalog: React.FC<Props> = ({ book }) => {
 
   return (
     <div className={styles.card}>
