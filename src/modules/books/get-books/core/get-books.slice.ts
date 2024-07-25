@@ -1,13 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getBooksUseCase } from '../usecase/get-books.usecase';
-
-type Book = {
-    author: string;
-    type: string;
-    subject: string;
-    dateOfPublication: string;
-    image: string;
-}
+import { Book } from '../connector-to.get-books';
+import { getBooksLastReleaseUseCase } from '../usecase/get-last-release-books/get-last-release-books.usecase';
+import { getPopularBooksUseCase } from '../usecase/get-popular-books/get-popular-books.usecase';
 
 type InitialState = {
     books: Book[];
@@ -32,6 +27,35 @@ export const getBooksSlice = createSlice( {
         }),
         builder.addCase(getBooksUseCase.fulfilled, (state, action) => {
             if (action.payload) {
+                console.log('action.payload', action.payload);
+                state.books = action.payload;
+            }
+            state.pendingRequest = false;
+        }),
+        builder.addCase(getBooksLastReleaseUseCase.pending, (state) => {
+            state.pendingRequest = true;
+        }),
+        builder.addCase(getBooksLastReleaseUseCase.rejected, (state) => {
+            state.rejectedRequest = true;
+            state.pendingRequest = false;
+        }),
+        builder.addCase(getBooksLastReleaseUseCase.fulfilled, (state, action) => {
+            if (action.payload) {
+                console.log('action.payload', action.payload);
+                state.books = action.payload;
+            }
+            state.pendingRequest = false;
+        }),
+        builder.addCase(getPopularBooksUseCase.pending, (state) => {
+            state.pendingRequest = true;
+        }),
+        builder.addCase(getPopularBooksUseCase.rejected, (state) => {
+            state.rejectedRequest = true;
+            state.pendingRequest = false;
+        }),
+        builder.addCase(getPopularBooksUseCase.fulfilled, (state, action) => {
+            if (action.payload) {
+                console.log('action.payload', action.payload);
                 state.books = action.payload;
             }
             state.pendingRequest = false;

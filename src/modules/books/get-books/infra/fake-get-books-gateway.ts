@@ -1,4 +1,4 @@
-import { Book } from '@/modules/books/get-books/connector-to.get-books';
+import { Book } from '../connector-to.get-books';
 
 export class FakeGetBooksGateway {
 
@@ -34,6 +34,13 @@ export class FakeGetBooksGateway {
                 if (!response) reject();
                 return resolve(response);
             }, this.delayToResponse)
+        })
+    }
+
+    getBooksBySearch(search: string): Promise<Book[]> {
+        return new Promise((resolve, reject) => {
+            if (!search) return reject();
+            return resolve(this.returnedResponse);
         })
     }
 }

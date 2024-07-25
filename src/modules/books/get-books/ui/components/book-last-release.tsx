@@ -2,7 +2,7 @@
 import { ReactNode, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch } from '@/modules/store/create-store';
-import { getBooksLastReleaseUseCase } from '../../usecase/get-last-relesa-books/get-last-release-books.usecase';
+import { getBooksLastReleaseUseCase } from '../../usecase/get-last-release-books/get-last-release-books.usecase';
 import { getBooksLastReleaseViewmodel } from '../get-last-release-books/get-last-release-books.viewmodel';
 import BooksCarousel from './BooksCarousel';
 

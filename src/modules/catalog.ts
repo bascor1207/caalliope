@@ -1,84 +1,230 @@
 export const catalog = [
   {
-    'author': 'John Doe',
+    'id': '1',
+    'title': 'title novel',
+    'author': {
+      'id': '1',
+      'lastname': 'Doe',
+      'firstname': 'Jonh',
+      'image': '',
+      'email': '',
+      'birthDate': ''
+    },
     'type': 'Fiction',
-    'subject': 'Mystery',
-    'dateOfPublication': '2022-03-15',
-    'image': '/livre1.jpg'
+    'subject': {
+      'id': '1',
+      'subject': 'Mystery'
+    },
+    'image': '/livre1.jpg',
+    'dateOfPublication': '2022-03-15'
   },
   {
-    'author': 'Jane Smith',
+    'id': '2',
+    'title': 'title novel',
+    'author': {
+      'id': '2',
+      'lastname': 'Smith',
+      'firstname': 'Jane',
+      'image': '',
+      'email': '',
+      'birthDate': ''
+    },
     'type': 'Non-Fiction',
-    'subject': 'Science',
-    'dateOfPublication': '2021-07-10',
-    'image': '/livre1.jpg'
+    'subject': {
+      'id': '1',
+      'subject': 'Science'
+    },
+    'image': '/livre1.jpg',
+    'dateOfPublication': '2021-07-10'
   },
   {
-    'author': 'Robert Johnson',
-    'type': 'Fantasy',
-    'subject': 'Adventure',
-    'dateOfPublication': '2020-12-05',
-    'image': '/livre1.jpg'
-  },
-  {
-    'author': 'Alice Williams',
-    'type': 'Historical Fiction',
-    'subject': 'History',
-    'dateOfPublication': '2019-05-20',
-    'image': '/livre1.jpg'
-  },  {
-    'author': 'John Doe',
+    'id': '1',
+    'title': 'title novel',
+    'author': {
+      'id': '1',
+      'lastname': 'Doe',
+      'firstname': 'Jonh',
+      'image': '',
+      'email': '',
+      'birthDate': ''
+    },
     'type': 'Fiction',
-    'subject': 'Mystery',
-    'dateOfPublication': '2022-03-15',
-    'image': '/livre1.jpg'
+    'subject': {
+      'id': '1',
+      'subject': 'Mystery'
+    },
+    'image': '/livre1.jpg',
+    'dateOfPublication': '2022-03-15'
   },
   {
-    'author': 'Jane Smith',
+    'id': '2',
+    'title': 'title novel',
+    'author': {
+      'id': '2',
+      'lastname': 'Smith',
+      'firstname': 'Jane',
+      'image': '',
+      'email': '',
+      'birthDate': ''
+    },
     'type': 'Non-Fiction',
-    'subject': 'Science',
-    'dateOfPublication': '2021-07-10',
-    'image': '/livre1.jpg'
+    'subject': {
+      'id': '1',
+      'subject': 'Science'
+    },
+    'image': '/livre1.jpg',
+    'dateOfPublication': '2021-07-10'
   },
   {
-    'author': 'Robert Johnson',
-    'type': 'Fantasy',
-    'subject': 'Adventure',
-    'dateOfPublication': '2020-12-05',
-    'image': '/livre1.jpg'
-  },
-  {
-    'author': 'Alice Williams',
-    'type': 'Historical Fiction',
-    'subject': 'History',
-    'dateOfPublication': '2019-05-20',
-    'image': '/livre1.jpg'
-  },  {
-    'author': 'John Doe',
+    'id': '1',
+    'title': 'title novel',
+    'author': {
+      'id': '1',
+      'lastname': 'Doe',
+      'firstname': 'Jonh',
+      'image': '',
+      'email': '',
+      'birthDate': ''
+    },
     'type': 'Fiction',
-    'subject': 'Mystery',
-    'dateOfPublication': '2022-03-15',
-    'image': '/livre1.jpg'
+    'subject': {
+      'id': '1',
+      'subject': 'Mystery'
+    },
+    'image': '/livre1.jpg',
+    'dateOfPublication': '2022-03-15'
   },
   {
-    'author': 'Jane Smith',
+    'id': '2',
+    'title': 'title novel',
+    'author': {
+      'id': '2',
+      'lastname': 'Smith',
+      'firstname': 'Jane',
+      'image': '',
+      'email': '',
+      'birthDate': ''
+    },
     'type': 'Non-Fiction',
-    'subject': 'Science',
-    'dateOfPublication': '2021-07-10',
-    'image': '/livre1.jpg'
+    'subject': {
+      'id': '1',
+      'subject': 'Science'
+    },
+    'image': '/livre1.jpg',
+    'dateOfPublication': '2021-07-10'
   },
   {
-    'author': 'Robert Johnson',
-    'type': 'Fantasy',
-    'subject': 'Adventure',
-    'dateOfPublication': '2020-12-05',
-    'image': '/livre1.jpg'
+    'id': '1',
+    'title': 'title novel',
+    'author': {
+      'id': '1',
+      'lastname': 'Doe',
+      'firstname': 'Jonh',
+      'image': '',
+      'email': '',
+      'birthDate': ''
+    },
+    'type': 'Fiction',
+    'subject': {
+      'id': '1',
+      'subject': 'Mystery'
+    },
+    'image': '/livre1.jpg',
+    'dateOfPublication': '2022-03-15'
   },
   {
-    'author': 'Alice Williams',
-    'type': 'Historical Fiction',
-    'subject': 'History',
-    'dateOfPublication': '2019-05-20',
-    'image': '/livre1.jpg'
+    'id': '2',
+    'title': 'title novel',
+    'author': {
+      'id': '2',
+      'lastname': 'Smith',
+      'firstname': 'Jane',
+      'image': '',
+      'email': '',
+      'birthDate': ''
+    },
+    'type': 'Non-Fiction',
+    'subject': {
+      'id': '1',
+      'subject': 'Science'
+    },
+    'image': '/livre1.jpg',
+    'dateOfPublication': '2021-07-10'
+  },
+  {
+    'id': '1',
+    'title': 'title novel',
+    'author': {
+      'id': '1',
+      'lastname': 'Doe',
+      'firstname': 'Jonh',
+      'image': '',
+      'email': '',
+      'birthDate': ''
+    },
+    'type': 'Fiction',
+    'subject': {
+      'id': '1',
+      'subject': 'Mystery'
+    },
+    'image': '/livre1.jpg',
+    'dateOfPublication': '2022-03-15'
+  },
+  {
+    'id': '2',
+    'title': 'title novel',
+    'author': {
+      'id': '2',
+      'lastname': 'Smith',
+      'firstname': 'Jane',
+      'image': '',
+      'email': '',
+      'birthDate': ''
+    },
+    'type': 'Non-Fiction',
+    'subject': {
+      'id': '1',
+      'subject': 'Science'
+    },
+    'image': '/livre1.jpg',
+    'dateOfPublication': '2021-07-10'
+  },
+  {
+    'id': '1',
+    'title': 'title novel',
+    'author': {
+      'id': '1',
+      'lastname': 'Doe',
+      'firstname': 'Jonh',
+      'image': '',
+      'email': '',
+      'birthDate': ''
+    },
+    'type': 'Fiction',
+    'subject': {
+      'id': '1',
+      'subject': 'Mystery'
+    },
+    'image': '/livre1.jpg',
+    'dateOfPublication': '2022-03-15'
+  },
+  {
+    'id': '2',
+    'title': 'title novel',
+    'author': {
+      'id': '2',
+      'lastname': 'Smith',
+      'firstname': 'Jane',
+      'image': '',
+      'email': '',
+      'birthDate': ''
+    },
+    'type': 'Non-Fiction',
+    'subject': {
+      'id': '1',
+      'subject': 'Science'
+    },
+    'image': '/livre1.jpg',
+    'dateOfPublication': '2021-07-10'
   }
 ]

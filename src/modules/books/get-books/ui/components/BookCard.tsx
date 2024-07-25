@@ -30,7 +30,7 @@ export const BookCard: FC<Props> = ({ book, slideSize }) => {
     console.log(size, slideSize);
 
     const getOneBookAndRedirect = () => {
-        dispatch(getOneBookByAuthor(book.author)).then(() => router.push('/catalog/book'))
+        dispatch(getOneBookByAuthor(book.author.lastname)).then(() => router.push('/catalog/book'))
     }
     return (
         <section className={styles.container} onClick={getOneBookAndRedirect}>
@@ -40,9 +40,9 @@ export const BookCard: FC<Props> = ({ book, slideSize }) => {
                         <Image className={styles['book-image']} src={book.image} alt={'livre'} width={300} height={400}/>
                     </div>
                     <div className={styles.body}>
-                        <div className={styles.title}>{ book.author }</div>
-                        <div className={styles.text}>{ book.subject }</div>
-                        <div className={styles['book-subject']}>{ book.subject }</div>
+                        <div className={styles.title}>{book.author.lastname} { book.author.firstname }</div>
+                        <div className={styles.text}>{ book.subject.subject }</div>
+                        <div className={styles['book-subject']}>{ book.subject.subject }</div>
                         <div className={styles['book-publication-date']}>{ book.dateOfPublication }</div>
                     </div>
                 </div>

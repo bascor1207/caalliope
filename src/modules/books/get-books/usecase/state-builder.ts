@@ -4,7 +4,7 @@ import { RootState } from '@/modules/store/create-store';
 import { Book } from '@/modules/books/get-books/connector-to.get-books';
 
 type PayloadForTest = {
-    connectedUser: boolean;
+    //connectedUser: boolean;
     books: Book[];
 }
 
@@ -23,9 +23,9 @@ const reducer = createReducer(initialState, (builder) => {
         state.catalog.getBooks.rejectedRequest = action.payload;
     }),
     builder.addCase(withSuccess, (state, action) => {
-        if (action.payload.connectedUser) {
+        //if (action.payload.connectedUser) {
             state.catalog.getBooks.books = action.payload.books;
-        }
+        //}
     });
 });
 
