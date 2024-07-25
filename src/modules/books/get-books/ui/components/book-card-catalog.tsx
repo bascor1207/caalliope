@@ -10,20 +10,19 @@ type Props = {
 }
 
 export const BookCardCatalog: React.FC<Props> = ({ book }) => {
-
   return (
     <div className={styles.card}>
       <div className={styles['img-top-container']}>
-            <Image className={styles['book-image']} src={book.image} alt={'livre'} width={300} height={400}/>
+            <Image className={styles.image} src={book.image} alt={'livre'} width={50} height={50}/>
       </div>
-      <div className={styles['info-book']}>
+      <div className={styles.info}>
         <div>
-          <p className={styles['card-title']}>{book.title}</p>
-          <p className={styles['card-author']}>
+          <p className={styles.title}>{book.title}</p>
+          <p className={styles.author}>
             {book.author.firstname} {book.author.lastname}
           </p>
         </div>
-        <p className={styles['card-subject']}>{book.subject.subject}</p>
+        <p className={styles.subject}>{book.subject.subject}</p>
       </div>
     </div>
   );
