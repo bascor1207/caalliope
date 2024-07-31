@@ -34,24 +34,28 @@ const thenTheUserShouldSeeBooks = (): void => {
     expect(state).toEqual(store.getState())
 };
 
-const books = [
+const books: Book[] = [
     {
         id: 1,
-        title: 'title novel',
+        title: 'novel title',
         author: {
-            id: 1, 
-            lastname: 'Corré',
+            id: 1,
+            lastname: 'Medieval',
             firstname: 'Bastien',
-            image: '',
-            email: '',
-            birthDate: ''
+            image: 'test',
+            email: 'test',
+            birthDate: 'test'
         },
         type: 'Novel',
-        subject: {
-            id: 1,
-            subject: 'Fantasy Medieval'
-        },
-        image: 'test',
-        dateOfPublication: '2023'
+        subject: [
+            {
+                subject: {
+                    id: 1,
+                    label: 'Fantasy Medieval'
+                }
+            }
+        ],
+        dateOfPublication: '2023',
+        image: 'test'
     }
-]
+];

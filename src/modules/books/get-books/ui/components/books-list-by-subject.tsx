@@ -5,6 +5,7 @@ import styles from './book-list-by-subject.module.scss';
 import { getBooksViewModel } from '../get-books/get-books.viewmodel';
 import { getBooksBySubjectUtils } from '../get-books/get-books-by-subject.utils';
 import { BookCard } from './BookCard';
+import { NoResults } from '@/modules/books/get-books/ui/components/no-results';
 
 type BooksListBySubjectProps = {
     subject: string;
@@ -20,7 +21,7 @@ export const BooksListBySubject: FC<BooksListBySubjectProps> = ({
     case 'gettingBooksPending':
       return <div>Loading...</div>;
     case 'gettingBooksRejected':
-      return <div>Oops...</div>;
+      return < NoResults />;
     case 'gettingBooksFulfilled':
       return (
         <div className={styles.list}>

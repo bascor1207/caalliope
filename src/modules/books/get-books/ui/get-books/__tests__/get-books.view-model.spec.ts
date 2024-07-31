@@ -32,10 +32,14 @@ describe('test for the viewModel layer of getting books', () => {
                         birthDate: ''
                     },
                     type: 'Novel',
-                    subject: {
-                        id: 1,
-                        subject: 'Fantasy Medieval'
-                    },
+                    subject: [
+                        {
+                            subject: {
+                                id: 1,
+                                label: 'Fantasy Medieval'
+                            }
+                        }
+                    ],
                     image: 'test',
                     dateOfPublication: '2023'
                 },
@@ -51,10 +55,14 @@ describe('test for the viewModel layer of getting books', () => {
                         birthDate: ''
                     },
                     type: 'Novel',
-                    subject: {
-                        id: 2,
-                        subject: 'Romance'
-                    },
+                    subject: [
+                        {
+                            subject: {
+                                id: 2,
+                                label: 'Romance'
+                            }
+                        }
+                    ],
                     image: 'test',
                     dateOfPublication: '2023'
                 }

@@ -24,6 +24,7 @@ const CatalogPage = () => {
   const booksByAuthor = useSelector(getBooksByAuthorViewmodel(query));
 
   const getsubject = (subj: string) => {
+    console.log('Genre sélectionné:', subj);
     if (subj === subject) {
       return setSubject('');
     }

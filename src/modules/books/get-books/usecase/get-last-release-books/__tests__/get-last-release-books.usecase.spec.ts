@@ -43,10 +43,14 @@ const books: Book[] = [
             birthDate: 'test'
         },
         type: 'Novel',
-        subject: {
-            id: 1,
-            subject: 'Fantasy Medieval'
-        },
+        subject: [
+            {
+                subject: {
+                    id: 1,
+                    label: 'Fantasy Medieval'
+                }
+            }
+        ],
         dateOfPublication: '2023',
         image: 'test'
     }

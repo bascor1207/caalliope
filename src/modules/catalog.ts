@@ -11,10 +11,14 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Fiction',
-    'subject': {
-      'id': '1',
-      'subject': 'Mystery'
-    },
+    'subject': [
+      {
+        'subject': {
+            'id': '1',
+            'label': 'mystery'
+        }
+      }
+    ],
     'image': '/livre1.jpg',
     'dateOfPublication': '2022-03-15'
   },
@@ -30,10 +34,14 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Non-Fiction',
-    'subject': {
-      'id': '1',
-      'subject': 'Science'
-    },
+    'subject': [
+      {
+        'subject': {
+            'id': '2',
+            'label': 'science'
+        }
+      }
+    ],
     'image': '/livre1.jpg',
     'dateOfPublication': '2021-07-10'
   },
@@ -49,10 +57,14 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Fiction',
-    'subject': {
-      'id': '1',
-      'subject': 'Mystery'
-    },
+    'subject': [
+      {
+        'subject': {
+            'id': '1',
+            'label': 'mystery'
+        }
+      }
+    ],
     'image': '/livre1.jpg',
     'dateOfPublication': '2022-03-15'
   },
@@ -68,10 +80,14 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Non-Fiction',
-    'subject': {
-      'id': '1',
-      'subject': 'Science'
-    },
+    'subject': [
+      {
+        'subject': {
+            'id': '2',
+            'label': 'science'
+        }
+      }
+    ],
     'image': '/livre1.jpg',
     'dateOfPublication': '2021-07-10'
   },
@@ -87,10 +103,14 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Fiction',
-    'subject': {
-      'id': '1',
-      'subject': 'Mystery'
-    },
+    'subject': [
+      {
+        'subject': {
+            'id': '1',
+            'label': 'mystery'
+        }
+      }
+    ],
     'image': '/livre1.jpg',
     'dateOfPublication': '2022-03-15'
   },
@@ -106,10 +126,14 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Non-Fiction',
-    'subject': {
-      'id': '1',
-      'subject': 'Science'
-    },
+    'subject': [
+      {
+        'subject': {
+            'id': '2',
+            'label': 'science'
+        }
+      }
+    ],
     'image': '/livre1.jpg',
     'dateOfPublication': '2021-07-10'
   },
@@ -125,10 +149,14 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Fiction',
-    'subject': {
-      'id': '1',
-      'subject': 'Mystery'
-    },
+    'subject': [
+      {
+        'subject': {
+            'id': '1',
+            'label': 'mystery'
+        }
+      }
+    ],
     'image': '/livre1.jpg',
     'dateOfPublication': '2022-03-15'
   },
@@ -144,10 +172,14 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Non-Fiction',
-    'subject': {
-      'id': '1',
-      'subject': 'Science'
-    },
+    'subject': [
+      {
+        'subject': {
+            'id': '2',
+            'label': 'science'
+        }
+      }
+    ],
     'image': '/livre1.jpg',
     'dateOfPublication': '2021-07-10'
   },
@@ -163,10 +195,14 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Fiction',
-    'subject': {
-      'id': '1',
-      'subject': 'Mystery'
-    },
+    'subject': [
+      {
+        'subject': {
+            'id': '1',
+            'label': 'mystery'
+        }
+      }
+    ],
     'image': '/livre1.jpg',
     'dateOfPublication': '2022-03-15'
   },
@@ -182,10 +218,14 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Non-Fiction',
-    'subject': {
-      'id': '1',
-      'subject': 'Science'
-    },
+    'subject': [
+      {
+        'subject': {
+            'id': '2',
+            'label': 'science'
+        }
+      }
+    ],
     'image': '/livre1.jpg',
     'dateOfPublication': '2021-07-10'
   },
@@ -201,10 +241,14 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Fiction',
-    'subject': {
-      'id': '1',
-      'subject': 'Mystery'
-    },
+    'subject': [
+      {
+        'subject': {
+            'id': '1',
+            'label': 'mystery'
+        }
+      }
+    ],
     'image': '/livre1.jpg',
     'dateOfPublication': '2022-03-15'
   },
@@ -219,12 +263,16 @@ export const catalog = [
       'email': '',
       'birthDate': ''
     },
-    'type': 'Non-Fiction',
-    'subject': {
-      'id': '1',
-      'subject': 'Science'
-    },
+    'type': 'fiction',
+    'subject': [
+      {
+        'subject': {
+            'id': '3',
+            'label': 'fantasy'
+        }
+      }
+    ],
     'image': '/livre1.jpg',
     'dateOfPublication': '2021-07-10'
   }
-]
+];
