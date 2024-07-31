@@ -1,10 +1,19 @@
 import TextField from '@mui/material/TextField';
+import { ChangeEvent } from 'react';
 
 type SearchBarProps = {
-  setQuery: (query: string) => void;
+  setQuery: (query: string, type: 'name' | 'author') => void;
   query: string;
 }
+const determineSearchType = (value: string): 'name' | 'author' => {
+  return value.includes(' ') ? 'author' : 'name';
+};
 export const SearchBar = ({ setQuery, query }: SearchBarProps) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    const type = determineSearchType(value);
+    setQuery(value, type);
+  };
 
   return (
     <TextField
@@ -15,7 +24,7 @@ export const SearchBar = ({ setQuery, query }: SearchBarProps) => {
       value={query}
       placeholder='Search...'
       size='small'
-      onChange={(e) => setQuery(e.currentTarget.value)}
+      onChange={handleInputChange}
     />
   )
 }
