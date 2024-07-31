@@ -9,6 +9,7 @@ import { SearchLayout } from '@/modules/books/get-books/ui/components/search-lay
 import { getBooksByNameViewmodel } from '@/modules/books/get-books/ui/get-books/get-books-by-name.viewmodel';
 import { getBooksByAuthorViewmodel } from '@/modules/books/get-books/ui/get-books/get-books-by-author.viewmodel';
 import { BookCardCatalog } from '@/modules/books/get-books/ui/components/book-card-catalog';
+import { NoResults } from '@/modules/books/get-books/ui/components/no-results';
 
 const CatalogPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -41,7 +42,7 @@ const CatalogPage = () => {
 
     if (viewmodel.length === 0) {
       console.log('No books found matching the query');
-      return <div>No books found matching the query</div>;
+      return <NoResults />;
     }
 
     return viewmodel.map((book) => (
