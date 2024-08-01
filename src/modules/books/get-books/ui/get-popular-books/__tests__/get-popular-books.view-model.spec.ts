@@ -19,9 +19,27 @@ describe('test for the viewModel layer of getting popular books', () => {
     it('should handle the book list when getting popular books is fulfilled', () => {
         const books = [
             {
-                id: 1, title: 'novel title', author: 'Bastien Corré',
-                type: 'Novel', subject: 'Fantasy Medieval',
-                dateOfPublication: '2023', image: 'test'
+                id: 1,
+                title: 'novel title',
+                author: {
+                    id: 1,
+                    lastname: 'Medieval',
+                    firstname: 'Bastien',
+                    image: 'test',
+                    email: 'test',
+                    birthDate: 'test'
+                },
+                type: 'Novel',
+                subject: [
+                    {
+                        subject: {
+                            id: 1,
+                            label: 'Fantasy Medieval'
+                        }
+                    }
+                ],
+                dateOfPublication: '2023',
+                image: 'test'
             }
         ];
         const initialState = stateBuilder().withSuccess(books).build();

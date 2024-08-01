@@ -4,8 +4,8 @@ import { TabSubjectBooks } from './tab-subject-books';
 
 type SearchLayoutProps = {
   getCategory: (payload: string) => void;
-  getQuery: (payload: string) => void;
-  query: string
+  getQuery: (query: string, type: 'name' | 'author') => void;
+  query: string;
 }
 export const SearchLayout = ({ children, getCategory, getQuery, query }: PropsWithChildren<SearchLayoutProps>) => {
   return (
