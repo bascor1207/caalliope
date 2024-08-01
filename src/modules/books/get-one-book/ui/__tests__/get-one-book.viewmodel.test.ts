@@ -19,8 +19,28 @@ describe('test for one book viewmodel', () => {
 });
 
 const book = {
-    id: '1', title: 'le seigneur des anneaux', author: 'Laura Bojon'
-};
+    id: 1,
+    title: 'novel title',
+    author: {
+        id: 1,
+        lastname: 'Medieval',
+        firstname: 'Bastien',
+        image: 'test',
+        email: 'test',
+        birthDate: 'test'
+    },
+    type: 'Novel',
+    subject: [
+        {
+            subject: {
+                id: 1,
+                label: 'Fantasy Medieval'
+            }
+        }
+    ],
+    dateOfPublication: '2023',
+    image: 'test'
+}
 
 
 const thenItShouldReturn = (state: RootState, response: {type: string, selectedBook?: typeof book }) => {

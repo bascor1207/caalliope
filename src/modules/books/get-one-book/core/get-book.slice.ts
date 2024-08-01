@@ -1,11 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getOneBookByAuthor } from '@/modules/books/get-one-book/usecase/get-one-book-by-author.usecase';
-
-export type Book = {
-    id: string;
-    author: string;
-    title: string;
-}
+import { getOneBookById } from '@/modules/books/get-one-book/usecase/get-one-book-by-id.usecase';
+import { Book } from '../connector-to.get-one-book';
 
 type InitialState = {
     requestStatus: 'pending' | 'rejected' | 'fulfilled' | '',
@@ -21,10 +16,10 @@ export const getBookSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(getOneBookByAuthor.pending, (state) => {
+        builder.addCase(getOneBookById.pending, (state) => {
             state.requestStatus = 'pending';
         });
-        builder.addCase(getOneBookByAuthor.fulfilled, (state, action) => {
+        builder.addCase(getOneBookById.fulfilled, (state, action) => {
             state.selectedBook = action.payload as Book;
             state.requestStatus = 'fulfilled';
         })
