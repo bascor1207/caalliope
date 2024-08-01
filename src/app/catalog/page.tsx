@@ -3,7 +3,7 @@ import { ReactNode, useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { getBooksUseCase } from '@/modules/books/get-books/usecase/get-books.usecase';
-import { AppDispatch } from '@/modules/store/create-store';
+import { AppDispatch, RootState } from '@/modules/store/create-store';
 import { BooksListBySubject } from '@/modules/books/get-books/ui/components/books-list-by-subject';
 import { SearchLayout } from '@/modules/books/get-books/ui/components/search-layout';
 import { getBooksByNameViewmodel } from '@/modules/books/get-books/ui/get-books/get-books-by-name.viewmodel';
@@ -20,11 +20,10 @@ const CatalogPage = () => {
     dispatch(getBooksUseCase());
   }, [dispatch]);
 
-  const booksByName = useSelector(getBooksByNameViewmodel(query));
-  const booksByAuthor = useSelector(getBooksByAuthorViewmodel(query));
+  const booksByName = useSelector((state: RootState) => getBooksByNameViewmodel(query)(state));
+  const booksByAuthor = useSelector((state: RootState) => getBooksByAuthorViewmodel(query)(state));
 
   const getsubject = (subj: string) => {
-    console.log('Genre sélectionné:', subj);
     if (subj === subject) {
       return setSubject('');
     }
@@ -54,17 +53,9 @@ const CatalogPage = () => {
     ));
   })();
 
-  if (query !== '') {
-    return (
-      <SearchLayout getCategory={getsubject} query={query} getQuery={getQuery}>
-        {renderedNode}
-      </SearchLayout>
-    );
-  }
-
   return (
     <SearchLayout getQuery={getQuery} query={query} getCategory={getsubject}>
-      <BooksListBySubject subject={subject} />
+      {query !== '' ? renderedNode : <BooksListBySubject subject={subject} />}
     </SearchLayout>
   );
 };

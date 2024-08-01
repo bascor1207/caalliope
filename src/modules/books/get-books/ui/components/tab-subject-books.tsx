@@ -20,7 +20,7 @@ const SUBJECTS_TAB = [
   { id: 9, label: 'Historique', value: 'history' },
   { id: 10, label: 'théatre', value: 'theatre' },
   { id: 11, label: 'Philosophie', value: 'philosophy' },
-  { id: 12, label: 'Mystère', value: 'mistery' },
+  { id: 12, label: 'Mystère', value: 'mystery' },
   { id: 13, label: 'Science', value: 'science' },
 ];
 
