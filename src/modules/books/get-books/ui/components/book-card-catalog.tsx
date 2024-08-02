@@ -22,7 +22,7 @@ export const BookCardCatalog: React.FC<Props> = ({ book }) => {
             {book.author.firstname} {book.author.lastname}
           </p>
         </div>
-        <p className={styles.subject}>{book.subject.subject}</p>
+        <p className={styles.subject}>{book.type}</p>
       </div>
     </div>
   );

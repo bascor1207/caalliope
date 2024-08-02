@@ -6,7 +6,7 @@ import { stateBuilder } from '@/modules/books/get-one-book/usecase/state-builder
 import { Book } from '../connector-to.get-one-book';
 
 
-describe('test to retrieve one book by author', () => {
+describe('test to retrieve one book by id', () => {
     it('should retrieve the book and put it in store', async () => {
         givenExistingBookInBdd({ data: book });
 

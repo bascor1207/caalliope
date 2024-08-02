@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 
 import { AppDispatch } from '@/modules/store/create-store';
 import { Book } from '@/modules/books/get-books/connector-to.get-books';
-import { getOneBookByAuthor } from '@/modules/books/get-one-book/usecase/get-one-book-by-author.usecase';
+import { getOneBookById } from '@/modules/books/get-one-book/usecase/get-one-book-by-id.usecase';
 
 import styles from './book-card.module.scss'
 
@@ -30,7 +30,7 @@ export const BookCard: FC<Props> = ({ book, slideSize }) => {
     console.log(size, slideSize);
 
     const getOneBookAndRedirect = () => {
-        dispatch(getOneBookByAuthor(book.author.lastname)).then(() => router.push('/catalog/book'))
+        dispatch(getOneBookById(book.id)).then(() => router.push('/catalog/book'))
     }
     return (
         <section className={styles.container} onClick={getOneBookAndRedirect}>
@@ -41,8 +41,14 @@ export const BookCard: FC<Props> = ({ book, slideSize }) => {
                     </div>
                     <div className={styles.body}>
                         <div className={styles.title}>{book.author.lastname} { book.author.firstname }</div>
-                        <div className={styles.text}>{ book.subject.subject }</div>
-                        <div className={styles['book-subject']}>{ book.subject.subject }</div>
+                        <div className={styles.text}>{ book.type }</div>
+                        <div className={styles['book-subject']}>
+                            {book.subject.map((subject) => {
+                                return (
+                                    <div key={subject.subject.id}>{subject.subject.label}</div>
+                                )
+                            })}
+                        </div>
                         <div className={styles['book-publication-date']}>{ book.dateOfPublication }</div>
                     </div>
                 </div>
