@@ -7,7 +7,7 @@ export const getOneBookById = createAppAsyncThunk(
             return await getOneBookAdapter.getOneBookById(id);
         }
         catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
 )

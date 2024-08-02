@@ -43,6 +43,7 @@ const book = {
         email: 'test',
         birthDate: 'test'
     },
+    summary: 'summary test',
     type: 'Novel',
     subject: [
         {
@@ -52,8 +53,9 @@ const book = {
             }
         }
     ],
+    rating: 4.5,
     dateOfPublication: '2023',
     image: 'test'
-}
+};
 
 

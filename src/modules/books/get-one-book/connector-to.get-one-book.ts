@@ -7,8 +7,10 @@ export type Book = {
     id: number;
     title: string;
     author: Author;
+    summary: string;
     type: string;
     subject: Subject[];
+    rating: number;
     dateOfPublication: string;
     image: string;
 }

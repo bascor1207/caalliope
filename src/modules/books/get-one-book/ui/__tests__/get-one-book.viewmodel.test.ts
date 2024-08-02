@@ -29,6 +29,7 @@ const book = {
         email: 'test',
         birthDate: 'test'
     },
+    summary: 'summary test',
     type: 'Novel',
     subject: [
         {
@@ -38,12 +39,13 @@ const book = {
             }
         }
     ],
+    rating: 4.5,
     dateOfPublication: '2023',
     image: 'test'
-}
+};
 
 
-const thenItShouldReturn = (state: RootState, response: {type: string, selectedBook?: typeof book }) => {
+const thenItShouldReturn = (state: RootState, response: { type: string, selectedBook?: typeof book }) => {
     const viewmodel = getOneBookViewmodel()(state);
     expect(viewmodel).toStrictEqual(response)
-}
+};
