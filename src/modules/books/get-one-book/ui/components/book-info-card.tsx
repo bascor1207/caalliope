@@ -1,13 +1,28 @@
 import React from 'react';
 import Image from 'next/image';
 
-import { Book } from '../../../get-books/connector-to.get-books';
+import { Book } from '../../connector-to.get-one-book';
 
 import styles from './book-info-card-catalog.module.scss';
 
 type Props = {
     book: Book;
 }
+
+const generateStars = (rating: number) => {
+  const totalStars = 5;
+  const filledStars = Math.floor(rating);
+  const halfStar = rating % 1 !== 0;
+  const emptyStars = totalStars - filledStars - (halfStar ? 1 : 0);
+
+  return (
+      <>
+          {Array(filledStars).fill(<span key={Math.random()}>★</span>)}
+          {halfStar && <span key={Math.random()}>☆</span>}
+          {Array(emptyStars).fill(<span key={Math.random()}>☆</span>)}
+      </>
+  );
+};
 
 export const BookInfoCard: React.FC<Props> = ({ book }) => {
     return (
@@ -20,11 +35,11 @@ export const BookInfoCard: React.FC<Props> = ({ book }) => {
           <h1 className={styles.title}>{book.title} - {book.author.firstname} {book.author.lastname}</h1>
         </div>
         <div className={styles.rating}>
-            <span>★★★★☆</span>
-            <span>4.5/5 (984 votes)</span>
+          {generateStars(book.rating)}
+          <span>{book.rating}/5</span>
         </div>
         <p>
-            Une vie dont personne ne se souviendra... Une histoire que vous ne pourrez plus jamais oublier...
+          {book.summary}
         </p>
           <div className={styles.subject}>
             {book.subject.map((subject) => {
