@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 import { getOneBookViewmodel } from '../get-one-book.viewmodel';
 import { BookInfoCard } from './book-info-card';
+import { TabBookInfo } from './tab-book-info';
 
 export const BookInfo = () => {
   const viewmodel = useSelector(getOneBookViewmodel());
@@ -17,6 +18,7 @@ export const BookInfo = () => {
       return (
             <div>
               <BookInfoCard book={viewmodel.selectedBook} />
+              <TabBookInfo book={viewmodel.selectedBook} />
             </div>
       );
     }

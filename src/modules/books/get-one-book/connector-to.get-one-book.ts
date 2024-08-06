@@ -10,6 +10,8 @@ export type Book = {
     summary: string;
     type: string;
     subject: Subject[];
+    publishing: Publishing[];
+    reviews: Review[];
     rating: number;
     dateOfPublication: string;
     image: string;
@@ -28,5 +30,24 @@ export type Subject = {
     subject: {
         id: number,
         label: string
+    }
+}
+
+export type Publishing = {
+    publishingHouse: {
+        id: number,
+        label: string,
+        language: string,
+        numberOfPages: number
+        dateofPublication: string
+    }
+}
+
+export type Review = {
+    review: {
+        id: number,
+        userId: number,
+        comment: string,
+        date: string
     }
 }

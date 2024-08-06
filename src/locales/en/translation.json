@@ -49,6 +49,7 @@
         "publishing": "Publishing",
         "review": "Review",
         "addReview": "Add a review",
+        "addPublishing": "Add a publishing",
         "search": "Search for a book or author",
         "notfound": "No result for this search",
         "yourReview": "Your review"

@@ -1,15 +1,20 @@
 import { Box, Tab, Tabs } from '@mui/material';
-import { useState } from 'react';
+import { FC, useState } from 'react';
 
 import { PublishingSection } from './publishing-section';
 import { ReviewSection } from './review-section';
+import { Book } from '../../connector-to.get-one-book';
+
+type Props = {
+    book: Book;
+}
 
 const SUBJECTS_TAB = [
   { id: 0, label: 'Editions', value: 'edition' },
   { id: 1, label: 'Critiques', value: 'review' }
 ];
 
-export const TabBookInfo = () => {
+export const TabBookInfo: FC<Props> = ({ book }) => {
   const [value, setValue] = useState('');
 
   return (
@@ -32,8 +37,8 @@ export const TabBookInfo = () => {
         ))}
       </Tabs>
 
-      {value === 'edition' && <PublishingSection />}
-      {value === 'review' && <ReviewSection />}
+      {value === 'edition' && <PublishingSection book={book} />}
+      {value === 'review' && <ReviewSection book={book} />}
     </Box>
   );
 };

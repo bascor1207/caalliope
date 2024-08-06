@@ -39,6 +39,27 @@ const book = {
             }
         }
     ],
+    publishing: [
+        {
+            publishingHouse: {
+                id: 1,
+                label: 'Lumen',
+                language: 'Français',
+                numberOfPages: 684,
+                dateofPublication: '2023'
+            }
+        }
+    ],
+    reviews: [
+        {
+            review: {
+                id: 1,
+                userId: 1,
+                comment: 'test',
+                date: '2023'
+            }
+        }
+    ],
     rating: 4.5,
     dateOfPublication: '2023',
     image: 'test'
