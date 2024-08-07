@@ -29,11 +29,12 @@ export const BookCard: FC<Props> = ({ book, slideSize }) => {
 
     console.log(size, slideSize);
 
-    const getOneBookAndRedirect = () => {
-        dispatch(getOneBookById(book.id)).then(() => router.push('/catalog/book'))
+    const getOneBookAndRedirect = (bookId: number) => {
+        console.log(bookId);
+        dispatch(getOneBookById(book.id)).then(() => router.push(`/catalog/${bookId}`))
     }
     return (
-        <section className={styles.container} onClick={getOneBookAndRedirect}>
+        <section className={styles.container} onClick={() => getOneBookAndRedirect(book.id)}>
             <div key={book.author + book.dateOfPublication} className={styles.subcontainer}>
                 <div className={styles.container}>
                     <div className={styles['img-top-container']} style={{ height: size * RATIO }}>
