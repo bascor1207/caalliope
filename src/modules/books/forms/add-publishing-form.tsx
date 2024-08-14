@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './add-book-form.module.scss';
 
-interface AddBookFormProps {
+interface AddPublishingForm {
     hideModal: () => void;
   }
 
-export const AddBookForm: FC<AddBookFormProps> = ({ hideModal }) => {
+export const AddPublishingForm: FC<AddPublishingForm> = ({ hideModal }) => {
     const { t } = useTranslation();
     const {
         formState: { errors }
@@ -25,21 +25,11 @@ export const AddBookForm: FC<AddBookFormProps> = ({ hideModal }) => {
     return (
         <form onSubmit={onSubmit}>
             <div className={styles.container}>
-                <span className={styles.title}>{t('addABook')}</span>
+                <span className={styles.title}>{t('library.addPublishing')}</span>
                 <div className={styles.isbn}>
                     <label>{t('form.isbn')} </label>
                     <input className={styles.input} type='text' name='ibsn' required />
                     {errors.ibsn && <span>{t('required')}</span>}
-                </div>
-                <div className={styles.titleBook}>
-                    <label>{t('form.title')} </label>
-                    <input className={styles.input} type='text' name='title' required />
-                    {errors.title && <span>{t('required')}</span>}
-                </div>
-                <div className={styles.author}>
-                    <label>{t('form.author')} </label>
-                    <input className={styles.input} type='text' name='author' required />
-                    {errors.author && <span>{t('required')}</span>}
                 </div>
                 <div className={styles.date}>
                     <label>{t('form.releaseDate')} </label>
@@ -62,7 +52,7 @@ export const AddBookForm: FC<AddBookFormProps> = ({ hideModal }) => {
                 </div>
                 <div className={styles.language}>
                     <label>{t('form.language')} </label>
-                    <input className={styles['language-input']} type='text' name='language' />
+                    <input className={styles.input} type='text' name='language' />
                 </div>
                 <div className={styles.format}>
                     <label>{t('form.format')}</label>

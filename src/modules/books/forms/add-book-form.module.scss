@@ -1,0 +1,58 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; 
+  padding: 20px;
+  background-color: #D9D9D9; 
+  border-radius: 8px; 
+  max-width: 500px; 
+  margin: 0 auto; 
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center; 
+}
+
+.isbn,
+.titleBook,
+.author,
+.date,
+.editor,
+.translator,
+.nbpage,
+.language,
+.format,
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+}
+
+.format {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 15px; 
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; 
+}
+
+.submit {
+  padding: 10px 20px;
+  background-color: #f5f5f5;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit:hover {
+  background-color: #C9A0DC; 
+}

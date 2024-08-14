@@ -88,17 +88,26 @@
         "ebook": "E-book",
         "audio": "Audio",
         "language": "Language",
-        "cover": "Cover",
+        "cover": "Book cover",
         "noFile": "No file",
         "birthDate": "Birthdate",
         "deathDate": "Death date",
         "nationality": "Nationality",
         "image": "Image",
-        "choiceFile": "Choose a file"
+        "choiceFile": "Choose a file",
+        "alert": "Your request has been sent. An administrator will validate the addition.",
+        "admin": {
+            "recentAdd": "Recent add",
+            "addAnAuthor": "Add an author",
+            "editBook": "Edit a book",
+            "bookList": "Book list",
+            "authorList": "Author list",
+            "reject": "Reject"
+        }
     },
     "admin": {
         "recentAdd": "Recent add",
-        "addAnAuthor": "Ajdd an author",
+        "addAnAuthor": "Add an author",
         "bookList": "Book list",
         "authorList": "Author list",
         "reject": "Reject"

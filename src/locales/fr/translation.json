@@ -93,7 +93,16 @@
         "deathDate": "Date de décés",
         "nationality": "Nationalité",
         "image": "Image",
-        "choiceFile": "Choisir un fichier"
+        "choiceFile": "Choisir un fichier",
+        "alert": "Votre demande a été envoyée. Un administrateur va valider l'ajout.",
+        "admin": {
+            "recentAdd": "Ajout réçent",
+            "addAnAuthor": "Ajouter un auteur",
+            "editBook": "Modifier un livre",
+            "bookList": "Liste des livres",
+            "authorList": "Liste des auteurs",
+            "reject": "Refuser"
+        }
     },
     "admin": {
         "recentAdd": "Ajout réçent",

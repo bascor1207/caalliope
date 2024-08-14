@@ -4,11 +4,11 @@ import { useTranslation } from 'react-i18next';
 
 import styles from './add-book-form.module.scss';
 
-interface AddBookFormProps {
+interface EditBookFormProps {
     hideModal: () => void;
   }
 
-export const AddBookForm: FC<AddBookFormProps> = ({ hideModal }) => {
+export const EditBookForm: FC<EditBookFormProps> = ({ hideModal }) => {
     const { t } = useTranslation();
     const {
         formState: { errors }
@@ -25,7 +25,7 @@ export const AddBookForm: FC<AddBookFormProps> = ({ hideModal }) => {
     return (
         <form onSubmit={onSubmit}>
             <div className={styles.container}>
-                <span className={styles.title}>{t('addABook')}</span>
+                <span className={styles.title}>{t('form.admin.editBook')}</span>
                 <div className={styles.isbn}>
                     <label>{t('form.isbn')} </label>
                     <input className={styles.input} type='text' name='ibsn' required />
@@ -81,7 +81,7 @@ export const AddBookForm: FC<AddBookFormProps> = ({ hideModal }) => {
                             accept='image/png, image/jpeg' />
                     </div>
                     <button className={styles.submit} type='submit'>
-                        {t('valid')}
+                        {t('edit')}
                     </button>
                 </div>
             </div>
