@@ -41,8 +41,8 @@ export const BookCard: FC<Props> = ({ book, slideSize }) => {
                         <Image className={styles['book-image']} src={book.image} alt={'livre'} width={300} height={400}/>
                     </div>
                     <div className={styles.body}>
-                        <div className={styles.title}>{book.author.lastname} { book.author.firstname }</div>
-                        <div className={styles.text}>{ book.type }</div>
+                        <div className={styles.title}>{book.title}</div>
+                        <div className={styles.author}>{book.author.lastname} { book.author.firstname }</div>
                         <div className={styles['book-subject']}>
                             {book.subject.map((subject) => {
                                 return (
