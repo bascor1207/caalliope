@@ -19,7 +19,7 @@ export const NoResults = () => {
       <p>Pas de résultat pour cette recherche</p>
       <Modal isShown={isShown} hideModal={toggle} modalContent={<AddBookForm hideModal={toggle} />} />
         <button className={styles.update} onClick={toggle}>
-                {t('library.addBook')}
+                {t('addABook')}
         </button>
     </div>
   );
