@@ -1,6 +1,6 @@
-import { Book } from '@/modules/books/get-one-book/connector-to.get-one-book';
+import { Book, ConnectorToGetOneBook } from '@/modules/books/get-one-book/connector-to.get-one-book';
 
-export class FakeGetOneBookGateway {
+export class FakeGetOneBookGateway implements ConnectorToGetOneBook {
 
     returnedResponse!: Book;
 
@@ -12,6 +12,7 @@ export class FakeGetOneBookGateway {
     }
 
     getOneBookById(id: number): Promise<Book> {
+        console.log('totototototootootto');
         return new Promise((resolve, reject) => {
             if (!id) return reject();
             return resolve(this.returnedResponse);

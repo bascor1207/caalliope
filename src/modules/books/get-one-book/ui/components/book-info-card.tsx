@@ -3,7 +3,7 @@ import Image from 'next/image';
 
 import { Book } from '../../connector-to.get-one-book';
 
-import styles from './book-info-card-catalog.module.scss';
+import styles from './book-info-card.module.scss';
 
 type Props = {
     book: Book;
@@ -42,9 +42,9 @@ export const BookInfoCard: React.FC<Props> = ({ book }) => {
           {book.summary}
         </p>
           <div className={styles.subject}>
-            {book.subject.map((subject) => {
+            {book.subjects.map((subject) => {
               return (
-                <div key={subject.subject.id}>{subject.subject.label}</div>
+                <div key={subject.id}>{subject.label}</div>
               )
             })}
           </div>

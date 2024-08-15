@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getBooksUseCase } from '../usecase/get-books.usecase';
-import { Book } from '../connector-to.get-books';
+
 import { getBooksLastReleaseUseCase } from '../usecase/get-last-release-books/get-last-release-books.usecase';
 import { getPopularBooksUseCase } from '../usecase/get-popular-books/get-popular-books.usecase';
+import { BooksModel } from '@/modules/books/model/books.model';
 
 type InitialState = {
-    books: Book[];
+    books: BooksModel.Book[];
 };
 
 type GetBooksSliceType = InitialState & {

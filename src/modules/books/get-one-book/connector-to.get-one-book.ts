@@ -1,6 +1,6 @@
 export interface ConnectorToGetOneBook {
-    getOneBookByAuthor(authorName: string): Promise<Book>;
-    getOneBookById(id: number): Promise<Book>;
+    getOneBookByAuthor(authorName: string): Promise<Partial<Book>>;
+    getOneBookById(id: number): Promise<Partial<Book>>;
 }
 
 export type Book = {
@@ -9,7 +9,7 @@ export type Book = {
     author: Author;
     summary: string;
     type: string;
-    subject: Subject[];
+    subjects: Subject[];
     publishing: Publishing[];
     reviews: Review[];
     rating: number;
@@ -27,10 +27,8 @@ export type Author = {
 }
 
 export type Subject = {
-    subject: {
         id: number,
         label: string
-    }
 }
 
 export type Publishing = {

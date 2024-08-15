@@ -45,12 +45,10 @@ const book = {
     },
     summary: 'summary test',
     type: 'Novel',
-    subject: [
+    subjects: [
         {
-            subject: {
                 id: 1,
                 label: 'Fantasy Medieval'
-            }
         }
     ],
     publishing: [
