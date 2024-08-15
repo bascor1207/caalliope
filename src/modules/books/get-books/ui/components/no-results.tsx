@@ -12,7 +12,7 @@ export const NoResults = () => {
 
   const toggle = () => {
     setIsShown(!isShown);
-};
+  };
 
   return (
     <div className={styles['no-results']}>
