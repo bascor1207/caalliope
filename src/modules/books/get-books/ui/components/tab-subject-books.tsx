@@ -1,4 +1,4 @@
-import { Box, Tab, Tabs } from '@mui/material';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { FC, useState } from 'react';
 
 type TabBooksProps = {
@@ -33,28 +33,23 @@ export const TabSubjectBooks: FC<TabBooksProps> = ({
   };
 
   return (
-    <Box sx={{ maxWidth: { xs: 500, sm: 1500 }, margin: '10px' }}>
-      <Tabs
-        className='tabs'
-        value={value}
-        onChange={(_, newValue) => setValue(newValue)}
-        variant='scrollable'
-        scrollButtons='auto'
-        aria-label='scrollable auto tabs example'
-      >
-        {SUBJECTS_TAB.map((tab) => (
-          <Tab
-            className='tab'
-            key={tab.id}
-            value={tab.value}
-            label={tab.label}
-            onClick={() => {
-                labelSubject(tab.value);
-            }}
-            disabled={disabled}
-          />
-        ))}
+      <Tabs defaultValue='Tout' className='w-[400px]'>
+        <TabsList>
+          {SUBJECTS_TAB.map((tab) => (
+               <TabsTrigger
+                 className='tab'
+                 key={tab.id}
+                 value={tab.value}
+                 onClick={() => {
+                     labelSubject(tab.value);
+                 }}
+              >
+                 {tab.label}
+              </TabsTrigger>
+              ))}
+        </TabsList>
+        <TabsContent value='account'>Make changes to your account here.</TabsContent>
+        <TabsContent value='password'>Change your password here.</TabsContent>
       </Tabs>
-    </Box>
   );
 };

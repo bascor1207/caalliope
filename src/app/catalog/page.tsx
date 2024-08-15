@@ -18,7 +18,7 @@ const CatalogPage = () => {
 
   useEffect(() => {
     dispatch(getBooksUseCase());
-  }, [dispatch]);
+  }, []);
 
   const booksByName = useSelector((state: RootState) => getBooksByNameViewmodel(query)(state));
   const booksByAuthor = useSelector((state: RootState) => getBooksByAuthorViewmodel(query)(state));

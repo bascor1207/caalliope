@@ -1,11 +1,11 @@
 import { FC, ReactNode } from 'react';
 import { useSelector } from 'react-redux';
 
-import styles from './book-list-by-subject.module.scss';
 import { getBooksViewModel } from '../get-books/get-books.viewmodel';
 import { getBooksBySubjectUtils } from '../get-books/get-books-by-subject.utils';
 import { NoResults } from './no-results';
-import { BookCardCatalog } from './book-card-catalog';
+import { BooksCatalog } from './book-card-catalog';
+import { Loader } from '@/components/ui/loader';
 
 type BooksListBySubjectProps = {
     subject: string;
@@ -17,7 +17,7 @@ export const BooksListBySubject: FC<BooksListBySubjectProps> = ({ subject }: Boo
   const nodeToRender: ReactNode = (() => {
     switch (viewmodel.type) {
       case 'gettingBooksPending':
-        return <div>Loading...</div>;
+        return <Loader />;
       case 'gettingBooksRejected':
         return <div>Oops...</div>;
       case 'gettingBooksFulfilled': {
@@ -26,14 +26,7 @@ export const BooksListBySubject: FC<BooksListBySubjectProps> = ({ subject }: Boo
           return <NoResults />;
         }
         return (
-          <div className={styles.list}>
-            {filteredBooks.map((book) => (
-              <BookCardCatalog
-                key={book.id}
-                book={book}
-              />
-            ))}
-          </div>
+         <BooksCatalog books={filteredBooks} />
         );
       }
       default:

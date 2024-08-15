@@ -9,10 +9,49 @@ import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-g
 import { initLocale } from '@/i18n';
 
 const book = {
-    id: '1',
-    title: 'Le seigneur des anneaux',
-    author: 'Laura bojon',
-}
+    id: 1,
+    title: 'novel title',
+    author: {
+        id: 1,
+        lastname: 'Medieval',
+        firstname: 'Bastien',
+        image: 'test',
+        email: 'test',
+        birthDate: 'test'
+    },
+    summary: 'summary test',
+    type: 'Novel',
+    subjects: [
+        {
+            id: 1,
+            label: 'Fantasy Medieval'
+        }
+    ],
+    publishing: [
+        {
+            publishingHouse: {
+                id: 1,
+                label: 'Lumen',
+                language: 'Français',
+                numberOfPages: 684,
+                dateofPublication: '2023'
+            }
+        }
+    ],
+    reviews: [
+        {
+            review: {
+                id: 1,
+                userId: 1,
+                comment: 'test',
+                date: '2023'
+            }
+        }
+    ],
+    rating: 4.5,
+    dateOfPublication: '2023',
+    image: '/livre1.jpg'
+};
 
 
 export class App {

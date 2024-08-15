@@ -1,13 +1,13 @@
-import { Book } from '../connector-to.get-books';
+import { BooksModel } from '@/modules/books/model/books.model';
 
 export class FakeGetBooksGateway {
 
     constructor(private delayToResponse: number = 0) {}
 
     public connectedUser!: boolean;
-    public returnedResponse!: Book[];
+    public returnedResponse!: BooksModel.Book[];
 
-    getBooks(): Promise<Book[]> {
+    getBooks(): Promise<BooksModel.Book[]> {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 const response = this.returnedResponse;
@@ -17,7 +17,7 @@ export class FakeGetBooksGateway {
         })
     }
 
-    getPopularBooks(): Promise<Book[]> {
+    getPopularBooks(): Promise<BooksModel.Book[]> {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 const response = this.returnedResponse;
@@ -27,7 +27,7 @@ export class FakeGetBooksGateway {
         })
     }
 
-    getLastReleaseBooks(): Promise<Book[]> {
+    getLastReleaseBooks(): Promise<BooksModel.Book[]> {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 const response = this.returnedResponse;
@@ -37,7 +37,7 @@ export class FakeGetBooksGateway {
         })
     }
 
-    getBooksBySearch(search: string): Promise<Book[]> {
+    getBooksBySearch(search: string): Promise<BooksModel.Book[]> {
         return new Promise((resolve, reject) => {
             if (!search) return reject();
             return resolve(this.returnedResponse);

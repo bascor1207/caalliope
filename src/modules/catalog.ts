@@ -11,12 +11,10 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Fiction',
-    'subject': [
+    'subjects': [
       {
-        'subject': {
             'id': '1',
             'label': 'mystery'
-        }
       }
     ],
     'image': '/livre1.jpg',
@@ -34,12 +32,10 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Non-Fiction',
-    'subject': [
+    'subjects': [
       {
-        'subject': {
             'id': '2',
             'label': 'science'
-        }
       }
     ],
     'image': '/livre1.jpg',
@@ -57,13 +53,11 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Fiction',
-    'subject': [
+    'subjects': [
       {
-        'subject': {
             'id': '1',
             'label': 'mystery'
         }
-      }
     ],
     'image': '/livre1.jpg',
     'dateOfPublication': '2022-03-15'
@@ -80,12 +74,10 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Non-Fiction',
-    'subject': [
+    'subjects': [
       {
-        'subject': {
             'id': '2',
             'label': 'science'
-        }
       }
     ],
     'image': '/livre1.jpg',
@@ -103,12 +95,10 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Fiction',
-    'subject': [
+    'subjects': [
       {
-        'subject': {
             'id': '1',
             'label': 'mystery'
-        }
       }
     ],
     'image': '/livre1.jpg',
@@ -126,12 +116,10 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Non-Fiction',
-    'subject': [
+    'subjects': [
       {
-        'subject': {
             'id': '2',
             'label': 'science'
-        }
       }
     ],
     'image': '/livre1.jpg',
@@ -149,12 +137,10 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Fiction',
-    'subject': [
+    'subjects': [
       {
-        'subject': {
             'id': '1',
             'label': 'mystery'
-        }
       }
     ],
     'image': '/livre1.jpg',
@@ -172,12 +158,10 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Non-Fiction',
-    'subject': [
+    'subjects': [
       {
-        'subject': {
             'id': '2',
             'label': 'science'
-        }
       }
     ],
     'image': '/livre1.jpg',
@@ -195,12 +179,10 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Fiction',
-    'subject': [
+    'subjects': [
       {
-        'subject': {
             'id': '1',
             'label': 'mystery'
-        }
       }
     ],
     'image': '/livre1.jpg',
@@ -218,12 +200,10 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Non-Fiction',
-    'subject': [
+    'subjects': [
       {
-        'subject': {
             'id': '2',
             'label': 'science'
-        }
       }
     ],
     'image': '/livre1.jpg',
@@ -241,12 +221,10 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'Fiction',
-    'subject': [
+    'subjects': [
       {
-        'subject': {
             'id': '1',
             'label': 'mystery'
-        }
       }
     ],
     'image': '/livre1.jpg',
@@ -264,12 +242,10 @@ export const catalog = [
       'birthDate': ''
     },
     'type': 'fiction',
-    'subject': [
+    'subjects': [
       {
-        'subject': {
             'id': '3',
             'label': 'fantasy'
-        }
       }
     ],
     'image': '/livre1.jpg',

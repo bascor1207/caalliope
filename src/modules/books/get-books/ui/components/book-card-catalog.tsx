@@ -1,48 +1,32 @@
-'use client'
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
+'use client';
+
+import { LayoutGrid } from '@/components/ui/layout-grid';
+
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
 
-import { AppDispatch } from '@/modules/store/create-store';
-import { Book } from '@/modules/books/get-books/connector-to.get-books';
-import { getOneBookById } from '@/modules/books/get-one-book/usecase/get-one-book-by-id.usecase';
+import { BooksModel } from '@/modules/books/model/books.model';
 
-import styles from './book-card.module.scss'
+import { BookCard } from '@/modules/books/get-books/ui/components/BookCard';
 
 type Props = {
-    book: Book;
+    books: BooksModel.Book[];
 }
 
-export const BookCardCatalog: FC<Props> = ({ book }) => {
-    const dispatch = useDispatch<AppDispatch>();
-    const router = useRouter()
+export const BooksCatalog: FC<Props> = ({ books }) => {
+    const booksCards = books.map((book) => createCards(book))
 
-    const getOneBookAndRedirect = (bookId: number) => {
-        console.log(bookId);
-        dispatch(getOneBookById(book.id)).then(() => router.push(`/catalog/${bookId}`))
-    }
     return (
-        <section className={styles.container} onClick={() => getOneBookAndRedirect(book.id)}>
-            <div key={book.author + book.dateOfPublication} className={styles.subcontainer}>
-                <div className={styles.container}>
-                    <div className={styles['img-top-container']}>
-                        <Image className={styles['book-image']} src={book.image} alt={'livre'} width={200} height={200}/>
-                    </div>
-                    <div className={styles.body}>
-                        <div className={styles.title}>{book.title}</div>
-                        <div className={styles.author}>{book.author.lastname} { book.author.firstname }</div>
-                        <div className={styles['book-subject']}>
-                            {book.subject.map((subject) => {
-                                return (
-                                    <div key={subject.subject.id}>{subject.subject.label}</div>
-                                )
-                            })}
-                        </div>
-                        <div className={styles['book-publication-date']}>{ book.dateOfPublication }</div>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <div className='h-[700px] w-full'>
+            <LayoutGrid cards={booksCards}/>
+        </div>
     );
 }
+
+const createCards = (book: BooksModel.Book) => (
+    {
+        id: book.id,
+        content: <BookCard book={book}/>,
+        className: 'h-full',
+        thumbnail: book.image
+    }
+)

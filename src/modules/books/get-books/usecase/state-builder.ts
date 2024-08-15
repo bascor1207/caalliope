@@ -1,11 +1,11 @@
 import { ActionCreatorWithPayload, createAction, createReducer } from '@reduxjs/toolkit';
 import { rootReducer } from '@/modules/store/root-reducer';
 import { RootState } from '@/modules/store/create-store';
-import { Book } from '@/modules/books/get-books/connector-to.get-books';
+import { BooksModel } from '@/modules/books/model/books.model';
 
 type PayloadForTest = {
     //connectedUser: boolean;
-    books: Book[];
+    books: BooksModel.Book[];
 }
 
 // @ts-expect-error I do not understand the error for now

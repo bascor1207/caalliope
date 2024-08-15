@@ -3,7 +3,8 @@ import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-bo
 import { createTestStore } from '@/modules/store/create-store';
 import { getBooksLastReleaseUseCase } from '../get-last-release-books.usecase';
 import { stateBuilder } from './state-builder';
-import { Book } from '../../../connector-to.get-books';
+import { BooksModel } from '@/modules/books/model/books.model';
+import { BookFactory } from '@/modules/books/model/books.factory';
 
 describe('test to retrieve a list of last release books', () => {
     it('should retrieve a list of last release books', async () => {
@@ -30,28 +31,4 @@ const thenTheUserShouldSeeBooksLastRelease = (payload: typeof books): void => {
     expect(state).toEqual(store.getState())
 };
 
-const books: Book[] = [
-    {
-        id: 1,
-        title: 'novel title',
-        author: {
-            id: 1,
-            lastname: 'Medieval',
-            firstname: 'Bastien',
-            image: 'test',
-            email: 'test',
-            birthDate: 'test'
-        },
-        type: 'Novel',
-        subject: [
-            {
-                subject: {
-                    id: 1,
-                    label: 'Fantasy Medieval'
-                }
-            }
-        ],
-        dateOfPublication: '2023',
-        image: 'test'
-    }
-];
+const books: BooksModel.Book[] = [BookFactory.create()]
