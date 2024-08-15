@@ -5,10 +5,10 @@ import {
   // ClassedType,
   // ClassedVariants,
   $$ClassedVariants,
-} from "./types";
-import { mapPropsToVariantClass, parseClassNames } from "./parser";
-import { cn } from "./classNames";
-import { TW_VARS } from "./constants";
+} from './types';
+import { mapPropsToVariantClass, parseClassNames } from './parser';
+import { cn } from './classNames';
+import { TW_VARS } from './constants';
 
 export interface ClassedCoreConfig {
   merger?: (...args: string[]) => any;

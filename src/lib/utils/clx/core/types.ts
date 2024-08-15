@@ -1,8 +1,8 @@
-import type * as Util from "./util";
+import type * as Util from './util';
 
 export type Variant = Record<string, string>;
 export type Variants = Record<string, Variant>;
-export type BooleanVariant = Record<"true", string>;
+export type BooleanVariant = Record<'true', string>;
 
 /**
  * @internal
@@ -64,7 +64,7 @@ export type $$ClassedVariants = typeof $$ClassedVariants;
 export type ClassedProps<T extends any[]> = ($$ClassedProps extends keyof T[0]
   ? T[0][$$ClassedProps]
   : T[0] extends { variants: { [name: string]: unknown } }
-    ? InferVariantProps<T[0]["variants"]>
+    ? InferVariantProps<T[0]['variants']>
     : {}) &
   (T extends [lead: any, ...tail: infer V] ? ClassedProps<V> : {});
 
@@ -72,12 +72,12 @@ export type ClassedProps<T extends any[]> = ($$ClassedProps extends keyof T[0]
 export type ClassedVariants<T extends any[]> = ($$ClassedVariants extends keyof T[0]
   ? T[0][$$ClassedVariants]
   : T[0] extends { variants: { [name: string]: unknown } }
-    ? Pick<T[0], "variants" | "defaultVariants" | "dataAttributes">
+    ? Pick<T[0], 'variants' | 'defaultVariants' | 'dataAttributes'>
     : {}) &
   (T extends [lead: any, ...tail: infer V] ? ClassedVariants<V> : {});
 
 export type VariantProps<T extends ClassedType<any, any>> = InferVariantProps<
-  T[$$ClassedVariants]["variants"]
+  T[$$ClassedVariants]['variants']
 >;
 
 export interface ClassedCoreFunctionType {
@@ -99,18 +99,18 @@ export interface ClassedCoreFunctionType {
           : {
               base?: string;
               variants?: Variants;
-              defaultVariants?: "variants" extends keyof Composers[K]
+              defaultVariants?: 'variants' extends keyof Composers[K]
                 ? {
-                    [Name in keyof Composers[K]["variants"]]?: Util.Widen<
-                      keyof Composers[K]["variants"][Name]
+                    [Name in keyof Composers[K]['variants']]?: Util.Widen<
+                      keyof Composers[K]['variants'][Name]
                     >;
                   }
                 : never;
-              compoundVariants?: (("variants" extends keyof Composers[K]
+              compoundVariants?: (('variants' extends keyof Composers[K]
                 ? {
-                    [Name in keyof Composers[K]["variants"]]?:
-                      | Util.Widen<keyof Composers[K]["variants"][Name]>
-                      | Array<Util.Widen<keyof Composers[K]["variants"][Name]>>
+                    [Name in keyof Composers[K]['variants']]?:
+                      | Util.Widen<keyof Composers[K]['variants'][Name]>
+                      | Array<Util.Widen<keyof Composers[K]['variants'][Name]>>
                       | Util.String;
                   }
                 : never) & {
@@ -118,8 +118,8 @@ export interface ClassedCoreFunctionType {
                 class?: Util.String;
               })[];
 
-              dataAttributes?: "variants" extends keyof Composers[K]
-                ? Array<keyof Composers[K]["variants"]>
+              dataAttributes?: 'variants' extends keyof Composers[K]
+                ? Array<keyof Composers[K]['variants']>
                 : Array<string>;
             };
     }

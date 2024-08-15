@@ -1,32 +1,32 @@
 /// <reference types="resize-observer-browser" />
 
-import * as React from "react";
-import ReactDOM from "react-dom";
+import * as React from 'react';
+import ReactDOM from 'react-dom';
 
-import type * as Radix from "./core-primitive";
-import { Primitive, dispatchDiscreteCustomEvent } from "./core-primitive";
-import { useCallbackRef } from "./use-callback-ref";
-import { composeRefs, useComposedRefs } from "./use-compose-refs";
-import { useControllableState } from "./use-controllable-state";
-import { useId } from "./use-id";
-import { useLayoutEffect } from "./use-layout-effect";
-import { usePrevious } from "./use-previous";
-import { createCollection } from "./utils-collection";
-import { composeEventHandlers } from "./utils-compose";
-import { createContextScope, type Scope } from "./utils-context";
-import { useDirection } from "./utils-direction";
-import { DismissableLayer } from "./utils-dismissable-layer";
-import { Presence } from "./utils-presence";
-import * as VisuallyHiddenPrimitive from "./utils-visually-hidden";
+import type * as Radix from './core-primitive';
+import { Primitive, dispatchDiscreteCustomEvent } from './core-primitive';
+import { useCallbackRef } from './use-callback-ref';
+import { composeRefs, useComposedRefs } from './use-compose-refs';
+import { useControllableState } from './use-controllable-state';
+import { useId } from './use-id';
+import { useLayoutEffect } from './use-layout-effect';
+import { usePrevious } from './use-previous';
+import { createCollection } from './utils-collection';
+import { composeEventHandlers } from './utils-compose';
+import { createContextScope, type Scope } from './utils-context';
+import { useDirection } from './utils-direction';
+import { DismissableLayer } from './utils-dismissable-layer';
+import { Presence } from './utils-presence';
+import * as VisuallyHiddenPrimitive from './utils-visually-hidden';
 
-type Orientation = "vertical" | "horizontal";
-type Direction = "ltr" | "rtl";
+type Orientation = 'vertical' | 'horizontal';
+type Direction = 'ltr' | 'rtl';
 
 /* -------------------------------------------------------------------------------------------------
  * NavigationMenu
  * -----------------------------------------------------------------------------------------------*/
 
-const NAVIGATION_MENU_NAME = "NavigationMenu";
+const NAVIGATION_MENU_NAME = 'NavigationMenu';
 
 const [Collection, useCollection, createCollectionScope] = createCollection<
   NavigationMenuTriggerElement,
@@ -106,7 +106,7 @@ const NavigationMenu = React.forwardRef<NavigationMenuElement, NavigationMenuPro
       defaultValue,
       delayDuration = 200,
       skipDelayDuration = 300,
-      orientation = "horizontal",
+      orientation = 'horizontal',
       dir,
       ...NavigationMenuProps
     } = props;
@@ -118,10 +118,10 @@ const NavigationMenu = React.forwardRef<NavigationMenuElement, NavigationMenuPro
     const closeTimerRef = React.useRef(0);
     const skipDelayTimerRef = React.useRef(0);
     const [isOpenDelayed, setIsOpenDelayed] = React.useState(true);
-    const [value = "", setValue] = useControllableState({
+    const [value = '', setValue] = useControllableState({
       prop: valueProp,
       onChange: (value) => {
-        const isOpen = value !== "";
+        const isOpen = value !== '';
         const hasSkipDelayDuration = skipDelayDuration > 0;
 
         if (isOpen) {
@@ -144,7 +144,7 @@ const NavigationMenu = React.forwardRef<NavigationMenuElement, NavigationMenuPro
 
     const startCloseTimer = React.useCallback(() => {
       window.clearTimeout(closeTimerRef.current);
-      closeTimerRef.current = window.setTimeout(() => setValue(""), 150);
+      closeTimerRef.current = window.setTimeout(() => setValue(''), 150);
     }, [setValue]);
 
     const handleOpen = React.useCallback(
@@ -203,12 +203,12 @@ const NavigationMenu = React.forwardRef<NavigationMenuElement, NavigationMenuPro
         onContentEnter={() => window.clearTimeout(closeTimerRef.current)}
         onContentLeave={startCloseTimer}
         onItemSelect={(itemValue) => {
-          setValue((prevValue) => (prevValue === itemValue ? "" : itemValue));
+          setValue((prevValue) => (prevValue === itemValue ? '' : itemValue));
         }}
-        onItemDismiss={() => setValue("")}
+        onItemDismiss={() => setValue('')}
       >
         <Primitive.nav
-          aria-label="Main"
+          aria-label='Main'
           data-orientation={orientation}
           dir={direction}
           {...NavigationMenuProps}
@@ -225,7 +225,7 @@ NavigationMenu.displayName = NAVIGATION_MENU_NAME;
  * NavigationMenuSub
  * -----------------------------------------------------------------------------------------------*/
 
-const SUB_NAME = "NavigationMenuSub";
+const SUB_NAME = 'NavigationMenuSub';
 
 type NavigationMenuSubElement = React.ElementRef<typeof Primitive.div>;
 type PrimitiveDivProps = Radix.ComponentPropsWithoutRef<typeof Primitive.div>;
@@ -247,11 +247,11 @@ const NavigationMenuSub = React.forwardRef<
     value: valueProp,
     onValueChange,
     defaultValue,
-    orientation = "horizontal",
+    orientation = 'horizontal',
     ...subProps
   } = props;
   const context = useNavigationMenuContext(SUB_NAME, __scopeNavigationMenu);
-  const [value = "", setValue] = useControllableState({
+  const [value = '', setValue] = useControllableState({
     prop: valueProp,
     onChange: onValueChange,
     defaultProp: defaultValue,
@@ -267,7 +267,7 @@ const NavigationMenuSub = React.forwardRef<
       rootNavigationMenu={context.rootNavigationMenu}
       onTriggerEnter={(itemValue) => setValue(itemValue)}
       onItemSelect={(itemValue) => setValue(itemValue)}
-      onItemDismiss={() => setValue("")}
+      onItemDismiss={() => setValue('')}
     >
       <Primitive.div data-orientation={orientation} {...subProps} ref={forwardedRef} />
     </NavigationMenuProvider>
@@ -294,7 +294,7 @@ interface NavigationMenuProviderPrivateProps {
   onItemDismiss(): void;
 }
 
-interface NavigationMenuProviderProps extends NavigationMenuProviderPrivateProps {}
+type NavigationMenuProviderProps = NavigationMenuProviderPrivateProps
 
 const NavigationMenuProvider: React.FC<NavigationMenuProviderProps> = (
   props: ScopedProps<NavigationMenuProviderProps>,
@@ -371,11 +371,11 @@ const NavigationMenuProvider: React.FC<NavigationMenuProviderProps> = (
  * NavigationMenuList
  * -----------------------------------------------------------------------------------------------*/
 
-const LIST_NAME = "NavigationMenuList";
+const LIST_NAME = 'NavigationMenuList';
 
 type NavigationMenuListElement = React.ElementRef<typeof Primitive.ul>;
 type PrimitiveUnorderedListProps = Radix.ComponentPropsWithoutRef<typeof Primitive.ul>;
-interface NavigationMenuListProps extends PrimitiveUnorderedListProps {}
+type NavigationMenuListProps = PrimitiveUnorderedListProps
 
 const NavigationMenuList = React.forwardRef<
   NavigationMenuListElement,
@@ -393,7 +393,7 @@ const NavigationMenuList = React.forwardRef<
   );
 
   return (
-    <Primitive.div style={{ position: "relative" }} ref={context.onIndicatorTrackChange}>
+    <Primitive.div style={{ position: 'relative' }} ref={context.onIndicatorTrackChange}>
       <Collection.Slot scope={__scopeNavigationMenu}>
         {context.isRootMenu ? <FocusGroup asChild>{list}</FocusGroup> : list}
       </Collection.Slot>
@@ -407,7 +407,7 @@ NavigationMenuList.displayName = LIST_NAME;
  * NavigationMenuItem
  * -----------------------------------------------------------------------------------------------*/
 
-const ITEM_NAME = "NavigationMenuItem";
+const ITEM_NAME = 'NavigationMenuItem';
 
 type FocusProxyElement = React.ElementRef<typeof VisuallyHiddenPrimitive.Root>;
 
@@ -418,7 +418,7 @@ type NavigationMenuItemContextValue = {
   focusProxyRef: React.RefObject<FocusProxyElement>;
   wasEscapeCloseRef: React.MutableRefObject<boolean>;
   onEntryKeyDown(): void;
-  onFocusProxyEnter(side: "start" | "end"): void;
+  onFocusProxyEnter(side: 'start' | 'end'): void;
   onRootContentClose(): void;
   onContentFocusOutside(): void;
 };
@@ -440,19 +440,19 @@ const NavigationMenuItem = React.forwardRef<
   const autoValue = useId();
   // We need to provide an initial deterministic value as `useId` will return
   // empty string on the first render and we don't want to match our internal "closed" value.
-  const value = valueProp || autoValue || "LEGACY_REACT_AUTO_VALUE";
+  const value = valueProp || autoValue || 'LEGACY_REACT_AUTO_VALUE';
   const contentRef = React.useRef<NavigationMenuContentElement>(null);
   const triggerRef = React.useRef<NavigationMenuTriggerElement>(null);
   const focusProxyRef = React.useRef<FocusProxyElement>(null);
   const restoreContentTabOrderRef = React.useRef(() => {});
   const wasEscapeCloseRef = React.useRef(false);
 
-  const handleContentEntry = React.useCallback((side = "start") => {
+  const handleContentEntry = React.useCallback((side = 'start') => {
     if (contentRef.current) {
       restoreContentTabOrderRef.current();
       const candidates = getTabbableCandidates(contentRef.current);
       if (candidates.length) {
-        focusFirst(side === "start" ? candidates : candidates.reverse());
+        focusFirst(side === 'start' ? candidates : candidates.reverse());
       }
     }
   }, []);
@@ -490,11 +490,11 @@ NavigationMenuItem.displayName = ITEM_NAME;
  * NavigationMenuTrigger
  * -----------------------------------------------------------------------------------------------*/
 
-const TRIGGER_NAME = "NavigationMenuTrigger";
+const TRIGGER_NAME = 'NavigationMenuTrigger';
 
 type NavigationMenuTriggerElement = React.ElementRef<typeof Primitive.button>;
 type PrimitiveButtonProps = Radix.ComponentPropsWithoutRef<typeof Primitive.button>;
-interface NavigationMenuTriggerProps extends PrimitiveButtonProps {}
+type NavigationMenuTriggerProps = PrimitiveButtonProps
 
 const NavigationMenuTrigger = React.forwardRef<
   NavigationMenuTriggerElement,
@@ -521,7 +521,7 @@ const NavigationMenuTrigger = React.forwardRef<
           <Primitive.button
             id={triggerId}
             disabled={disabled}
-            data-disabled={disabled ? "" : undefined}
+            data-disabled={disabled ? '' : undefined}
             data-state={getOpenState(open)}
             aria-expanded={open}
             aria-controls={contentId}
@@ -561,9 +561,9 @@ const NavigationMenuTrigger = React.forwardRef<
               wasClickCloseRef.current = open;
             })}
             onKeyDown={composeEventHandlers(props.onKeyDown, (event) => {
-              const verticalEntryKey = context.dir === "rtl" ? "ArrowLeft" : "ArrowRight";
+              const verticalEntryKey = context.dir === 'rtl' ? 'ArrowLeft' : 'ArrowRight';
               const entryKey = {
-                horizontal: "ArrowDown",
+                horizontal: 'ArrowDown',
                 vertical: verticalEntryKey,
               }[context.orientation];
               if (open && event.key === entryKey) {
@@ -590,7 +590,7 @@ const NavigationMenuTrigger = React.forwardRef<
               const wasFocusFromContent = content?.contains(prevFocusedElement);
 
               if (wasTriggerFocused || !wasFocusFromContent) {
-                itemContext.onFocusProxyEnter(wasTriggerFocused ? "start" : "end");
+                itemContext.onFocusProxyEnter(wasTriggerFocused ? 'start' : 'end');
               }
             }}
           />
@@ -609,12 +609,12 @@ NavigationMenuTrigger.displayName = TRIGGER_NAME;
  * NavigationMenuLink
  * -----------------------------------------------------------------------------------------------*/
 
-const LINK_NAME = "NavigationMenuLink";
-const LINK_SELECT = "navigationMenu.linkSelect";
+const LINK_NAME = 'NavigationMenuLink';
+const LINK_SELECT = 'navigationMenu.linkSelect';
 
 type NavigationMenuLinkElement = React.ElementRef<typeof Primitive.a>;
 type PrimitiveLinkProps = Radix.ComponentPropsWithoutRef<typeof Primitive.a>;
-interface NavigationMenuLinkProps extends Omit<PrimitiveLinkProps, "onSelect"> {
+interface NavigationMenuLinkProps extends Omit<PrimitiveLinkProps, 'onSelect'> {
   active?: boolean;
   onSelect?: (event: Event) => void;
 }
@@ -628,8 +628,8 @@ const NavigationMenuLink = React.forwardRef<
   return (
     <FocusGroupItem asChild>
       <Primitive.a
-        data-active={active ? "" : undefined}
-        aria-current={active ? "page" : undefined}
+        data-active={active ? '' : undefined}
+        aria-current={active ? 'page' : undefined}
         {...linkProps}
         ref={forwardedRef}
         onClick={composeEventHandlers(
@@ -666,7 +666,7 @@ NavigationMenuLink.displayName = LINK_NAME;
  * NavigationMenuIndicator
  * -----------------------------------------------------------------------------------------------*/
 
-const INDICATOR_NAME = "NavigationMenuIndicator";
+const INDICATOR_NAME = 'NavigationMenuIndicator';
 
 type NavigationMenuIndicatorElement = NavigationMenuIndicatorImplElement;
 interface NavigationMenuIndicatorProps extends NavigationMenuIndicatorImplProps {
@@ -698,7 +698,7 @@ const NavigationMenuIndicator = React.forwardRef<
 NavigationMenuIndicator.displayName = INDICATOR_NAME;
 
 type NavigationMenuIndicatorImplElement = React.ElementRef<typeof Primitive.div>;
-interface NavigationMenuIndicatorImplProps extends PrimitiveDivProps {}
+type NavigationMenuIndicatorImplProps = PrimitiveDivProps
 
 const NavigationMenuIndicatorImpl = React.forwardRef<
   NavigationMenuIndicatorImplElement,
@@ -713,7 +713,7 @@ const NavigationMenuIndicatorImpl = React.forwardRef<
     size: number;
     offset: number;
   } | null>(null);
-  const isHorizontal = context.orientation === "horizontal";
+  const isHorizontal = context.orientation === 'horizontal';
   const isVisible = Boolean(context.value);
 
   React.useEffect(() => {
@@ -743,12 +743,12 @@ const NavigationMenuIndicatorImpl = React.forwardRef<
   return position ? (
     <Primitive.div
       aria-hidden
-      data-state={isVisible ? "visible" : "hidden"}
+      data-state={isVisible ? 'visible' : 'hidden'}
       data-orientation={context.orientation}
       {...indicatorProps}
       ref={forwardedRef}
       style={{
-        position: "absolute",
+        position: 'absolute',
         ...(isHorizontal
           ? {
               left: 0,
@@ -765,13 +765,13 @@ const NavigationMenuIndicatorImpl = React.forwardRef<
     />
   ) : null;
 });
-NavigationMenuIndicatorImpl.displayName = "NavigationMenuIndicatorImpl";
+NavigationMenuIndicatorImpl.displayName = 'NavigationMenuIndicatorImpl';
 
 /* -------------------------------------------------------------------------------------------------
  * NavigationMenuContent
  * -----------------------------------------------------------------------------------------------*/
 
-const CONTENT_NAME = "NavigationMenuContent";
+const CONTENT_NAME = 'NavigationMenuContent';
 
 type NavigationMenuContentElement = NavigationMenuContentImplElement;
 interface NavigationMenuContentProps
@@ -825,7 +825,7 @@ const NavigationMenuContent = React.forwardRef<
         )}
         style={{
           // Prevent interaction when animating out
-          pointerEvents: !open && context.isRootMenu ? "none" : undefined,
+          pointerEvents: !open && context.isRootMenu ? 'none' : undefined,
           ...commonProps.style,
         }}
       />
@@ -869,13 +869,13 @@ const ViewportContentMounter = React.forwardRef<
   // Content is proxied into the viewport
   return null;
 });
-ViewportContentMounter.displayName = "ViewportContentMounter";
+ViewportContentMounter.displayName = 'ViewportContentMounter';
 
 /* -----------------------------------------------------------------------------------------------*/
 
-const ROOT_CONTENT_DISMISS = "navigationMenu.rootContentDismiss";
+const ROOT_CONTENT_DISMISS = 'navigationMenu.rootContentDismiss';
 
-type MotionAttribute = "to-start" | "to-end" | "from-start" | "from-end";
+type MotionAttribute = 'to-start' | 'to-end' | 'from-start' | 'from-end';
 type NavigationMenuContentImplElement = React.ElementRef<typeof DismissableLayer>;
 type DismissableLayerProps = Radix.ComponentPropsWithoutRef<typeof DismissableLayer>;
 
@@ -888,7 +888,7 @@ interface NavigationMenuContentImplPrivateProps {
   onRootContentClose(): void;
 }
 interface NavigationMenuContentImplProps
-  extends Omit<DismissableLayerProps, "onDismiss" | "disableOutsidePointerEvents">,
+  extends Omit<DismissableLayerProps, 'onDismiss' | 'disableOutsidePointerEvents'>,
     NavigationMenuContentImplPrivateProps {}
 
 const NavigationMenuContentImpl = React.forwardRef<
@@ -935,7 +935,7 @@ const NavigationMenuContentImpl = React.forwardRef<
   const motionAttribute = React.useMemo(() => {
     const items = getItems();
     const values = items.map((item) => item.value);
-    if (context.dir === "rtl") {
+    if (context.dir === 'rtl') {
       values.reverse();
     }
     const index = values.indexOf(context.value);
@@ -954,11 +954,11 @@ const NavigationMenuContentImpl = React.forwardRef<
       if (index !== prevIndex) {
         // If we're moving to this item from another
         if (isSelected && prevIndex !== -1) {
-          return index > prevIndex ? "from-end" : "from-start";
+          return index > prevIndex ? 'from-end' : 'from-start';
         }
         // If we're leaving this item for another
         if (wasSelected && index !== -1) {
-          return index > prevIndex ? "to-start" : "to-end";
+          return index > prevIndex ? 'to-start' : 'to-end';
         }
       }
       // Otherwise we're entering from closed or leaving the list
@@ -1011,7 +1011,7 @@ const NavigationMenuContentImpl = React.forwardRef<
         )}
         onKeyDown={composeEventHandlers(props.onKeyDown, (event) => {
           const isMetaKey = event.altKey || event.ctrlKey || event.metaKey;
-          const isTabKey = event.key === "Tab" && !isMetaKey;
+          const isTabKey = event.key === 'Tab' && !isMetaKey;
           if (isTabKey) {
             const candidates = getTabbableCandidates(event.currentTarget);
             const focusedElement = document.activeElement;
@@ -1044,17 +1044,17 @@ const NavigationMenuContentImpl = React.forwardRef<
   );
 });
 
-NavigationMenuContentImpl.displayName = "NavigationMenuContentImpl";
+NavigationMenuContentImpl.displayName = 'NavigationMenuContentImpl';
 
 /* -------------------------------------------------------------------------------------------------
  * NavigationMenuViewport
  * -----------------------------------------------------------------------------------------------*/
 
-const VIEWPORT_NAME = "NavigationMenuViewport";
+const VIEWPORT_NAME = 'NavigationMenuViewport';
 
 type NavigationMenuViewportElement = NavigationMenuViewportImplElement;
 interface NavigationMenuViewportProps
-  extends Omit<NavigationMenuViewportImplProps, "children" | "activeContentValue"> {
+  extends Omit<NavigationMenuViewportImplProps, 'children' | 'activeContentValue'> {
   /**
    * Used to force mounting when more control is needed. Useful when
    * controlling animation with React animation libraries.
@@ -1082,7 +1082,7 @@ NavigationMenuViewport.displayName = VIEWPORT_NAME;
 /* -----------------------------------------------------------------------------------------------*/
 
 type NavigationMenuViewportImplElement = React.ElementRef<typeof Primitive.div>;
-interface NavigationMenuViewportImplProps extends PrimitiveDivProps {}
+type NavigationMenuViewportImplProps = PrimitiveDivProps
 
 const NavigationMenuViewportImpl = React.forwardRef<
   NavigationMenuViewportImplElement,
@@ -1128,9 +1128,9 @@ const NavigationMenuViewportImpl = React.forwardRef<
       ref={composedRefs}
       style={{
         // Prevent interaction when animating out
-        pointerEvents: !open && context.isRootMenu ? "none" : undefined,
-        ["--radix-navigation-menu-viewport-width" as any]: viewportWidth,
-        ["--radix-navigation-menu-viewport-height" as any]: viewportHeight,
+        pointerEvents: !open && context.isRootMenu ? 'none' : undefined,
+        ['--radix-navigation-menu-viewport-width' as any]: viewportWidth,
+        ['--radix-navigation-menu-viewport-height' as any]: viewportHeight,
         ...viewportImplProps.style,
       }}
       onPointerEnter={composeEventHandlers(props.onPointerEnter, context.onContentEnter)}
@@ -1162,14 +1162,14 @@ const NavigationMenuViewportImpl = React.forwardRef<
   );
 });
 
-NavigationMenuViewportImpl.displayName = "NavigationMenuViewportImpl";
+NavigationMenuViewportImpl.displayName = 'NavigationMenuViewportImpl';
 
 /* -----------------------------------------------------------------------------------------------*/
 
-const FOCUS_GROUP_NAME = "FocusGroup";
+const FOCUS_GROUP_NAME = 'FocusGroup';
 
 type FocusGroupElement = React.ElementRef<typeof Primitive.div>;
-interface FocusGroupProps extends PrimitiveDivProps {}
+type FocusGroupProps = PrimitiveDivProps
 
 const FocusGroup = React.forwardRef<FocusGroupElement, FocusGroupProps>(
   (props: ScopedProps<FocusGroupProps>, forwardedRef) => {
@@ -1190,11 +1190,11 @@ FocusGroup.displayName = FOCUS_GROUP_NAME;
 
 /* -----------------------------------------------------------------------------------------------*/
 
-const ARROW_KEYS = ["ArrowRight", "ArrowLeft", "ArrowUp", "ArrowDown"];
-const FOCUS_GROUP_ITEM_NAME = "FocusGroupItem";
+const ARROW_KEYS = ['ArrowRight', 'ArrowLeft', 'ArrowUp', 'ArrowDown'];
+const FOCUS_GROUP_ITEM_NAME = 'FocusGroupItem';
 
 type FocusGroupItemElement = React.ElementRef<typeof Primitive.button>;
-interface FocusGroupItemProps extends PrimitiveButtonProps {}
+type FocusGroupItemProps = PrimitiveButtonProps
 
 const FocusGroupItem = React.forwardRef<FocusGroupItemElement, FocusGroupItemProps>(
   (props: ScopedProps<FocusGroupItemProps>, forwardedRef) => {
@@ -1211,13 +1211,13 @@ const FocusGroupItem = React.forwardRef<FocusGroupItemElement, FocusGroupItemPro
           {...groupProps}
           ref={forwardedRef}
           onKeyDown={composeEventHandlers(props.onKeyDown, (event) => {
-            const isFocusNavigationKey = ["Home", "End", ...ARROW_KEYS].includes(
+            const isFocusNavigationKey = ['Home', 'End', ...ARROW_KEYS].includes(
               event.key,
             );
             if (isFocusNavigationKey) {
               let candidateNodes = getItems().map((item) => item.ref.current!);
-              const prevItemKey = context.dir === "rtl" ? "ArrowRight" : "ArrowLeft";
-              const prevKeys = [prevItemKey, "ArrowUp", "End"];
+              const prevItemKey = context.dir === 'rtl' ? 'ArrowRight' : 'ArrowLeft';
+              const prevKeys = [prevItemKey, 'ArrowUp', 'End'];
               if (prevKeys.includes(event.key)) {
                 candidateNodes.reverse();
               }
@@ -1256,7 +1256,7 @@ function getTabbableCandidates(container: HTMLElement) {
   const nodes: HTMLElement[] = [];
   const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, {
     acceptNode: (node: any) => {
-      const isHiddenInput = node.tagName === "INPUT" && node.type === "hidden";
+      const isHiddenInput = node.tagName === 'INPUT' && node.type === 'hidden';
       if (node.disabled || node.hidden || isHiddenInput) {
         return NodeFilter.FILTER_SKIP;
       }
@@ -1288,13 +1288,13 @@ function focusFirst(candidates: HTMLElement[]) {
 
 function removeFromTabOrder(candidates: HTMLElement[]) {
   candidates.forEach((candidate) => {
-    candidate.dataset.tabindex = candidate.getAttribute("tabindex") || "";
-    candidate.setAttribute("tabindex", "-1");
+    candidate.dataset.tabindex = candidate.getAttribute('tabindex') || '';
+    candidate.setAttribute('tabindex', '-1');
   });
   return () => {
     candidates.forEach((candidate) => {
       const prevTabIndex = candidate.dataset.tabindex as string;
-      candidate.setAttribute("tabindex", prevTabIndex);
+      candidate.setAttribute('tabindex', prevTabIndex);
     });
   };
 }
@@ -1325,7 +1325,7 @@ function useResizeObserver(element: HTMLElement | null, onResize: () => void) {
 }
 
 function getOpenState(open: boolean) {
-  return open ? "open" : "closed";
+  return open ? 'open' : 'closed';
 }
 
 function makeTriggerId(baseId: string, value: string) {
@@ -1339,7 +1339,7 @@ function makeContentId(baseId: string, value: string) {
 function whenMouse<E>(
   handler: React.PointerEventHandler<E>,
 ): React.PointerEventHandler<E> {
-  return (event) => (event.pointerType === "mouse" ? handler(event) : undefined);
+  return (event) => (event.pointerType === 'mouse' ? handler(event) : undefined);
 }
 
 /* -----------------------------------------------------------------------------------------------*/

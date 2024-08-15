@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { useCallbackRef } from "./use-callback-ref";
+import { useCallbackRef } from './use-callback-ref';
 
 /**
  * Listens for when the escape key is down
@@ -13,13 +13,13 @@ function useEscapeKeydown(
 
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         onEscapeKeyDown(event);
       }
     };
-    ownerDocument.addEventListener("keydown", handleKeyDown, { capture: true });
+    ownerDocument.addEventListener('keydown', handleKeyDown, { capture: true });
     return () =>
-      ownerDocument.removeEventListener("keydown", handleKeyDown, {
+      ownerDocument.removeEventListener('keydown', handleKeyDown, {
         capture: true,
       });
   }, [onEscapeKeyDown, ownerDocument]);

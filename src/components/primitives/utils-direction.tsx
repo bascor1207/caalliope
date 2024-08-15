@@ -1,10 +1,10 @@
-import * as React from "react";
+import * as React from 'react';
 
 /*´:°•.°+.*•´.*:˚.°*.˚•´.°:°•.°•.*•´.*:˚.°*.˚•´.°:°•.°+.*•´.*:*/
 /*                        DIRECTION                           */
 /*.•°:°.´+˚.*°.˚:*.´•*.+°.•°:´*.´•*.•°.•°:°.´:•˚°.*°.˚:*.´+°.•*/
 
-type Direction = "ltr" | "rtl";
+type Direction = 'ltr' | 'rtl';
 const DirectionContext = React.createContext<Direction | undefined>(undefined);
 
 interface DirectionProviderProps {
@@ -20,7 +20,7 @@ const DirectionProvider: React.FC<DirectionProviderProps> = (props) => {
 
 function useDirection(localDir?: Direction) {
   const globalDir = React.useContext(DirectionContext);
-  return localDir || globalDir || "ltr";
+  return localDir || globalDir || 'ltr';
 }
 
 const Provider = DirectionProvider;

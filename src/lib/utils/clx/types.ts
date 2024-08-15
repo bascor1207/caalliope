@@ -1,12 +1,12 @@
-import type * as Polymorphic from "./polymorphic";
+import type * as Polymorphic from './polymorphic';
 import type {
   InferVariantProps,
   Variants,
   $$ClassedProps,
   $$ClassedVariants,
   VariantConfig,
-} from "./core";
-import * as Util from "./core/util";
+} from './core';
+import * as Util from './core/util';
 
 export { InferVariantProps, Variants, VariantConfig };
 
@@ -27,7 +27,7 @@ export type ComponentProps<Component> = Component extends (...args: any[]) => an
  * Returns the variant props of the given component.
  */
 export type VariantProps<T extends InferableClassedType> = InferVariantProps<
-  T[$$ClassedVariants]["variants"]
+  T[$$ClassedVariants]['variants']
 >;
 
 /**
@@ -45,8 +45,8 @@ export type StrictComponentType<
 >;
 
 export type PickRequiredVariants<T extends AnyClassedComponent & InferableClassedType> =
-  T[$$ClassedVariants]["defaultVariants"] extends {}
-    ? keyof Required<Omit<VariantProps<T>, keyof T[$$ClassedVariants]["defaultVariants"]>>
+  T[$$ClassedVariants]['defaultVariants'] extends {}
+    ? keyof Required<Omit<VariantProps<T>, keyof T[$$ClassedVariants]['defaultVariants']>>
     : never;
 
 /**
@@ -69,13 +69,13 @@ export type DerivedComponentType<
   Type extends keyof JSX.IntrinsicElements | React.ComponentType<any>,
   Props extends {} = {},
   TComposedVariants extends {} = {},
-> = ClassedComponentType<Type, Omit<Props, "as">, TComposedVariants>;
+> = ClassedComponentType<Type, Omit<Props, 'as'>, TComposedVariants>;
 
 /** Returns the cumulative props from the given array of compositions. */
 export type ClassedComponentProps<T extends any[]> = ($$ClassedProps extends keyof T[0]
   ? T[0][$$ClassedProps]
   : T[0] extends { variants: { [name: string]: unknown } }
-    ? InferVariantProps<T[0]["variants"]>
+    ? InferVariantProps<T[0]['variants']>
     : {}) &
   (T extends [lead: any, ...tail: infer V] ? ClassedComponentProps<V> : {});
 
@@ -84,7 +84,7 @@ export type ClassedComponentVariants<T extends any[]> =
   ($$ClassedVariants extends keyof T[0]
     ? T[0][$$ClassedVariants]
     : T[0] extends { variants: { [name: string]: unknown } }
-      ? Pick<T[0], "variants" | "defaultVariants" | "dataAttributes">
+      ? Pick<T[0], 'variants' | 'defaultVariants' | 'dataAttributes'>
       : {}) &
     (T extends [lead: any, ...tail: infer V] ? ClassedComponentVariants<V> : {});
 
@@ -114,19 +114,19 @@ export interface ClassedFunctionType {
           : {
               base?: string;
               variants?: Variants;
-              defaultVariants?: "variants" extends keyof Composers[K]
+              defaultVariants?: 'variants' extends keyof Composers[K]
                 ? {
-                    [Name in keyof Composers[K]["variants"]]?: Util.Widen<
-                      keyof Composers[K]["variants"][Name]
+                    [Name in keyof Composers[K]['variants']]?: Util.Widen<
+                      keyof Composers[K]['variants'][Name]
                     >;
                   }
                 : {};
 
-              compoundVariants?: (("variants" extends keyof Composers[K]
+              compoundVariants?: (('variants' extends keyof Composers[K]
                 ? {
-                    [Name in keyof Composers[K]["variants"]]?:
-                      | Util.Widen<keyof Composers[K]["variants"][Name]>
-                      | Array<Util.Widen<keyof Composers[K]["variants"][Name]>>
+                    [Name in keyof Composers[K]['variants']]?:
+                      | Util.Widen<keyof Composers[K]['variants'][Name]>
+                      | Array<Util.Widen<keyof Composers[K]['variants'][Name]>>
                       | Util.String;
                   }
                 : never) & {
@@ -134,8 +134,8 @@ export interface ClassedFunctionType {
                 class?: Util.String;
               })[];
 
-              dataAttributes?: "variants" extends keyof Composers[K]
-                ? Array<keyof Composers[K]["variants"]>
+              dataAttributes?: 'variants' extends keyof Composers[K]
+                ? Array<keyof Composers[K]['variants']>
                 : Array<string>;
 
               defaultProps?: React.ComponentProps<Type>;
@@ -174,19 +174,19 @@ export interface ClassedProxyFunctionType<
           : {
               base?: string;
               variants?: Variants;
-              defaultVariants?: "variants" extends keyof Composers[K]
+              defaultVariants?: 'variants' extends keyof Composers[K]
                 ? {
-                    [Name in keyof Composers[K]["variants"]]?: Util.Widen<
-                      keyof Composers[K]["variants"][Name]
+                    [Name in keyof Composers[K]['variants']]?: Util.Widen<
+                      keyof Composers[K]['variants'][Name]
                     >;
                   }
                 : {};
 
-              compoundVariants?: (("variants" extends keyof Composers[K]
+              compoundVariants?: (('variants' extends keyof Composers[K]
                 ? {
-                    [Name in keyof Composers[K]["variants"]]?:
-                      | Util.Widen<keyof Composers[K]["variants"][Name]>
-                      | Array<Util.Widen<keyof Composers[K]["variants"][Name]>>
+                    [Name in keyof Composers[K]['variants']]?:
+                      | Util.Widen<keyof Composers[K]['variants'][Name]>
+                      | Array<Util.Widen<keyof Composers[K]['variants'][Name]>>
                       | Util.String;
                   }
                 : never) & {
@@ -194,8 +194,8 @@ export interface ClassedProxyFunctionType<
                 class?: Util.String;
               })[];
 
-              dataAttributes?: "variants" extends keyof Composers[K]
-                ? Array<keyof Composers[K]["variants"]>
+              dataAttributes?: 'variants' extends keyof Composers[K]
+                ? Array<keyof Composers[K]['variants']>
                 : Array<string>;
 
               defaultProps?: React.ComponentProps<Type>;

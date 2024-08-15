@@ -1,5 +1,5 @@
 
-import type * as React from "react";
+import type * as React from 'react';
 
 export type Merge<P1 = {}, P2 = {}> = Omit<P1, keyof P2> & P2;
 
@@ -18,7 +18,7 @@ export interface ForwardRefComponent<
  OwnProps = {},
 > extends ForwardRefExoticComponent<IntrinsicElementString, OwnProps> {
  <As = IntrinsicElementString>(
-   props: As extends ""
+   props: As extends ''
      ? {
          as: keyof JSX.IntrinsicElements;
        }

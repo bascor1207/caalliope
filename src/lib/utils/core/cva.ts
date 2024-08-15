@@ -1,9 +1,9 @@
 // Source: https://github.com/joe-bell/cva
 
-import type * as CLSX from "./clsx";
-import { clsx } from "./clsx";
+import type * as CLSX from './clsx';
+import { clsx } from './clsx';
 
-export type ClassPropKey = "class" | "className";
+export type ClassPropKey = 'class' | 'className';
 export type ClassValue = CLSX.ClassValue;
 export type ClassProp =
   | {
@@ -14,15 +14,15 @@ export type ClassProp =
   | { class?: never; className?: never };
 
 export type OmitUndefined<T> = T extends undefined ? never : T;
-export type StringToBoolean<T> = T extends "true" | "false" ? boolean : T;
+export type StringToBoolean<T> = T extends 'true' | 'false' ? boolean : T;
 
 export type VariantProps<Component extends (...args: any) => any> = Omit<
   OmitUndefined<Parameters<Component>[0]>,
-  "class" | "className"
+  'class' | 'className'
 >;
 
 const falsyToString = <T>(value: T) =>
-  typeof value === "boolean" ? `${value}` : value === 0 ? "0" : value;
+  typeof value === 'boolean' ? `${value}` : value === 0 ? '0' : value;
 
 /*´:°•.°+.*•´.*:˚.°*.˚•´.°:°•.°•.*•´.*:˚.°*.˚•´.°:°•.°+.*•´.*:*/
 /*                       ✨ 1. CX  ✨                         */

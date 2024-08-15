@@ -1,8 +1,8 @@
 /// <reference types="resize-observer-browser" />
 
-import * as React from "react";
+import * as React from 'react';
 
-import { useLayoutEffect } from "./use-layout-effect";
+import { useLayoutEffect } from './use-layout-effect';
 
 function useSize(element: HTMLElement | null) {
   const [size, setSize] = React.useState<{ width: number; height: number } | undefined>(
@@ -29,7 +29,7 @@ function useSize(element: HTMLElement | null) {
         let width: number;
         let height: number;
 
-        if ("borderBoxSize" in entry) {
+        if ('borderBoxSize' in entry) {
           const borderSizeEntry = entry.borderBoxSize;
           // iron out differences between browsers
           const borderSize = Array.isArray(borderSizeEntry)
@@ -47,7 +47,7 @@ function useSize(element: HTMLElement | null) {
         setSize({ width, height });
       });
 
-      resizeObserver.observe(element, { box: "border-box" });
+      resizeObserver.observe(element, { box: 'border-box' });
 
       return () => resizeObserver.unobserve(element);
     }

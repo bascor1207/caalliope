@@ -4,18 +4,18 @@ type TODO = any;
 function toVal(mix: TODO) {
   let k,
     y,
-    str = "";
+    str = '';
 
-  if (typeof mix === "string" || typeof mix === "number") {
+  if (typeof mix === 'string' || typeof mix === 'number') {
     str += mix;
-  } else if (typeof mix === "object") {
+  } else if (typeof mix === 'object') {
     if (Array.isArray(mix)) {
-      let len = mix.length;
+      const len = mix.length;
       for (k = 0; k < len; k++) {
         if (mix[k]) {
           if ((y = toVal(mix[k]))) {
             // Changed assignment to conditional expression
-            str && (str += " ");
+            str && (str += ' ');
             str += y;
           }
         }
@@ -23,7 +23,7 @@ function toVal(mix: TODO) {
     } else {
       for (y in mix) {
         if (mix[y]) {
-          str && (str += " ");
+          str && (str += ' ');
           str += y;
         }
       }
@@ -51,13 +51,13 @@ export function clsx(...inputs: ClassValue[]): string {
   let i = 0,
     tmp,
     x,
-    str = "";
+    str = '';
   for (; i < len; i++) {
     if ((tmp = inputs[i])) {
       // Changed assignment to conditional expression
       if ((x = toVal(tmp))) {
         // Changed assignment to conditional expression
-        str && (str += " ");
+        str && (str += ' ');
         str += x;
       }
     }

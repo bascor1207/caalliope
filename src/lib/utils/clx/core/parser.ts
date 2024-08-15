@@ -1,11 +1,11 @@
-import { TW_VARS } from "./constants";
+import { TW_VARS } from './constants';
 import {
   ClassNamesAndVariant,
   InferVariantProps,
   VariantConfig,
   Variants,
-} from "./types";
-import { cx, mergeClass } from "./classNames";
+} from './types';
+import { cx, mergeClass } from './classNames';
 
 /**
  * Parses & merging variants from a given string or variant config
@@ -17,7 +17,7 @@ export const parseClassNames = <TVariants extends Variants>(
   const stringClassNames = [];
   const variantObj = {} as TVariants;
   const defaultVariants = {} as Partial<
-    Required<VariantConfig<TVariants>>["defaultVariants"]
+    Required<VariantConfig<TVariants>>['defaultVariants']
   >;
   const compoundVariants = [] as Record<string, any>[];
   const dataAttributes = new Set<string>();
@@ -28,12 +28,12 @@ export const parseClassNames = <TVariants extends Variants>(
       continue;
     }
 
-    if (typeof className === "string") {
+    if (typeof className === 'string') {
       stringClassNames.push(className);
       continue;
     }
 
-    if (typeof className === "object" || typeof className === "function") {
+    if (typeof className === 'object' || typeof className === 'function') {
       const record: VariantConfig<TVariants> = Reflect.has(className, TW_VARS)
         ? Reflect.get<VariantConfig<TVariants>, symbol>(className, TW_VARS)
         : (className as VariantConfig<TVariants>);
@@ -85,7 +85,7 @@ export const parseClassNames = <TVariants extends Variants>(
 export const getVariantSelector = <TVariants extends Variants>(
   variantKey: string,
   props: Partial<InferVariantProps<TVariants>>,
-  { defaultVariants }: Pick<VariantConfig<TVariants>, "defaultVariants">,
+  { defaultVariants }: Pick<VariantConfig<TVariants>, 'defaultVariants'>,
 ) => {
   const variantValue = props[variantKey];
   const vStringValue = variantValue?.toString();
@@ -102,7 +102,7 @@ export const mapPropsToVariantClass = <
     compoundVariants,
   }: {
     variants: TVariants;
-    defaultVariants: TRecord["defaultVariants"];
+    defaultVariants: TRecord['defaultVariants'];
     compoundVariants?: Record<string, any>[];
   },
   props: Partial<InferVariantProps<TVariants>> = {},
@@ -125,7 +125,7 @@ export const mapPropsToVariantClass = <
 
     // Variant is matched
     return mergeClass(acc, variantClassName);
-  }, "");
+  }, '');
 
   const compoundedClassNames = getCompoundVariantClasses(
     {
@@ -137,7 +137,7 @@ export const mapPropsToVariantClass = <
 
   shouldDeleteProps && matchedKeys.forEach((key) => delete props[key]);
 
-  return mergeClass(producedClassName, compoundedClassNames?.join(" "));
+  return mergeClass(producedClassName, compoundedClassNames?.join(' '));
 };
 
 export function getCompoundVariantClasses(
@@ -145,10 +145,10 @@ export function getCompoundVariantClasses(
     props,
     defaultVariants,
   }: {
-    defaultVariants: VariantConfig<any>["defaultVariants"];
+    defaultVariants: VariantConfig<any>['defaultVariants'];
     props: Record<string, any>;
   },
-  compoundVariants: VariantConfig<any>["compoundVariants"] = [],
+  compoundVariants: VariantConfig<any>['compoundVariants'] = [],
 ) {
   return compoundVariants.reduce(
     (acc: string[], { class: cvClass, className: cvClassName, ...cvo }) => {
@@ -186,8 +186,8 @@ export function getDataAttributes({
 }: {
   props: Record<string, any>;
   dataAttributes: string[];
-  variants: VariantConfig<any>["variants"];
-  defaultVariants: VariantConfig<any>["defaultVariants"];
+  variants: VariantConfig<any>['variants'];
+  defaultVariants: VariantConfig<any>['defaultVariants'];
 }) {
   if (dataAttributes.length === 0) {
     return {};

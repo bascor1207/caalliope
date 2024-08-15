@@ -1,10 +1,10 @@
-import * as React from "react";
+import * as React from 'react';
 
-import type * as Radix from "./core-primitive";
-import { Primitive, dispatchDiscreteCustomEvent } from "./core-primitive";
-import { useCallbackRef } from "./use-callback-ref";
-import { useComposedRefs } from "./use-compose-refs";
-import { composeEventHandlers } from "./utils-compose";
+import type * as Radix from './core-primitive';
+import { Primitive, dispatchDiscreteCustomEvent } from './core-primitive';
+import { useCallbackRef } from './use-callback-ref';
+import { useComposedRefs } from './use-compose-refs';
+import { composeEventHandlers } from './utils-compose';
 
 // import { useEscapeKeydown } from "./use-escape-keydown";
 
@@ -12,10 +12,10 @@ import { composeEventHandlers } from "./utils-compose";
  * DismissableLayer
  * -----------------------------------------------------------------------------------------------*/
 
-const DISMISSABLE_LAYER_NAME = "DismissableLayer";
-const CONTEXT_UPDATE = "dismissableLayer.update";
-const POINTER_DOWN_OUTSIDE = "dismissableLayer.pointerDownOutside";
-const FOCUS_OUTSIDE = "dismissableLayer.focusOutside";
+const DISMISSABLE_LAYER_NAME = 'DismissableLayer';
+const CONTEXT_UPDATE = 'dismissableLayer.update';
+const POINTER_DOWN_OUTSIDE = 'dismissableLayer.pointerDownOutside';
+const FOCUS_OUTSIDE = 'dismissableLayer.focusOutside';
 
 let originalBodyPointerEvents: string;
 
@@ -142,7 +142,7 @@ const DismissableLayer = React.forwardRef<DismissableLayerElement, DismissableLa
       if (disableOutsidePointerEvents) {
         if (context.layersWithOutsidePointerEventsDisabled.size === 0) {
           originalBodyPointerEvents = ownerDocument.body.style.pointerEvents;
-          ownerDocument.body.style.pointerEvents = "none";
+          ownerDocument.body.style.pointerEvents = 'none';
         }
         context.layersWithOutsidePointerEventsDisabled.add(node);
       }
@@ -188,8 +188,8 @@ const DismissableLayer = React.forwardRef<DismissableLayerElement, DismissableLa
         style={{
           pointerEvents: isBodyPointerEventsDisabled
             ? isPointerEventsEnabled
-              ? "auto"
-              : "none"
+              ? 'auto'
+              : 'none'
             : undefined,
           ...props.style,
         }}
@@ -216,10 +216,10 @@ DismissableLayer.displayName = DISMISSABLE_LAYER_NAME;
  * DismissableLayerBranch
  * -----------------------------------------------------------------------------------------------*/
 
-const BRANCH_NAME = "DismissableLayerBranch";
+const BRANCH_NAME = 'DismissableLayerBranch';
 
 type DismissableLayerBranchElement = React.ElementRef<typeof Primitive.div>;
-interface DismissableLayerBranchProps extends PrimitiveDivProps {}
+type DismissableLayerBranchProps = PrimitiveDivProps
 
 const DismissableLayerBranch = React.forwardRef<
   DismissableLayerBranchElement,
@@ -290,10 +290,10 @@ function usePointerDownOutside(
          * This is why we also continuously remove the previous listener, because we cannot be
          * certain that it was raised, and therefore cleaned-up.
          */
-        if (event.pointerType === "touch") {
-          ownerDocument.removeEventListener("click", handleClickRef.current);
+        if (event.pointerType === 'touch') {
+          ownerDocument.removeEventListener('click', handleClickRef.current);
           handleClickRef.current = handleAndDispatchPointerDownOutsideEvent;
-          ownerDocument.addEventListener("click", handleClickRef.current, {
+          ownerDocument.addEventListener('click', handleClickRef.current, {
             once: true,
           });
         } else {
@@ -302,7 +302,7 @@ function usePointerDownOutside(
       } else {
         // We need to remove the event listener in case the outside click has been canceled.
         // See: https://github.com/radix-ui/primitives/issues/2171
-        ownerDocument.removeEventListener("click", handleClickRef.current);
+        ownerDocument.removeEventListener('click', handleClickRef.current);
       }
       isPointerInsideReactTreeRef.current = false;
     };
@@ -320,12 +320,12 @@ function usePointerDownOutside(
      * });
      */
     const timerId = window.setTimeout(() => {
-      ownerDocument.addEventListener("pointerdown", handlePointerDown);
+      ownerDocument.addEventListener('pointerdown', handlePointerDown);
     }, 0);
     return () => {
       window.clearTimeout(timerId);
-      ownerDocument.removeEventListener("pointerdown", handlePointerDown);
-      ownerDocument.removeEventListener("click", handleClickRef.current);
+      ownerDocument.removeEventListener('pointerdown', handlePointerDown);
+      ownerDocument.removeEventListener('click', handleClickRef.current);
     };
   }, [ownerDocument, handlePointerDownOutside]);
 
@@ -355,8 +355,8 @@ function useFocusOutside(
         });
       }
     };
-    ownerDocument.addEventListener("focusin", handleFocus);
-    return () => ownerDocument.removeEventListener("focusin", handleFocus);
+    ownerDocument.addEventListener('focusin', handleFocus);
+    return () => ownerDocument.removeEventListener('focusin', handleFocus);
   }, [ownerDocument, handleFocusOutside]);
 
   return {
@@ -426,13 +426,13 @@ function useEscapeKeydown(
 
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         onEscapeKeyDown(event);
       }
     };
-    ownerDocument.addEventListener("keydown", handleKeyDown, { capture: true });
+    ownerDocument.addEventListener('keydown', handleKeyDown, { capture: true });
     return () =>
-      ownerDocument.removeEventListener("keydown", handleKeyDown, {
+      ownerDocument.removeEventListener('keydown', handleKeyDown, {
         capture: true,
       });
   }, [onEscapeKeyDown, ownerDocument]);

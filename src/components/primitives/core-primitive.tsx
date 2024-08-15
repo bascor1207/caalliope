@@ -1,33 +1,33 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-import { Slot } from "./core-slot";
+import { Slot } from './core-slot';
 
 const NODES = [
-  "a",
-  "button",
-  "div",
-  "form",
-  "h2",
-  "h3",
-  "img",
-  "input",
-  "label",
-  "li",
-  "nav",
-  "ol",
-  "p",
-  "span",
-  "svg",
-  "ul",
+  'a',
+  'button',
+  'div',
+  'form',
+  'h2',
+  'h3',
+  'img',
+  'input',
+  'label',
+  'li',
+  'nav',
+  'ol',
+  'p',
+  'span',
+  'svg',
+  'ul',
 ] as const;
 
 // Temporary while we await merge of this fix:
 // https://github.com/DefinitelyTyped/DefinitelyTyped/pull/55396
 // prettier-ignore
 type PropsWithoutRef<P> = P extends any
-  ? "ref" extends keyof P
-    ? Pick<P, Exclude<keyof P, "ref">>
+  ? 'ref' extends keyof P
+    ? Pick<P, Exclude<keyof P, 'ref'>>
     : P
   : P;
 type ComponentPropsWithoutRef<T extends React.ElementType> = PropsWithoutRef<
@@ -42,8 +42,7 @@ type PrimitivePropsWithRef<E extends React.ElementType> =
     asChild?: boolean;
   };
 
-interface PrimitiveForwardRefComponent<E extends React.ElementType>
-  extends React.ForwardRefExoticComponent<PrimitivePropsWithRef<E>> {}
+type PrimitiveForwardRefComponent<E extends React.ElementType> = React.ForwardRefExoticComponent<PrimitivePropsWithRef<E>>
 
 /*´:°•.°+.*•´.*:˚.°*.˚•´.°:°•.°•.*•´.*:˚.°*.˚•´.°:°•.°+.*•´.*:*/
 /*                        PRIMITIVE                           */
@@ -56,7 +55,7 @@ const Primitive = NODES.reduce((primitive, node) => {
       const Comp: any = asChild ? Slot : node;
 
       React.useEffect(() => {
-        (window as any)[Symbol.for("radix-ui")] = true;
+        (window as any)[Symbol.for('radix-ui')] = true;
       }, []);
 
       return <Comp {...primitiveProps} ref={forwardedRef} />;
@@ -110,7 +109,7 @@ const Primitive = NODES.reduce((primitive, node) => {
  */
 
 function dispatchDiscreteCustomEvent<E extends CustomEvent>(
-  target: E["target"],
+  target: E['target'],
   event: E,
 ) {
   if (target) {

@@ -1,6 +1,6 @@
-import * as React from "react";
+import * as React from 'react';
 
-import { composeRefs } from "./use-compose-refs";
+import { composeRefs } from './use-compose-refs';
 
 interface SlotProps extends React.HTMLAttributes<HTMLElement> {
   children?: React.ReactNode;
@@ -68,7 +68,7 @@ const Slot = React.forwardRef<HTMLElement, SlotProps>((props, forwardedRef) => {
   );
 });
 
-Slot.displayName = "Slot";
+Slot.displayName = 'Slot';
 
 /*´:°•.°+.*•´.*:˚.°*.˚•´.°:°•.°•.*•´.*:˚.°*.˚•´.°:°•.°+.*•´.*:*/
 /*                       SLOT CLONE                           */
@@ -90,7 +90,7 @@ const SlotClone = React.forwardRef<any, SlotCloneProps>((props, forwardedRef) =>
   return React.Children.count(children) > 1 ? React.Children.only(null) : null;
 });
 
-SlotClone.displayName = "SlotClone";
+SlotClone.displayName = 'SlotClone';
 
 //
 //
@@ -121,10 +121,10 @@ function mergeProps(slotProps: AnyProps, childProps: AnyProps) {
       }
     }
     // if it's `style`, we merge them
-    else if (propName === "style") {
+    else if (propName === 'style') {
       overrideProps[propName] = { ...slotPropValue, ...childPropValue };
-    } else if (propName === "className") {
-      overrideProps[propName] = [slotPropValue, childPropValue].filter(Boolean).join("");
+    } else if (propName === 'className') {
+      overrideProps[propName] = [slotPropValue, childPropValue].filter(Boolean).join('');
     }
   }
 

@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import type * as Radix from "./core-primitive";
-import { Slot } from "./core-slot";
-import { useComposedRefs } from "./use-compose-refs";
-import { createContextScope } from "./utils-context";
+import type * as Radix from './core-primitive';
+import { Slot } from './core-slot';
+import { useComposedRefs } from './use-compose-refs';
+import { createContextScope } from './utils-context';
 
 type SlotProps = Radix.ComponentPropsWithoutRef<typeof Slot>;
 type CollectionElement = HTMLElement;
@@ -45,7 +45,7 @@ function createCollection<ItemElement extends HTMLElement, ItemData = {}>(name: 
   }> = (props) => {
     const { scope, children } = props;
     const ref = React.useRef<CollectionElement>(null);
-    const itemMap = React.useRef<ContextValue["itemMap"]>(new Map()).current;
+    const itemMap = React.useRef<ContextValue['itemMap']>(new Map()).current;
     return (
       <CollectionProviderImpl scope={scope} itemMap={itemMap} collectionRef={ref}>
         {children}
@@ -77,7 +77,7 @@ function createCollection<ItemElement extends HTMLElement, ItemData = {}>(name: 
    * ---------------------------------------------------------------------------------------------*/
 
   const ITEM_SLOT_NAME = `${name}CollectionItemSlot`;
-  const ITEM_DATA_ATTR = "data-radix-collection-item";
+  const ITEM_DATA_ATTR = 'data-radix-collection-item';
 
   type CollectionItemSlotProps = ItemData & {
     children: React.ReactNode;
@@ -97,7 +97,7 @@ function createCollection<ItemElement extends HTMLElement, ItemData = {}>(name: 
       });
 
       return (
-        <Slot {...{ [ITEM_DATA_ATTR]: "" }} ref={composedRefs}>
+        <Slot {...{ [ITEM_DATA_ATTR]: '' }} ref={composedRefs}>
           {children}
         </Slot>
       );

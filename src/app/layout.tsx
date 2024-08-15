@@ -28,7 +28,7 @@ const RootLayout: FC<PropsWithChildren> = ({ children }) => {
           }
       >
       <AppWrapper>
-              <header className='w-full h-16 bg-white shadow-md'>
+              <header className='w-full h-28 bg-custom-purple shadow-md'>
                 <Header/>
               </header>
 

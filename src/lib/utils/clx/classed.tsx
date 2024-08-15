@@ -5,16 +5,16 @@ import {
   parseClassNames,
   TW_VARS,
   Variants,
-} from "./core";
-import { forwardRef, useMemo } from "react";
+} from './core';
+import { forwardRef, useMemo } from 'react';
 import {
   AnyComponent,
   ClassedComponentType,
   ClassedFunctionProxy,
   StrictComponentType,
   VariantProps,
-} from "./types";
-import { isClassedComponent, COMPONENT_SYMBOL } from "./unique";
+} from './types';
+import { isClassedComponent, COMPONENT_SYMBOL } from './unique';
 
 type ClassedConfig = {
   merger?: (...args: string[]) => any;
@@ -28,7 +28,7 @@ type CreateClassedType = {
 
 // 1. cx
 const cx = (...args: string[]): string =>
-  args.filter((v) => !!v && typeof v === "string").join(" ");
+  args.filter((v) => !!v && typeof v === 'string').join(' ');
 
 // 2. internalClassed
 const internalClassed = <
@@ -60,7 +60,7 @@ const internalClassed = <
       // eslint-disable-next-line no-nested-ternary
       const Component = isClassed
         ? elementType
-        : typeof elementType === "object"
+        : typeof elementType === 'object'
           ? elementType
           : as || elementType;
 
@@ -103,8 +103,8 @@ const internalClassed = <
   ) as unknown as ClassedComponentType<T, V>;
 
   Comp.displayName =
-    typeof elementType !== "string"
-      ? elementType.displayName || elementType.name || "Compoonent"
+    typeof elementType !== 'string'
+      ? elementType.displayName || elementType.name || 'Compoonent'
       : `TwComponent(${elementType})`;
 
 
