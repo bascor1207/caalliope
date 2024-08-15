@@ -2,9 +2,14 @@
     "login": "Identifiant :",
     "password": "Mot de passe :",
     "valid": "Valider",
+    "required": "Champs requis",
     "inProgress": "En cours",
     "finish": "Terminés",
-    "giveUp": "Abandonné", 
+    "giveUp": "Abandonné",     
+    "toRead": "A lire", 
+    "read": "Lu",
+    "whislist": "A acheter", 
+    "notOwned": "Non possédé", 
     "delete": "Supprimer",
     "state": "Status",
     "addABook": "Ajouter un livre",
@@ -45,7 +50,9 @@
         "publishing": "Edition",
         "review": "Critique",
         "addReview": "Ajouter une critique",
-        "search": "Rechercher un livre ou un auteur",
+        "addPublishing": "Ajouter une édition",
+        "addBook": "Ajouter un livre",
+        "search": "Rechercher un livre",
         "notfound": "Pas de résultat pour cette recherche",
         "yourReview": "Votre critique"
     },
@@ -75,7 +82,7 @@
         "releaseDate": "Date de sortie",
         "editor": "Editeur",
         "translator": "Traducteurs",
-        "number of pages": "Nombre de page",
+        "numberOfPages": "Nombre de page",
         "format": "Format",
         "book": "Livre",
         "ebook": "E-book",
@@ -87,13 +94,16 @@
         "deathDate": "Date de décés",
         "nationality": "Nationalité",
         "image": "Image",
-        "choiceFile": "Choisir un fichier"
-    },
-    "admin": {
-        "recentAdd": "Ajout réçent",
-        "addAnAuthor": "Ajouter un auteur",
-        "bookList": "Liste des livres",
-        "authorList": "Liste des auteurs",
-        "reject": "Refuser"
+        "choiceFile": "Choisir un fichier",
+        "alert": "Votre demande a été envoyée. Un administrateur va valider l'ajout.",
+        "admin": {
+            "recentAdd": "Ajout réçent",
+            "addAnAuthor": "Ajouter un auteur",
+            "editBook": "Modifier un livre",
+            "editPublishing": "Modifier une édition",
+            "bookList": "Liste des livres",
+            "authorList": "Liste des auteurs",
+            "reject": "Refuser"
+        }
     }
 }

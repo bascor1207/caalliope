@@ -46,7 +46,7 @@ export const catalog = [
     'dateOfPublication': '2021-07-10'
   },
   {
-    'id': '1',
+    'id': '3',
     'title': 'title novel',
     'author': {
       'id': '1',
@@ -69,7 +69,7 @@ export const catalog = [
     'dateOfPublication': '2022-03-15'
   },
   {
-    'id': '2',
+    'id': '4',
     'title': 'title novel',
     'author': {
       'id': '2',
@@ -92,7 +92,7 @@ export const catalog = [
     'dateOfPublication': '2021-07-10'
   },
   {
-    'id': '1',
+    'id': '5',
     'title': 'title novel',
     'author': {
       'id': '1',
@@ -115,7 +115,7 @@ export const catalog = [
     'dateOfPublication': '2022-03-15'
   },
   {
-    'id': '2',
+    'id': '6',
     'title': 'title novel',
     'author': {
       'id': '2',
@@ -138,7 +138,7 @@ export const catalog = [
     'dateOfPublication': '2021-07-10'
   },
   {
-    'id': '1',
+    'id': '7',
     'title': 'title novel',
     'author': {
       'id': '1',
@@ -161,7 +161,7 @@ export const catalog = [
     'dateOfPublication': '2022-03-15'
   },
   {
-    'id': '2',
+    'id': '8',
     'title': 'title novel',
     'author': {
       'id': '2',
@@ -184,7 +184,7 @@ export const catalog = [
     'dateOfPublication': '2021-07-10'
   },
   {
-    'id': '1',
+    'id': '9',
     'title': 'title novel',
     'author': {
       'id': '1',
@@ -207,7 +207,7 @@ export const catalog = [
     'dateOfPublication': '2022-03-15'
   },
   {
-    'id': '2',
+    'id': '10',
     'title': 'title novel',
     'author': {
       'id': '2',
@@ -230,7 +230,7 @@ export const catalog = [
     'dateOfPublication': '2021-07-10'
   },
   {
-    'id': '1',
+    'id': '11',
     'title': 'title novel',
     'author': {
       'id': '1',
@@ -253,7 +253,7 @@ export const catalog = [
     'dateOfPublication': '2022-03-15'
   },
   {
-    'id': '2',
+    'id': '12',
     'title': 'title novel',
     'author': {
       'id': '2',

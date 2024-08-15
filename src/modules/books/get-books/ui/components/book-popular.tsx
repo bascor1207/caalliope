@@ -22,7 +22,7 @@ export const PopularBooksCarousels = () => {
               return <div>Oops...</div>;
           case 'gettingPopularBooksFulfilled':
               return (
-                <BooksCarousel slides={viewmodel.books} withExtraGap title={'title'} />
+                <BooksCarousel slides={viewmodel.books} withExtraGap title={''} />
               );
       }
   })();

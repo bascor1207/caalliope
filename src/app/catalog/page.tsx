@@ -8,8 +8,8 @@ import { BooksListBySubject } from '@/modules/books/get-books/ui/components/book
 import { SearchLayout } from '@/modules/books/get-books/ui/components/search-layout';
 import { getBooksByNameViewmodel } from '@/modules/books/get-books/ui/get-books/get-books-by-name.viewmodel';
 import { getBooksByAuthorViewmodel } from '@/modules/books/get-books/ui/get-books/get-books-by-author.viewmodel';
-import { BookCardCatalog } from '@/modules/books/get-books/ui/components/book-card-catalog';
 import { NoResults } from '@/modules/books/get-books/ui/components/no-results';
+import { BookCard } from '@/modules/books/get-books/ui/components/BookCard';
 
 const CatalogPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -46,7 +46,7 @@ const CatalogPage = () => {
     }
 
     return viewmodel.map((book) => (
-      <BookCardCatalog
+      <BookCard
         key={book.id}
         book={book}
       />

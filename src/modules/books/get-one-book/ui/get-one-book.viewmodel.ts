@@ -1,5 +1,5 @@
 import { RootState } from '@/modules/store/create-store';
-import { Book } from '@/modules/books/get-one-book/core/get-book.slice';
+import { Book } from '../connector-to.get-one-book';
 
 export const gettingBook = {
     pending: 'pending',

@@ -1,38 +1,56 @@
-.card {
-    border: solid 1px #dee0dc;
-    border-radius: 12px;
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  cursor: pointer;
+
+  .subcontainer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .img-top-container {
+    margin: auto;
+    padding: 16px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
 
-    .image {
-      grid-column: 1;
-      object-fit: cover;
-      width: 150px; 
-      height: 200px; 
+    &:hover .book-image {
+      transform: scale(1.2);
+      transition: transform 0.3s ease-in-out;
     }
 
-    .info {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      padding: 12px;
-      justify-content: space-between;
-
-      .title {
-        font-weight: 700;
-        font-size: 1rem;
-        color: black;
-      }
-      
-      .author {
-        font-size: 0.85rem;
-        color: black;
-      }
-
-      .subject {
-        font-size: 0.85rem;
-        color: grey;
-      }
+    .book-image {
+      transform: scale(1);
+      transition: transform 0.3s ease-in-out;
+      max-width: 100%;
+      max-height: 100%;
     }
   }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centre les éléments horizontalement */
+    text-align: center; /* Centre le texte */
+    gap: 8px;
+    background-color: white;
+    padding-top: 16px;
+    min-height: 124px;
+
+    .title, .author, .book-subject, .book-publication-date {
+      color: #333;
+      font-size: 0.875rem;
+      margin: 0;
+    }
+
+    .title {
+      font-weight: bold;
+    }
+  }
+}

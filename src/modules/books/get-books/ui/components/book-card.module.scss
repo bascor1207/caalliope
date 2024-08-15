@@ -9,7 +9,6 @@
 
     .img-top-container {
       margin: auto;
-      padding: 56px 0;
       display: flex;
 
       &:hover {
@@ -31,20 +30,45 @@
     .body {
       display: flex;
       flex-direction: column;
-      gap: 8px;
       background-color: white;
-      padding-top: 16px;
       min-height: 124px;
 
       .title {
-        color: #999;
-        font-size: 0.813rem;
+        color: #333;
+        font-size: 1rem;
+        font-weight: bold;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
       }
 
-      .text {
-        color: black;
-        font-size: 0.813rem;
-        font-weight: 600;
+      .author {
+        color: #666;
+        font-size: 0.875rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .book-subject {
+        display: flex;
+        flex-wrap: wrap;
+        color: #666;
+        gap: 4px;
+        justify-content: center;  
+
+        div {
+          padding: 4px 8px;
+          font-size: 0.875rem;
+        }
+      }
+
+      .book-publication-date {
+        color: #999;
+        font-size: 0.75rem;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
       }
     }
   }

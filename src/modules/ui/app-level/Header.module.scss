@@ -1,7 +1,7 @@
 .container {
     display: flex;
     justify-content: space-between;
-    background-color: #C9A0DC;
+    background-color: #f8e9ff;
     padding: 20px 60px;
 
     .navbar {
@@ -13,6 +13,8 @@
         .login {
             display: flex;
             justify-content: center;
+            background-color: #f8e9ff;
+            border: none;
             font-size: 20px;
             cursor: pointer;
 
@@ -24,6 +26,8 @@
         .language {
             width: 100px;
             font-size: 16px;
+            border: none;
+            background-color: #f8e9ff;
         }
     }
 }

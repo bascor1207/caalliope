@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import styles from './book-list-by-subject.module.scss';
 import { getBooksViewModel } from '../get-books/get-books.viewmodel';
 import { getBooksBySubjectUtils } from '../get-books/get-books-by-subject.utils';
-import { BookCard } from './BookCard';
 import { NoResults } from './no-results';
+import { BookCardCatalog } from './book-card-catalog';
 
 type BooksListBySubjectProps = {
     subject: string;
@@ -28,7 +28,7 @@ export const BooksListBySubject: FC<BooksListBySubjectProps> = ({ subject }: Boo
         return (
           <div className={styles.list}>
             {filteredBooks.map((book) => (
-              <BookCard
+              <BookCardCatalog
                 key={book.id}
                 book={book}
               />

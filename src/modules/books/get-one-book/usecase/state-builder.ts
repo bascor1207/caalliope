@@ -1,12 +1,7 @@
 import { ActionCreatorWithPayload, createAction, createReducer } from '@reduxjs/toolkit';
 import { rootReducer } from '@/modules/store/root-reducer';
 import { RootState } from '@/modules/store/create-store';
-
-export type Book = {
-    id: string;
-    author: string;
-    title: string;
-}
+import { Book } from '../connector-to.get-one-book';
 
 const getOneBook = {
     pending: createAction<'pending'>('PendingRequest'),

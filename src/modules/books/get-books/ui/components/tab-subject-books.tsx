@@ -1,7 +1,6 @@
 import { Box, Tab, Tabs } from '@mui/material';
 import { FC, useState } from 'react';
 
-
 type TabBooksProps = {
   returnSubject: (value: string) => void;
   disabled: boolean;
