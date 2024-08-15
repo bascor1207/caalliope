@@ -9,7 +9,6 @@
 
     .img-top-container {
       margin: auto;
-      padding: 56px 0;
       display: flex;
 
       &:hover {
@@ -31,7 +30,6 @@
     .body {
       display: flex;
       flex-direction: column;
-      gap: 8px;
       background-color: white;
       min-height: 124px;
 
@@ -55,8 +53,9 @@
       .book-subject {
         display: flex;
         flex-wrap: wrap;
+        color: #666;
         gap: 4px;
-        justify-content: center;  // Centrer les sujets horizontalement
+        justify-content: center;  
 
         div {
           padding: 4px 8px;

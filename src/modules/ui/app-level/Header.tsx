@@ -22,8 +22,8 @@ export const Header = () => {
                 <button className={styles.library}>{ t('navbar.library') }</button>
                 <button className={styles.login}>{ t('navbar.login') }</button>
                 <select className={styles.language} onChange={(e) => changeLanguage(e)} value={i18n.language}>
-                    <option value='en'>English</option>
-                    <option value='fr'>Français</option>
+                    <option value='en'>{ t('navbar.en') }</option>
+                    <option value='fr'>{ t('navbar.fr') }</option>
                 </select>
             </div>
         </header>
