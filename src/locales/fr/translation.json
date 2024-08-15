@@ -100,16 +100,10 @@
             "recentAdd": "Ajout réçent",
             "addAnAuthor": "Ajouter un auteur",
             "editBook": "Modifier un livre",
+            "editPublishing": "Modifier une édition",
             "bookList": "Liste des livres",
             "authorList": "Liste des auteurs",
             "reject": "Refuser"
         }
-    },
-    "admin": {
-        "recentAdd": "Ajout réçent",
-        "addAnAuthor": "Ajouter un auteur",
-        "bookList": "Liste des livres",
-        "authorList": "Liste des auteurs",
-        "reject": "Refuser"
     }
 }

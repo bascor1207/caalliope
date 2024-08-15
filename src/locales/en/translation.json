@@ -101,16 +101,10 @@
             "recentAdd": "Recent add",
             "addAnAuthor": "Add an author",
             "editBook": "Edit a book",
+            "editPublishing": "Edit publishing",
             "bookList": "Book list",
             "authorList": "Author list",
             "reject": "Reject"
         }
-    },
-    "admin": {
-        "recentAdd": "Recent add",
-        "addAnAuthor": "Add an author",
-        "bookList": "Book list",
-        "authorList": "Author list",
-        "reject": "Reject"
     }
 }
