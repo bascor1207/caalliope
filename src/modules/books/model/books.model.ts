@@ -28,6 +28,16 @@ export namespace BooksModel {
 
  export type AddBookForm = z.infer<typeof addBookFormSchema>;
 
+ const imageSchema =
+     z.instanceof(File).optional()
+     .refine((file) => {
+      return !file || file.size <= MAX_UPLOAD_SIZE;
+     }, 'File size must be less than 3MB')
+     .refine((file) => {
+      return file && ACCEPTED_FILE_TYPES.includes(file.type);
+     }, 'File must be a PNG');
+
+
  export const addBookFormSchema = z.object({
   isbn: z.string().min(1, { message: 'ISBN is required' }),
   title: z.string().min(1, { message: 'Title is required' }),
@@ -41,8 +51,14 @@ export namespace BooksModel {
   nbPage: z.number().min(1, { message: 'Number of pages is required' }),
   language: z.string().optional(),
   format: z.enum(['paper', 'ebook', 'audio']),
-  cover: z.instanceof(File).optional(),
+  cover: imageSchema,
  });
+
+ const MAX_UPLOAD_SIZE = 2000000
+ const ACCEPTED_FILE_TYPES = [
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/webp',
+ ]
 }
-
-

@@ -11,9 +11,9 @@ interface AddBookFormProps {
 
 export const AddBookForm: React.FC<AddBookFormProps> = ({ viewmodel }) => {
     const formatOptions = [
-        { value: 'Paper' },
-        { value: 'Ebook' },
-        { value: 'Audio' }
+        { value: 'Paper', label:'paper' },
+        { value: 'Ebook', label:'ebook' },
+        { value: 'Audio', label:'audio' }
     ]
 
     return (
@@ -120,14 +120,14 @@ export const AddBookForm: React.FC<AddBookFormProps> = ({ viewmodel }) => {
                     name='format'
                     control={viewmodel.control}
                     render={({ field }) => (
-                        <Select {...field}>
+                        <Select onValueChange={(value) => field.onChange(value ? value : null)}>
                             <SelectTrigger>
                                 <SelectValue placeholder='Select a format' />
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup>
                                     {formatOptions.map((option) => (
-                                        <SelectItem key={option.value} value={option.value}>
+                                        <SelectItem key={option.value} value={option.label} >
                                             {option.value}
                                         </SelectItem>
                                     ))}
