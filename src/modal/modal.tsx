@@ -1,36 +1,43 @@
 import React, { FunctionComponent, useEffect } from 'react';
-import ReactDOM from 'react-dom';
+import {
+    Dialog, DialogClose,
+    DialogContent,
+    DialogDescription, DialogFooter,
+    DialogHeader,
+    DialogTitle,
+} from '@/components/ui/dialog'
 
-import styles from './modal.module.scss';
+import { Button } from '@/components/ui/button';
+import { DialogBody } from '@/components/ui/dialog-responsive';
 export interface ModalProps {
     isShown: boolean;
     hideModal: () => void;
     modalContent: JSX.Element;
+    modalDesc?: string;
+    modalTitle?: string;
+    modalFooter?: JSX.Element;
 }
 
-export const Modal: FunctionComponent<ModalProps> = ({ isShown, hideModal, modalContent, ...rest }) => {
-    const onKeyDown = (event: KeyboardEvent) => {
-        if (event.keyCode === 27 && isShown) {
-            hideModal();
-        }
-    };
-
-    useEffect(() => {
-        isShown ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = 'unset');
-        document.addEventListener('keydown', onKeyDown, false);
-        return () => {
-            document.removeEventListener('keydown', onKeyDown, false);
-        };
-    }, [isShown]);
-
-    const modal = (
-        <div className={styles.container}>
-            <div className={styles.backdrop} onClick={hideModal} />
-            <div className={styles.wrapper} aria-modal tabIndex={-1}>
-                <div>{React.cloneElement(modalContent, rest)}</div>
-            </div>
-        </div>
+export const Modal: FunctionComponent<ModalProps> = ({ isShown, hideModal, modalContent, modalDesc, modalTitle, modalFooter }) => {
+    return (
+        <Dialog open={isShown}>
+            <DialogContent className='bg-custom-grey'>
+                <DialogHeader>
+                    <DialogTitle>{modalTitle}</DialogTitle>
+                    <DialogDescription>
+                        {modalDesc}
+                    </DialogDescription>
+                </DialogHeader>
+                <DialogBody className='pb-4 space-y-4 text-sm text-center sm:pb-0 sm:text-left'>
+                    {modalContent}
+                </DialogBody>
+                <DialogFooter>
+                    <DialogClose asChild>
+                        <Button variant='outline' onClick={hideModal}>Close</Button>
+                    </DialogClose>
+                    {modalFooter}
+                </DialogFooter>
+            </DialogContent>
+        </Dialog>
     );
-
-    return isShown ? ReactDOM.createPortal(modal, document.body) : null;
 };

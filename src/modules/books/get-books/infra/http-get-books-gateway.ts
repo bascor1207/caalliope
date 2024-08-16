@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { Book } from '../connector-to.get-books';
+import { BooksModel } from '@/modules/books/model/books.model';
+
 
 export class HttpGetBooksGateway {
-    async getBooks(): Promise<Book[]> {
+    async getBooks(): Promise<BooksModel.Book[]> {
         const apiUrl = 'myBackend'
-        return await axios.get(apiUrl) as Book[];
+        return await axios.get(apiUrl) as BooksModel.Book[];
     }
 }

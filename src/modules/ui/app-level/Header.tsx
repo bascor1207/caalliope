@@ -15,7 +15,6 @@ import {
 import { useTranslation } from 'react-i18next';
 import { ChangeEvent } from 'react';
 import { Button } from '@/components/ui/button';
-import { SidebarComponent } from '@/modules/ui/app-level/Sidebar';
 
 const languages = ['en', 'fr'];
 
@@ -38,7 +37,7 @@ export function Header() {
                 </Link>
             </div>
 
-            <div className='flex justify-center'>
+            <div className='flex justify-center text-text-custom-color'>
                 <NavigationMenu>
                     <NavigationMenuList>
                         <NavigationMenuItem>

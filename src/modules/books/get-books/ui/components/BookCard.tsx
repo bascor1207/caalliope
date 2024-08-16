@@ -2,11 +2,8 @@
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
-import { useDispatch } from 'react-redux';
 
-import { AppDispatch } from '@/modules/store/create-store';
-import { Book } from '@/modules/books/get-books/connector-to.get-books';
-import { getOneBookById } from '@/modules/books/get-one-book/usecase/get-one-book-by-id.usecase';
+import { BooksModel } from '@/modules/books/model/books.model';
 import {
     Card,
     CardContent,
@@ -17,7 +14,7 @@ import {
 } from '@/components/ui/card';
 
 type Props = {
-    book: Book;
+    book: BooksModel.Book;
 }
 
 export const BookCard: FC<Props> = ({ book }) => {

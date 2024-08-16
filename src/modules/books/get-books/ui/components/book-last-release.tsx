@@ -5,6 +5,7 @@ import { AppDispatch } from '@/modules/store/create-store';
 import { getBooksLastReleaseUseCase } from '../../usecase/get-last-release-books/get-last-release-books.usecase';
 import { getBooksLastReleaseViewmodel } from '../get-last-release-books/get-last-release-books.viewmodel';
 import BooksCarousel from './BooksCarousel';
+import { Loader } from '@/components/ui/loader';
 
 export const BooksCarouselsLastRelease = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -17,7 +18,7 @@ export const BooksCarouselsLastRelease = () => {
   const nodeToRender: ReactNode = (() => {
       switch (viewmodel.type) {
           case 'gettingBooksLastReleasePending':
-              return <div>Loading...</div>;
+              return <Loader />;
           case 'gettingBooksLastReleaseRejected':
               return <div>Oops...</div>;
           case 'gettingBooksLastReleaseFulfilled':

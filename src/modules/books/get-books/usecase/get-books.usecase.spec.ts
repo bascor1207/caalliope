@@ -3,7 +3,8 @@ import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-bo
 import { createTestStore } from '@/modules/store/create-store';
 import { getBooksUseCase } from './get-books.usecase';
 import { stateBuilder } from './state-builder';
-import { Book } from '../connector-to.get-books';
+import { BooksModel } from '@/modules/books/model/books.model';
+import { BookFactory } from '@/modules/books/model/books.factory';
 
 describe('test to retrieve a range of catalog to display', () => {
     it('should retrieve catalog when user go on catalog page', async () => {
@@ -17,7 +18,7 @@ describe('test to retrieve a range of catalog to display', () => {
 
 const fakeGetBooksAdapter = new FakeGetBooksGateway();
 const store = createTestStore({ getBooksAdapter: fakeGetBooksAdapter })
-const givenConnectedUser = (/*connectedUser: boolean,*/ books: Book[] ) => {
+const givenConnectedUser = (/*connectedUser: boolean,*/ books: BooksModel.Book[] ) => {
     //fakeGetBooksAdapter.connectedUser = connectedUser;
     fakeGetBooksAdapter.returnedResponse  = books;
 }
@@ -34,28 +35,4 @@ const thenTheUserShouldSeeBooks = (): void => {
     expect(state).toEqual(store.getState())
 };
 
-const books: Book[] = [
-    {
-        id: 1,
-        title: 'novel title',
-        author: {
-            id: 1,
-            lastname: 'Medieval',
-            firstname: 'Bastien',
-            image: 'test',
-            email: 'test',
-            birthDate: 'test'
-        },
-        type: 'Novel',
-        subject: [
-            {
-                subject: {
-                    id: 1,
-                    label: 'Fantasy Medieval'
-                }
-            }
-        ],
-        dateOfPublication: '2023',
-        image: 'test'
-    }
-];
+const books: BooksModel.Book[] = [BookFactory.create()]

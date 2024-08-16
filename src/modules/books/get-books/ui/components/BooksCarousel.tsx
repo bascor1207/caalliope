@@ -1,7 +1,4 @@
-import CarouselContainer from '@/modules/ui/component-level/carousel/CarouselContainer';
-import CarouselSlides from '@/modules/ui/component-level/carousel/CarouselSlides';
 import { BookCard } from '@/modules/books/get-books/ui/components/BookCard';
-import { Book } from '@/modules/books/get-books/connector-to.get-books';
 
 import {
     Carousel,
@@ -10,12 +7,13 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from '@/components/ui/carousel';
+import type { BooksModel } from '@/modules/books/model/books.model';
 
 
 type BooksCarouselProps = {
     withGap?: boolean;
     withExtraGap?: boolean;
-    slides: Book[];
+    slides: BooksModel.Book[];
     title?: string;
 }
 

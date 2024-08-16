@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
-import { BooksCarouselsLastRelease } from '../modules/books/get-books/ui/components/book-last-release';
-import { PopularBooksCarousels } from '../modules/books/get-books/ui/components/book-popular';
+import { BooksCarouselsLastRelease } from '@/modules/books/get-books/ui/components/book-last-release';
+import { PopularBooksCarousels } from '@/modules/books/get-books/ui/components/book-popular';
 import { useTranslation } from 'react-i18next';
 
 export default function Home() {

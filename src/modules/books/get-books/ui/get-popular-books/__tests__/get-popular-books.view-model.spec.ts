@@ -2,6 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { stateBuilder } from '../../../usecase/get-popular-books/__tests__/state-builder';
 import { createTestStore } from '@/modules/store/create-store';
 import { getPopularBooksViewmodel, gettingBooks } from '../get-popular-books.viewmodel';
+import { BooksModel } from '@/modules/books/model/books.model';
+import { BookFactory } from '@/modules/books/model/books.factory';
 
 describe('test for the viewModel layer of getting popular books', () => {
     it('should handle loading when getting popular books is pending', () => {
@@ -17,34 +19,12 @@ describe('test for the viewModel layer of getting popular books', () => {
         expect(viewModel).toEqual({ type: gettingBooks.rejected, rejectedRequest: true });
     })
     it('should handle the book list when getting popular books is fulfilled', () => {
-        const books = [
-            {
-                id: 1,
-                title: 'novel title',
-                author: {
-                    id: 1,
-                    lastname: 'Medieval',
-                    firstname: 'Bastien',
-                    image: 'test',
-                    email: 'test',
-                    birthDate: 'test'
-                },
-                type: 'Novel',
-                subject: [
-                    {
-                        subject: {
-                            id: 1,
-                            label: 'Fantasy Medieval'
-                        }
-                    }
-                ],
-                dateOfPublication: '2023',
-                image: 'test'
-            }
-        ];
         const initialState = stateBuilder().withSuccess(books).build();
         const state = createTestStore({}, initialState).getState();
         const viewModel = getPopularBooksViewmodel()(state);
         expect(viewModel).toStrictEqual({ type: gettingBooks.fulfilled, books: books });
     })
 })
+
+const books: BooksModel.Book[] = [BookFactory.create()]
+

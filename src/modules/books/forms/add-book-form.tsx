@@ -1,90 +1,164 @@
-import React, { FC } from 'react';
-import { useForm } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
-
-import styles from './add-book-form.module.scss';
+import React from 'react';
+import { Controller } from 'react-hook-form';
+import { FloatingLabelInput } from '@/components/ui/label';
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useFormViewmodel } from '@/modules/books/forms/form.viewmodel';
+import { Button } from '@/components/ui/button';
 
 interface AddBookFormProps {
-    hideModal: () => void;
-  }
+    viewmodel: ReturnType<typeof useFormViewmodel>;
+}
 
-export const AddBookForm: FC<AddBookFormProps> = ({ hideModal }) => {
-    const { t } = useTranslation();
-    const {
-        formState: { errors }
-    } = useForm();
-
-    const onSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        alert('Votre demande a été envoyée. Un administrateur va valider l\'ajout.');
-        console.log('Form data:', formData);
-        hideModal();
-    };
+export const AddBookForm: React.FC<AddBookFormProps> = ({ viewmodel }) => {
+    const formatOptions = [
+        { value: 'Paper' },
+        { value: 'Ebook' },
+        { value: 'Audio' }
+    ]
 
     return (
-        <form onSubmit={onSubmit}>
-            <div className={styles.container}>
-                <span className={styles.title}>{t('addABook')}</span>
-                <div className={styles.isbn}>
-                    <label>{t('form.isbn')} </label>
-                    <input className={styles.input} type='text' name='ibsn' required />
-                    {errors.ibsn && <span>{t('required')}</span>}
-                </div>
-                <div className={styles.titleBook}>
-                    <label>{t('form.title')} </label>
-                    <input className={styles.input} type='text' name='title' required />
-                    {errors.title && <span>{t('required')}</span>}
-                </div>
-                <div className={styles.author}>
-                    <label>{t('form.author')} </label>
-                    <input className={styles.input} type='text' name='author' required />
-                    {errors.author && <span>{t('required')}</span>}
-                </div>
-                <div className={styles.date}>
-                    <label>{t('form.releaseDate')} </label>
-                    <input className={styles.input} type='date' name='date' required />
-                    {errors.date && <span>{t('required')}</span>}
-                </div>
-                <div className={styles.editor}>
-                    <label>{t('form.editor')} </label>
-                    <input className={styles.input} type='text' name='editor' required />
-                    {errors.editor && <span>{t('required')}</span>}
-                </div>
-                <div className={styles.translator}>
-                    <label>{t('form.translator')} </label>
-                    <input className={styles.input} type='text' name='translator' />
-                </div>
-                <div className={styles.nbpage}>
-                    <label>{t('form.numberOfPages')} </label>
-                    <input className={styles.input} type='number' name='nbPage' required />
-                    {errors.nbPage && <span>{t('required')}</span>}
-                </div>
-                <div className={styles.language}>
-                    <label>{t('form.language')} </label>
-                    <input className={styles['language-input']} type='text' name='language' />
-                </div>
-                <div className={styles.format}>
-                    <label>{t('form.format')}</label>
-                    <input className={styles.input} type='radio' name='paper' checked />
-                    <label>{t('form.book')}</label>
-                    <input className={styles.input} type='radio' name='ebook' />
-                    <label>{t('form.ebook')}</label>
-                    <input className={styles.input} type='radio' name='audio' />
-                    <label>{t('form.audio')}</label>
-                </div>
-                <div className={styles.buttons}>
-                    <div className={styles.search}>
-                        <p>{t('form.cover')} </p>
-                        <input type='file'
-                            id='cover' name='cover'
-                            accept='image/png, image/jpeg' />
-                    </div>
-                    <button className={styles.submit} type='submit'>
-                        {t('valid')}
-                    </button>
-                </div>
+        <form onSubmit={viewmodel.handleSubmit(viewmodel.onSubmit)} className='space-y-4'>
+            <div>
+                <Controller
+                    name='isbn'
+                    control={viewmodel.control}
+                    render={({ field }) => (
+                        <FloatingLabelInput label='ISBN' id='isbn' {...field} />
+                    )}
+                />
+                {viewmodel.errors.isbn && <p className='text-red-500'>{viewmodel.errors.isbn.message}</p>}
+            </div>
+
+            <div>
+                <Controller
+                    name='title'
+                    control={viewmodel.control}
+                    render={({ field }) => (
+                        <FloatingLabelInput label='Title' id='title' {...field} />
+                    )}
+                />
+                {viewmodel.errors.title && <p className='text-red-500'>{viewmodel.errors.title.message}</p>}
+            </div>
+
+            <div>
+                <Controller
+                    name='author'
+                    control={viewmodel.control}
+                    render={({ field }) => (
+                        <FloatingLabelInput label='Author' id='author' {...field} />
+                    )}
+                />
+                {viewmodel.errors.author && <p className='text-red-500'>{viewmodel.errors.author.message}</p>}
+            </div>
+
+            <div>
+                <Controller
+                    name='date'
+                    control={viewmodel.control}
+                    render={({ field }) => (
+                        <FloatingLabelInput
+                            label='Release Date' type='date' id='date'
+                            value={field.value ? new Date(field.value).toISOString().split('T')[0] : ''}
+                            onChange={(e) => field.onChange(e.target.value ? new Date(e.target.value) : null)}
+                        />
+                    )}
+                />
+                {viewmodel.errors.date && <p className='text-red-500'>{viewmodel.errors.date?.message}</p>}
+            </div>
+
+            <div>
+                <Controller
+                    name='editor'
+                    control={viewmodel.control}
+                    render={({ field }) => (
+                        <FloatingLabelInput label='Editor' id='editor' {...field} />
+                    )}
+                />
+                {viewmodel.errors.editor && <p className='text-red-500'>{viewmodel.errors.editor.message}</p>}
+            </div>
+
+            <div>
+                <Controller
+                    name='translator'
+                    control={viewmodel.control}
+                    render={({ field }) => (
+                        <FloatingLabelInput label='Translator' id='translator' {...field} />
+                    )}
+                    rules={{ required: false }}
+                />
+                {viewmodel.errors.translator && <p className='text-red-500'>{viewmodel.errors.translator?.message}</p>}
+            </div>
+
+            <div>
+                <Controller
+                    name='nbPage'
+                    control={viewmodel.control}
+                    render={({ field }) => (
+                        <FloatingLabelInput
+                            label='Number of Pages' type='number' id='nbPage'
+                            onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : null)}
+                        />
+                    )}
+                />
+                {viewmodel.errors.nbPage && <p className='text-red-500'>{viewmodel.errors.nbPage.message}</p>}
+            </div>
+
+            <div>
+                <Controller
+                    name='language'
+                    control={viewmodel.control}
+                    render={({ field }) => (
+                        <FloatingLabelInput label='Language' id='language' {...field} />
+                    )}
+                    rules={{ required: false }}
+                />
+                {viewmodel.errors.language && <p className='text-red-500'>{viewmodel.errors.language?.message}</p>}
+            </div>
+
+            <div>
+                <Controller
+                    name='format'
+                    control={viewmodel.control}
+                    render={({ field }) => (
+                        <Select {...field}>
+                            <SelectTrigger>
+                                <SelectValue placeholder='Select a format' />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectGroup>
+                                    {formatOptions.map((option) => (
+                                        <SelectItem key={option.value} value={option.value}>
+                                            {option.value}
+                                        </SelectItem>
+                                    ))}
+                                </SelectGroup>
+                            </SelectContent>
+                        </Select>
+                    )}
+                />
+                {viewmodel.errors.format && <p className='text-red-500'>{viewmodel.errors.format.message}</p>}
+            </div>
+
+            <div>
+                <Controller
+                    name='cover'
+                    control={viewmodel.control}
+                    render={({ field }) => (
+                        <FloatingLabelInput
+                            label='Cover Image' type='file' id='cover' onChange={(e) => field.onChange(e.target.files?.[0])}
+                            accept='image/png, image/jpeg'
+                        />
+                    )}
+                    rules={{ required: false }}
+                />
+                {viewmodel.errors.cover && <p className='text-red-500'>{viewmodel.errors.cover.message}</p>}
             </div>
         </form>
     );
 };
+
+export const AddBookFormFooter: React.FC<AddBookFormProps> = ({ viewmodel }) => {
+    return (
+        <Button type='submit' onClick={viewmodel.handleSubmit(viewmodel.onSubmit)}>Submit</Button>
+    )
+}

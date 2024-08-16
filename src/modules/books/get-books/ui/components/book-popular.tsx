@@ -5,19 +5,20 @@ import { getPopularBooksViewmodel } from '../get-popular-books/get-popular-books
 import { getPopularBooksUseCase } from '../../usecase/get-popular-books/get-popular-books.usecase';
 import { AppDispatch } from '@/modules/store/create-store';
 import BooksCarousel from './BooksCarousel';
+import { Loader } from '@/components/ui/loader';
 
 export const PopularBooksCarousels = () => {
   const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(getPopularBooksUseCase);
   }, []);
-  
+
   const viewmodel = useSelector(getPopularBooksViewmodel());
 
   const nodeToRender: ReactNode = (() => {
       switch (viewmodel.type) {
           case 'gettingPopularBooksPending':
-              return <div>Loading...</div>;
+              return <Loader />;
           case 'gettingPopularBooksRejected':
               return <div>Oops...</div>;
           case 'gettingPopularBooksFulfilled':
