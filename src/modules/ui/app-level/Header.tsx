@@ -15,11 +15,12 @@ import {
 import { useTranslation } from 'react-i18next';
 import { ChangeEvent } from 'react';
 import { Button } from '@/components/ui/button';
+import { SidebarComponent } from '@/modules/ui/app-level/Sidebar';
 
 const languages = ['en', 'fr'];
 
 export function Header() {
-    const { t, i18n } = useTranslation('navbar');
+    const { t, i18n } = useTranslation();
 
     const changeLanguage = () => async (e: ChangeEvent<HTMLSelectElement>) => {
         const selectedLanguage = e.target.value;
@@ -28,9 +29,10 @@ export function Header() {
 
     return (
         <Grid3 className='h-full items-center'>
-            <div></div>
+            <div>
+            </div>
 
-            <div className='flex justify-center'>
+            <div className='flex justify-center cursor-pointer '>
                 <Link href='/' legacyBehavior passHref>
                     <Image src='/logo.png' alt='Home Page' width={200} height={200} />
                 </Link>
@@ -40,10 +42,11 @@ export function Header() {
                 <NavigationMenu>
                     <NavigationMenuList>
                         <NavigationMenuItem>
-                            <NavigationMenuTrigger>{t('Langue')}</NavigationMenuTrigger>
+                            <NavigationMenuTrigger>{t(`navbar.${i18n.language}`)}</NavigationMenuTrigger>
                             <NavigationMenuContent>
                                 <ul className='z-55 inline-flex gap-2 p-4'>
-                                    {languages.map((language) => (
+                                    {languages.map((language) =>
+                                        language !== i18n.language && (
                                         <Button onClick={changeLanguage} key={language} variant='invert' className='bg-custom-purple'>
                                             {t(`navbar.${language}`) }
                                         </Button>

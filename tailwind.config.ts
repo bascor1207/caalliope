@@ -34,6 +34,8 @@ const config = {
       },
       colors: {
         'custom-purple': '#f8e9ff',
+        'custom-grey': '#F6F6F6',
+        'text-custom-color': '#7C0149'
       }
     },
   },

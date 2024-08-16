@@ -27,7 +27,7 @@ const booksList: Book[] = [
         id: 1,
         title: 'title novel',
         author: {
-            id: 1, 
+            id: 1,
             lastname: 'Corré',
             firstname: 'Bastien',
             image: '',
@@ -35,12 +35,10 @@ const booksList: Book[] = [
             birthDate: ''
         },
         type: 'Novel',
-        subject: [
+        subjects: [
             {
-                subject: {
                     id: 1,
                     label: 'Fantasy Medieval'
-                }
             }
         ],
         image: 'test',
@@ -50,7 +48,7 @@ const booksList: Book[] = [
         id: 2,
         title: 'title novel2',
         author: {
-            id: 1, 
+            id: 1,
             lastname: 'Corré',
             firstname: 'Bastien',
             image: '',
@@ -58,12 +56,10 @@ const booksList: Book[] = [
             birthDate: ''
         },
         type: 'Novel',
-        subject: [
+        subjects: [
             {
-                subject: {
                     id: 2,
                     label: 'Romance'
-                }
             }
         ],
         image: 'test',

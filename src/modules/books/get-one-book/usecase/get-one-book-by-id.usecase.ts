@@ -3,6 +3,7 @@ import { createAppAsyncThunk } from '@/modules/store/create-app-thunk';
 export const getOneBookById = createAppAsyncThunk(
     'getBookByAuthor',
     async (id: number, { extra: { getOneBookAdapter } }) => {
+            console.log(id, 'pizecpuhzpfhzjiojpojpfjzopfj')
         try {
             return await getOneBookAdapter.getOneBookById(id);
         }

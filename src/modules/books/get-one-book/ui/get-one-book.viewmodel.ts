@@ -27,6 +27,7 @@ export const getOneBookViewmodel = () => (state: RootState): Response => {
     const selectedBookState = state.selectedBook.getBook;
 
     const { requestStatus, selectedBook } = selectedBookState;
+    console.log(selectedBookState, 'pojncnpzoeozoeczj')
 
     if (requestStatus === 'pending') {
         return { type: gettingBook.pending }

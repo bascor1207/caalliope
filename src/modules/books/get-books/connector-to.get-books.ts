@@ -10,7 +10,7 @@ export type Book = {
     title: string;
     author: Author;
     type: string;
-    subject: Subject[];
+    subjects: Subject[];
     dateOfPublication: string;
     image: string;
 }
@@ -25,8 +25,6 @@ export type Author = {
 }
 
 export type Subject = {
-    subject: {
-        id: number,
-        label: string
-    }
+    id: number,
+    label: string
 }
