@@ -16,32 +16,29 @@ export const metadata: Metadata = {
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
     return (
         <html lang='fr' suppressHydrationWarning>
-        <body className='min-h-screen flex flex-col bg-background font-sans antialiased'>
-        <AppWrapper>
-                {/* Sidebar */}
-                    <SidebarComponent />
+            <body className='min-h-screen flex flex-col bg-background font-sans antialiased'>
+                <AppWrapper>
 
-                {/* Main Content Area */}
-                <div className='flex flex-col flex-grow'>
-                    {/* Header */}
-                    <header className='w-full h-28 bg-custom-purple shadow-md'>
-                        <Header />
-                    </header>
+                    {/* Main Content Area */}
+                    <div className='flex flex-col flex-grow'>
+                        <header className='w-full bg-custom-purple shadow-md'>
+                            <Header />
+                        </header>
 
-                    {/* Main content */}
-                    <main className='flex-grow p-4 sm:p-6 md:p-8 lg:p-12 bg-custom-grey'>
-                        {children}
-                    </main>
-                </div>
+                        {/* Main content */}
+                        <main className='flex-grow p-4 sm:p-6 md:p-8 lg:p-12 bg-custom-grey'>
+                            {children}
+                        </main>
+                    </div>
 
-            {/* Footer */}
-            <footer className='w-full p-4 sm:p-6 md:p-8 lg:p-12 bg-gray-800 text-white text-center'>
-                <Footer />
-            </footer>
-        </AppWrapper>
-        </body>
+                    {/* Footer */}
+                    <footer className='w-full p-4 sm:p-6 md:p-8 lg:p-12 bg-gray-800 text-white text-center'>
+                        <Footer />
+                    </footer>
+                </AppWrapper>
+            </body>
         </html>
-    );
+    )
 };
 
 export default RootLayout;

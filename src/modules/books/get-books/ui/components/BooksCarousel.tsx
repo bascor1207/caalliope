@@ -30,8 +30,8 @@ export const BooksCarousel = (
                 </CarouselItem>
             ))}
             </CarouselContent>
-            <CarouselPrevious className='flex items-center justify-center bg-custom-purple' variant='invert' />
-            <CarouselNext className='flex items-center justify-center bg-custom-purple' variant='invert'/>
+            <CarouselPrevious className='flex items-center justify-center'/>
+            <CarouselNext className='flex items-center justify-center'/>
         </Carousel>
     );
 };

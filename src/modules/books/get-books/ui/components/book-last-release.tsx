@@ -9,6 +9,7 @@ import { Loader } from '@/components/ui/loader';
 
 export const BooksCarouselsLastRelease = () => {
   const dispatch = useDispatch<AppDispatch>();
+
   useEffect(() => {
     dispatch(getBooksLastReleaseUseCase());
   }, []);

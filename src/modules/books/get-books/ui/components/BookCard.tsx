@@ -4,14 +4,8 @@ import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 
 import { BooksModel } from '@/modules/books/model/books.model';
-import {
-    Card,
-    CardContent,
-    CardDescription,
-    CardFooter,
-    CardHeader,
-    CardTitle,
-} from '@/components/ui/card';
+import { CustomCard } from '@/modules/ui/component-level/custom.card';
+
 
 type Props = {
     book: BooksModel.Book;
@@ -25,28 +19,29 @@ export const BookCard: FC<Props> = ({ book }) => {
     }
 
     return (
-        <Card onClick={getOneBookAndRedirect} className='text-text-custom-color cursor-pointer bg-custom-purple'>
-            <CardHeader>
-                <CardTitle >{book.title}</CardTitle>
-                <CardDescription>{book.type}</CardDescription>
-            </CardHeader>
-            <CardContent>
+        <CustomCard
+            onClick={getOneBookAndRedirect}
+            title={book.title}
+            description={book.type}
+            content={() => (
                 <Image
-                    className='transform transition-transform duration-300 ease-in-out hover:scale-120'
+                    className='transform transition-transform duration-300 ease-in-out hover:scale-110 hover:rounded-xl'
                     src={book.image}
                     alt='livre'
-                    width={300}
-                    height={400}
+                    width={1000}
+                    height={1000}
                 />
-            </CardContent>
-            <CardFooter className='flex flex-col gap-2 bg-white pt-4 min-h-[124px] rounded-b-xl'>
-                <span className='text-gray-600 text-[0.813rem]'>{book.author.lastname} {book.author.firstname}</span>
-                {book.subjects.map((subject) => (
-                    <span key={subject.id} className='text-[0.813rem] font-semibold'>{subject.label}</span>
-                ))}
-                <span className='text-[0.813rem]'>{book.dateOfPublication}</span>
-            </CardFooter>
-        </Card>
+            )}
+            footer={() => (
+                <>
+                    <span className='text-gray-600 text-[0.813rem]'>{book.author.lastname} {book.author.firstname}</span>
+                        {book.subjects.map((subject) => (
+                            <span key={subject.id} className='text-[0.813rem] font-semibold'>{subject.label}</span>
+                        ))}
+                    <span className='text-[0.813rem]'>{book.dateOfPublication}</span>
+                </>
+            )}
+        />
     );
 }
 

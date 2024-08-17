@@ -54,7 +54,7 @@ export type PickRequiredVariants<T extends AnyClassedComponent & InferableClasse
  */
 export interface ClassedComponentType<
   Type extends keyof JSX.IntrinsicElements | AnyComponent,
-  Props extends {} = {},
+  Props extends = {},
   TComposedVariants extends {} = {},
 > extends Polymorphic.ForwardRefComponent<Type, Props> {
   [$$ClassedProps]: Props;

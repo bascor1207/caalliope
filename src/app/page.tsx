@@ -3,6 +3,8 @@ import React from 'react';
 import { BooksCarouselsLastRelease } from '@/modules/books/get-books/ui/components/book-last-release';
 import { PopularBooksCarousels } from '@/modules/books/get-books/ui/components/book-popular';
 import { useTranslation } from 'react-i18next';
+import { twMerge } from 'tailwind-merge';
+import { Button } from '@nextui-org/react';
 
 export default function Home() {
     const { t } = useTranslation('home');

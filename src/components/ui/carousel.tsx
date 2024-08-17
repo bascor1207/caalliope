@@ -5,7 +5,7 @@ import * as React from 'react';
 import { cn } from '@/lib/utils/core/cn';
 import ArrowLeft from '@/components/icons/arrow-left';
 import ArrowRight from '@/components/icons/arrow-right';
-import { Button } from '@/components/ui/button';
+import { Button } from '@nextui-org/react';
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -186,23 +186,22 @@ CarouselItem.displayName = 'CarouselItem';
 const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
->(({ className, variant = 'outline', size = 'icon', ...props }, ref) => {
-  const { orientation, scrollPrev, canScrollPrev } = useCarousel();
+>(({ className, ...props }, ref) => {
+  const { scrollPrev, canScrollPrev } = useCarousel();
 
   return (
     <Button
+      radius='lg'
       ref={ref}
-      variant={variant}
-      size={size}
+      isIconOnly
+      isDisabled={!canScrollPrev}
+      onClick={scrollPrev}
       className={cn(
         'absolute  h-10 w-10',
-        orientation === 'horizontal'
-          ? '-left-12 top-1/2 -translate-y-1/2'
-          : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
+      '-left-12 top-1/2 -translate-y-1/2',
+        canScrollPrev ? 'hover:bg-custom-purple' : '',
         className,
       )}
-      disabled={!canScrollPrev}
-      onClick={scrollPrev}
       {...props}
     >
       <ArrowLeft className='size-6' />
@@ -215,22 +214,21 @@ CarouselPrevious.displayName = 'CarouselPrevious';
 const CarouselNext = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
->(({ className, variant = 'outline', size = 'icon', ...props }, ref) => {
-  const { orientation, scrollNext, canScrollNext } = useCarousel();
+>(({ className, ...props }, ref) => {
+  const {  scrollNext, canScrollNext } = useCarousel();
 
   return (
     <Button
+      radius='lg'
       ref={ref}
-      variant={variant}
-      size={size}
+      isIconOnly
       className={cn(
         'absolute h-10 w-10',
-        orientation === 'horizontal'
-          ? '-right-12 top-1/2 -translate-y-1/2'
-          : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
+          '-right-12 top-1/2 -translate-y-1/2',
+        canScrollNext ? 'hover:bg-custom-purple' : '',
         className,
       )}
-      disabled={!canScrollNext}
+      isDisabled={!canScrollNext}
       onClick={scrollNext}
       {...props}
     >
