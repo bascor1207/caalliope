@@ -2,10 +2,8 @@
 import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react';
 import * as React from 'react';
 
-import { cn } from '@/lib/utils/core/cn';
-import ArrowLeft from '@/components/icons/arrow-left';
-import ArrowRight from '@/components/icons/arrow-right';
-import { Button } from '@nextui-org/react';
+import { Button, Image } from '@nextui-org/react';
+import { twMerge } from 'tailwind-merge';
 
 type CarouselApi = UseEmblaCarouselType[1];
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>;
@@ -126,7 +124,7 @@ const Carousel = React.forwardRef<
         <div
           ref={ref}
           onKeyDownCapture={handleKeyDown}
-          className={cn('relative', className)}
+          className={twMerge('relative', className)}
           role='region'
           aria-roledescription='carousel'
           {...props}
@@ -149,7 +147,7 @@ const CarouselContent = React.forwardRef<
     <div ref={carouselRef} className='overflow-hidden'>
       <div
         ref={ref}
-        className={cn(
+        className={twMerge(
           'flex',
           orientation === 'horizontal' ? '-ml-4' : '-mt-4 flex-col',
           className,
@@ -172,7 +170,7 @@ const CarouselItem = React.forwardRef<
       ref={ref}
       role='group'
       aria-roledescription='slide'
-      className={cn(
+      className={twMerge(
         'min-w-0 shrink-0 grow-0 basis-full',
         orientation === 'horizontal' ? 'pl-4' : 'pt-4',
         className,
@@ -196,7 +194,7 @@ const CarouselPrevious = React.forwardRef<
       isIconOnly
       isDisabled={!canScrollPrev}
       onClick={scrollPrev}
-      className={cn(
+      className={twMerge(
         'absolute  h-10 w-10',
       '-left-12 top-1/2 -translate-y-1/2',
         canScrollPrev ? 'hover:bg-custom-purple' : '',
@@ -204,7 +202,7 @@ const CarouselPrevious = React.forwardRef<
       )}
       {...props}
     >
-      <ArrowLeft className='size-6' />
+      <Image src='/arrow-left.svg' alt='Scroll previous' />
       <span className='sr-only'>Previous slide</span>
     </Button>
   );
@@ -222,7 +220,7 @@ const CarouselNext = React.forwardRef<
       radius='lg'
       ref={ref}
       isIconOnly
-      className={cn(
+      className={twMerge(
         'absolute h-10 w-10',
           '-right-12 top-1/2 -translate-y-1/2',
         canScrollNext ? 'hover:bg-custom-purple' : '',
@@ -232,7 +230,7 @@ const CarouselNext = React.forwardRef<
       onClick={scrollNext}
       {...props}
     >
-      <ArrowRight className='size-6' />
+      <Image src='/arrow-rightgit add .svg' alt='Scroll next'/>
       <span className='sr-only'>Next slide</span>
     </Button>
   );

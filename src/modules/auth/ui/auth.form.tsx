@@ -1,4 +1,4 @@
-import { useAuthForm } from '@/modules/auth/core/form/use-form';
+import { useAuthForm } from '@/modules/auth/core/form/use-auth-form';
 import { Controller } from 'react-hook-form';
 import React from 'react';
 import { Input } from '@nextui-org/react';
