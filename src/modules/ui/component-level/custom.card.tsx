@@ -33,7 +33,7 @@ export const CustomCard: FC<CustomCardProps> = ({ title, content, footer, descri
         <NextUICard
             isPressable
             onPress={onClick}
-            className='rounded-xl border shadow p-6 text-text-custom-color cursor-pointer bg-custom-purple'
+            className='rounded-xl border shadow p-6 text-custom-dark-purple cursor-pointer bg-custom-purple'
             classNames={{
                 body: 'p-0'
             }}

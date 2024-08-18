@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import { nextui } from '@nextui-org/react';
 
 const config = {
   darkMode: ['class'],
@@ -7,6 +8,7 @@ const config = {
     './components/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './src/**/*.{ts,tsx}',
+    './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}'
   ],
   prefix: '',
   theme: {
@@ -35,11 +37,19 @@ const config = {
       colors: {
         'custom-purple': '#f8e9ff',
         'custom-grey': '#F6F6F6',
-        'text-custom-color': '#7C0149'
+        'custom-dark-purple': '#7C0149'
       }
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), nextui({
+    defaultTheme: 'light',
+    defaultExtendTheme: 'light',
+    themes: {
+      light: {
+        colors: { default: '#F6F6F6' },
+      },
+    }
+  })],
 } satisfies Config
 
 export default config

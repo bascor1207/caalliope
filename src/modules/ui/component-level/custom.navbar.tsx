@@ -1,14 +1,13 @@
 'use client';
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
 import {
     Navbar,
     NavbarContent,
     NavbarMenuToggle,
     NavbarMenu,
-    NavbarBrand, Select, SelectItem
+    NavbarBrand
 } from '@nextui-org/react';
 import { twMerge } from 'tailwind-merge';
-import { useTranslation } from 'react-i18next';
 
 type CustomNavBarProps = {
     renderLogo?: () => React.ReactNode;
@@ -51,34 +50,36 @@ export const CustomNavBar: React.FC<CustomNavBarProps> = ({
         <Navbar
             isMenuOpen={isMenuOpen}
             onMenuOpenChange={handleMenuOpenChange}
-            className={twMerge('z-10 flex items-center justify-between w-full px-8')}
+            className={twMerge('z-10 px-8 py-4 bg-custom-purple shadow-md')}
+            classNames={{ wrapper: 'max-w-full' }}
         >
-            <NavbarContent className={twMerge('flex items-center justify-start')}>
+            <NavbarContent justify='start'>
                 {renderMenuToggle && showMenu && (
                     <NavbarMenuToggle
                         onMouseEnter={() => setIsMenuOpen(true)}
                         className='ml-4'
-                    >
-                        {renderMenuToggle()}
-                    </NavbarMenuToggle>
+                        icon={renderMenuToggle()}
+                    />
                 )}
                 {renderLeftContent && renderLeftContent()}
             </NavbarContent>
 
             {renderLogo && (
-                <NavbarBrand className='flex justify-center items-center w-full'>
-                    {renderLogo()}
-                </NavbarBrand>
+                <NavbarContent justify='center'>
+                    <NavbarBrand>
+                        {renderLogo()}
+                    </NavbarBrand>
+                </NavbarContent>
             )}
 
-            <NavbarContent className={twMerge('sm:flex gap-4 items-center')}>
+            <NavbarContent justify='end'>
                 {renderCenterContent && renderCenterContent()}
                 {renderRightContent && renderRightContent()}
             </NavbarContent>
 
             {showMenu && (
                 <NavbarMenu
-                    className={twMerge('w-1/4 min-h-screen overflow-hidden bg-opacity-50 bg-custom-grey text-text-custom-color z-50')}
+                    className={twMerge('w-1/4 min-h-screen overflow-hidden bg-opacity-50 bg-custom-grey text-custom-dark-purple z-50')}
                     onMouseLeave={() => setIsMenuOpen(false)}
                 >
                     <div className='flex flex-col gap-2 mt-14 pl-4 opacity-100'>

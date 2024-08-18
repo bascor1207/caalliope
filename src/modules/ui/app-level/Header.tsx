@@ -2,11 +2,14 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Button, Select, SelectItem } from '@nextui-org/react';
+import { Avatar, Button, Select, SelectItem } from '@nextui-org/react';
 import { twMerge } from 'tailwind-merge';
 import { CustomNavBar } from '@/modules/ui/component-level/custom.navbar';
 import { useTranslation } from 'react-i18next';
 import { ChangeEvent } from 'react';
+import { toggleAuthModal } from '@/modules/auth/core/store/auth.slice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/modules/store/create-store';
 
 
 const LINKS_ITEMS = [
@@ -49,6 +52,7 @@ const LINKS_ITEMS = [
 ];
 
 export const Header = () => {
+    const dispatch = useDispatch<AppDispatch>();
     const { t, i18n } = useTranslation();
 
     const languages = ['en', 'fr']
@@ -58,6 +62,8 @@ export const Header = () => {
         const selectedLanguage = e.target.value;
         await i18n.changeLanguage(selectedLanguage);
     };
+
+    console.log(i18n.language)
 
     return (
         <CustomNavBar
@@ -72,32 +78,45 @@ export const Header = () => {
             renderRightContent={() => (
                 <>
                     <Select
-                        label={t(`navbar.${i18n.language}`)}
-                        className='bg-custom-grey'
+                        value={t(`navbar.${i18n.language}`)}
+                        className='bg-custom-grey w-1/4'
                         labelPlacement='inside'
-                        variant='bordered'
+                        size='sm'
+                        radius='sm'
                     >
                         {languagesOptions.map((language) =>
                            (
-                                <SelectItem key={language} onClick={changeLanguage}>
+                                <SelectItem
+                                    key={language} onClick={changeLanguage}
+                                    startContent={
+                                        <Avatar alt= {t(`navbar.${language}`)} className='w-4 h-4' src={`https://flagcdn.com/${language}.svg`} />
+                                    }
+                                >
                                     {t(`navbar.${language}`)}
                                 </SelectItem>
                             )
                     )}
                     </Select>
                     <Button
-                        radius='lg'
+                        radius='md'
+                        size='md'
+                        onPress={()=> dispatch(toggleAuthModal(true))}
+                        variant='light'
                         className={twMerge(
-                            'border border-custom-grey text-text-custom-color px-8',
+                            'text-custom-dark-purple px-8',
                             'hover:text-black hover:bg-custom-grey',
                             'transition duration-150'
-                    )}>
-                        Login
+                        )}>
+                        Sign In
                     </Button>
+
                     <Button
-                        radius='lg'
+                        radius='md'
+                        size='md'
+                        variant='light'
+                        onPress={()=> dispatch(toggleAuthModal(true))}
                         className={twMerge(
-                            'text-text-custom-color px-8',
+                            'text-custom-dark-purple px-8',
                             'hover:text-black hover:bg-custom-grey',
                             'transition duration-150'
                     )}>

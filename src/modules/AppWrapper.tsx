@@ -7,7 +7,7 @@ import { NextUIProvider } from '@nextui-org/react'
 export const AppWrapper = ({ children }: { children: ReactNode }) => {
     return (
         <NextUIProvider className='min-h-svh w-svw' locale='fr-FR'>
-            <Provider store={app.store}>{ children }</Provider>;
+            <Provider store={app.store}>{ children }</Provider>
         </NextUIProvider>
     )
 };

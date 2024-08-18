@@ -18,7 +18,7 @@ export function SidebarComponent() {
                 className='p-2 bg-primary text-white fixed top-4 left-4 z-50 flex items-center justify-center'
             >
                 <svg
-                    className='w-6 h-6 text-text-custom-color'
+                    className='w-6 h-6 text-custom-dark-purple'
                     fill='none'
                     stroke='currentColor'
                     viewBox='0 0 24 24'
