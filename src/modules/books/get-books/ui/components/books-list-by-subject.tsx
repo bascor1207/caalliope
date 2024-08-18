@@ -5,7 +5,7 @@ import { getBooksViewModel } from '../get-books/get-books.viewmodel';
 import { getBooksBySubjectUtils } from '../get-books/get-books-by-subject.utils';
 import { NoResults } from './no-results';
 import { BooksCatalog } from './book-card-catalog';
-import { Loader } from '@/components/ui/loader';
+import { Spinner } from '@nextui-org/react';
 
 type BooksListBySubjectProps = {
     subject: string;
@@ -17,7 +17,7 @@ export const BooksListBySubject: FC<BooksListBySubjectProps> = ({ subject }: Boo
   const nodeToRender: ReactNode = (() => {
     switch (viewmodel.type) {
       case 'gettingBooksPending':
-        return <Loader />;
+        return <Spinner />;
       case 'gettingBooksRejected':
         return <div>Oops...</div>;
       case 'gettingBooksFulfilled': {
