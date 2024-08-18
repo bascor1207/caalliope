@@ -1,11 +1,11 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Modal } from '@/modal/modal';
 import { Book } from '../../connector-to.get-one-book';
 import { AddPublishingForm } from '@/modules/books/forms/add-publishing-form';
 
 import styles from './publishing-section.module.scss';
+import { CustomModal } from '@/modules/ui/component-level/custom.modal';
 
 type Props = {
     book: Book;
@@ -14,7 +14,7 @@ type Props = {
 export const PublishingSection: FC<Props> = ({ book }) => {
     const [isShown, setIsShown] = useState(false);
     const { t } = useTranslation('library');
-    
+
     const handleClick = () => {
         console.log('option selected')
     };
@@ -22,7 +22,7 @@ export const PublishingSection: FC<Props> = ({ book }) => {
     const toggle = () => {
         setIsShown(!isShown);
     };
-    
+
     return (
         <div>
             <div>
@@ -44,7 +44,7 @@ export const PublishingSection: FC<Props> = ({ book }) => {
                         </div>
                     </div>
                 ))}
-                <Modal isShown={isShown} hideModal={toggle} modalContent={<AddPublishingForm hideModal={toggle} />} />
+                <CustomModal isShown={isShown} hideModal={toggle} modalContent={<AddPublishingForm hideModal={toggle} />} />
             </div>
         </div>
     );

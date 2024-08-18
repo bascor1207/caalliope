@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { getOneBookViewmodel } from '../get-one-book.viewmodel';
 import { BookInfoCard } from './book-info-card';
 import { TabBookInfo } from './tab-book-info';
-import { Spinner } from '@nextui-org/react';
+import { CustomSpinner } from '@/modules/ui/app-level/custom.spinner';
 
 export const BookInfo = () => {
   const viewmodel = useSelector(getOneBookViewmodel());
@@ -13,7 +13,7 @@ export const BookInfo = () => {
   const nodeToRender: ReactNode = (() => {
     switch (viewmodel.type) {
     case 'pending':
-      return <Spinner />;
+      return <CustomSpinner />;
     case 'gettingBookRejected':
       return <div>Oops...</div>;
     case 'fulfilled':

@@ -2,11 +2,11 @@ import { FC, useState } from 'react';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 
-import { Modal } from '@/modal/modal';
 import { Book } from '../../connector-to.get-one-book';
 import { AddReviewForm } from '@/modules/books/forms/add-review-form';
 
 import styles from './publishing-section.module.scss';
+import { CustomModal } from '@/modules/ui/component-level/custom.modal';
 
 type Props = {
     book: Book;
@@ -32,7 +32,7 @@ export const ReviewSection: FC<Props> = ({ book }) => {
             <p>{review.review.comment}</p>
           </div>
         ))}
-        <Modal isShown={isShown} hideModal={toggle} modalContent={<AddReviewForm hideModal={toggle} />} />
+        <CustomModal isShown={isShown} hideModal={toggle} modalContent={<AddReviewForm hideModal={toggle} />} />
       </div>
   );
 };

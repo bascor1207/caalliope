@@ -5,7 +5,7 @@ import { AppDispatch } from '@/modules/store/create-store';
 import { getBooksLastReleaseUseCase } from '../../usecase/get-last-release-books/get-last-release-books.usecase';
 import { getBooksLastReleaseViewmodel } from '../get-last-release-books/get-last-release-books.viewmodel';
 import BooksCarousel from './BooksCarousel';
-import { Spinner } from '@nextui-org/react';
+import { CustomSpinner } from '@/modules/ui/app-level/custom.spinner';
 
 export const BooksCarouselsLastRelease = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -19,12 +19,12 @@ export const BooksCarouselsLastRelease = () => {
   const nodeToRender: ReactNode = (() => {
       switch (viewmodel.type) {
           case 'gettingBooksLastReleasePending':
-              return <Spinner />;
+              return <CustomSpinner />;
           case 'gettingBooksLastReleaseRejected':
               return <div>Oops...</div>;
           case 'gettingBooksLastReleaseFulfilled':
               return (
-                <BooksCarousel slides={viewmodel.books} withExtraGap title={''} />
+                <BooksCarousel slides={viewmodel.books} withExtraGap />
               );
       }
   })();

@@ -22,7 +22,9 @@ export const BooksCarousel = (
 ) => {
     return (
         <Carousel>
-            <p>{title}</p>
+            {title && (
+                <p>{title}</p>
+            )}
             <CarouselContent>
             {slides.map((slide) => (
                 <CarouselItem key={slide.id} className='md:basis-1/2 lg:basis-1/5 mr-2'>
