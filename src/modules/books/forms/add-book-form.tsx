@@ -1,9 +1,7 @@
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import { FloatingLabelInput } from '@/components/ui/label';
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useFormViewmodel } from '@/modules/books/forms/form.viewmodel';
-import { Button } from '@/components/ui/button';
+import { Button, Input, Select, SelectItem } from '@nextui-org/react';
 
 interface AddBookFormProps {
     viewmodel: ReturnType<typeof useFormViewmodel>;
@@ -23,7 +21,7 @@ export const AddBookForm: React.FC<AddBookFormProps> = ({ viewmodel }) => {
                     name='isbn'
                     control={viewmodel.control}
                     render={({ field }) => (
-                        <FloatingLabelInput label='ISBN' id='isbn' {...field} />
+                        <Input label='ISBN' id='isbn' {...field} />
                     )}
                 />
                 {viewmodel.errors.isbn && <p className='text-red-500'>{viewmodel.errors.isbn.message}</p>}
@@ -34,7 +32,7 @@ export const AddBookForm: React.FC<AddBookFormProps> = ({ viewmodel }) => {
                     name='title'
                     control={viewmodel.control}
                     render={({ field }) => (
-                        <FloatingLabelInput label='Title' id='title' {...field} />
+                        <Input label='Title' id='title' {...field} />
                     )}
                 />
                 {viewmodel.errors.title && <p className='text-red-500'>{viewmodel.errors.title.message}</p>}
@@ -45,7 +43,7 @@ export const AddBookForm: React.FC<AddBookFormProps> = ({ viewmodel }) => {
                     name='author'
                     control={viewmodel.control}
                     render={({ field }) => (
-                        <FloatingLabelInput label='Author' id='author' {...field} />
+                        <Input label='Author' id='author' {...field} />
                     )}
                 />
                 {viewmodel.errors.author && <p className='text-red-500'>{viewmodel.errors.author.message}</p>}
@@ -56,7 +54,7 @@ export const AddBookForm: React.FC<AddBookFormProps> = ({ viewmodel }) => {
                     name='date'
                     control={viewmodel.control}
                     render={({ field }) => (
-                        <FloatingLabelInput
+                        <Input
                             label='Release Date' type='date' id='date'
                             value={field.value ? new Date(field.value).toISOString().split('T')[0] : ''}
                             onChange={(e) => field.onChange(e.target.value ? new Date(e.target.value) : null)}
@@ -71,7 +69,7 @@ export const AddBookForm: React.FC<AddBookFormProps> = ({ viewmodel }) => {
                     name='editor'
                     control={viewmodel.control}
                     render={({ field }) => (
-                        <FloatingLabelInput label='Editor' id='editor' {...field} />
+                        <Input label='Editor' id='editor' {...field} />
                     )}
                 />
                 {viewmodel.errors.editor && <p className='text-red-500'>{viewmodel.errors.editor.message}</p>}
@@ -82,7 +80,7 @@ export const AddBookForm: React.FC<AddBookFormProps> = ({ viewmodel }) => {
                     name='translator'
                     control={viewmodel.control}
                     render={({ field }) => (
-                        <FloatingLabelInput label='Translator' id='translator' {...field} />
+                        <Input label='Translator' id='translator' {...field} />
                     )}
                     rules={{ required: false }}
                 />
@@ -94,7 +92,7 @@ export const AddBookForm: React.FC<AddBookFormProps> = ({ viewmodel }) => {
                     name='nbPage'
                     control={viewmodel.control}
                     render={({ field }) => (
-                        <FloatingLabelInput
+                        <Input
                             label='Number of Pages' type='number' id='nbPage'
                             onChange={(e) => field.onChange(e.target.value ? parseInt(e.target.value) : null)}
                         />
@@ -108,7 +106,7 @@ export const AddBookForm: React.FC<AddBookFormProps> = ({ viewmodel }) => {
                     name='language'
                     control={viewmodel.control}
                     render={({ field }) => (
-                        <FloatingLabelInput label='Language' id='language' {...field} />
+                        <Input label='Language' id='language' {...field} />
                     )}
                     rules={{ required: false }}
                 />
@@ -120,19 +118,19 @@ export const AddBookForm: React.FC<AddBookFormProps> = ({ viewmodel }) => {
                     name='format'
                     control={viewmodel.control}
                     render={({ field }) => (
-                        <Select onValueChange={(value) => field.onChange(value ? value : null)}>
-                            <SelectTrigger>
-                                <SelectValue placeholder='Select a format' />
-                            </SelectTrigger>
-                            <SelectContent>
-                                <SelectGroup>
-                                    {formatOptions.map((option) => (
-                                        <SelectItem key={option.value} value={option.label} >
-                                            {option.value}
-                                        </SelectItem>
-                                    ))}
-                                </SelectGroup>
-                            </SelectContent>
+                        <Select
+                            className='bg-custom-grey w-1/4'
+                            labelPlacement='inside'
+                            size='sm'
+                            radius='sm'
+                            placeholder='Select a format'
+                            {...field}
+                        >
+                            {formatOptions.map((option) => (
+                                    <SelectItem key={option.value} value={option.label} >
+                                        {option.value}
+                                    </SelectItem>
+                                ))}
                         </Select>
                     )}
                 />
@@ -144,7 +142,7 @@ export const AddBookForm: React.FC<AddBookFormProps> = ({ viewmodel }) => {
                     name='cover'
                     control={viewmodel.control}
                     render={({ field }) => (
-                        <FloatingLabelInput
+                        <Input
                             label='Cover Image' type='file' id='cover' onChange={(e) => field.onChange(e.target.files?.[0])}
                             accept='image/png, image/jpeg'
                         />
