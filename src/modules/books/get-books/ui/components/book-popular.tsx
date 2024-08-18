@@ -5,7 +5,7 @@ import { getPopularBooksViewmodel } from '../get-popular-books/get-popular-books
 import { getPopularBooksUseCase } from '../../usecase/get-popular-books/get-popular-books.usecase';
 import { AppDispatch } from '@/modules/store/create-store';
 import BooksCarousel from './BooksCarousel';
-import { Spinner } from '@nextui-org/react';
+import { CustomSpinner } from '@/modules/ui/app-level/custom.spinner';
 
 export const PopularBooksCarousels = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -18,7 +18,7 @@ export const PopularBooksCarousels = () => {
   const nodeToRender: ReactNode = (() => {
       switch (viewmodel.type) {
           case 'gettingPopularBooksPending':
-              return <Spinner />;
+              return <CustomSpinner />;
           case 'gettingPopularBooksRejected':
               return <div>Oops...</div>;
           case 'gettingPopularBooksFulfilled':

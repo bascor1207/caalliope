@@ -83,11 +83,12 @@ export const Header = () => {
                         labelPlacement='inside'
                         size='sm'
                         radius='sm'
+                        onChange={changeLanguage()}
                     >
                         {languagesOptions.map((language) =>
                            (
                                 <SelectItem
-                                    key={language} onClick={changeLanguage}
+                                    key={language}
                                     startContent={
                                         <Avatar alt= {t(`navbar.${language}`)} className='w-4 h-4' src={`https://flagcdn.com/${language}.svg`} />
                                     }
