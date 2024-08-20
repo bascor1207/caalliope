@@ -11,4 +11,9 @@ export namespace AuthModel {
     });
 
     export type AuthFormSchema = z.infer<typeof signInFormSchema>
+
+    export type AuthUserPayload = {
+        email: string;
+        password: string;
+    }
 }

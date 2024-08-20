@@ -18,7 +18,7 @@ export const getBooksSlice = createSlice( {
     name: 'getBooks',
     initialState: { books: [], pendingRequest: false, rejectedRequest: false } as GetBooksSliceType,
     reducers: {},
-    extraReducers(builder) {
+    extraReducers : (builder)=> {
         builder.addCase(getBooksUseCase.pending, (state) => {
             state.pendingRequest = true;
         }),

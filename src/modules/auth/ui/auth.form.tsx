@@ -2,6 +2,7 @@ import { useAuthForm } from '@/modules/auth/core/form/use-auth-form';
 import React from 'react';
 import { CustomForm } from '@/modules/ui/component-level/custom.form';
 import { AuthModel } from '@/modules/auth/model/auth.model';
+import { authUser } from '@/modules/auth/usecases/auth.user';
 
 export const AuthForm = () => {
     const authForm = useAuthForm();
@@ -20,7 +21,8 @@ export const AuthForm = () => {
             <CustomForm
                 items={formItems}
                 schema={AuthModel.signInFormSchema}
-                />
+                action={authUser}
+            />
         </form>
     )
 }
