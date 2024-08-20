@@ -1,4 +1,4 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AsyncThunk, createAsyncThunk } from '@reduxjs/toolkit';
 import {
   AppDispatch,
   Dependencies,
@@ -10,3 +10,18 @@ export const createAppAsyncThunk = createAsyncThunk.withTypes<{
   dispatch: AppDispatch;
   extra: Dependencies;
 }>();
+
+export type AppAsyncThunk = AsyncThunk<
+    unknown,
+    void,
+    {
+      state: RootState;
+      dispatch: AppDispatch;
+      extra: Dependencies;
+      rejectValue?: unknown;
+      serializedErrorType?: unknown;
+      pendingMeta?: unknown;
+      fulfilledMeta?: unknown;
+      rejectedMeta?: unknown;
+    }
+>;
