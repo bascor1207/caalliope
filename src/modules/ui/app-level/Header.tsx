@@ -10,6 +10,7 @@ import { ChangeEvent } from 'react';
 import { toggleAuthModal } from '@/modules/auth/core/store/auth.slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/modules/store/create-store';
+import { AuthModel } from '@/modules/auth/model/auth.model';
 
 
 const LINKS_ITEMS = [
@@ -63,7 +64,6 @@ export const Header = () => {
         await i18n.changeLanguage(selectedLanguage);
     };
 
-    console.log(i18n.language)
 
     return (
         <CustomNavBar
@@ -101,7 +101,7 @@ export const Header = () => {
                     <Button
                         radius='md'
                         size='md'
-                        onPress={()=> dispatch(toggleAuthModal(true))}
+                        onPress={()=> dispatch(toggleAuthModal({ visible: true, type: AuthModel.AUTH_TYPES.SIGN_IN }))}
                         variant='light'
                         className={twMerge(
                             'text-custom-dark-purple px-8',
@@ -115,7 +115,7 @@ export const Header = () => {
                         radius='md'
                         size='md'
                         variant='light'
-                        onPress={()=> dispatch(toggleAuthModal(true))}
+                        onPress={()=> dispatch(toggleAuthModal({ visible: true, type: AuthModel.AUTH_TYPES.SIGN_UP }))}
                         className={twMerge(
                             'text-custom-dark-purple px-8',
                             'hover:text-black hover:bg-custom-grey',
