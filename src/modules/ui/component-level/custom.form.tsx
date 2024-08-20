@@ -1,25 +1,39 @@
-import { Controller, ControllerRenderProps, FieldPath, FieldValues, Path } from 'react-hook-form';
+import { Controller, Path } from 'react-hook-form';
 import { Button, Input, Select, SelectItem } from '@nextui-org/react';
 import { useCustomForm } from '@/modules/ui/component-level/use-custom-form';
-import { ZodObject } from 'zod';
+import { baseObjectOutputType, objectUtil,  ZodObject, ZodRawShape } from 'zod';
 import { UnknownAction } from '@reduxjs/toolkit';
 import { AppDispatch } from '@/modules/store/create-store';
 import { useDispatch } from 'react-redux';
 import React from 'react';
 import { AppAsyncThunk } from '@/modules/store/create-app-thunk';
+import addQuestionMarks = objectUtil.addQuestionMarks;
 
-type CustomFormProps<T extends FieldValues, A = void> = {
-    items: { id: string; name: ZodObject<T>['keys']; label: string; type: string; options?: { value: string; label: string }[] }[];
+type optionalKeys<T extends object> = {
+    [k in keyof T]: undefined extends T[k] ? k : never;
+}[keyof T];
+type requiredKeys<T extends object> = {
+    [k in keyof T]: undefined extends T[k] ? never : k;
+}[keyof T];
+
+type ValidKeys<T extends ZodRawShape> = keyof T | requiredKeys<baseObjectOutputType<T>> | optionalKeys<baseObjectOutputType<T>>;
+
+type EnsurePathCompatibility<T extends ZodRawShape> = ValidKeys<T> extends Path<{
+    [k in keyof addQuestionMarks<baseObjectOutputType<T>, any>]: addQuestionMarks<baseObjectOutputType<T>, any>[k];
+}> ? ValidKeys<T> : never;
+
+type CustomFormProps<T extends ZodRawShape, A = void> = {
+    items: { id: string; name: EnsurePathCompatibility<T>; label: string; type: string; options?: { value: string; label: string }[] }[];
     schema: ZodObject<T>;
     action?: UnknownAction | AppAsyncThunk<A>;
 }
 
-export const CustomForm = <T extends FieldValues, A>({ items, schema, action }: CustomFormProps<T, A>) => {
+export const CustomForm = <T extends ZodRawShape, A>({ items, schema, action }: CustomFormProps<T, A>) => {
     const dispatch = useDispatch<AppDispatch>();
     const validator = useCustomForm({ schema, action, dispatch });
 
-    const handleChange = (field: ControllerRenderProps<T, Path<T>>, itemType: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-        let value;
+    const handleChange = (field: unknown, itemType: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
+        let value: string | number | Date | File | null;
 
         switch (itemType) {
             case 'number':
@@ -37,7 +51,10 @@ export const CustomForm = <T extends FieldValues, A>({ items, schema, action }: 
                 break;
         }
 
-        field.onChange(value);
+        if (typeof field === 'object' && field !== null && 'onChange' in field) {
+            const fieldWithOnChange = field as { onChange: (changeValue: typeof value) => void };
+            fieldWithOnChange.onChange(value);
+        }
     };
 
     return (

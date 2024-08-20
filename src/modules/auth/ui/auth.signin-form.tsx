@@ -4,9 +4,9 @@ import { authUser } from '@/modules/auth/usecases/auth.user';
 
 export const AuthSignInForm = () => {
     const formItems = [
-        { id: 'login', name: 'login', label: 'Login' },
-        { id: 'password', name: 'password', label: 'Password' },
-    ] satisfies Array<{id: string, name: keyof AuthModel.LoginFormSchema, label: string}>;
+        { id: 'login', name: 'login', label: 'Login', type: 'text' },
+        { id: 'password', name: 'password', label: 'Password', type: 'password' },
+    ] satisfies Array<{id: string, name: keyof AuthModel.LoginFormSchema, label: string, type: string}>;
 
 
     return (

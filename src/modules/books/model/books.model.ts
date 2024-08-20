@@ -85,6 +85,8 @@ export namespace BooksModel {
   cover: coverSchema.optional(),
  });
 
+ export type AddBookFormSchemaType = z.infer<typeof addBookFormSchema>
+
  export const editBookFormSchema = z.object({
   isbn: isbnSchema,
   title: titleSchema,

@@ -1,17 +1,17 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FieldValues, useForm } from 'react-hook-form';
-import { z, ZodObject } from 'zod';
+import { useForm } from 'react-hook-form';
+import { z, ZodObject, ZodRawShape } from 'zod';
 import { AppDispatch } from '@/modules/store/create-store';
 import { UnknownAction } from '@reduxjs/toolkit';
 import { AppAsyncThunk } from '@/modules/store/create-app-thunk';
 
-type UseCustomFormProps<T extends FieldValues, A = void> = {
+type UseCustomFormProps<T extends ZodRawShape, A = void> = {
     schema: ZodObject<T>
     action?: UnknownAction | AppAsyncThunk<A>;
     dispatch: (data: UnknownAction | AppAsyncThunk<A>) => ReturnType<AppDispatch>
 }
 
-export function useCustomForm<T extends FieldValues, A>({ schema, action, dispatch }: UseCustomFormProps<T, A> ) {
+export function useCustomForm<T extends ZodRawShape, A>({ schema, action, dispatch }: UseCustomFormProps<T, A> ) {
     function onSubmit() {
         reset()
         if (action) {
