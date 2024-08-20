@@ -20,7 +20,7 @@ type BooksGettingRejected = {
 
 type BooksGettingFulfilled = {
     type: typeof gettingBooks.fulfilled,
-    books: Book[]
+    books: BooksModel.Book[]
 }
 
 type ViewModelResponse = BooksGettingPending | BooksGettingRejected | BooksGettingFulfilled;

@@ -46,7 +46,7 @@ const config = {
     defaultExtendTheme: 'light',
     themes: {
       light: {
-        colors: { default: '#F6F6F6' },
+        colors: { default: '#F6F6F6', secondary: '#7C0149' },
       },
     }
   })],

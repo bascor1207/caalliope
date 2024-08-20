@@ -53,6 +53,7 @@ export const CustomNavBar: React.FC<CustomNavBarProps> = ({
             className={twMerge('z-10 px-8 py-4 bg-custom-purple shadow-md')}
             classNames={{ wrapper: 'max-w-full' }}
             shouldHideOnScroll
+            onClick={() => setIsMenuOpen(false)}
         >
             <NavbarContent justify='start'>
                 {renderMenuToggle && showMenu && (
@@ -80,7 +81,7 @@ export const CustomNavBar: React.FC<CustomNavBarProps> = ({
 
             {showMenu && (
                 <NavbarMenu
-                    className={twMerge('w-1/4 min-h-screen overflow-hidden bg-opacity-50 bg-custom-grey text-custom-dark-purple z-50')}
+                    className={twMerge('w-1/4 min-h-screen bg-opacity-50 bg-custom-grey text-custom-dark-purple z-50')}
                     onMouseLeave={() => setIsMenuOpen(false)}
                 >
                     <div className='flex flex-col gap-2 mt-14 pl-4 opacity-100'>

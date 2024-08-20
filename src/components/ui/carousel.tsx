@@ -230,7 +230,7 @@ const CarouselNext = React.forwardRef<
       onClick={scrollNext}
       {...props}
     >
-      <Image src='/arrow-rightgit add .svg' alt='Scroll next'/>
+      <Image src='/arrow-right.svg' alt='Scroll next'/>
       <span className='sr-only'>Next slide</span>
     </Button>
   );
