@@ -36,7 +36,10 @@ export const TabSubjectBooks: FC<PropsWithChildren<TabBooksProps>> = ({
 
   return (
       <div className='flex items-center justify-center my-4'>
-        <Tabs aria-label='Dynamic tabs' items={SUBJECTS_TAB} classNames={classNames} onSelectionChange={(e) => labelSubject(e.toString())}>
+        <Tabs
+            aria-label='Dynamic tabs' items={SUBJECTS_TAB} classNames={classNames} onSelectionChange={(e) => labelSubject(e.toString())}
+            isDisabled={disabled}
+        >
           {(item) => (
               <Tab key={item.value} title={item.label} />
           )}

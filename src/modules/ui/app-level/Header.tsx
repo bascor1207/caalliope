@@ -11,6 +11,7 @@ import { toggleAuthModal } from '@/modules/auth/core/store/auth.slice';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/modules/store/create-store';
 import { AuthModel } from '@/modules/auth/model/auth.model';
+import { useRouter } from 'next/navigation';
 
 
 const LINKS_ITEMS = [
@@ -53,11 +54,11 @@ const LINKS_ITEMS = [
 ];
 
 export const Header = () => {
+    const router = useRouter();
     const dispatch = useDispatch<AppDispatch>();
     const { t, i18n } = useTranslation();
 
-    const languages = ['en', 'fr']
-    const languagesOptions = languages.filter((language) => language !== i18n.language)
+    const languages = ['uk', 'fr']
 
     const changeLanguage = () => async (e: ChangeEvent<HTMLSelectElement>) => {
         const selectedLanguage = e.target.value;
@@ -78,14 +79,14 @@ export const Header = () => {
             renderRightContent={() => (
                 <>
                     <Select
-                        value={t(`navbar.${i18n.language}`)}
+                        defaultSelectedKeys={[t(`navbar.${i18n.language}`)]}
                         className='bg-custom-grey w-1/4'
                         labelPlacement='inside'
                         size='sm'
                         radius='sm'
                         onChange={changeLanguage()}
                     >
-                        {languagesOptions.map((language) =>
+                        {languages.map((language) =>
                            (
                                 <SelectItem
                                     key={language}
@@ -98,6 +99,19 @@ export const Header = () => {
                             )
                     )}
                     </Select>
+                    <Button
+                        radius='md'
+                        size='md'
+                        onPress={()=> router.push('/catalog')}
+                        variant='light'
+                        className={twMerge(
+                            'text-custom-dark-purple px-8',
+                            'hover:text-black hover:bg-custom-grey',
+                            'transition duration-150'
+                        )}>
+                        Catalogue
+                    </Button>
+
                     <Button
                         radius='md'
                         size='md'

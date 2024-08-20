@@ -1,4 +1,4 @@
-import { BookCard } from '@/modules/books/get-books/ui/components/BookCard';
+import { BookCard } from '@/modules/books/get-books/ui/components/book-card';
 
 import {
     Carousel,

@@ -4,12 +4,12 @@ import { authUser } from '@/modules/auth/usecases/auth.user';
 
 export const AuthSignUpForm = () => {
     const formItems = [
-        { id: 'name', name: 'name', label: 'Name' },
-        { id: 'firstName', name: 'firstName', label: 'First name' },
-        { id: 'email', name: 'email', label: 'Email' },
-        { id: 'login', name: 'login', label: 'Login' },
-        { id: 'password', name: 'password', label: 'Password' },
-    ] satisfies Array<{id: string, name: keyof AuthModel.AuthFormSchema, label: string}>;
+        { id: 'name', name: 'name', label: 'Name', type: 'text' },
+        { id: 'firstName', name: 'firstName', label: 'First name', type: 'text' },
+        { id: 'email', name: 'email', label: 'Email', type: 'text' },
+        { id: 'login', name: 'login', label: 'Login', type: 'text' },
+        { id: 'password', name: 'password', label: 'Password', type: 'password' },
+    ] satisfies Array<{id: string, name: keyof AuthModel.AuthFormSchema, label: string, type: string}>;
 
 
     return (

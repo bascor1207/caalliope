@@ -66,7 +66,7 @@ export class App {
     }
 
     setupDependencies(): Dependencies {
-        const getBooksAdapter = new FakeGetBooksGateway();
+        const getBooksAdapter = new FakeGetBooksGateway(1000);
         getBooksAdapter.returnedResponse = catalog;
         getBooksAdapter.connectedUser = true;
 

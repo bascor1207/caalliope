@@ -9,7 +9,7 @@ import { SearchLayout } from '@/modules/books/get-books/ui/components/search-lay
 import { getBooksByNameViewmodel } from '@/modules/books/get-books/ui/get-books/get-books-by-name.viewmodel';
 import { getBooksByAuthorViewmodel } from '@/modules/books/get-books/ui/get-books/get-books-by-author.viewmodel';
 import { NoResults } from '@/modules/books/get-books/ui/components/no-results';
-import { BookCard } from '@/modules/books/get-books/ui/components/BookCard';
+import { BookCard } from '@/modules/books/get-books/ui/components/book-card';
 
 const CatalogPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -23,7 +23,7 @@ const CatalogPage = () => {
   const booksByName = useSelector((state: RootState) => getBooksByNameViewmodel(query)(state));
   const booksByAuthor = useSelector((state: RootState) => getBooksByAuthorViewmodel(query)(state));
 
-  const getsubject = (subj: string) => {
+  const getSubject = (subj: string) => {
     if (subj === subject) {
       return setSubject('');
     }
@@ -53,7 +53,7 @@ const CatalogPage = () => {
   })();
 
   return (
-    <SearchLayout getQuery={getQuery} query={query} getCategory={getsubject}>
+    <SearchLayout getQuery={getQuery} query={query} getCategory={getSubject}>
       {query !== '' ? renderedNode : <BooksListBySubject subject={subject} />}
     </SearchLayout>
   );

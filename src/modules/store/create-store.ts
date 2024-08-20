@@ -38,7 +38,7 @@ export const createTestStore = (
   }: Partial<Dependencies> = {},
   preloadedState?: DeepPartial<ReturnType<typeof rootReducer>>,
 ) => {
-  return createStore({ getBooksAdapter, getOneBookAdapter, authAdapter }, preloadedState as any);
+  return createStore({ getBooksAdapter, getOneBookAdapter, authAdapter }, preloadedState as never);
 };
 
 export const createTestState = (partialState?: DeepPartial<RootState>) => {
