@@ -7,6 +7,7 @@ import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-bo
 import { catalog } from '@/modules/catalog';
 import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
 import { initLocale } from '@/i18n';
+import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
 
 const book = {
     id: 1,
@@ -72,9 +73,12 @@ export class App {
         const getOneBookAdapter = new FakeGetOneBookGateway();
         getOneBookAdapter.returnedResponse = book;
 
+        const authAdapter = new FakeAuthGateway();
+
         return {
             getBooksAdapter,
-            getOneBookAdapter
+            getOneBookAdapter,
+            authAdapter
         };
     }
 }

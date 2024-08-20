@@ -11,20 +11,14 @@ type Props = {
 }
 
 export const BooksCatalog: FC<Props> = ({ books }) => {
-    const booksCards = books.map((book) => createCards(book))
 
     return (
-        <div className='h-[700px] w-full'>
-            {/*<div cards={booksCards}/>*/}
+        <div className='grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
+            {books.map((book) => (
+                <div key={book.id}>
+                    <BookCard book={book} cover/>
+                </div>
+            ))}
         </div>
     );
 }
-
-const createCards = (book: BooksModel.Book) => (
-    {
-        id: book.id,
-        content: <BookCard book={book}/>,
-        className: 'h-full',
-        thumbnail: book.image
-    }
-)

@@ -26,10 +26,19 @@ type CustomCardProps = {
     footer?: () => ReactNode;
     description?: string;
     onClick?: () => void;
+    cover: boolean
 }
 
-export const CustomCard: FC<CustomCardProps> = ({ title, content, footer, description, onClick }) => {
-    return (
+export const CustomCard: FC<CustomCardProps> = ({ title, content, footer, description, onClick, cover = false }) => {
+    return cover ? (
+        <NextUICard
+            isPressable
+            onPress={onClick}
+            className='rounded-xl shadow  cursor-pointer'
+        >
+            {content()}
+        </NextUICard>
+        ) : (
         <NextUICard
             isPressable
             onPress={onClick}
