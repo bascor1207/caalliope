@@ -16,7 +16,7 @@ export const CustomModal: FunctionComponent<ModalProps> = ({ isShown, hideModal,
         <Modal isOpen={isShown} onClose={hideModal} className='bg-custom-grey' size='2xl'>
             <ModalContent>
                 <>
-                    <ModalHeader className='flex flex-col gap-1'>{modalTitle}</ModalHeader>
+                    <ModalHeader className='flex items-center flex-col gap-1 bg-custom-purple text-custom-dark-purple'>{modalTitle}</ModalHeader>
                     <ModalBody>
                         {modalContent}
                     </ModalBody>
