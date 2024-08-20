@@ -6,19 +6,22 @@ type InitialState = {
     authModalVisible: boolean;
     loggedUser: boolean;
     error: boolean;
+    authType: 'signIn' | 'signUp' | '';
 }
 const initialState: InitialState = {
     authModalVisible: false,
     loggedUser: false,
-    error: false
+    error: false,
+    authType: ''
 }
 
 export const authSlice = createSlice({
     name: 'getAuth',
     initialState,
     reducers: {
-        toggleAuthModal: (state, action: PayloadAction<boolean>) => {
-            state.authModalVisible = action.payload
+        toggleAuthModal: (state, action: PayloadAction<{visible: boolean; type: InitialState['authType'] }>) => {
+            state.authModalVisible = action.payload.visible;
+            state.authType = action.payload.type;
         }
     },
     extraReducers: (builder) => {
@@ -37,4 +40,8 @@ export const { toggleAuthModal } = authSlice.actions
 
 export const selectAuthModalVisible = () => (state: RootState) => {
     return state.auth.getAuth.authModalVisible
+}
+
+export const selectAuthType = () => (state: RootState) => {
+    return state.auth.getAuth.authType
 }

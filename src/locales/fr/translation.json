@@ -5,18 +5,18 @@
     "required": "Champs requis",
     "inProgress": "En cours",
     "finish": "Terminés",
-    "giveUp": "Abandonné",     
-    "toRead": "A lire", 
+    "giveUp": "Abandonné",
+    "toRead": "A lire",
     "read": "Lu",
-    "whislist": "A acheter", 
-    "notOwned": "Non possédé", 
+    "whislist": "A acheter",
+    "notOwned": "Non possédé",
     "delete": "Supprimer",
     "state": "Status",
     "addABook": "Ajouter un livre",
     "add": "Ajouter",
     "edit": "Modifier",
     "saga": "Saga",
-    "oneShot": "One shot",   
+    "oneShot": "One shot",
     "yes": "Oui",
     "no": "No",
     "lastname": "Nom :",
@@ -28,7 +28,7 @@
         "account": "Profil",
         "en": "Anglais",
         "fr": "Français"
-    }, 
+    },
     "footer": {
         "donation": "Faire un don",
         "contact": "Nous Contacter"
@@ -105,5 +105,6 @@
             "authorList": "Liste des auteurs",
             "reject": "Refuser"
         }
-    }
+    },
+    "error": "Une erreur est survenue, merci de contacter le service"
 }

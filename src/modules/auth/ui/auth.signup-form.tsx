@@ -1,12 +1,8 @@
-import { useAuthForm } from '@/modules/auth/core/form/use-auth-form';
-import React from 'react';
 import { CustomForm } from '@/modules/ui/component-level/custom.form';
 import { AuthModel } from '@/modules/auth/model/auth.model';
 import { authUser } from '@/modules/auth/usecases/auth.user';
 
-export const AuthForm = () => {
-    const authForm = useAuthForm();
-
+export const AuthSignUpForm = () => {
     const formItems = [
         { id: 'name', name: 'name', label: 'Name' },
         { id: 'firstName', name: 'firstName', label: 'First name' },
@@ -17,12 +13,10 @@ export const AuthForm = () => {
 
 
     return (
-        <form onSubmit={authForm.handleSubmit(authForm.onSubmit)} className='space-y-4'>
-            <CustomForm
-                items={formItems}
-                schema={AuthModel.signInFormSchema}
-                action={authUser}
-            />
-        </form>
+        <CustomForm
+            items={formItems}
+            schema={AuthModel.signUpFormSchema}
+            action={authUser}
+        />
     )
 }
