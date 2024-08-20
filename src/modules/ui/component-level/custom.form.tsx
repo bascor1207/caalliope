@@ -2,15 +2,22 @@ import { Controller, Path } from 'react-hook-form';
 import { Input } from '@nextui-org/react';
 import { useCustomForm } from '@/modules/ui/component-level/use-custom-form';
 import { ZodSchema } from 'zod';
+import { AsyncThunk, UnknownAction } from '@reduxjs/toolkit';
+import { AppDispatch } from '@/modules/store/create-store';
+import { useDispatch } from 'react-redux';
+import { AppAsyncThunk } from '@/modules/store/create-app-thunk';
 
 
 type CustomFormProps<T> = {
     items: {name: keyof T, id: string, label: string}[];
     schema: ZodSchema<T>
+    action: UnknownAction | AppAsyncThunk;
 }
 
-export const CustomForm= <T extends Record<string, any>>({ items, schema }: CustomFormProps<T>) => {
-    const validator = useCustomForm(schema);
+export const CustomForm= <T extends Record<string, any>>({ items, schema, action }: CustomFormProps<T>) => {
+    const dispatch = useDispatch<AppDispatch>()
+    const validator = useCustomForm(schema, action, dispatch);
+
     return items.map((item) => (
         <div key={item.id}>
             <Controller
