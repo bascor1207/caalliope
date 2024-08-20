@@ -1,7 +1,5 @@
 'use client';
 
-import { LayoutGrid } from '@/components/ui/layout-grid';
-
 import { FC } from 'react';
 
 import { BooksModel } from '@/modules/books/model/books.model';
@@ -17,7 +15,7 @@ export const BooksCatalog: FC<Props> = ({ books }) => {
 
     return (
         <div className='h-[700px] w-full'>
-            <LayoutGrid cards={booksCards}/>
+            {/*<div cards={booksCards}/>*/}
         </div>
     );
 }

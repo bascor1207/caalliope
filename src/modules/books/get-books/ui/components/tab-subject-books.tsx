@@ -1,4 +1,4 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Card, CardBody, Tab, Tabs } from '@nextui-org/react';
 import { FC, useState } from 'react';
 
 type TabBooksProps = {
@@ -33,23 +33,34 @@ export const TabSubjectBooks: FC<TabBooksProps> = ({
   };
 
   return (
-      <Tabs defaultValue='Tout' className='w-[400px]'>
-        <TabsList>
-          {SUBJECTS_TAB.map((tab) => (
-               <TabsTrigger
-                 className='tab'
-                 key={tab.id}
-                 value={tab.value}
-                 onClick={() => {
-                     labelSubject(tab.value);
-                 }}
-              >
-                 {tab.label}
-              </TabsTrigger>
-              ))}
-        </TabsList>
-        <TabsContent value='account'>Make changes to your account here.</TabsContent>
-        <TabsContent value='password'>Change your password here.</TabsContent>
+      <Tabs aria-label='Dynamic tabs' items={SUBJECTS_TAB}>
+        {(item) => (
+            <Tab key={item.id} title={item.label} onClick={() => labelSubject(item.value)}>
+              <Card>
+                <CardBody>
+                  {item.label}
+                </CardBody>
+              </Card>
+            </Tab>
+        )}
       </Tabs>
+      // <Tabs defaultValue='Tout' className='w-[400px]'>
+      //   <TabsList>
+      //     {SUBJECTS_TAB.map((tab) => (
+      //          <TabsTrigger
+      //            className='tab'
+      //            key={tab.id}
+      //            value={tab.value}
+      //            onClick={() => {
+      //                labelSubject(tab.value);
+      //            }}
+      //         >
+      //            {tab.label}
+      //         </TabsTrigger>
+      //         ))}
+      //   </TabsList>
+      //   <TabsContent value='account'>Make changes to your account here.</TabsContent>
+      //   <TabsContent value='password'>Change your password here.</TabsContent>
+      // </Tabs>
   );
 };
