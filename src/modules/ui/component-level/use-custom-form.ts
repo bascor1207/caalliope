@@ -1,12 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FieldValues, useForm } from 'react-hook-form';
-import { ZodSchema } from 'zod';
+import { z, ZodObject } from 'zod';
 import { AppDispatch } from '@/modules/store/create-store';
 import { UnknownAction } from '@reduxjs/toolkit';
 import { AppAsyncThunk } from '@/modules/store/create-app-thunk';
 
 type UseCustomFormProps<T extends FieldValues, A = void> = {
-    schema: ZodSchema<T>
+    schema: ZodObject<T>
     action?: UnknownAction | AppAsyncThunk<A>;
     dispatch: (data: UnknownAction | AppAsyncThunk<A>) => ReturnType<AppDispatch>
 }
@@ -36,7 +36,7 @@ export function useCustomForm<T extends FieldValues, A>({ schema, action, dispat
         formState: { errors },
         reset,
         resetField
-    } = useForm<T>({
+    } = useForm<z.infer<typeof schema>>({
         resolver: zodResolver(schema),
     });
 

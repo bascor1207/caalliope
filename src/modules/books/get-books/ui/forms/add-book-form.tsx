@@ -2,24 +2,26 @@ import React from 'react';
 import { CustomForm } from '@/modules/ui/component-level/custom.form';
 import { BooksModel } from '@/modules/books/model/books.model';
 import { Button } from '@nextui-org/react';
+import { useTranslation } from 'react-i18next';
 
 export const AddBookForm: React.FC = () => {
+    const { t } = useTranslation()
 
     const formItems = [
-        { id: 'isbn', name: 'isbn', label: 'ISBN', type: 'string' },
-        { id: 'title', name: 'title', label: 'Title', type: 'string' },
-        { id: 'author', name: 'author', label: 'Author', type: 'string' },
-        { id: 'date', name: 'date', label: 'Release Date', type: 'date' },
-        { id: 'editor', name: 'editor', label: 'Editor', type: 'string' },
-        { id: 'translator', name: 'translator', label: 'Translator', type: 'string' },
-        { id: 'nbPage', name: 'nbPage', label: 'Number of Pages', type: 'number' },
-        { id: 'language', name: 'language', label: 'Language', type: 'string' },
-        { id: 'format', name: 'format', label: 'Format', type: 'select', options: [
-                { value: 'Paper', label: 'Paper' },
-                { value: 'Ebook', label: 'Ebook' },
-                { value: 'Audio', label: 'Audio' }
+        { id: 'isbn', name: 'isbn', label: t('form.isbn'), type: 'string' },
+        { id: 'title', name: 'title', label: t('form.title'), type: 'string' },
+        { id: 'author', name: 'author', label: t('form.author'), type: 'string' },
+        { id: 'date', name: 'date', label: t('form.releaseDate'), type: 'date' },
+        { id: 'editor', name: 'editor', label: t('form.editor'), type: 'string' },
+        { id: 'translator', name: 'translator', label: t('form.translator'), type: 'string' },
+        { id: 'nbPage', name: 'nbPage', label: t('form.numberOfPages'), type: 'number' },
+        { id: 'language', name: 'language', label: t('form.language'), type: 'string' },
+        { id: 'format', name: 'format', label: t('form.format'), type: 'select', options: [
+                { value: 'paper', label: t('form.book') },
+                { value: 'ebook', label: t('form.ebook') },
+                { value: 'audio', label: t('form.audio') }
             ] },
-        { id: 'cover', name: 'cover', label: 'Cover Image', type: 'file' }
+        { id: 'cover', name: 'cover', label: t('form.cover'), type: 'file' }
     ];
 
     return (

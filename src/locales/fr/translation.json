@@ -18,7 +18,7 @@
     "saga": "Saga",
     "oneShot": "One shot",
     "yes": "Oui",
-    "no": "No",
+    "no": "Non",
     "lastname": "Nom :",
     "firstname": "Prénom :",
     "email": "Email :",
@@ -104,6 +104,20 @@
             "bookList": "Liste des livres",
             "authorList": "Liste des auteurs",
             "reject": "Refuser"
+        },
+        "errors": {
+            "required": "Ce champ est requis.",
+            "invalidEmail": "Adresse email invalide.",
+            "minLength": "Ce champ doit contenir au moins {{count}} caractères.",
+            "maxLength": "Ce champ ne peut pas contenir plus de {{count}} caractères.",
+            "minValue": "La valeur doit être supérieure ou égale à {{count}}.",
+            "maxValue": "La valeur doit être inférieure ou égale à {{count}}.",
+            "invalidDate": "Format de date invalide.",
+            "invalidNumber": "Ce champ doit être un nombre valide.",
+            "passwordMismatch": "Les mots de passe ne correspondent pas.",
+            "isbnInvalid": "L'ISBN doit être un numéro valide (10 ou 13 caractères).",
+            "fileTooLarge": "Le fichier est trop volumineux.",
+            "fileTypeInvalid": "Type de fichier non pris en charge."
         }
     },
     "error": "Une erreur est survenue, merci de contacter le service"

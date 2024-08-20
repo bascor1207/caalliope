@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import i18n from '@/i18n';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace BooksModel {
@@ -10,7 +11,7 @@ export namespace BooksModel {
   subjects: Subject[];
   dateOfPublication: string;
   image: string;
- }
+ };
 
  export type Author = {
   id: number;
@@ -19,46 +20,96 @@ export namespace BooksModel {
   image: string;
   email: string;
   birthDate: string;
- }
+ };
 
  export type Subject = {
-  id: number,
-  label: string
- }
+  id: number;
+  label: string;
+ };
 
- export type AddBookForm = z.infer<typeof addBookFormSchema>;
-
- const imageSchema =
-     z.instanceof(File).optional()
-     .refine((file) => {
-      return !file || file.size <= MAX_UPLOAD_SIZE;
-     }, 'File size must be less than 3MB')
-     .refine((file) => {
-      return file && ACCEPTED_FILE_TYPES.includes(file.type);
-     }, 'File must be a PNG');
-
-
- export const addBookFormSchema = z.object({
-  isbn: z.string().min(1, { message: 'ISBN is required' }),
-  title: z.string().min(1, { message: 'Title is required' }),
-  author: z.string().min(1, { message: 'Author is required' }),
-  date: z.date({
-   required_error: 'Release date is required',
-   invalid_type_error: 'Invalid date format',
-  }),
-  editor: z.string().min(1, { message: 'Editor is required' }),
-  translator: z.string().optional(),
-  nbPage: z.number().min(1, { message: 'Number of pages is required' }),
-  language: z.string().optional(),
-  format: z.enum(['paper', 'ebook', 'audio']),
-  cover: imageSchema,
- });
-
- const MAX_UPLOAD_SIZE = 2000000
+ const MAX_UPLOAD_SIZE = 2000000;
  const ACCEPTED_FILE_TYPES = [
   'image/jpeg',
   'image/jpg',
   'image/png',
   'image/webp',
- ]
+ ];
+
+ const isbnSchema = z.string()
+     .min(10, { message: i18n.t('form.errors.isbnInvalid') })
+     .max(13, { message: i18n.t('form.errors.isbnInvalid') })
+     .regex(/^\d{10}(\d{3})?$/, { message: i18n.t('form.errors.isbnInvalid') });
+
+ const titleSchema = z.string().min(1, { message: i18n.t('form.errors.required') });
+
+ const authorSchema = z.string().min(1, { message: i18n.t('form.errors.required') });
+
+ const dateSchema = z.date({
+  required_error: i18n.t('form.errors.required'),
+  invalid_type_error: i18n.t('form.errors.invalidDate'),
+ });
+
+ const editorSchema = z.string().min(1, { message: i18n.t('form.errors.required') });
+
+ const translatorSchema = z.string().optional();
+
+ const nbPageSchema = z.number()
+     .min(1, { message: i18n.t('form.errors.minValue', { count: 1 }) })
+     .positive({ message: i18n.t('form.errors.minValue', { count: 1 }) })
+     .int({ message: i18n.t('form.errors.invalidNumber') });
+
+ const languageSchema = z.string().optional();
+
+ const formatSchema = z.enum(['paper', 'ebook', 'audio'], { message: i18n.t('form.errors.required') });
+
+ const coverSchema = z.instanceof(File).optional()
+     .refine((file) => !file || file.size <= MAX_UPLOAD_SIZE, {
+      message: i18n.t('form.errors.fileTooLarge'),
+     })
+     .refine((file) => !file || ACCEPTED_FILE_TYPES.includes(file.type), {
+      message: i18n.t('form.errors.fileTypeInvalid'),
+     });
+
+ const reviewSchema = z.string().min(1, { message: i18n.t('form.errors.required') });
+
+ export const addBookFormSchema = z.object({
+  isbn: isbnSchema,
+  title: titleSchema,
+  author: authorSchema,
+  date: dateSchema,
+  editor: editorSchema,
+  translator: translatorSchema,
+  nbPage: nbPageSchema,
+  language: languageSchema,
+  format: formatSchema,
+  cover: coverSchema.optional(),
+ });
+
+ export const editBookFormSchema = z.object({
+  isbn: isbnSchema,
+  title: titleSchema,
+  author: authorSchema,
+  date: dateSchema,
+  editor: editorSchema,
+  translator: translatorSchema,
+  nbPage: nbPageSchema,
+  language: languageSchema,
+  format: formatSchema,
+  cover: coverSchema,
+ });
+
+ export const addBookPublisherFormSchema = z.object({
+  isbn: isbnSchema,
+  date: dateSchema,
+  editor: editorSchema,
+  translator: translatorSchema,
+  nbPage: nbPageSchema,
+  language: languageSchema,
+  format: formatSchema,
+  cover: coverSchema,
+ });
+
+ export const addReviewFormSchema = z.object({
+  review: reviewSchema,
+ });
 }

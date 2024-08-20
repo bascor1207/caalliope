@@ -1,43 +1,21 @@
-
 import React, { FC } from 'react';
-import { useForm } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
+import { CustomForm } from '@/modules/ui/component-level/custom.form';
+import { BooksModel } from '@/modules/books/model/books.model';
 
-import styles from './add-book-form.module.scss';
-
-interface AddReviewForm {
-    hideModal: () => void;
-  }
-
-export const AddReviewForm: FC<AddReviewForm> = ({ hideModal }) => {
+export const AddReviewForm: FC = () => {
     const { t } = useTranslation();
-    const {
-        formState: { errors }
-    } = useForm();
 
-    const onSubmit: React.FormEventHandler<HTMLFormElement> = (event) => {
-        event.preventDefault();
-        const formData = new FormData(event.currentTarget);
-        alert('Votre revew a été enregistrée.');
-        console.log('Form data:', formData);
-        hideModal();
-    };
+    const formItems = [
+        {
+            id: 'review',
+            name: 'review',
+            label: t('library.yourReview'),
+            type: 'string',
+        },
+    ];
 
     return (
-        <form onSubmit={onSubmit}>
-            <div className={styles.container}>
-                <span className={styles.title}>{t('library.addReview')}</span>
-                <div className={styles.isbn}>
-                    <label>{t('library.yourReview')} </label>
-                    <input className={styles.input} type='text' name='review' required />
-                    {errors.ibsn && <span>{t('required')}</span>}
-                </div>
-                <div className={styles.buttons}>
-                    <button className={styles.submit} type='submit'>
-                        {t('valid')}
-                    </button>
-                </div>
-            </div>
-        </form>
+            <CustomForm items={formItems} schema={BooksModel.addReviewFormSchema} />
     );
 };
