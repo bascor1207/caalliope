@@ -16,28 +16,28 @@ export const metadata: Metadata = {
 const RootLayout: FC<PropsWithChildren> = ({ children }) => {
     return (
         <html lang='fr' suppressHydrationWarning>
-            <body className='light min-h-screen flex flex-col bg-background font-sans antialiased'>
-                <AppWrapper>
-                    <Modals />
+        <body className='light min-h-screen flex flex-col bg-background font-sans antialiased overflow-x-hidden'>
+        <AppWrapper>
+            <Modals />
 
-                    {/* Main Content Area */}
-                    <div className='flex flex-col flex-grow'>
-                        <Header />
+            {/* Layout Container */}
+            <div className='flex flex-col min-h-screen'>
+                <Header />
 
-                        {/* Main content */}
-                        <main className='flex-grow p-4 sm:p-6 md:p-8 lg:p-12 bg-custom-grey'>
-                            {children}
-                        </main>
-                    </div>
+                {/* Main content */}
+                <main className='flex-grow p-4 sm:p-6 md:p-8 lg:p-12 bg-custom-grey w-full max-w-full z-0'>
+                    {children}
+                </main>
 
-                    {/* Footer */}
-                    <footer className='w-full p-4 sm:p-6 md:p-8 lg:p-12 bg-gray-800 text-white text-center'>
-                        <Footer />
-                    </footer>
-                </AppWrapper>
-            </body>
+                {/* Footer */}
+                <footer className='w-full p-4 sm:p-6 md:p-8 lg:p-12 bg-gray-800 text-white text-center'>
+                    <Footer />
+                </footer>
+            </div>
+        </AppWrapper>
+        </body>
         </html>
-    )
+    );
 };
 
 export default RootLayout;

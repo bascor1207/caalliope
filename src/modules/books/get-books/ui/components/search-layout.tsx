@@ -9,10 +9,10 @@ type SearchLayoutProps = {
 }
 export const SearchLayout = ({ children, getCategory, getQuery, query }: PropsWithChildren<SearchLayoutProps>) => {
   return (
-    <div className='container'>
+    <div>
       <SearchBar setQuery={getQuery} query={query}/>
       <TabSubjectBooks returnSubject={getCategory} disabled={!!query} />
-      {children}
+        {children}
     </div>
   )
 }

@@ -52,6 +52,7 @@ export const CustomNavBar: React.FC<CustomNavBarProps> = ({
             onMenuOpenChange={handleMenuOpenChange}
             className={twMerge('z-10 px-8 py-4 bg-custom-purple shadow-md')}
             classNames={{ wrapper: 'max-w-full' }}
+            shouldHideOnScroll
         >
             <NavbarContent justify='start'>
                 {renderMenuToggle && showMenu && (

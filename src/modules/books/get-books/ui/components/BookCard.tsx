@@ -1,17 +1,17 @@
 'use client'
-import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { FC } from 'react';
-
+import { Image } from '@nextui-org/react';
 import { BooksModel } from '@/modules/books/model/books.model';
 import { CustomCard } from '@/modules/ui/component-level/custom.card';
 
 
 type Props = {
     book: BooksModel.Book;
+    cover?: boolean;
 }
 
-export const BookCard: FC<Props> = ({ book }) => {
+export const BookCard: FC<Props> = ({ book, cover = false }) => {
     const router = useRouter();
 
     const getOneBookAndRedirect = () => {
@@ -25,11 +25,10 @@ export const BookCard: FC<Props> = ({ book }) => {
             description={book.type}
             content={() => (
                 <Image
-                    className='transform transition-transform duration-300 ease-in-out hover:scale-110 hover:rounded-xl'
+                    isZoomed={cover}
+                    radius='none'
                     src={book.image}
                     alt='livre'
-                    width={1000}
-                    height={1000}
                 />
             )}
             footer={() => (
@@ -41,6 +40,7 @@ export const BookCard: FC<Props> = ({ book }) => {
                     <span className='text-[0.813rem]'>{book.dateOfPublication}</span>
                 </>
             )}
+            cover={cover}
         />
     );
 }
