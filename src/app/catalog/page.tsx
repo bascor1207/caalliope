@@ -41,7 +41,6 @@ const CatalogPage = () => {
     }
 
     if (viewmodel.length === 0) {
-      console.log('No books found matching the query');
       return <NoResults />;
     }
 
