@@ -41,7 +41,7 @@ export const CustomForm = <TFormValues extends FieldValues, A>(
     { items, schema, action, formType, modalTitle, visibilityTrigger, onCustomClose,
 }: CustomFormProps<TFormValues, A>) => {
     const dispatch = useDispatch<AppDispatch>();
-    const validator = useCustomForm({ schema, action, dispatch });
+    const validator = useCustomForm({ schema, action, dispatch, onCustomClose });
 
     const formContent = (
         <form onSubmit={validator.handleSubmit(validator.onSubmit)} className='space-y-4'>
@@ -114,13 +114,13 @@ export const CustomForm = <TFormValues extends FieldValues, A>(
     if (formType === 'modal') {
         return (
             <CustomModal
-                hideModal={onCustomClose}
+                hideModal={validator.onClose}
                 isShown={visibilityTrigger}
                 modalTitle={modalTitle}
                 modalContent={formContent}
                 modalFooter={
                     <>
-                        <Button variant='light' onClick={onCustomClose}>Close</Button>
+                        <Button variant='light' onClick={validator.onClose}>Close</Button>
                         <Button variant='light' type='submit' onClick={validator.handleSubmit(validator.onSubmit)}>Submit</Button>
                     </>
                 }

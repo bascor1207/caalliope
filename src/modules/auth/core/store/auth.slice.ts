@@ -22,6 +22,9 @@ export const authSlice = createSlice({
         toggleAuthModal: (state, action: PayloadAction<{visible: boolean; type: InitialState['authType'] }>) => {
             state.authModalVisible = action.payload.visible;
             state.authType = action.payload.type;
+        },
+        loggUser: (state) => {
+            state.loggedUser = true
         }
     },
     extraReducers: (builder) => {
@@ -36,7 +39,7 @@ export const authSlice = createSlice({
     }
 })
 
-export const { toggleAuthModal } = authSlice.actions
+export const { toggleAuthModal, loggUser } = authSlice.actions
 
 export const selectAuthModalVisible = () => (state: RootState) => {
     return state.auth.getAuth.authModalVisible
