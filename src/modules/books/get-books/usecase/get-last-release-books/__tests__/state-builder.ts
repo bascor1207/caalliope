@@ -1,14 +1,14 @@
 import { ActionCreatorWithPayload, createAction, createReducer } from '@reduxjs/toolkit';
 import { rootReducer } from '@/modules/store/root-reducer';
 import { RootState } from '@/modules/store/create-store';
-import { Book } from '../../../connector-to.get-books';
+import { BooksModel } from '@/modules/books/model/books.model';
 
 // @ts-expect-error I do not understand the error for now
 const initialState = rootReducer(undefined, createAction(''));
 
 export const withPendingRequest = createAction<boolean>('WithPendingRequest');
 export const withRejectedRequest = createAction<boolean>('WithRejectedRequest');
-export const withSuccess = createAction<Book[]>('WithSuccess');
+export const withSuccess = createAction<BooksModel.Book[]>('WithSuccess');
 
 const reducer = createReducer(initialState, (builder) => {
     builder.addCase(withPendingRequest, (state, action) => {
@@ -18,7 +18,7 @@ const reducer = createReducer(initialState, (builder) => {
         state.catalog.getBooks.rejectedRequest = action.payload;
     }),
     builder.addCase(withSuccess, (state, action) => {
-        state.catalog.getBooks.books = action.payload;
+        state.catalog.getBooks.lastReleaseBooks = action.payload;
     });
 });
 

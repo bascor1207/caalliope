@@ -1,7 +1,7 @@
 import {
     AppStore,
     createStore,
-    Dependencies,
+    Dependencies, RootState,
 } from '@/modules/store/create-store';
 import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books-gateway';
 import { catalog } from '@/modules/catalog';
@@ -55,10 +55,10 @@ export class App {
     public dependencies: Dependencies;
     public store: AppStore;
 
-    constructor() {
+    constructor(initialState?: RootState) {
         initLocale();
         this.dependencies = this.setupDependencies();
-        this.store = createStore(this.dependencies);
+        this.store = createStore(this.dependencies, initialState);
     }
 
     setupDependencies(): Dependencies {
@@ -79,4 +79,4 @@ export class App {
     }
 }
 
-export const app = new App();
+export const clientApp = (initialState: RootState) => new App(initialState);

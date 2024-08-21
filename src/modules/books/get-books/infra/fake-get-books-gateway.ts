@@ -1,6 +1,7 @@
 import { BooksModel } from '@/modules/books/model/books.model';
+import { ConnectorToGetBooks } from '@/modules/books/get-books/connector-to.get-books';
 
-export class FakeGetBooksGateway {
+export class FakeGetBooksGateway implements ConnectorToGetBooks {
 
     constructor(private delayToResponse: number = 0) {}
 

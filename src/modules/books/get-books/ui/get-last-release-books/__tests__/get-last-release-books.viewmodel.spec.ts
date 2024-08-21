@@ -22,7 +22,7 @@ describe('test for the viewModel layer of getting books last release', () => {
         const initialState = stateBuilder().withSuccess(books).build();
         const state = createTestStore({}, initialState).getState();
         const viewModel = getBooksLastReleaseViewmodel()(state);
-        expect(viewModel).toStrictEqual({ type: gettingBooks.fulfilled, books: books });
+        expect(viewModel).toStrictEqual({ type: gettingBooks.fulfilled, lastReleaseBooks: books });
     })
 })
 

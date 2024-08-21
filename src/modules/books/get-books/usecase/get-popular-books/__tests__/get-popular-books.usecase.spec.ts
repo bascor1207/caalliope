@@ -28,7 +28,6 @@ const whenRetrievingPopularBooks = async () => {
 }
 const thenTheUserShouldSeePopularBooks = (payload: typeof books): void => {
     const state = stateBuilder().withSuccess(payload).build();
-    console.log(state)
     expect(state).toEqual(store.getState())
 };
 

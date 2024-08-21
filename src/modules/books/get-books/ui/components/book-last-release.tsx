@@ -1,19 +1,11 @@
 'use client'
-import { ReactNode, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { AppDispatch } from '@/modules/store/create-store';
-import { getBooksLastReleaseUseCase } from '../../usecase/get-last-release-books/get-last-release-books.usecase';
+import { ReactNode } from 'react';
+import { useSelector } from 'react-redux';
 import { getBooksLastReleaseViewmodel } from '../get-last-release-books/get-last-release-books.viewmodel';
 import { CustomSpinner } from '@/modules/ui/app-level/custom.spinner';
 import BooksCarousel from '@/modules/books/get-books/ui/components/books-carousel';
 
 export const BooksCarouselsLastRelease = () => {
-  const dispatch = useDispatch<AppDispatch>();
-
-  useEffect(() => {
-    dispatch(getBooksLastReleaseUseCase());
-  }, []);
-
   const viewmodel = useSelector(getBooksLastReleaseViewmodel());
 
   const nodeToRender: ReactNode = (() => {
@@ -24,7 +16,7 @@ export const BooksCarouselsLastRelease = () => {
               return <div>Oops...</div>;
           case 'gettingBooksLastReleaseFulfilled':
               return (
-                <BooksCarousel slides={viewmodel.books} withExtraGap />
+                <BooksCarousel slides={viewmodel.lastReleaseBooks} withExtraGap />
               );
       }
   })();
