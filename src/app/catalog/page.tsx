@@ -11,7 +11,7 @@ import { getBooksByAuthorViewmodel } from '@/modules/books/get-books/ui/get-book
 import { NoResults } from '@/modules/books/get-books/ui/components/no-results';
 import { BookCard } from '@/modules/books/get-books/ui/components/book-card';
 
-const CatalogPage = () => {
+export default function CatalogPage() {
   const dispatch = useDispatch<AppDispatch>();
   const [subject, setSubject] = useState('');
   const [query, setQuery] = useState('');
@@ -57,6 +57,4 @@ const CatalogPage = () => {
       {query !== '' ? renderedNode : <BooksListBySubject subject={subject} />}
     </SearchLayout>
   );
-};
-
-export default CatalogPage;
+}

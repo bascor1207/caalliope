@@ -1,18 +1,18 @@
-import { Book, ConnectorToGetOneBook } from '@/modules/books/get-one-book/connector-to.get-one-book';
+import { ConnectorToGetOneBook } from '@/modules/books/get-one-book/connector-to.get-one-book';
+import { BooksModel } from '@/modules/books/model/books.model';
 
 export class FakeGetOneBookGateway implements ConnectorToGetOneBook {
 
-    returnedResponse!: Book;
+    returnedResponse!: BooksModel.Book;
 
-    getOneBookByAuthor(authorName: string): Promise<Book> {
+    getOneBookByAuthor(authorName: string): Promise<BooksModel.Book> {
         return new Promise((resolve, reject) => {
             if (!authorName) return reject();
             return resolve(this.returnedResponse);
         })
     }
 
-    getOneBookById(id: number): Promise<Book> {
-        console.log('totototototootootto');
+    getOneBookById(id: number): Promise<BooksModel.Book> {
         return new Promise((resolve, reject) => {
             if (!id) return reject();
             return resolve(this.returnedResponse);

@@ -58,10 +58,10 @@ export const Header = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { t, i18n } = useTranslation();
 
-    const languages = ['uk', 'fr']
+    const languages = ['English', 'French']
 
     const changeLanguage = () => async (e: ChangeEvent<HTMLSelectElement>) => {
-        const selectedLanguage = e.target.value;
+        const selectedLanguage = e.target.value === 'English' ? 'en' : 'fr'
         await i18n.changeLanguage(selectedLanguage);
     };
 
@@ -84,19 +84,22 @@ export const Header = () => {
                         labelPlacement='inside'
                         size='sm'
                         radius='sm'
+                        aria-label='Change language'
                         onChange={changeLanguage()}
                     >
-                        {languages.map((language) =>
-                           (
+                        {languages.map((language) => {
+                            const shortKeyForSVG = language === 'English' ? 'uk' : 'fr';
+                            return (
                                 <SelectItem
                                     key={language}
                                     startContent={
-                                        <Avatar alt= {t(`navbar.${language}`)} className='w-4 h-4' src={`https://flagcdn.com/${language}.svg`} />
+                                        <Avatar alt= {t(`navbar.${language}`)} className='w-4 h-4' src={`https://flagcdn.com/${shortKeyForSVG}.svg`} />
                                     }
                                 >
                                     {t(`navbar.${language}`)}
                                 </SelectItem>
                             )
+                        }
                     )}
                     </Select>
                     <Button

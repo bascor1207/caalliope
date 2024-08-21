@@ -1,19 +1,19 @@
 import React from 'react';
 import Image from 'next/image';
 
-import { Book } from '../../connector-to.get-one-book';
+import { BooksModel } from '@/modules/books/model/books.model';
 
 import styles from './book-info-card.module.scss';
 
 type Props = {
-    book: Book;
+    book: BooksModel.Book;
 }
 
-const generateStars = (rating: number) => {
+const generateStars = (rating?: number) => {
   const totalStars = 5;
-  const filledStars = Math.floor(rating);
-  const halfStar = rating % 1 !== 0;
-  const emptyStars = totalStars - filledStars - (halfStar ? 1 : 0);
+  const filledStars = rating && Math.floor(rating);
+  const halfStar = rating && rating % 1 !== 0;
+  const emptyStars = filledStars &&  totalStars - filledStars - (halfStar ? 1 : 0);
 
   return (
       <>

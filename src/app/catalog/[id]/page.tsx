@@ -3,7 +3,7 @@
 import { useDispatch } from 'react-redux';
 import { usePathname } from 'next/navigation';
 
-import { BookInfo } from '@/modules/books/get-one-book/ui/components/Book-info';
+import { BookInfo } from '@/modules/books/get-one-book/ui/components/book-info';
 import { AppDispatch } from '@/modules/store/create-store';
 import { getOneBookById } from '@/modules/books/get-one-book/usecase/get-one-book-by-id.usecase';
 

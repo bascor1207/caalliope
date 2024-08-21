@@ -1,6 +1,8 @@
+import { BooksModel } from '@/modules/books/model/books.model';
+
 export interface ConnectorToGetOneBook {
-    getOneBookByAuthor(authorName: string): Promise<Partial<Book>>;
-    getOneBookById(id: number): Promise<Partial<Book>>;
+    getOneBookByAuthor(authorName: string): Promise<Partial<BooksModel.Book>>;
+    getOneBookById(id: number): Promise<Partial<BooksModel.Book>>;
 }
 
 export type Book = {
@@ -10,7 +12,7 @@ export type Book = {
     summary: string;
     type: string;
     subjects: Subject[];
-    publishing: Publishing[];
+    publishers: Publishing[];
     reviews: Review[];
     rating: number;
     dateOfPublication: string;

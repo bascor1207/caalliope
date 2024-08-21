@@ -1,5 +1,5 @@
 import { RootState } from '@/modules/store/create-store';
-import { Book } from '../connector-to.get-one-book';
+import { BooksModel } from '@/modules/books/model/books.model';
 
 export const gettingBook = {
     pending: 'pending',
@@ -18,7 +18,7 @@ type BooksGettingRejected = {
 
 type BooksGettingFulfilled = {
     type: typeof gettingBook.fulfilled,
-    selectedBook: Book
+    selectedBook: BooksModel.Book
 }
 
 type Response = | BooksGettingPending | BooksGettingRejected | BooksGettingFulfilled;
@@ -27,7 +27,6 @@ export const getOneBookViewmodel = () => (state: RootState): Response => {
     const selectedBookState = state.selectedBook.getBook;
 
     const { requestStatus, selectedBook } = selectedBookState;
-    console.log(selectedBookState, 'pojncnpzoeozoeczj')
 
     if (requestStatus === 'pending') {
         return { type: gettingBook.pending }

@@ -11,6 +11,10 @@ export namespace BooksModel {
   subjects: Subject[];
   dateOfPublication: string;
   image: string;
+  publishers: Publisher[];
+  rating?: number;
+  summary?: string;
+  reviews: Review[];
  };
 
  export type Author = {
@@ -26,6 +30,21 @@ export namespace BooksModel {
   id: number;
   label: string;
  };
+
+ type Publisher = {
+   id: number,
+   label: string,
+   language: string,
+   numberOfPages: number
+   dateOfPublication: string
+  }
+
+  type Review = {
+   id: number,
+   userId: number,
+   comment: string,
+   date: string
+ }
 
  const MAX_UPLOAD_SIZE = 2000000;
  const ACCEPTED_FILE_TYPES = [

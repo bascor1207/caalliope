@@ -12,13 +12,13 @@ describe('Test suite for authenticating user', () => {
 
         itShouldBeAUserThen()
     });
+
     it('should not authenticate the user', async () => {
         givenNoUserConnected()
 
         await authenticateUser()
 
         itShouldNotBeAUserThen()
-
     })
 })
 
@@ -44,5 +44,7 @@ function itShouldBeAUserThen() {
 
 function itShouldNotBeAUserThen() {
     const state = createTestState({ auth: { getAuth: { authModalVisible: false, loggedUser: false, error: true } } })
-    expect(state.auth?.getAuth).toEqual(store.getState().auth?.getAuth)
+    expect(state.auth?.getAuth.loggedUser).toEqual(store.getState().auth?.getAuth.loggedUser)
+    expect(state.auth?.getAuth.error).toEqual(store.getState().auth?.getAuth.error)
+    expect(state.auth?.getAuth.authModalVisible).toEqual(store.getState().auth?.getAuth.authModalVisible)
 }

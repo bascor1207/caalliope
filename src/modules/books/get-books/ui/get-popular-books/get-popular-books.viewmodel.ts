@@ -1,5 +1,5 @@
 import { RootState } from '@/modules/store/create-store';
-import { Book } from '../../connector-to.get-books';
+import { BooksModel } from '@/modules/books/model/books.model';
 
 export const gettingBooks = {
     pending: 'gettingPopularBooksPending',
@@ -19,12 +19,12 @@ type BooksGettingRejected = {
 
 type BooksGettingFulfilled = {
     type: typeof gettingBooks.fulfilled,
-    books: Book[]
+    books: BooksModel.Book[]
 }
 
 type ViewModelResponse = BooksGettingPending | BooksGettingRejected | BooksGettingFulfilled;
 
-const selectGetBooksState = (state: RootState) => ( state.catalog.getBooks);
+const selectGetBooksState = (state: RootState) => (state.catalog.getBooks);
 
 export const getPopularBooksViewmodel = () => (state: RootState): ViewModelResponse => {
     const booksState = selectGetBooksState(state)

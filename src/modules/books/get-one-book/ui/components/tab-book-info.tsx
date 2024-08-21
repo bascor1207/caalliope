@@ -3,10 +3,10 @@ import { FC, useState } from 'react';
 
 import { PublishingSection } from './publishing-section';
 import { ReviewSection } from './review-section';
-import { Book } from '../../connector-to.get-one-book';
+import { BooksModel } from '@/modules/books/model/books.model';
 
 type Props = {
-    book: Book;
+    book: BooksModel.Book;
 }
 
 const SUBJECTS_TAB = [
