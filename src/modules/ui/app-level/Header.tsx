@@ -58,7 +58,7 @@ export const Header = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { t, i18n } = useTranslation();
 
-    const languages = ['en', 'fr']
+    const languages = ['uk', 'fr']
 
     const changeLanguage = () => async (e: ChangeEvent<HTMLSelectElement>) => {
         const selectedLanguage = e.target.value;

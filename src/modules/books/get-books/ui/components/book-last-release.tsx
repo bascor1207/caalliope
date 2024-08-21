@@ -4,8 +4,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { AppDispatch } from '@/modules/store/create-store';
 import { getBooksLastReleaseUseCase } from '../../usecase/get-last-release-books/get-last-release-books.usecase';
 import { getBooksLastReleaseViewmodel } from '../get-last-release-books/get-last-release-books.viewmodel';
-import BooksCarousel from './BooksCarousel';
 import { CustomSpinner } from '@/modules/ui/app-level/custom.spinner';
+import BooksCarousel from '@/modules/books/get-books/ui/components/books-carousel';
 
 export const BooksCarouselsLastRelease = () => {
   const dispatch = useDispatch<AppDispatch>();

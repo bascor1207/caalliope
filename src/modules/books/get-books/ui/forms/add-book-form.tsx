@@ -22,7 +22,7 @@ export const AddBookForm: React.FC = () => {
                 { value: 'audio', label: t('form.audio') }
             ] },
         { id: 'cover', name: 'cover', label: t('form.cover'), type: 'file' }
-    ]satisfies Array<{id: string, name: keyof BooksModel.AddBookFormSchemaType, label: string, type: string, options?: {value: string, label: string}[]}>;
+    ] satisfies Array<{id: string, name: keyof BooksModel.AddBookFormSchemaType, label: string, type: string, options?: {value: string, label: string}[]}>;
 
     return (
         <CustomForm

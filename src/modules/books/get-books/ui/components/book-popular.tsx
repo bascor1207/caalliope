@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPopularBooksViewmodel } from '../get-popular-books/get-popular-books.viewmodel';
 import { getPopularBooksUseCase } from '../../usecase/get-popular-books/get-popular-books.usecase';
 import { AppDispatch } from '@/modules/store/create-store';
-import BooksCarousel from './BooksCarousel';
+import BooksCarousel from '@/modules/books/get-books/ui/components/books-carousel';
 import { CustomSpinner } from '@/modules/ui/app-level/custom.spinner';
 
 export const PopularBooksCarousels = () => {

@@ -71,9 +71,8 @@ export const EditBookForm: FC = () => {
             name: 'cover',
             label: t('form.cover'),
             type: 'file',
-            accept: 'image/png, image/jpeg',
         },
-    ];
+    ] satisfies Array<{id: string, name: keyof BooksModel.EditBookForm, label: string, type: string, options?: {value: string, label: string}[]}>;
 
     return (
             <CustomForm items={formItems} schema={BooksModel.editBookFormSchema}/>

@@ -100,6 +100,8 @@ export namespace BooksModel {
   cover: coverSchema,
  });
 
+ export type EditBookForm = z.infer<typeof editBookFormSchema>
+
  export const addBookPublisherFormSchema = z.object({
   isbn: isbnSchema,
   date: dateSchema,
@@ -111,7 +113,11 @@ export namespace BooksModel {
   cover: coverSchema,
  });
 
+ export type AddBookPublisherForm = z.infer<typeof addBookPublisherFormSchema>
+
  export const addReviewFormSchema = z.object({
   review: reviewSchema,
  });
+
+ export type AddReviewForm = z.infer<typeof addReviewFormSchema>
 }
