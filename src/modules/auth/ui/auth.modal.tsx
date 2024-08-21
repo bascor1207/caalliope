@@ -1,47 +1,53 @@
-'use client';
-import { Button } from '@nextui-org/react';
-import { useDispatch, useSelector } from 'react-redux';
-import { selectAuthModalVisible, selectAuthType, toggleAuthModal } from '@/modules/auth/core/store/auth.slice';
-import { AuthSignUpForm } from '@/modules/auth/ui/auth.signup-form';
-import { AppDispatch } from '@/modules/store/create-store';
-import { FC } from 'react';
-import { CustomModal } from '@/modules/ui/component-level/custom.modal';
-import { AuthSignInForm } from '@/modules/auth/ui/auth.signin-form';
+import { CustomForm } from '@/modules/ui/component-level/custom.form';
 import { AuthModel } from '@/modules/auth/model/auth.model';
+import { authUser } from '@/modules/auth/usecases/auth.user';
+import { selectAuthModalVisible, selectAuthType, toggleAuthModal } from '@/modules/auth/core/store/auth.slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { AppDispatch } from '@/modules/store/create-store';
 import { useTranslation } from 'react-i18next';
 
-export const AuthModal: FC = () => {
-    const { t } = useTranslation();
+export const AuthModal = () => {
     const dispatch = useDispatch<AppDispatch>()
     const authModalVisible = useSelector(selectAuthModalVisible());
     const authType = useSelector(selectAuthType());
+    const { t } = useTranslation();
 
-    const onCustomClose = () => {
-        dispatch(toggleAuthModal({ visible: false, type: AuthModel.AUTH_TYPES.EMPTY }))
-    }
+    const signInFormItems = [
+        { id: 'login', name: 'login', label: 'Login', type: 'text' },
+        { id: 'password', name: 'password', label: 'Password', type: 'password' },
+    ] satisfies Array<{id: string, name: keyof AuthModel.LoginFormSchema, label: string, type: string}>;
 
-    const modalProps = {
-        title:
-            authType === AuthModel.AUTH_TYPES.SIGN_IN && t('loginPage.title') ||
-            authType === AuthModel.AUTH_TYPES.SIGN_UP && t('register.title') ||
-            '',
-        content:
-            authType === AuthModel.AUTH_TYPES.SIGN_IN && <AuthSignInForm/> ||
-            authType === AuthModel.AUTH_TYPES.SIGN_UP && <AuthSignUpForm/> ||
-            <div>{t('error')}</div>
+    const signUpFormItems = [
+        { id: 'name', name: 'name', label: 'Name', type: 'text' },
+        { id: 'firstName', name: 'firstName', label: 'First name', type: 'text' },
+        { id: 'email', name: 'email', label: 'Email', type: 'text' },
+        { id: 'login', name: 'login', label: 'Login', type: 'text' },
+        { id: 'password', name: 'password', label: 'Password', type: 'password' },
+    ] satisfies Array<{id: string, name: keyof AuthModel.AuthFormSchema, label: string, type: string}>;
+
+    if (authType === AuthModel.AUTH_TYPES.SIGN_IN) {
+        return (
+            <CustomForm
+                items={signInFormItems}
+                schema={AuthModel.signInFormSchema}
+                action={authUser}
+                formType='modal'
+                onCustomClose={() => dispatch(toggleAuthModal({ visible: false, type: AuthModel.AUTH_TYPES.EMPTY }))}
+                visibilityTrigger={authModalVisible}
+                modalTitle={t('loginPage.title')}
+            />
+        )
     }
 
     return (
-        <CustomModal
-            hideModal={onCustomClose} isShown={authModalVisible}
-            modalTitle={modalProps.title}
-            modalContent={modalProps.content}
-            modalFooter={
-                 <>
-                     <Button color='danger' variant='light' onClick={onCustomClose}>Close</Button>
-                     <Button color='success' variant='light'>Submit</Button>
-                 </>
-            }
+        <CustomForm
+            items={signUpFormItems}
+            schema={AuthModel.signUpFormSchema}
+            action={authUser}
+            formType='modal'
+            onCustomClose={() => dispatch(toggleAuthModal({ visible: false, type: AuthModel.AUTH_TYPES.EMPTY }))}
+            visibilityTrigger={authModalVisible}
+            modalTitle={t('register.title')}
         />
     )
 }

@@ -1,4 +1,4 @@
-'use client';
+import React from 'react';
 import { Controller, FieldValues, Path } from 'react-hook-form';
 import { Button, Input, Select, SelectItem } from '@nextui-org/react';
 import { useCustomForm } from '@/modules/ui/component-level/use-custom-form';
@@ -6,21 +6,44 @@ import { ZodObject } from 'zod';
 import { UnknownAction } from '@reduxjs/toolkit';
 import { AppDispatch } from '@/modules/store/create-store';
 import { useDispatch } from 'react-redux';
-import React from 'react';
 import { AppAsyncThunk } from '@/modules/store/create-app-thunk';
+import { CustomModal } from '@/modules/ui/component-level/custom.modal';
 
-type CustomFormProps<TFormValues extends FieldValues, A = void> = {
-    items: { id: string; name: Path<TFormValues>; label: string; type: string; options?: { value: string; label: string }[] }[];
-    schema: ZodObject<TFormValues>;
-    action?: UnknownAction | AppAsyncThunk<A>;
+type ModalFormProps = {
+    formType: 'modal';
+    modalTitle: string;
+    onCustomClose: () => void;
+    visibilityTrigger: boolean;
+};
+
+type PlainFormProps = {
+    formType: 'plain';
+    modalTitle?: never;
+    visibilityTrigger?: never;
+    onCustomClose?: never;
+};
+
+type Item<TFormValues extends FieldValues> = {
+    id: string; name: Path<TFormValues>; label: string; type: string; options?: { value: string; label: string }[];
 }
 
-export const CustomForm = <TFormValues extends FieldValues, A>({ items, schema, action }: CustomFormProps<TFormValues, A>) => {
+type CommonFormProps<TFormValues extends FieldValues, A> = {
+    items: Item<TFormValues>[];
+    schema: ZodObject<TFormValues>;
+    action?: UnknownAction | AppAsyncThunk<A>;
+};
+
+type CustomFormProps<TFormValues extends FieldValues, A = void> =
+    (ModalFormProps & CommonFormProps<TFormValues, A>) |
+    (PlainFormProps & CommonFormProps<TFormValues, A>);
+
+export const CustomForm = <TFormValues extends FieldValues, A>(
+    { items, schema, action, formType, modalTitle, visibilityTrigger, onCustomClose,
+}: CustomFormProps<TFormValues, A>) => {
     const dispatch = useDispatch<AppDispatch>();
-    const validator = useCustomForm({ schema , action, dispatch });
+    const validator = useCustomForm({ schema, action, dispatch });
 
-
-    return (
+    const formContent = (
         <form onSubmit={validator.handleSubmit(validator.onSubmit)} className='space-y-4'>
             {items.map((item) => (
                 <div key={item.id}>
@@ -29,7 +52,6 @@ export const CustomForm = <TFormValues extends FieldValues, A>({ items, schema, 
                         control={validator.control}
                         render={({ field }) => {
                             if (item.type === 'select') {
-                                console.log(field)
                                 return (
                                     <Select
                                         label={item.label}
@@ -65,7 +87,7 @@ export const CustomForm = <TFormValues extends FieldValues, A>({ items, schema, 
                                         type='date'
                                         variant={validator.props.variant}
                                     />
-                                )
+                                );
                             }
                             return (
                                 <Input
@@ -86,7 +108,25 @@ export const CustomForm = <TFormValues extends FieldValues, A>({ items, schema, 
                     {validator.errors[item.name] && <p className='text-red-500'>{String(validator.errors[item.name]?.message)}</p>}
                 </div>
             ))}
-            <Button type='submit'>Submit</Button>
         </form>
     );
+
+    if (formType === 'modal') {
+        return (
+            <CustomModal
+                hideModal={onCustomClose}
+                isShown={visibilityTrigger}
+                modalTitle={modalTitle}
+                modalContent={formContent}
+                modalFooter={
+                    <>
+                        <Button variant='light' onClick={onCustomClose}>Close</Button>
+                        <Button variant='light' type='submit' onClick={validator.handleSubmit(validator.onSubmit)}>Submit</Button>
+                    </>
+                }
+            />
+        );
+    }
+
+    return formContent;
 };
