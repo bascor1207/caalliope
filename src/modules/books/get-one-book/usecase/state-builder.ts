@@ -1,11 +1,11 @@
 import { ActionCreatorWithPayload, createAction, createReducer } from '@reduxjs/toolkit';
 import { rootReducer } from '@/modules/store/root-reducer';
 import { RootState } from '@/modules/store/create-store';
-import { Book } from '../connector-to.get-one-book';
+import { BooksModel } from '@/modules/books/model/books.model';
 
 const getOneBook = {
     pending: createAction<'pending'>('PendingRequest'),
-    fulfilled: createAction<Book>('FulfilledRequest')
+    fulfilled: createAction<BooksModel.Book>('FulfilledRequest')
 }
 
 const initialState = rootReducer(undefined, createAction('')());

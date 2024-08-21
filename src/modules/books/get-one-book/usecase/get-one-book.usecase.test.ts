@@ -3,7 +3,7 @@ import { createTestStore } from '@/modules/store/create-store';
 import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
 import { getOneBookById } from '@/modules/books/get-one-book/usecase/get-one-book-by-id.usecase';
 import { stateBuilder } from '@/modules/books/get-one-book/usecase/state-builder';
-import { Book } from '../connector-to.get-one-book';
+import { BooksModel } from '@/modules/books/model/books.model';
 
 
 describe('test to retrieve one book by id', () => {
@@ -19,7 +19,7 @@ describe('test to retrieve one book by id', () => {
 const fakeGateway = new FakeGetOneBookGateway();
 const store = createTestStore({ getOneBookAdapter: fakeGateway });
 
-const givenExistingBookInBdd = ({ data } : {data: Book}) => {
+const givenExistingBookInBdd = ({ data } : {data: BooksModel.Book}) => {
     fakeGateway.returnedResponse = data;
 };
 
@@ -32,7 +32,7 @@ const thenItShouldBe = () => {
     expect(state).toStrictEqual(store.getState());
 };
 
-const book = {
+const book: BooksModel.Book = {
     id: 1,
     title: 'novel title',
     author: {
@@ -51,16 +51,14 @@ const book = {
                 label: 'Fantasy Medieval'
         }
     ],
-    publishing: [
+    publishers: [
         {
-            publishingHouse: {
                 id: 1,
                 label: 'Lumen',
                 language: 'Français',
                 numberOfPages: 684,
-                dateofPublication: '2023'
+                dateOfPublication: '2023'
             }
-        }
     ],
     reviews: [
         {

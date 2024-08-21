@@ -1,14 +1,14 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Book } from '../../connector-to.get-one-book';
-import { AddPublishingForm } from '@/modules/books/forms/add-publishing-form';
 
 import styles from './publishing-section.module.scss';
 import { CustomModal } from '@/modules/ui/component-level/custom.modal';
+import { BooksModel } from '@/modules/books/model/books.model';
+import { AddPublisherForm } from '@/modules/books/get-books/ui/forms/add-publisher-form';
 
 type Props = {
-    book: Book;
+    book: BooksModel.Book;
 }
 
 export const PublishingSection: FC<Props> = ({ book }) => {
@@ -27,10 +27,10 @@ export const PublishingSection: FC<Props> = ({ book }) => {
         <div>
             <div>
                 <div className={styles.link} onClick={toggle}>{t('addPublishing')}</div>
-                {book.publishing.map((publishing) => (
-                    <div key={publishing.publishingHouse.id}>
-                        <span>{publishing.publishingHouse.dateofPublication} - {publishing.publishingHouse.label}
-                            | {publishing.publishingHouse.language} | {publishing.publishingHouse.numberOfPages} pages</span>
+                {book.publishers.map((publisher) => (
+                    <div key={publisher.id}>
+                        <span>{publisher.dateOfPublication} - {publisher.label}
+                            | {publisher.language} | {publisher.numberOfPages} pages</span>
                         <div>
                             <select>
                                 <option value='notOwned'>{t('notOwned')}</option>
@@ -44,7 +44,7 @@ export const PublishingSection: FC<Props> = ({ book }) => {
                         </div>
                     </div>
                 ))}
-                <CustomModal isShown={isShown} hideModal={toggle} modalContent={<AddPublishingForm hideModal={toggle} />} />
+                <CustomModal isShown={isShown} hideModal={toggle} modalContent={<AddPublisherForm />} />
             </div>
         </div>
     );

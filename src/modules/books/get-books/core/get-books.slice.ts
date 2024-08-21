@@ -16,7 +16,7 @@ type GetBooksSliceType = InitialState & {
 
 export const getBooksSlice = createSlice( {
     name: 'getBooks',
-    initialState: { books: [], pendingRequest: false, rejectedRequest: false } as GetBooksSliceType,
+    initialState: { books: [] as BooksModel.Book[], pendingRequest: false, rejectedRequest: false } as GetBooksSliceType,
     reducers: {},
     extraReducers : (builder)=> {
         builder.addCase(getBooksUseCase.pending, (state) => {
@@ -28,7 +28,6 @@ export const getBooksSlice = createSlice( {
         }),
         builder.addCase(getBooksUseCase.fulfilled, (state, action) => {
             if (action.payload) {
-                console.log('action.payload', action.payload);
                 state.books = action.payload;
             }
             state.pendingRequest = false;
@@ -42,7 +41,6 @@ export const getBooksSlice = createSlice( {
         }),
         builder.addCase(getBooksLastReleaseUseCase.fulfilled, (state, action) => {
             if (action.payload) {
-                console.log('action.payload', action.payload);
                 state.books = action.payload;
             }
             state.pendingRequest = false;

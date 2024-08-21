@@ -2,6 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { createTestStore, RootState } from '@/modules/store/create-store';
 import { stateBuilder } from '@/modules/books/get-one-book/usecase/state-builder';
 import { getOneBookViewmodel } from '@/modules/books/get-one-book/ui/get-one-book.viewmodel';
+import { BooksModel } from '@/modules/books/model/books.model';
 
 
 describe('test for one book viewmodel', () => {
@@ -18,7 +19,7 @@ describe('test for one book viewmodel', () => {
     })
 });
 
-const book = {
+const book: BooksModel.Book = {
     id: 1,
     title: 'novel title',
     author: {
@@ -31,33 +32,27 @@ const book = {
     },
     summary: 'summary test',
     type: 'Novel',
-    subject: [
+    subjects: [
         {
-            subject: {
-                id: 1,
-                label: 'Fantasy Medieval'
-            }
+            id: 1,
+            label: 'Fantasy Medieval'
         }
     ],
-    publishing: [
+    publishers: [
         {
-            publishingHouse: {
-                id: 1,
-                label: 'Lumen',
-                language: 'Français',
-                numberOfPages: 684,
-                dateofPublication: '2023'
-            }
+            id: 1,
+            label: 'Lumen',
+            language: 'Français',
+            numberOfPages: 684,
+            dateOfPublication: '2023'
         }
     ],
     reviews: [
         {
-            review: {
-                id: 1,
-                userId: 1,
-                comment: 'test',
-                date: '2023'
-            }
+            id: 1,
+            userId: 1,
+            comment: 'test',
+            date: '2023'
         }
     ],
     rating: 4.5,

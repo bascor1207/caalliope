@@ -18,7 +18,7 @@ export function useCustomForm<TFormValues extends FieldValues, A>({ schema, acti
     }
 
     const handleChange = (field: ControllerRenderProps<TFormValues>, itemType: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-        let value: string | number | Date | File | null;
+        let value;
         switch (itemType) {
             case 'number':
                 value = parseInt(e.target.value);

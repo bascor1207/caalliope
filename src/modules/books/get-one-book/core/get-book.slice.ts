@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { getOneBookById } from '@/modules/books/get-one-book/usecase/get-one-book-by-id.usecase';
-import { Book } from '../connector-to.get-one-book';
+import { BooksModel } from '@/modules/books/model/books.model';
 
 type InitialState = {
     requestStatus: 'pending' | 'rejected' | 'fulfilled' | '',
-    selectedBook: Book
+    selectedBook: BooksModel.Book
 }
 
 const initialState: InitialState = {
     requestStatus: '',
-    selectedBook: {} as Book
+    selectedBook: {} as BooksModel.Book
 }
 export const getBookSlice = createSlice({
     name: 'getBook',
@@ -21,7 +21,7 @@ export const getBookSlice = createSlice({
         });
         builder.addCase(getOneBookById.fulfilled, (state, action) => {
             console.log(action.payload)
-            state.selectedBook = action.payload as Book;
+            state.selectedBook = action.payload as BooksModel.Book;
             state.requestStatus = 'fulfilled';
         })
     }

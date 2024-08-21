@@ -20,20 +20,6 @@ const config = {
       },
     },
     extend: {
-      keyframes: {
-        'accordion-down': {
-          from: { height: '0' },
-          to: { height: 'var(--radix-accordion-content-height)' },
-        },
-        'accordion-up': {
-          from: { height: 'var(--radix-accordion-content-height)' },
-          to: { height: '0' },
-        },
-      },
-      animation: {
-        'accordion-down': 'accordion-down 0.2s ease-out',
-        'accordion-up': 'accordion-up 0.2s ease-out',
-      },
       colors: {
         'custom-purple': '#f8e9ff',
         'custom-grey': '#F6F6F6',
@@ -41,7 +27,7 @@ const config = {
       }
     },
   },
-  plugins: [require('tailwindcss-animate'), nextui({
+  plugins: [nextui({
     defaultTheme: 'light',
     defaultExtendTheme: 'light',
     themes: {

@@ -22,6 +22,8 @@ export class BookFactory {
             ],
             dateOfPublication: '2023',
             image: 'test',
+            publishers: [],
+            reviews: [],
             ...data
         }
     }

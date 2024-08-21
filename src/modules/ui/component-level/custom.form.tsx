@@ -1,3 +1,4 @@
+'use client';
 import { Controller, FieldValues, Path } from 'react-hook-form';
 import { Button, Input, Select, SelectItem } from '@nextui-org/react';
 import { useCustomForm } from '@/modules/ui/component-level/use-custom-form';
