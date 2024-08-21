@@ -88,7 +88,8 @@ export const Header = () => {
                         onChange={changeLanguage()}
                     >
                         {languages.map((language) => {
-                            const shortKeyForSVG = language === 'English' ? 'uk' : 'fr';
+                            const shortKeyForSVG = language === 'English' ? 'gb' : 'fr';
+                            const shortKeyForTrad = language === 'English' ? 'en' : 'fr';
                             return (
                                 <SelectItem
                                     key={language}
@@ -96,7 +97,7 @@ export const Header = () => {
                                         <Avatar alt= {t(`navbar.${language}`)} className='w-4 h-4' src={`https://flagcdn.com/${shortKeyForSVG}.svg`} />
                                     }
                                 >
-                                    {t(`navbar.${language}`)}
+                                    {t(`navbar.${shortKeyForTrad}`)}
                                 </SelectItem>
                             )
                         }

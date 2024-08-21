@@ -1,18 +1,18 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ControllerRenderProps, DefaultValues, FieldValues, useForm } from 'react-hook-form';
 import { AppDispatch } from '@/modules/store/create-store';
-import { UnknownAction } from '@reduxjs/toolkit';
 import { AppAsyncThunk } from '@/modules/store/create-app-thunk';
 import { ZodObject, ZodString, ZodNumber, ZodBoolean, ZodDate, ZodType, ZodOptional, ZodEnum } from 'zod';
 import React from 'react';
 
 type UseCustomFormProps<TFormValues extends FieldValues, A = void> = {
     schema: ZodObject<TFormValues>;
-    action?: UnknownAction | AppAsyncThunk<A>;
-    dispatch: (data: UnknownAction | AppAsyncThunk<A>) => ReturnType<AppDispatch>
+    action?: any | AppAsyncThunk<A>;
+    dispatch: (data: any | AppAsyncThunk<A>) => ReturnType<AppDispatch>
+    onCustomClose?: () => void;
 }
 
-export function useCustomForm<TFormValues extends FieldValues, A>({ schema, action, dispatch }: UseCustomFormProps<TFormValues, A> ) {
+export function useCustomForm<TFormValues extends FieldValues, A>({ schema, action, dispatch, onCustomClose }: UseCustomFormProps<TFormValues, A> ) {
     function isRequired(key: string) {
         return !(schema.shape[key] instanceof ZodOptional)
     }
@@ -46,8 +46,14 @@ export function useCustomForm<TFormValues extends FieldValues, A>({ schema, acti
         console.log(data)
         reset()
         if (action) {
-            dispatch(action);
+            console.log('ejzcnzci')
+            dispatch(action(data));
         }
+    }
+
+    function onClose() {
+        clearErrors()
+        onCustomClose?.();
     }
 
 
@@ -93,11 +99,12 @@ export function useCustomForm<TFormValues extends FieldValues, A>({ schema, acti
         formState: { errors },
         reset,
         resetField,
+        clearErrors
     } = useForm<TFormValues>({
         resolver: zodResolver(schema),
         defaultValues: generateDefaultValues()
     });
 
-    return { isRequired, handleSelectChange, handleChange, control, handleSubmit, errors, onSubmit, resetField, props, classNames }
+    return { isRequired, handleSelectChange, handleChange, control, handleSubmit, errors, onSubmit, resetField, props, classNames, onClose }
 
 }

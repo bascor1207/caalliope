@@ -5,6 +5,7 @@ import { selectAuthModalVisible, selectAuthType, toggleAuthModal } from '@/modul
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch } from '@/modules/store/create-store';
 import { useTranslation } from 'react-i18next';
+import { registerUser } from '@/modules/auth/usecases/register.user';
 
 export const AuthModal = () => {
     const dispatch = useDispatch<AppDispatch>()
@@ -13,15 +14,15 @@ export const AuthModal = () => {
     const { t } = useTranslation();
 
     const signInFormItems = [
-        { id: 'login', name: 'login', label: 'Login', type: 'text' },
+        { id: 'email', name: 'email', label: 'Email', type: 'email' },
         { id: 'password', name: 'password', label: 'Password', type: 'password' },
     ] satisfies Array<{id: string, name: keyof AuthModel.LoginFormSchema, label: string, type: string}>;
 
     const signUpFormItems = [
-        { id: 'name', name: 'name', label: 'Name', type: 'text' },
+        { id: 'lastName', name: 'lastName', label: 'Last name', type: 'text' },
         { id: 'firstName', name: 'firstName', label: 'First name', type: 'text' },
-        { id: 'email', name: 'email', label: 'Email', type: 'text' },
-        { id: 'login', name: 'login', label: 'Login', type: 'text' },
+        { id: 'email', name: 'email', label: 'Email', type: 'email' },
+        { id: 'username', name: 'username', label: 'Username', type: 'text' },
         { id: 'password', name: 'password', label: 'Password', type: 'password' },
     ] satisfies Array<{id: string, name: keyof AuthModel.AuthFormSchema, label: string, type: string}>;
 
@@ -39,13 +40,15 @@ export const AuthModal = () => {
         )
     }
 
+    const onCloseModal = () => dispatch(toggleAuthModal({ visible: false, type: AuthModel.AUTH_TYPES.EMPTY }));
+
     return (
         <CustomForm
             items={signUpFormItems}
             schema={AuthModel.signUpFormSchema}
-            action={authUser}
+            action={registerUser}
             formType='modal'
-            onCustomClose={() => dispatch(toggleAuthModal({ visible: false, type: AuthModel.AUTH_TYPES.EMPTY }))}
+            onCustomClose={onCloseModal}
             visibilityTrigger={authModalVisible}
             modalTitle={t('register.title')}
         />
