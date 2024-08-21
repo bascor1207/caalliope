@@ -5,11 +5,11 @@
     "required": "Required",
     "inProgress": "In progress",
     "finish": "Finish",
-    "giveUp": "Give up", 
-    "toRead": "To read", 
+    "giveUp": "Give up",
+    "toRead": "To read",
     "read": "Read",
-    "whislist": "Wishlist", 
-    "notOwned": "Not Owned", 
+    "whislist": "Wishlist",
+    "notOwned": "Not Owned",
     "delete": "Delete",
     "state": "State",
     "addABook": "Add a book",
@@ -22,26 +22,32 @@
     "email": "Email :",
     "navbar": {
         "library": "Library",
-        "login": "Log In",
         "account": "Account",
         "en": "English",
-        "fr": "French"
-    }, 
+        "fr": "French",
+        "profile": "Profile",
+        "myBooks": "My books",
+        "logout": "Log out",
+        "catalog": "Catalog",
+        "signIn": "Sign in",
+        "signUp": "Sign up",
+        "login": "Log In"
+    },
     "footer": {
         "donation": "Make a donation",
         "contact": "Contact us"
     },
     "home": {
         "lastRelease": "The latest releases",
-        "popular": "Popular book"
+        "popular": "Popular books"
     },
     "loginPage": {
         "title": "Please identify yourself :",
+        "noAccount": "No account",
+        "register": "Register",
         "login": "Login :",
         "password": "Password :",
-        "valid": "To validate",
-        "noAccount": "No account",
-        "register": "Register"
+        "valid": "To validate"
     },
     "register": {
         "title": "Create your account"
@@ -67,7 +73,7 @@
         "wish": "My wishlist",
         "abandoned": "My abandoned books",
         "recommendation": "Book recommendation",
-        "editing": "Editing my informations",
+        "editing": "Editing my information",
         "refresh": "Refresh",
         "pages": "pages",
         "avatar": "Change avatar",
@@ -105,6 +111,21 @@
             "bookList": "Book list",
             "authorList": "Author list",
             "reject": "Reject"
+        },
+        "errors": {
+            "required": "This field is required.",
+            "invalidEmail": "Invalid email address.",
+            "minLength": "This field must contain at least {{count}} characters.",
+            "maxLength": "This field cannot contain more than {{count}} characters.",
+            "minValue": "The value must be greater than or equal to {{count}}.",
+            "maxValue": "The value must be less than or equal to {{count}}.",
+            "invalidDate": "Invalid date format.",
+            "invalidNumber": "This field must be a valid number.",
+            "passwordMismatch": "Passwords do not match.",
+            "isbnInvalid": "ISBN must be a valid number (10 or 13 characters).",
+            "fileTooLarge": "The file is too large.",
+            "fileTypeInvalid": "Unsupported file type."
         }
-    }
+    },
+    "error": "An error has occurred, please contact the service"
 }

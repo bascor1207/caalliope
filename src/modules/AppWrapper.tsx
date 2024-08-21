@@ -1,22 +1,16 @@
 'use client';
 import { Provider } from 'react-redux';
-import { app } from '@/modules/main';
+import { clientApp } from '@/modules/main.client';
 import React, { ReactNode } from 'react';
 import { NextUIProvider } from '@nextui-org/react';
-import nookies from 'nookies';
-import { loggUser } from '@/modules/auth/core/store/auth.slice';
+import { RootState } from '@/modules/store/create-store';
 
-export const AppWrapper = ({ children }: { children: ReactNode }) => {
-    const cookies = nookies.get(null);
-    const token = cookies.token;
-
-    if (token) {
-        app.store.dispatch(loggUser())
-    }
+export const AppWrapper = ({ children, initialState }: { children: ReactNode, initialState: RootState }) => {
+    const store = clientApp(initialState).store;
 
     return (
         <NextUIProvider className='min-h-svh w-svw' locale='fr-FR'>
-            <Provider store={app.store}>{ children }</Provider>
+            <Provider store={store}>{ children }</Provider>
         </NextUIProvider>
     )
 };

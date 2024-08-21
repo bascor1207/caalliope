@@ -20,7 +20,7 @@ type BooksGettingRejected = {
 
 type BooksGettingFulfilled = {
     type: typeof gettingBooks.fulfilled,
-    books: BooksModel.Book[]
+    mostPopularBooks: BooksModel.Book[]
 }
 
 type ViewModelResponse = BooksGettingPending | BooksGettingRejected | BooksGettingFulfilled;
@@ -29,7 +29,7 @@ const selectGetBooksState = (state: RootState) => (state.catalog.getBooks);
 const booksState = createSelector([selectGetBooksState], booksState => booksState)
 
 export const getPopularBooksViewmodel = () => (state: RootState): ViewModelResponse => {
-    const { pendingRequest, rejectedRequest, books } = booksState(state);
+    const { pendingRequest, rejectedRequest, mostPopularBooks } = booksState(state);
 
     if (pendingRequest) {
         return { type: gettingBooks.pending, pendingRequest };
@@ -37,5 +37,6 @@ export const getPopularBooksViewmodel = () => (state: RootState): ViewModelRespo
     if (rejectedRequest) {
         return { type: gettingBooks.rejected, rejectedRequest };
     }
-    return { type: gettingBooks.fulfilled, books };
+
+    return { type: gettingBooks.fulfilled, mostPopularBooks };
 }

@@ -5,147 +5,92 @@ import Link from 'next/link';
 import { Avatar, Button, Select, SelectItem } from '@nextui-org/react';
 import { twMerge } from 'tailwind-merge';
 import { CustomNavBar } from '@/modules/ui/component-level/custom.navbar';
-import { useTranslation } from 'react-i18next';
-import { ChangeEvent } from 'react';
 import { toggleAuthModal } from '@/modules/auth/core/store/auth.slice';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/modules/store/create-store';
 import { AuthModel } from '@/modules/auth/model/auth.model';
-import { useRouter } from 'next/navigation';
-
-
-const LINKS_ITEMS = [
-    {
-        label: 'Profile',
-        href: '/my-account',
-        icon: (
-            <Image
-                src='/user.webp'
-                alt='Mon compte'
-                width={36}
-                height={36}
-            />
-        ),
-    },
-    {
-        label: 'My books',
-        href: '/my-books',
-        icon: (
-            <Image
-                src='/my-books.webp'
-                alt='logo'
-                width={36}
-                height={36}
-            />
-        ),
-    },
-    {
-        label: 'Logout',
-        href: '#',
-        icon: (
-            <Image
-                src='/logo.png'
-                alt='logo'
-                width={36}
-                height={36}
-            />
-        ),
-    },
-];
+import { useHeader } from '@/modules/ui/app-level/useHeader';
 
 export const Header = () => {
-    const router = useRouter();
-    const dispatch = useDispatch<AppDispatch>();
-    const { t, i18n } = useTranslation();
-
-    const languages = ['English', 'French']
-
-    const changeLanguage = () => async (e: ChangeEvent<HTMLSelectElement>) => {
-        const selectedLanguage = e.target.value === 'English' ? 'en' : 'fr'
-        await i18n.changeLanguage(selectedLanguage);
-    };
-
+    const presenter = useHeader()
 
     return (
         <CustomNavBar
             renderLogo={() => (
                 <Link href='/'>
-                    <Image src='/logo.png' alt='Home Page' width={200} height={200} />
+                    <Image src='/logo.png' alt={presenter.t('navbar.homePage')} width={200} height={200} />
                 </Link>
             )}
             renderMenuToggle={() => (
-                <Image src='/menu.svg' alt='menu icon' width={36} height={36} />
+                <Image src='/menu.svg' alt={presenter.t('navbar.menuIcon')} width={36} height={36} />
             )}
             renderRightContent={() => (
                 <>
                     <Select
-                        defaultSelectedKeys={[t(`navbar.${i18n.language}`)]}
+                        defaultSelectedKeys={[presenter.t(`navbar.${presenter.i18n.language}`)]}
                         className='bg-custom-grey w-1/4'
                         labelPlacement='inside'
                         size='sm'
                         radius='sm'
-                        aria-label='Change language'
-                        onChange={changeLanguage()}
+                        aria-label={presenter.t('navbar.changeLanguage')}
+                        onChange={presenter.changeLanguage()}
                     >
-                        {languages.map((language) => {
+                        {presenter.languages.map((language) => {
                             const shortKeyForSVG = language === 'English' ? 'gb' : 'fr';
                             const shortKeyForTrad = language === 'English' ? 'en' : 'fr';
                             return (
                                 <SelectItem
                                     key={language}
                                     startContent={
-                                        <Avatar alt= {t(`navbar.${language}`)} className='w-4 h-4' src={`https://flagcdn.com/${shortKeyForSVG}.svg`} />
+                                        <Avatar alt={presenter.t(`navbar.${language}`)} className='w-4 h-4' src={`https://flagcdn.com/${shortKeyForSVG}.svg`} />
                                     }
                                 >
-                                    {t(`navbar.${shortKeyForTrad}`)}
+                                    {presenter.t(`navbar.${shortKeyForTrad}`)}
                                 </SelectItem>
                             )
-                        }
-                    )}
+                        })}
                     </Select>
                     <Button
                         radius='md'
                         size='md'
-                        onPress={()=> router.push('/catalog')}
+                        onPress={() => presenter.router.push('/catalog')}
                         variant='light'
                         className={twMerge(
                             'text-custom-dark-purple px-8',
                             'hover:text-black hover:bg-custom-grey',
                             'transition duration-150'
                         )}>
-                        Catalogue
+                        {presenter.t('navbar.catalog')}
                     </Button>
 
                     <Button
                         radius='md'
                         size='md'
-                        onPress={()=> dispatch(toggleAuthModal({ visible: true, type: AuthModel.AUTH_TYPES.SIGN_IN }))}
+                        onPress={() => presenter.dispatch(toggleAuthModal({ visible: true, type: AuthModel.AUTH_TYPES.SIGN_IN }))}
                         variant='light'
                         className={twMerge(
                             'text-custom-dark-purple px-8',
                             'hover:text-black hover:bg-custom-grey',
                             'transition duration-150'
                         )}>
-                        Sign In
+                        {presenter.t('navbar.signIn')}
                     </Button>
 
                     <Button
                         radius='md'
                         size='md'
                         variant='light'
-                        onPress={()=> dispatch(toggleAuthModal({ visible: true, type: AuthModel.AUTH_TYPES.SIGN_UP }))}
+                        onPress={() => presenter.dispatch(toggleAuthModal({ visible: true, type: AuthModel.AUTH_TYPES.SIGN_UP }))}
                         className={twMerge(
                             'text-custom-dark-purple px-8',
                             'hover:text-black hover:bg-custom-grey',
                             'transition duration-150'
-                    )}>
-                        Sign Up
+                        )}>
+                        {presenter.t('navbar.signUp')}
                     </Button>
                 </>
             )}
             renderMenuContent={() => (
                 <>
-                    {LINKS_ITEMS.map((link, idx) => (
+                    {presenter.linkItems.map((link, idx) => (
                         <Link
                             href={link.href}
                             className={twMerge('flex items-center justify-start gap-2 py-2 transition duration-150 hover:bg-custom-purple opacity-100')}
@@ -153,8 +98,8 @@ export const Header = () => {
                         >
                             {link.icon}
                             <span className='text-gray-900 text-sm whitespace-pre'>
-                            {link.label}
-                        </span>
+                                {presenter.t(link.label)}
+                            </span>
                         </Link>
                     ))}
                 </>

@@ -1,5 +1,6 @@
 import { ConnectorToAuthGateway } from '@/modules/auth/core/connector-to-auth.gateway';
 import { AuthModel } from '@/modules/auth/model/auth.model';
+import { undefined } from 'zod';
 
 export class FakeAuthGateway implements ConnectorToAuthGateway{
     async authenticate({ email, password }: AuthModel.AuthUserPayload) {
@@ -9,5 +10,9 @@ export class FakeAuthGateway implements ConnectorToAuthGateway{
             }
             return resolve(true)
         })
+    }
+
+    register(data: AuthModel.LoginFormSchema): Promise<unknown> {
+        return Promise.resolve(undefined);
     }
 }
