@@ -1,9 +1,9 @@
 'use client';
 import { ReactNode, useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 import { getBooksUseCase } from '@/modules/books/get-books/usecase/get-books.usecase';
-import { AppDispatch, RootState } from '@/modules/store/create-store';
+import { AppDispatch, useAppSelector } from '@/modules/store/create-store';
 import { BooksListBySubject } from '@/modules/books/get-books/ui/components/books-list-by-subject';
 import { SearchLayout } from '@/modules/books/get-books/ui/components/search-layout';
 import { getBooksByNameViewmodel } from '@/modules/books/get-books/ui/get-books/get-books-by-name.viewmodel';
@@ -20,8 +20,8 @@ export default function CatalogPage() {
     dispatch(getBooksUseCase());
   }, []);
 
-  const booksByName = useSelector((state: RootState) => getBooksByNameViewmodel(query)(state));
-  const booksByAuthor = useSelector((state: RootState) => getBooksByAuthorViewmodel(query)(state));
+  const booksByName = useAppSelector(getBooksByNameViewmodel(query));
+  const booksByAuthor = useAppSelector(getBooksByAuthorViewmodel(query));
 
   const getSubject = (subj: string) => {
     if (subj === subject) {

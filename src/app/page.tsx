@@ -1,23 +1,11 @@
 'use client'
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BooksCarouselsLastRelease } from '@/modules/books/get-books/ui/components/book-last-release';
 import { PopularBooksCarousels } from '@/modules/books/get-books/ui/components/book-popular';
 import { useTranslation } from 'react-i18next';
-import { getPopularBooksUseCase } from '@/modules/books/get-books/usecase/get-popular-books/get-popular-books.usecase';
-import {
-    getBooksLastReleaseUseCase
-} from '@/modules/books/get-books/usecase/get-last-release-books/get-last-release-books.usecase';
-import { useDispatch } from 'react-redux';
-import { AppDispatch } from '@/modules/store/create-store';
 
 export default function Home() {
     const { t } = useTranslation();
-    const dispatch = useDispatch<AppDispatch>();
-
-    useEffect(() => {
-        dispatch(getPopularBooksUseCase());
-        dispatch(getBooksLastReleaseUseCase());
-        }, []);
 
     return (
         <div className='flex flex-col items-center justify-between w-full px-4 sm:px-6 md:px-8 lg:px-12 my-5'>

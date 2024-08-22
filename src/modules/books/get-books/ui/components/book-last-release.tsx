@@ -1,12 +1,12 @@
 'use client'
 import { ReactNode } from 'react';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '@/modules/store/create-store'
 import { getBooksLastReleaseViewmodel } from '../get-last-release-books/get-last-release-books.viewmodel';
 import { CustomSpinner } from '@/modules/ui/app-level/custom.spinner';
 import BooksCarousel from '@/modules/books/get-books/ui/components/books-carousel';
 
 export const BooksCarouselsLastRelease = () => {
-  const viewmodel = useSelector(getBooksLastReleaseViewmodel());
+  const viewmodel = useAppSelector(getBooksLastReleaseViewmodel());
 
   const nodeToRender: ReactNode = (() => {
       switch (viewmodel.type) {

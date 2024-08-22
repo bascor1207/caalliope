@@ -11,6 +11,11 @@ import { ssrApp } from '@/modules/main.ssr';
 import { loggUser } from '@/modules/auth/core/store/auth.slice';
 import { cookies } from 'next/headers';
 import { jwtVerify } from 'jose';
+import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
+import { getPopularBooksUseCase } from '@/modules/books/get-books/usecase/get-popular-books/get-popular-books.usecase';
+import {
+    getBooksLastReleaseUseCase
+} from '@/modules/books/get-books/usecase/get-last-release-books/get-last-release-books.usecase';
 
 export const metadata: Metadata = {
     title: 'Caalliope',
@@ -24,9 +29,10 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
 
     if (token) {
         try {
-            const { payload } = await jwtVerify(token, new TextEncoder().encode('mysecretkey'));
-            // payload contient les informations décodées du token
-            // store.dispatch(getUser(payload.id));
+            // const { payload } = await jwtVerify(token, new TextEncoder().encode('mysecretkey'));
+            await store.dispatch(getUserUsecase('1'));
+            await store.dispatch(getPopularBooksUseCase());
+            await store.dispatch(getBooksLastReleaseUseCase());
         } catch (error) {
             console.error('Échec de la vérification du token:', error);
         }

@@ -3,6 +3,7 @@ import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-bo
 import { catalog } from '@/modules/catalog';
 import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
 import { HttpAuthGateway } from '@/modules/auth/infra/http-auth.gateway';
+import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
 
 const book = {
     id: 1,
@@ -66,10 +67,14 @@ export class SSRApp {
 
         const authAdapter = new HttpAuthGateway();
 
+        const userAdapter = new FakeUserGateway();
+        userAdapter.userId = '1'
+
         return {
             getBooksAdapter,
             getOneBookAdapter,
-            authAdapter
+            authAdapter,
+            userAdapter
         };
     }
 }

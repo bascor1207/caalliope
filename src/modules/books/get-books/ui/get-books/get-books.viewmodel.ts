@@ -1,7 +1,11 @@
 import { RootState } from '@/modules/store/create-store';
 import { BooksModel } from '@/modules/books/model/books.model';
+import {
+    selectBooks,
+    selectPendingRequest,
+    selectRejectedRequest
+} from '@/modules/books/get-books/core/get-books.selectors';
 
-const selectGetBooksState = (state: RootState) => ( state.catalog.getBooks);
 export const gettingBooks = {
     pending: 'gettingBooksPending',
     rejected: 'gettingBooksRejected',
@@ -26,8 +30,10 @@ type BooksGettingFulfilled = {
 type ViewModelResponse = BooksGettingPending | BooksGettingRejected | BooksGettingFulfilled;
 
 export const getBooksViewModel = () => (state: RootState): ViewModelResponse => {
-    const getBooksState = selectGetBooksState(state);
-    const { pendingRequest, rejectedRequest, books } = getBooksState;
+    const books = selectBooks(state);
+    const pendingRequest = selectPendingRequest(state);
+    const rejectedRequest = selectRejectedRequest(state);
+
     if (pendingRequest) {
         return { type: gettingBooks.pending, pendingRequest };
     }
