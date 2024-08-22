@@ -43,12 +43,11 @@ export function useCustomForm<TFormValues extends FieldValues, A>({ schema, acti
     }
 
     function onSubmit(data: TFormValues) {
-        console.log(data)
         reset()
         if (action) {
-            console.log('ejzcnzci')
             dispatch(action(data));
         }
+        onCustomClose?.()
     }
 
     function onClose() {

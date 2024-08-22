@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { ChangeEvent } from 'react';
 
 export const useHeader = () => {
+    const dispatch = useDispatch<AppDispatch>()
     const LINKS_ITEMS = [
         {
             label: 'Profile',
@@ -21,7 +22,7 @@ export const useHeader = () => {
         },
         {
             label: 'My books',
-            href: '/my-books',
+            href: '/my-account?activeTab=my-books',
             icon: (
                 <Image
                     src='/my-books.webp'
@@ -45,7 +46,6 @@ export const useHeader = () => {
         },
     ];
     const router = useRouter();
-    const dispatch = useDispatch<AppDispatch>();
     const { t, i18n } = useTranslation();
 
     const languages = ['English', 'French']

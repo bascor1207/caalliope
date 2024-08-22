@@ -9,13 +9,15 @@ import { Header } from '@/modules/ui/app-level/Header';
 import { Modals } from '@/modules/ui/app-level/modals';
 import { ssrApp } from '@/modules/main.ssr';
 import { loggUser } from '@/modules/auth/core/store/auth.slice';
-import { cookies } from 'next/headers';
+import { cookies, headers } from 'next/headers';
 import { jwtVerify } from 'jose';
 import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
 import { getPopularBooksUseCase } from '@/modules/books/get-books/usecase/get-popular-books/get-popular-books.usecase';
 import {
     getBooksLastReleaseUseCase
 } from '@/modules/books/get-books/usecase/get-last-release-books/get-last-release-books.usecase';
+import { usePathname } from 'next/navigation';
+import { myProfileTabState } from '@/modules/user/core/store/user.slice';
 
 export const metadata: Metadata = {
     title: 'Caalliope',
@@ -26,17 +28,28 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
     const cookieBag = cookies();
     const token = cookieBag.get('token')?.value
     const store = ssrApp.store
+    const headersList = headers();
+    // read the custom x-url header
+    const pathname = headersList.get('x-url') || '';
+
+    console.log(pathname)
+
+    if (pathname.includes('my-account') && pathname.includes('?')) {
+        const activeTab = pathname.split('?')[1] as '?activeTab=my-books'
+        store.dispatch(myProfileTabState(activeTab.split('=')[1] as 'my-books'))
+    }
 
     if (token) {
         try {
-            // const { payload } = await jwtVerify(token, new TextEncoder().encode('mysecretkey'));
-            await store.dispatch(getUserUsecase('1'));
-            await store.dispatch(getPopularBooksUseCase());
-            await store.dispatch(getBooksLastReleaseUseCase());
+            const { payload } = await jwtVerify(token, new TextEncoder().encode('azerty'));
+            await store.dispatch(getUserUsecase({ id: payload.sub as string, token }));
         } catch (error) {
             console.error('Échec de la vérification du token:', error);
         }
     }
+
+    await store.dispatch(getPopularBooksUseCase());
+    await store.dispatch(getBooksLastReleaseUseCase());
 
     const initialState = JSON.parse(JSON.stringify(store.getState()));
 
