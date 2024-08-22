@@ -2,8 +2,11 @@ import { AppStore, createStore, Dependencies } from '@/modules/store/create-stor
 import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books-gateway';
 import { catalog } from '@/modules/catalog';
 import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
+// TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
 import { HttpAuthGateway } from '@/modules/auth/infra/http-auth.gateway';
+// import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
 import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
+import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
 
 const book = {
     id: 1,
@@ -65,10 +68,14 @@ export class SSRApp {
         const getOneBookAdapter = new FakeGetOneBookGateway();
         getOneBookAdapter.returnedResponse = book;
 
+        // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
         const authAdapter = new HttpAuthGateway();
 
-        const userAdapter = new FakeUserGateway();
-        userAdapter.userId = '1'
+        // const authAdapter = new FakeAuthGateway();
+
+        const userAdapter = new HttpUserGateway()
+        // const userAdapter = new FakeUserGateway();
+        // userAdapter.userId = '1'
 
         return {
             getBooksAdapter,

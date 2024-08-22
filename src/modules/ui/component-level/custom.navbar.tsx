@@ -8,6 +8,8 @@ import {
     NavbarBrand
 } from '@nextui-org/react';
 import { twMerge } from 'tailwind-merge';
+import { selectLoggedUser } from '@/modules/auth/core/store/auth.selectors';
+import { useAppSelector } from '@/modules/store/create-store';
 
 type CustomNavBarProps = {
     renderLogo?: () => React.ReactNode;
@@ -35,6 +37,7 @@ export const CustomNavBar: React.FC<CustomNavBarProps> = ({
   onMenuOpenChange,
   }) => {
     const [isMenuOpenState, setIsMenuOpenState] = useState(false);
+    const loggedUser = useAppSelector(selectLoggedUser)
 
     const isMenuOpen = isMenuOpenProp !== undefined ? isMenuOpenProp : isMenuOpenState;
     const setIsMenuOpen = setIsMenuOpenProp !== undefined ? setIsMenuOpenProp : setIsMenuOpenState;
@@ -57,7 +60,7 @@ export const CustomNavBar: React.FC<CustomNavBarProps> = ({
             disableAnimation={true}
         >
             <NavbarContent justify='start'>
-                {renderMenuToggle && showMenu && (
+                {renderMenuToggle && showMenu && loggedUser && (
                     <NavbarMenuToggle
                         onMouseEnter={() => setIsMenuOpen(true)}
                         className='ml-4'
@@ -80,7 +83,7 @@ export const CustomNavBar: React.FC<CustomNavBarProps> = ({
                 {renderRightContent && renderRightContent()}
             </NavbarContent>
 
-            {showMenu && (
+            {showMenu && loggedUser && (
                 <NavbarMenu
                     className='md:w-1/4 w-full min-h-svh bg-opacity-50 bg-custom-grey text-custom-dark-purple z-50'
                     onMouseLeave={() => setIsMenuOpen(false)}
