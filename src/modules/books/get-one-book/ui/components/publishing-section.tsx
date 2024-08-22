@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
+import { Button, Select, SelectItem, Card, CardBody } from '@nextui-org/react';
 
 import styles from './publishing-section.module.scss';
 import { CustomModal } from '@/modules/app/ui/component-level/custom.modal';
@@ -13,7 +13,7 @@ type Props = {
 
 export const PublishingSection: FC<Props> = ({ book }) => {
     const [isShown, setIsShown] = useState(false);
-    const { t } = useTranslation('library');
+    const { t } = useTranslation('');
 
     const handleClick = () => {
         console.log('option selected')
@@ -25,27 +25,35 @@ export const PublishingSection: FC<Props> = ({ book }) => {
 
     return (
         <div>
-            <div>
-                <div className={styles.link} onClick={toggle}>{t('addPublishing')}</div>
-                {book.publishers.map((publisher) => (
-                    <div key={publisher.id}>
-                        <span>{publisher.dateOfPublication} - {publisher.label}
-                            | {publisher.language} | {publisher.numberOfPages} pages</span>
-                        <div>
-                            <select>
-                                <option value='notOwned'>{t('notOwned')}</option>
-                                <option value='inProgress'>{t('inProgress')}</option>
-                                <option value='toRead'>{t('toRead')}</option>
-                                <option value='read'>{t('read')}</option>
-                                <option value='wishlist'>{t('whislist')}</option>
-                                <option value='giveUp'>{t('giveUp')}</option>
-                            </select>
-                            <button onClick={handleClick}>{t('valid')}</button>
-                        </div>
-                    </div>
-                ))}
-                <CustomModal isShown={isShown} hideModal={toggle} modalContent={<AddPublisherForm />} />
+            <div className='flex justify-end'>
+                <Button onClick={toggle} className='bg-transparent hover:bg-[#f8e9ff] text-black'>
+                    {t('library.addPublishing')}
+                </Button>
             </div>
+            {book.publishers.map((publisher) => (
+                <Card key={publisher.id} className='bg-transparent bg-transparent text-black'>
+                    <CardBody className='text-black'>
+                        <span>
+                            {publisher.dateOfPublication} - {publisher.label} | {publisher.language} | {publisher.numberOfPages} pages
+                        </span>
+                        <div className='flex items-center'>
+                            <Select placeholder={t('selectOption')}>
+                                <SelectItem value='notOwned' key={0}>{t('notOwned')}</SelectItem>
+                                <SelectItem value='inProgress' key={1}>{t('inProgress')}</SelectItem>
+                                <SelectItem value='toRead' key={2}>{t('toRead')}</SelectItem>
+                                <SelectItem value='read' key={3}>{t('read')}</SelectItem>
+                                <SelectItem value='wishlist' key={4}>{t('whislist')}</SelectItem>
+                                <SelectItem value='giveUp' key={5}>{t('giveUp')}</SelectItem>
+                            </Select>
+                            <Button onClick={handleClick} className='ml-4 bg-[#D9D9D9] hover:bg-[#f8e9ff] text-black'>
+                                {t('valid')}
+                            </Button>
+                        </div>
+                    </CardBody>
+                </Card>
+            ))}
+            <CustomModal isShown={isShown} hideModal={toggle} modalContent={<AddPublisherForm />} />
         </div>
+
     );
 };
