@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '@/modules/store/create-store';
 import { authUser } from '@/modules/auth/usecases/auth.user';
+import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
 
 type InitialState = {
     authModalVisible: boolean;
@@ -36,15 +37,11 @@ export const authSlice = createSlice({
         builder.addCase(authUser.fulfilled, (state, _) => {
             state.loggedUser = true
         });
+
+        builder.addCase(getUserUsecase.fulfilled, (state) => {
+            state.loggedUser = true
+        })
     }
 })
 
 export const { toggleAuthModal, loggUser } = authSlice.actions
-
-export const selectAuthModalVisible = () => (state: RootState) => {
-    return state.auth.getAuth.authModalVisible
-}
-
-export const selectAuthType = () => (state: RootState) => {
-    return state.auth.getAuth.authType
-}

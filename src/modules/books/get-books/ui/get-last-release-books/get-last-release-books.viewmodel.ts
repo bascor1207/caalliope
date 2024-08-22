@@ -1,6 +1,11 @@
 import { RootState } from '@/modules/store/create-store';
 import { BooksModel } from '@/modules/books/model/books.model';
 import { createSelector } from 'reselect';
+import {
+    selectLastReleaseBooks,
+    selectPendingRequest,
+    selectRejectedRequest
+} from '@/modules/books/get-books/core/get-books.selectors';
 
 export const gettingBooks = {
     pending: 'gettingBooksLastReleasePending',
@@ -25,13 +30,10 @@ type BooksGettingFulfilled = {
 
 type ViewModelResponse = BooksGettingPending | BooksGettingRejected | BooksGettingFulfilled;
 
-const selectGetBooksState = (state: RootState) => (state.catalog.getBooks);
-const booksState = createSelector([selectGetBooksState], booksState => booksState)
-
 export const getBooksLastReleaseViewmodel = () => (state: RootState): ViewModelResponse => {
-    const { pendingRequest, rejectedRequest, lastReleaseBooks } = booksState(state);
-
-    console.log(lastReleaseBooks)
+    const lastReleaseBooks = selectLastReleaseBooks(state);
+    const pendingRequest = selectPendingRequest(state);
+    const rejectedRequest = selectRejectedRequest(state);
 
     if (pendingRequest) {
         return { type: gettingBooks.pending, pendingRequest };

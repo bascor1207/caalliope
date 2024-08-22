@@ -1,6 +1,6 @@
 'use client';
 import { ReactNode } from 'react';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '@/modules/store/create-store'
 
 import { getOneBookViewmodel } from '../get-one-book.viewmodel';
 import { BookInfoCard } from './book-info-card';
@@ -8,7 +8,7 @@ import { TabBookInfo } from './tab-book-info';
 import { CustomSpinner } from '@/modules/ui/app-level/custom.spinner';
 
 export const BookInfo = () => {
-  const viewmodel = useSelector(getOneBookViewmodel());
+  const viewmodel = useAppSelector(getOneBookViewmodel());
 
   const nodeToRender: ReactNode = (() => {
     switch (viewmodel.type) {

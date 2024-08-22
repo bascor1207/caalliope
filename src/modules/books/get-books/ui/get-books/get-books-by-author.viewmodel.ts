@@ -1,8 +1,8 @@
 import { RootState } from '@/modules/store/create-store';
+import { selectBooks } from '@/modules/books/get-books/core/get-books.selectors';
 
-const selectState = (state: RootState) => ( state.catalog.getBooks.books );
 export const getBooksByAuthorViewmodel = (query: string) => (state: RootState) => {
-  const booksState = selectState(state);
+  const books = selectBooks(state);
 
-  return booksState.filter((book) => book.author.lastname.toLowerCase().includes(query.toLowerCase()));
+  return books.filter((book) => book.author.lastname.toLowerCase().includes(query.toLowerCase()));
 }

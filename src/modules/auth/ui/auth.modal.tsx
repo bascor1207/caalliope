@@ -1,16 +1,17 @@
 import { CustomForm } from '@/modules/ui/component-level/custom.form';
 import { AuthModel } from '@/modules/auth/model/auth.model';
 import { authUser } from '@/modules/auth/usecases/auth.user';
-import { selectAuthModalVisible, selectAuthType, toggleAuthModal } from '@/modules/auth/core/store/auth.slice';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch } from '@/modules/store/create-store';
+import { toggleAuthModal } from '@/modules/auth/core/store/auth.slice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch, useAppSelector } from '@/modules/store/create-store';
 import { useTranslation } from 'react-i18next';
 import { registerUser } from '@/modules/auth/usecases/register.user';
+import { selectAuthModalVisible, selectAuthType } from '@/modules/auth/core/store/auth.selectors';
 
 export const AuthModal = () => {
     const dispatch = useDispatch<AppDispatch>()
-    const authModalVisible = useSelector(selectAuthModalVisible());
-    const authType = useSelector(selectAuthType());
+    const authModalVisible = useAppSelector(selectAuthModalVisible);
+    const authType = useAppSelector(selectAuthType);
     const { t } = useTranslation();
 
     const signInFormItems = [

@@ -8,6 +8,7 @@ import { catalog } from '@/modules/catalog';
 import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
 import { initLocale } from '@/i18n';
 import { HttpAuthGateway } from '@/modules/auth/infra/http-auth.gateway';
+import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
 
 const book = {
     id: 1,
@@ -71,10 +72,14 @@ export class App {
 
         const authAdapter = new HttpAuthGateway();
 
+        const userAdapter = new FakeUserGateway();
+        userAdapter.userId = '1'
+
         return {
             getBooksAdapter,
             getOneBookAdapter,
-            authAdapter
+            authAdapter,
+            userAdapter
         };
     }
 }

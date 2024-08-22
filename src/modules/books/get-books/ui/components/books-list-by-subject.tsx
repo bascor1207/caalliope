@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import { useSelector } from 'react-redux';
+import { useAppSelector } from '@/modules/store/create-store'
 
 import { getBooksViewModel } from '../get-books/get-books.viewmodel';
 import { getBooksBySubjectUtils } from '../get-books/get-books-by-subject.utils';
@@ -12,7 +12,7 @@ type BooksListBySubjectProps = {
 };
 
 export const BooksListBySubject: FC<BooksListBySubjectProps> = ({ subject }: BooksListBySubjectProps) => {
-  const viewmodel = useSelector(getBooksViewModel());
+  const viewmodel = useAppSelector(getBooksViewModel());
 
   const nodeToRender: ReactNode = (() => {
     switch (viewmodel.type) {
