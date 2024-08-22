@@ -81,5 +81,6 @@ export const PublishingSection: FC<Props> = ({ book }) => {
             </div>
             <CustomModal isShown={isShown} hideModal={toggle} modalContent={<AddPublisherForm />} />
         </div>
+
     );
 };
