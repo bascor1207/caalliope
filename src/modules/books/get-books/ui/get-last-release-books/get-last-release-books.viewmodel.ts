@@ -1,4 +1,4 @@
-import { RootState, useAppSelector } from '@/modules/store/create-store';
+import { RootState } from '@/modules/store/create-store';
 import { BooksModel } from '@/modules/books/model/books.model';
 import {
     selectLastReleaseBooks,
