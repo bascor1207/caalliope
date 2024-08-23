@@ -9,9 +9,11 @@ import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-g
 import { initLocale } from '@/i18n';
 // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
 // import { HttpAuthGateway } from '@/modules/auth/infra/http-auth.gateway';
+// import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
+
+//TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
 import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
 import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
-import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
 
 const book = {
     id: 1,
@@ -75,12 +77,12 @@ export class App {
 
         // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
         // const authAdapter = new HttpAuthGateway();
+        // const userAdapter = new HttpUserGateway()
 
+        //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
         const authAdapter = new FakeAuthGateway();
-
-        const userAdapter = new HttpUserGateway()
-        // const userAdapter = new FakeUserGateway();
-        // userAdapter.userId = '1'
+        const userAdapter = new FakeUserGateway();
+        userAdapter.userId = '1'
 
         return {
             getBooksAdapter,

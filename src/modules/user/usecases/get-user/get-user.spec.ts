@@ -42,14 +42,14 @@ function givenUserId(id: string) {
 }
 
 async function retrieveUser() {
-    await store.dispatch(getUserUsecase(fakeUserGateway.userId))
+    await store.dispatch(getUserUsecase({ id: fakeUserGateway.userId }))
 }
 
 function thenItShouldBeAUserInStore() {
-    const state = createTestState({ user: { getUser: { activeUser: UserFactory.create({ id: fakeUserGateway.userId }) } } })
+    const state = createTestState({ user: { getUser: { activeUser: UserFactory.create({ id: fakeUserGateway.userId }), activeProfileTab: 'my-infos' } } })
     expect(store.getState().user?.getUser).toEqual(state.user?.getUser)
 }
 
 function thenThereShouldBeNoUserInStore() {
-    expect(store.getState().user.getUser).toEqual({ activeUser: {} })
+    expect(store.getState().user.getUser.activeUser).toEqual({})
 }

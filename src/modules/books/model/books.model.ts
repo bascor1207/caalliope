@@ -134,6 +134,19 @@ export namespace BooksModel {
 
  export type AddBookPublisherForm = z.infer<typeof addBookPublisherFormSchema>
 
+ export const editPublisherFormSchema = z.object({
+  isbn: isbnSchema,
+  date: dateSchema,
+  editor: editorSchema,
+  translator: translatorSchema,
+  nbPage: nbPageSchema,
+  language: languageSchema,
+  format: formatSchema,
+  cover: coverSchema,
+ })
+
+ export type EditBookPublisherForm = z.infer<typeof editPublisherFormSchema>
+
  export const addReviewFormSchema = z.object({
   review: reviewSchema,
  });
