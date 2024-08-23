@@ -16,6 +16,6 @@ export const AddReviewForm: FC = () => {
     ] satisfies Array<{id: string, name: keyof BooksModel.AddReviewForm, label: string, type: string, options?: {value: string, label: string}[]}>;
 
     return (
-            <CustomForm items={formItems} schema={BooksModel.addReviewFormSchema} />
+            <CustomForm items={formItems} schema={BooksModel.addReviewFormSchema} formType='plain' />
     );
 };

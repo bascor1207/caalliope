@@ -27,6 +27,7 @@ export const AddBookForm: React.FC = () => {
         <CustomForm
             items={formItems}
             schema={BooksModel.addBookFormSchema}
+            formType='plain'
         />
     );
 };
