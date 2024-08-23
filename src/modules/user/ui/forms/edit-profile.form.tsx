@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CustomForm } from '@/modules/ui/component-level/custom.form';
-import { UserModel } from '@/modules/user/model/user.model'; // Utilise le même CustomForm que dans EditBookForm
+import { UsersModel } from '@/modules/user/model/users.model';
 
 export const EditProfileForm: FC = () => {
     const { t } = useTranslation();
@@ -25,12 +25,13 @@ export const EditProfileForm: FC = () => {
             label: t('form.password'),
             type: 'password',
         }
-    ] satisfies Array<{id: string, name: keyof UserModel.EditProfileForm, label: string, type: string}>;
+    ] satisfies Array<{id: string, name: keyof UsersModel.EditProfileForm, label: string, type: string}>;
 
     return (
         <CustomForm
             items={formItems}
-            schema={UserModel.editProfileFormSchema}
+            schema={UsersModel.editProfileFormSchema}
+            formType='plain'
         />
     );
 };
