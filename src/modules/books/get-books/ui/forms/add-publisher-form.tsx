@@ -27,6 +27,7 @@ export const AddPublisherForm: FC = () => {
             <CustomForm
                 items={formItems}
                 schema={BooksModel.addBookPublisherFormSchema}
+                formType='plain'
             />
     );
 };
