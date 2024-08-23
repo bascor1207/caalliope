@@ -12,7 +12,7 @@ export class FakeAuthGateway implements ConnectorToAuthGateway{
         })
     }
 
-    register(data: AuthModel.LoginFormSchema): Promise<unknown> {
+    register(): Promise<unknown> {
         return Promise.resolve(undefined);
     }
 }
