@@ -1,22 +1,22 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export function middleware(request: Request) {
+export function middleware(request: NextRequest) {
+    const url = request.nextUrl.clone();
+    const searchParams = url.searchParams;
+    searchParams.delete('activeTab');
+    const existingCookieActiveTab = request.cookies.get('activeTab')?.value;
+    const queryActiveTab = request.nextUrl.searchParams.get('activeTab');
 
-    const url = new URL(request.url);
+    const activeTab = queryActiveTab || existingCookieActiveTab || 'my-infos';
 
-    const requestHeaders = new Headers(request.headers);
-
-    requestHeaders.set('x-url', url.href);
-    const cleanedUrl = request.url.split('?')[0]
-
-    console.log(cleanedUrl, 'huzhciuzifcholzcouzhoumh')
-    return NextResponse.rewrite(cleanedUrl.toString(), {
-        request: {
-            headers: requestHeaders,
-        }
+    const response = NextResponse.redirect(url.toString());
+    response.cookies.set('activeTab', activeTab, {
+        path: '/',
+        maxAge: 60 * 60 * 24 * 7
     });
+    return response;
 }
 
 export const config = {
-    matcher: '/:path*'
+    matcher: { source: '/my-account/:path*', has: [{ type: 'query', key:'activeTab' }] }
 };

@@ -8,8 +8,8 @@ import { catalog } from '@/modules/catalog';
 import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
 import { initLocale } from '@/i18n';
 // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
-import { HttpAuthGateway } from '@/modules/auth/infra/http-auth.gateway';
-// import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
+// import { HttpAuthGateway } from '@/modules/auth/infra/http-auth.gateway';
+import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
 import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
 import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
 
@@ -74,9 +74,9 @@ export class App {
         getOneBookAdapter.returnedResponse = book;
 
         // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
-        const authAdapter = new HttpAuthGateway();
+        // const authAdapter = new HttpAuthGateway();
 
-        // const authAdapter = new FakeAuthGateway();
+        const authAdapter = new FakeAuthGateway();
 
         const userAdapter = new HttpUserGateway()
         // const userAdapter = new FakeUserGateway();

@@ -10,7 +10,7 @@ export const useHeader = () => {
     const LINKS_ITEMS = [
         {
             label: 'Profile',
-            href: '/my-account',
+            href: '/my-account?active-tab=my-infos',
             icon: (
                 <Image
                     src='/user.webp'

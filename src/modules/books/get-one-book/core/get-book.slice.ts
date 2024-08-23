@@ -20,7 +20,6 @@ export const getBookSlice = createSlice({
             state.requestStatus = 'pending';
         });
         builder.addCase(getOneBookById.fulfilled, (state, action) => {
-            console.log(action.payload)
             state.selectedBook = action.payload as BooksModel.Book;
             state.requestStatus = 'fulfilled';
         })

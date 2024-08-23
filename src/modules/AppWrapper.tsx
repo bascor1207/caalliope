@@ -5,10 +5,8 @@ import React, { ReactNode } from 'react';
 import { NextUIProvider } from '@nextui-org/react';
 import { RootState } from '@/modules/store/create-store';
 
-export const AppWrapper = ({ children, initialState }: { children: ReactNode, initialState: RootState }) => {
+export const AppWrapper = async ({ children, initialState }: { children: ReactNode, initialState: RootState }) => {
     const store = clientApp(initialState).store;
-
-    console.log(initialState);
 
     return (
         <NextUIProvider className='min-h-svh w-svw' locale='fr-FR'>
