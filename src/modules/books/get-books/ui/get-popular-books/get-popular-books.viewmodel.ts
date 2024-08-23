@@ -1,4 +1,4 @@
-import { RootState } from '@/modules/store/create-store';
+import { RootState, useAppSelector } from '@/modules/store/create-store';
 import { BooksModel } from '@/modules/books/model/books.model';
 import { createSelector } from 'reselect';
 import {
@@ -30,10 +30,10 @@ type BooksGettingFulfilled = {
 
 type ViewModelResponse = BooksGettingPending | BooksGettingRejected | BooksGettingFulfilled;
 
-export const getPopularBooksViewmodel = () => (state: RootState): ViewModelResponse => {
-    const mostPopularBooks = selectMostPopularBooks(state);
-    const pendingRequest = selectPendingRequest(state);
-    const rejectedRequest = selectRejectedRequest(state);
+export const useGetPopularBooksViewmodel = (): ViewModelResponse => {
+    const mostPopularBooks = useAppSelector(selectMostPopularBooks);
+    const pendingRequest = useAppSelector(selectPendingRequest);
+    const rejectedRequest = useAppSelector(selectRejectedRequest);
 
     if (pendingRequest) {
         return { type: gettingBooks.pending, pendingRequest };

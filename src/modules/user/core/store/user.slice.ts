@@ -4,7 +4,7 @@ import { UsersModel } from '@/modules/user/model/users.model';
 
 type InitialState = {
     activeUser: UsersModel.User
-    activeProfileTab: 'my-infos' | 'my-books'
+    activeProfileTab: 'my-infos' | 'my-books' | 'my-wishlist' | 'my-abandoned-books'
 }
 
 const initialState: InitialState = {
