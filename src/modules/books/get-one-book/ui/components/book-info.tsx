@@ -19,7 +19,7 @@ export const BookInfo = () => {
     case 'fulfilled':
       return (
         <div>
-          <div className='mb-20'>
+          <div className='mb-8'>
             <BookInfoCard book={viewmodel.selectedBook} />
           </div>
             <TabBookInfo book={viewmodel.selectedBook} />
