@@ -18,10 +18,12 @@ export const BookInfo = () => {
       return <div>Oops...</div>;
     case 'fulfilled':
       return (
-            <div>
-              <BookInfoCard book={viewmodel.selectedBook} />
-              <TabBookInfo book={viewmodel.selectedBook} />
-            </div>
+        <div>
+          <div className='mb-8'>
+            <BookInfoCard book={viewmodel.selectedBook} />
+          </div>
+            <TabBookInfo book={viewmodel.selectedBook} />
+        </div>
       );
     }
   })();

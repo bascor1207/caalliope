@@ -1,9 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
+import { Card, CardHeader, Chip, Image } from '@nextui-org/react';
 
 import { BooksModel } from '@/modules/books/model/books.model';
-
-import styles from './book-info-card.module.scss';
 
 type Props = {
     book: BooksModel.Book;
@@ -25,30 +23,32 @@ const generateStars = (rating?: number) => {
 };
 
 export const BookInfoCard: React.FC<Props> = ({ book }) => {
-    return (
-    <div className={styles.container}>
-      <div className={styles['img-top-container']}>
-            <Image className={styles.image} src={book.image} alt={'book cover'} width={50} height={50}/>
-      </div>
-      <div className={styles.info}>
-        <div>
-          <h1 className={styles.title}>{book.title} - {book.author.firstname} {book.author.lastname}</h1>
-        </div>
-        <div className={styles.rating}>
-          {generateStars(book.rating)}
-          <span>{book.rating}/5</span>
-        </div>
-        <p>
-          {book.summary}
-        </p>
-          <div className={styles.subject}>
-            {book.subjects.map((subject) => {
-              return (
-                <div key={subject.id}>{subject.label}</div>
-              )
-            })}
+  return (
+    <Card className='bg-transparent text-black'>
+      <CardHeader>
+        <div className='flex gap-5'>
+          <div className='flex gap-5'>
+            <Image src={book.image} alt='book cover' className='w-34 h-36 object-cover' />
+            <div className='flex flex-col gap-1 items-start justify-center'>
+              <h4 className='font-semibold leading-none text-black mb-4'>{book.title} - {book.author.firstname} {book.author.lastname}</h4>
+              <div className='flex gap-5 mb-4'>
+                {generateStars(book.rating)}
+                <span>{book.rating}/5</span>
+              </div>
+              <p className='mb-4'>
+                {book.summary}
+              </p>
+              <div className='flex gap-5'>
+                {book.subjects.map((subject) => {
+                  return (
+                    <Chip key={subject.id}>{subject.label}</Chip>
+                  )
+                })}
+              </div>
+            </div>
           </div>
-      </div>
-    </div>
+        </div>
+      </CardHeader>
+    </Card>
   );
 };
