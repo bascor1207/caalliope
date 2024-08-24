@@ -37,7 +37,7 @@ export const PublishingSection: FC<Props> = ({ book }) => {
                             {publisher.dateOfPublication} - {publisher.label} | {publisher.language} | {publisher.numberOfPages} pages
                         </span>
                         <div className='flex items-center'>
-                            <Select placeholder={t('selectOption')}>
+                            <Select placeholder={t('selectOption')} className='text-black bg-white"'>
                                 <SelectItem value='notOwned' key={0}>{t('notOwned')}</SelectItem>
                                 <SelectItem value='inProgress' key={1}>{t('inProgress')}</SelectItem>
                                 <SelectItem value='toRead' key={2}>{t('toRead')}</SelectItem>
