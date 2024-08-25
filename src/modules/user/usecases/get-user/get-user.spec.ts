@@ -36,17 +36,18 @@ describe('Get user error', () => {
 
 const fakeUserGateway = new FakeUserGateway()
 const store = createTestStore({ userAdapter: fakeUserGateway })
+let id = '';
 
-function givenUserId(id: string) {
-   fakeUserGateway.userId = id;
+function givenUserId(userId: string) {
+    id = userId
 }
 
 async function retrieveUser() {
-    await store.dispatch(getUserUsecase({ id: fakeUserGateway.userId }))
+    await store.dispatch(getUserUsecase({ id }))
 }
 
 function thenItShouldBeAUserInStore() {
-    const state = createTestState({ user: { getUser: { activeUser: UserFactory.create({ id: fakeUserGateway.userId }), activeProfileTab: 'my-infos' } } })
+    const state = createTestState({ user: { getUser: { activeUser: UserFactory.create({ id }), activeProfileTab: 'my-infos' } } })
     expect(store.getState().user?.getUser).toEqual(state.user?.getUser)
 }
 

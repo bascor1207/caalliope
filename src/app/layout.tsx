@@ -4,9 +4,9 @@ import React, { FC, PropsWithChildren } from 'react';
 import { AppWrapper } from '@/modules/AppWrapper';
 
 import './globals.css';
-import { Footer } from '@/modules/ui/app-level/Footer';
-import { Header } from '@/modules/ui/app-level/Header';
-import { Modals } from '@/modules/ui/app-level/modals';
+import { Footer } from '@/modules/app/ui/app-level/Footer';
+import { Header } from '@/modules/app/ui/app-level/Header';
+import { Modals } from '@/modules/app/ui/app-level/modals';
 import { prefetchRootLayout } from '@/app/prefetchRootLayout';
 
 export const metadata: Metadata = {

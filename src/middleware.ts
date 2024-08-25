@@ -18,5 +18,5 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: { source: '/my-account/:path*', has: [{ type: 'query', key:'activeTab' }] }
+    matcher: { source: '/my-account', has: [{ type: 'query', key:'activeTab' }] }
 };

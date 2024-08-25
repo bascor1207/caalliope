@@ -1,6 +1,6 @@
 'use client';
 import dynamic from 'next/dynamic';
-import { CustomSpinner } from '@/modules/ui/app-level/custom.spinner';
+import { CustomSpinner } from '@/modules/app/ui/app-level/custom.spinner';
 
  const AuthModal = dynamic(() => import('@/modules/auth/ui/auth.modal').then((module) => module.AuthModal), {
     ssr: false,

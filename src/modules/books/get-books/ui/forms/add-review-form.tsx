@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CustomForm } from '@/modules/ui/component-level/custom.form';
+import { CustomForm } from '@/modules/app/ui/component-level/custom.form';
 import { BooksModel } from '@/modules/books/model/books.model';
 
 export const AddReviewForm: FC = () => {

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 
 
 import styles from './publishing-section.module.scss';
-import { CustomModal } from '@/modules/ui/component-level/custom.modal';
+import { CustomModal } from '@/modules/app/ui/component-level/custom.modal';
 import { BooksModel } from '@/modules/books/model/books.model';
 import { AddPublisherForm } from '@/modules/books/get-books/ui/forms/add-publisher-form';
 

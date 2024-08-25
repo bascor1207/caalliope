@@ -5,7 +5,7 @@ import { useAppSelector } from '@/modules/store/create-store'
 import { getOneBookViewmodel } from '../get-one-book.viewmodel';
 import { BookInfoCard } from './book-info-card';
 import { TabBookInfo } from './tab-book-info';
-import { CustomSpinner } from '@/modules/ui/app-level/custom.spinner';
+import { CustomSpinner } from '@/modules/app/ui/app-level/custom.spinner';
 
 export const BookInfo = () => {
   const viewmodel = useAppSelector(getOneBookViewmodel());

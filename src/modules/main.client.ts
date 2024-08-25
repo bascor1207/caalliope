@@ -14,6 +14,7 @@ import { initLocale } from '@/i18n';
 //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
 import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
 import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
+import { CookiesProvider } from '@/modules/app/core/cookies.provider';
 
 const book = {
     id: 1,
@@ -82,13 +83,15 @@ export class App {
         //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
         const authAdapter = new FakeAuthGateway();
         const userAdapter = new FakeUserGateway();
-        userAdapter.userId = '1'
+
+        const cookiesAdapter = new CookiesProvider();
 
         return {
             getBooksAdapter,
             getOneBookAdapter,
             authAdapter,
-            userAdapter
+            userAdapter,
+            cookiesAdapter
         };
     }
 }

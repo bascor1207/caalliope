@@ -1,4 +1,4 @@
-import { CustomForm } from '@/modules/ui/component-level/custom.form';
+import { CustomForm } from '@/modules/app/ui/component-level/custom.form';
 import { AuthModel } from '@/modules/auth/model/auth.model';
 import { authUser } from '@/modules/auth/usecases/auth.user';
 import { toggleAuthModal } from '@/modules/auth/core/store/auth.slice';

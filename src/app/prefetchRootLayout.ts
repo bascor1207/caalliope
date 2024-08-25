@@ -18,13 +18,15 @@ export async function prefetchRootLayout() {
         store.dispatch(myProfileTabState(activeTab))
     }
 
+
     if (token) {
-        try {
-            const { payload } = await jwtVerify(token, new TextEncoder().encode('azerty'));
-            await store.dispatch(getUserUsecase({ id: payload.sub as string, token }));
-        } catch (error) {
-            console.error('Échec de la vérification du token:', error);
-        }
+        await store.dispatch(getUserUsecase({ id: '2' }))
+    //     try {
+            // const { payload } = await jwtVerify(token, new TextEncoder().encode('azerty'));
+            // await store.dispatch(getUserUsecase({ id: payload.sub as string, token }));
+    //     } catch (error) {
+    //         console.error('Échec de la vérification du token:', error);
+    //     }
     }
 
     await store.dispatch(getPopularBooksUseCase());
