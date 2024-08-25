@@ -1,4 +1,10 @@
-import { UnknownAction, configureStore, ThunkDispatch } from '@reduxjs/toolkit';
+import {
+    UnknownAction,
+    configureStore,
+    ThunkDispatch,
+    MiddlewareAPI,
+    ListenerMiddlewareInstance
+} from '@reduxjs/toolkit';
 import { rootReducer } from '@/modules/store/root-reducer';
 import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books-gateway';
 import { ConnectorToGetOneBook } from '@/modules/books/get-one-book/connector-to.get-one-book';
@@ -11,6 +17,8 @@ import { ConnectorToUserGateway } from '@/modules/user/connector-to-user.gateway
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { CookiesInterface } from '@/modules/app/core/cookies.interface';
 import { FakeCookiesProvider } from '@/modules/app/core/fake-cookies.provider';
+import { registerOnAuthChangeForUserListener } from '@/modules/user/core/store/user.listeners';
+import { listenerMiddleware } from '@/modules/store/create-app-listener';
 
 export type Dependencies = {
     getBooksAdapter: ConnectorToGetBooks;
@@ -27,11 +35,12 @@ export const createStore = (
   return configureStore({
     reducer: rootReducer,
     middleware(getDefaultMiddleware) {
+        registerOnAuthChangeForUserListener();
       return getDefaultMiddleware({
         thunk: {
           extraArgument: dependencies,
         },
-      });
+      }).prepend(listenerMiddleware.middleware)
     },
     preloadedState,
   });
@@ -79,5 +88,7 @@ type AppStoreWithGetActions = ReturnType<typeof createStore>;
 export type AppStore = Omit<AppStoreWithGetActions, 'getActions'>;
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = ThunkDispatch<RootState, Dependencies, UnknownAction>;
+export type AppListenerMiddlewareInstance = ListenerMiddlewareInstance<MiddlewareAPI<AppDispatch, RootState>>;
+
 
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector;

@@ -16,6 +16,55 @@ export namespace UsersModel {
     export type EditProfileForm = z.infer<typeof editProfileFormSchema>;
 
     export type User = {
-        id: string; username: string; firstName: string; lastName: string;
+        id: string; username: string; firstName: string; lastName: string; email: string; avatar: object;
+        myBooksToRead: ToReadBook[]; myInProgressBooks: InProgressBook[]; myAlreadyReadBooks: AlreadyReadBook[];
+        myAbandonedBooks: AbandonedBook[]; myWishlist: WishBook[];
+    }
+
+    export type BaseUserBook = {
+        id: number;
+        title: string;
+        type: string;
+        image: string;
+    }
+
+    export type ToReadBook = BaseUserBook & {
+        status: 'toRead',
+        id: number;
+        title: string;
+        type: string;
+        image: string;
+    }
+
+    export type InProgressBook = BaseUserBook & {
+        status: 'reading',
+        id: number;
+        title: string;
+        type: string;
+        image: string;
+    }
+
+    export type AlreadyReadBook = BaseUserBook & {
+        status: 'read',
+        id: number;
+        title: string;
+        type: string;
+        image: string;
+    }
+
+    export type AbandonedBook = BaseUserBook & {
+        status: 'abandoned',
+        id: number;
+        title: string;
+        type: string;
+        image: string;
+    }
+
+    export type WishBook = BaseUserBook & {
+        status: 'wishlist',
+        id: number;
+        title: string;
+        type: string;
+        image: string;
     }
 }

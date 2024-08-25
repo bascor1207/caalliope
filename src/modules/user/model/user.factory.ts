@@ -7,6 +7,13 @@ export class UserFactory {
             username: 'John',
             firstName: 'John',
             lastName: 'Doe',
+            myAbandonedBooks: [],
+            myAlreadyReadBooks: [],
+            myWishlist: [],
+            myBooksToRead: [],
+            myInProgressBooks: [],
+            avatar: {},
+            email: 'john.doe@doe.john.com',
             ...data
         })
     }

@@ -28,4 +28,9 @@ export namespace AuthModel {
         SIGN_UP: 'signUp',
         EMPTY: ''
     } as const;
+
+    export type AuthenticatedUser = {
+        id: number;
+        access_token: string;
+    }
 }

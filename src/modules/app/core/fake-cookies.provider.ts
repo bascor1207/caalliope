@@ -8,4 +8,8 @@ export class FakeCookiesProvider implements CookiesInterface {
     destroyCookies(_context: null, cookieName: string) {
         this.cookies.delete(cookieName);
     }
+
+    setCookie(_context: null, cookieName: string, cookieValue: string): void {
+        this.cookies.set(cookieName, cookieValue)
+    }
 }

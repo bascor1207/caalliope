@@ -1,8 +1,12 @@
 import { CookiesInterface } from '@/modules/app/core/cookies.interface';
-import { destroyCookie } from 'nookies';
+import { destroyCookie, setCookie } from 'nookies';
 
 export class CookiesProvider implements CookiesInterface {
-    destroyCookies(_context:null, cookieName: string) {
+    destroyCookies(_context:null, cookieName: string): void {
         destroyCookie(null, cookieName)
+    }
+
+    setCookie(_context: null, cookieName: string, cookieValue: string): void {
+        setCookie(null, cookieName, cookieValue)
     }
 }

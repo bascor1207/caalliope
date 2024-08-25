@@ -34,14 +34,15 @@ type CustomCardProps = {
 export const CustomCard: FC<CustomCardProps> = (
     {
         title, content, footer, description,
-        onClick, cover = false, className = '', isPressable = true
+        onClick, cover = false, className = '', isPressable = true,
     }
 ) => {
     return cover ? (
         <NextUICard
             isPressable
             onPress={onClick}
-            className='rounded-xl shadow  cursor-pointer'
+            className={twMerge('rounded-xl shadow  cursor-pointer aspect-[3/4]', className)}
+            classNames={{ body: 'h-full' }}
         >
             {content()}
         </NextUICard>

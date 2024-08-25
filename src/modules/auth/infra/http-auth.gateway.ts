@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export class HttpAuthGateway implements ConnectorToAuthGateway {
 
-    async authenticate({ email, password }: AuthModel.AuthUserPayload): Promise<{ access_token: string }> {
+    async authenticate({ email, password }: AuthModel.AuthUserPayload): Promise<AuthModel.AuthenticatedUser> {
         const { data } = await axios.post('http://localhost:3000/auth/login', { email, password })
         setCookie(undefined, 'token', data.access_token)
         return data

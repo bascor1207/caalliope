@@ -1,8 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
-import { Avatar, Button, Select, SelectItem } from '@nextui-org/react';
+import { Avatar, Button, Select, SelectItem, Link } from '@nextui-org/react';
 import { twMerge } from 'tailwind-merge';
 import { CustomNavBar } from '@/modules/app/ui/component-level/custom.navbar';
 import { toggleAuthModal } from '@/modules/auth/core/store/auth.slice';
@@ -61,48 +60,62 @@ export const Header = () => {
                         {presenter.t('navbar.catalog')}
                     </Button>
 
-                    <Button
-                        radius='md'
-                        size='md'
-                        onPress={() => presenter.dispatch(toggleAuthModal({ visible: true, type: AuthModel.AUTH_TYPES.SIGN_IN }))}
-                        variant='light'
-                        className={twMerge(
-                            'text-custom-dark-purple px-8',
-                            'hover:text-black hover:bg-custom-grey',
-                            'transition duration-150'
-                        )}>
-                        {presenter.t('navbar.signIn')}
-                    </Button>
+                    {!presenter.loggedUser && (
+                        <>
+                            <Button
+                                radius='md'
+                                size='md'
+                                onPress={() => presenter.dispatch(toggleAuthModal({ visible: true, type: AuthModel.AUTH_TYPES.SIGN_IN }))}
+                                variant='light'
+                                className={twMerge(
+                                    'text-custom-dark-purple px-8',
+                                    'hover:text-black hover:bg-custom-grey',
+                                    'transition duration-150'
+                                )}>
+                                {presenter.t('navbar.signIn')}
+                            </Button>
 
-                    <Button
-                        radius='md'
-                        size='md'
-                        variant='light'
-                        onPress={() => presenter.dispatch(toggleAuthModal({ visible: true, type: AuthModel.AUTH_TYPES.SIGN_UP }))}
-                        className={twMerge(
-                            'text-custom-dark-purple px-8',
-                            'hover:text-black hover:bg-custom-grey',
-                            'transition duration-150'
-                        )}>
-                        {presenter.t('navbar.signUp')}
-                    </Button>
+                            <Button
+                                radius='md'
+                                size='md'
+                                variant='light'
+                                onPress={() => presenter.dispatch(toggleAuthModal({ visible: true, type: AuthModel.AUTH_TYPES.SIGN_UP }))}
+                                className={twMerge(
+                                    'text-custom-dark-purple px-8',
+                                    'hover:text-black hover:bg-custom-grey',
+                                    'transition duration-150'
+                                )}>
+                                {presenter.t('navbar.signUp')}
+                            </Button>
+                        </>
+                    )}
                 </>
             )}
             renderMenuContent={() => (
                 <>
-                    {presenter.linkItems.map((link, idx) => (
-                        <Link
-                            href={link.href}
-                            className={twMerge('flex items-center justify-start gap-2 py-2 transition duration-150 hover:bg-custom-purple opacity-100')}
-                            key={idx}
-                        >
-                            {link.icon}
-                            <span className='text-gray-900 text-sm whitespace-pre'>
-                                {presenter.t(link.label)}
-                            </span>
-                        </Link>
-                    ))}
-                </>
+                    {presenter.linkItems.map((item, idx) => (
+                        item.type === 'link' ? (
+                            <Link
+                                href={item.href}
+                                className={twMerge('flex items-center justify-start gap-2 py-2 transition duration-150 hover:text-custom-dark-purple opacity-100')}
+                                key={idx}
+                            >
+                                <span className='text-gray-900 text-sm whitespace-pre hover:text-custom-dark-purple'>
+                                    {presenter.t(item.label)}
+                                </span>
+                            </Link>
+                        ) : (
+                            <Button
+                                className={twMerge('flex items-center justify-start gap-2 py-2 transition duration-150 hover:text-custom-dark-purple opacity-100')}
+                                key={idx} onPress={() => item.onPress?.()}
+                            >
+                                 <span className='text-gray-900 text-sm whitespace-pre hover:text-custom-dark-purple'>
+                                    {presenter.t(item.label)}
+                                </span>
+                            </Button>
+                        )
+                        ))}
+                    </>
             )}
             showMenu={true}
         />
