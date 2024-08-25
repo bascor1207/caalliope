@@ -3,17 +3,16 @@ import { UsersModel } from '@/modules/user/model/users.model';
 import { UserFactory } from '@/modules/user/model/user.factory';
 
 export class FakeUserGateway implements ConnectorToUserGateway {
-    userId!: string;
     private readonly users: UsersModel.User[];
 
     constructor() {
         this.users = this.setupUsers()
     }
 
-    getUser(): Promise<UsersModel.User> {
+    getUser({ id }: {id: string}): Promise<UsersModel.User> {
         return new Promise((resolve, reject) => {
-            if (!this.userId || this.userId.trim() === '') reject();
-            const user = this.users.find((user) => user.id === this.userId);
+            if (!id || id.trim() === '') reject();
+            const user = this.users.find((user) => user.id === id);
             if (!user) reject();
             resolve(user as UsersModel.User)
         })

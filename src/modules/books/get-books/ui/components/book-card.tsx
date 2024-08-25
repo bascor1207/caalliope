@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { FC } from 'react';
 import { Image } from '@nextui-org/react';
 import { BooksModel } from '@/modules/books/model/books.model';
-import { CustomCard } from '@/modules/ui/component-level/custom.card';
+import { CustomCard } from '@/modules/app/ui/component-level/custom.card';
 
 
 type Props = {
@@ -20,6 +20,7 @@ export const BookCard: FC<Props> = ({ book, cover = false }) => {
 
     return (
         <CustomCard
+            className='max-w-full'
             onClick={getOneBookAndRedirect}
             title={book.title}
             description={book.type}
@@ -29,6 +30,7 @@ export const BookCard: FC<Props> = ({ book, cover = false }) => {
                     radius='none'
                     src={book.image}
                     alt='livre'
+                    className='h-full'
                 />
             )}
             footer={() => (

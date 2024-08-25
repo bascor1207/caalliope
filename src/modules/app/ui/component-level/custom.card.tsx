@@ -26,10 +26,17 @@ type CustomCardProps = {
     footer?: () => ReactNode;
     description?: string;
     onClick?: () => void;
-    cover: boolean
+    cover?: boolean
+    className?: string;
+    isPressable?: boolean
 }
 
-export const CustomCard: FC<CustomCardProps> = ({ title, content, footer, description, onClick, cover = false }) => {
+export const CustomCard: FC<CustomCardProps> = (
+    {
+        title, content, footer, description,
+        onClick, cover = false, className = '', isPressable = true
+    }
+) => {
     return cover ? (
         <NextUICard
             isPressable
@@ -40,9 +47,9 @@ export const CustomCard: FC<CustomCardProps> = ({ title, content, footer, descri
         </NextUICard>
         ) : (
         <NextUICard
-            isPressable
+            isPressable={isPressable}
             onPress={onClick}
-            className='rounded-xl border shadow p-6 text-custom-dark-purple cursor-pointer bg-custom-purple h-full'
+            className={twMerge('rounded-xl border shadow p-6 text-custom-dark-purple cursor-pointer bg-custom-purple h-full', className)}
             classNames={{
                 body: 'p-0'
             }}
@@ -52,7 +59,7 @@ export const CustomCard: FC<CustomCardProps> = ({ title, content, footer, descri
                 <CardHeader className='pb-0 pt-2 px-4 flex-col items-start'>
                     <>
                         {title && (
-                            <h3 className='text-2xl font-semibold leading-none tracking-tight'>
+                            <h3 className='text-2xl font-semibold truncate w-full'>
                                 {title}
                             </h3>
                         )}

@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
-import { CustomForm } from '@/modules/ui/component-level/custom.form';
+import { CustomForm } from '@/modules/app/ui/component-level/custom.form';
 import { UsersModel } from '@/modules/user/model/users.model';
 
 export const EditProfileForm: FC = () => {

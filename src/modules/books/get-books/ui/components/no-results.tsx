@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { CustomModal } from '@/modules/ui/component-level/custom.modal';
+import { CustomModal } from '@/modules/app/ui/component-level/custom.modal';
 
 import styles from './no-results.module.scss';
 import { AddBookForm } from '@/modules/books/get-books/ui/forms/add-book-form';

@@ -2,7 +2,7 @@
 import { ReactNode } from 'react';
 import { getPopularBooksViewmodel } from '../get-popular-books/get-popular-books.viewmodel';
 import BooksCarousel from '@/modules/books/get-books/ui/components/books-carousel';
-import { CustomSpinner } from '@/modules/ui/app-level/custom.spinner';
+import { CustomSpinner } from '@/modules/app/ui/app-level/custom.spinner';
 import { useAppSelector } from '@/modules/store/create-store';
 
 export const PopularBooksCarousels = () => {
@@ -16,7 +16,7 @@ export const PopularBooksCarousels = () => {
               return <div>Oops...</div>;
             case 'gettingPopularBooksFulfilled':
               return (
-                <BooksCarousel slides={viewmodel.mostPopularBooks} withExtraGap title={''} />
+                <BooksCarousel slides={viewmodel.mostPopularBooks} title={''} />
               );
       }
     })();

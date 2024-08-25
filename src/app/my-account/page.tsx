@@ -5,6 +5,7 @@ import { Tab, Tabs } from '@nextui-org/react';
 import { myProfileTabState } from '@/modules/user/core/store/user.slice';
 import { useDispatch } from 'react-redux';
 import { setCookie } from 'nookies';
+import { MyInfosPage } from '@/modules/user/ui/pages/my-infos.page';
 
 export default function MyAccountPage() {
     const dispatch = useDispatch<AppDispatch>()
@@ -20,19 +21,22 @@ export default function MyAccountPage() {
         { tab: 'text-custom-dark-purple', cursor: 'cursor-pointer' }
 
     return (
-        <div className='flex items-center justify-center my-4'>
-            <Tabs
-                aria-label='Dynamic tabs' items={items} classNames={classNames}
-                selectedKey={activeProfileTab}
-                onSelectionChange={(key) => {
-                    setCookie(null, 'activeTab', key.toString(), { path: '/' });
-                    dispatch(myProfileTabState(key.toString() as 'my-infos' | 'my-books' | 'my-wishlist' | 'my-abandoned-books'));
-                }}
-            >
-                {(item) => (
-                    <Tab key={item.value} title={item.label}/>
-                )}
-            </Tabs>
-        </div>
-)
+        <>
+            <div className='flex items-center justify-center my-4'>
+                <Tabs
+                    aria-label='Dynamic tabs' items={items} classNames={classNames}
+                    selectedKey={activeProfileTab}
+                    onSelectionChange={(key) => {
+                        setCookie(null, 'activeTab', key.toString(), { path: '/' });
+                        dispatch(myProfileTabState(key.toString() as 'my-infos' | 'my-books' | 'my-wishlist' | 'my-abandoned-books'));
+                    }}
+                >
+                    {(item) => (
+                        <Tab key={item.value} title={item.label}/>
+                    )}
+                </Tabs>
+            </div>
+            {activeProfileTab === 'my-infos' && <MyInfosPage/>}
+        </>
+    )
 }

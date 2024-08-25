@@ -5,7 +5,7 @@ import { getBooksViewModel } from '../get-books/get-books.viewmodel';
 import { getBooksBySubjectUtils } from '../get-books/get-books-by-subject.utils';
 import { NoResults } from './no-results';
 import { BooksCatalog } from './book-card-catalog';
-import { CustomSpinner } from '@/modules/ui/app-level/custom.spinner';
+import { CustomSpinner } from '@/modules/app/ui/app-level/custom.spinner';
 
 type BooksListBySubjectProps = {
     subject: string;

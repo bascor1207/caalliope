@@ -11,8 +11,6 @@ import type { BooksModel } from '@/modules/books/model/books.model';
 
 
 type BooksCarouselProps = {
-    withGap?: boolean;
-    withExtraGap?: boolean;
     slides: BooksModel.Book[];
     title?: string;
 }

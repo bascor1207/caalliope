@@ -4,13 +4,19 @@ import { useDispatch } from 'react-redux';
 import { AppDispatch } from '@/modules/store/create-store';
 import { useTranslation } from 'react-i18next';
 import { ChangeEvent } from 'react';
+import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';
+
+const ACCOUNT_PATHS = {
+    MY_INFOS: 'activeTab/my-infos',
+    MY_BOOKS: 'activeTab/my-books'
+} as const
 
 export const useHeader = () => {
     const dispatch = useDispatch<AppDispatch>()
     const LINKS_ITEMS = [
         {
             label: 'Profile',
-            href: '/my-account?active-tab=my-infos',
+            href: `/my-account?${ACCOUNT_PATHS.MY_INFOS}`,
             icon: (
                 <Image
                     src='/user.webp'
@@ -22,7 +28,7 @@ export const useHeader = () => {
         },
         {
             label: 'My books',
-            href: '/my-account?activeTab=my-books',
+            href: `/my-account?${ACCOUNT_PATHS.MY_BOOKS}`,
             icon: (
                 <Image
                     src='/my-books.webp'
@@ -41,6 +47,7 @@ export const useHeader = () => {
                     alt='logo'
                     width={36}
                     height={36}
+                    onClick={() => dispatch(logoutUserUsecase())}
                 />
             ),
         },

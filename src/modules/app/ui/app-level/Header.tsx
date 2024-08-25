@@ -4,10 +4,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Avatar, Button, Select, SelectItem } from '@nextui-org/react';
 import { twMerge } from 'tailwind-merge';
-import { CustomNavBar } from '@/modules/ui/component-level/custom.navbar';
+import { CustomNavBar } from '@/modules/app/ui/component-level/custom.navbar';
 import { toggleAuthModal } from '@/modules/auth/core/store/auth.slice';
 import { AuthModel } from '@/modules/auth/model/auth.model';
-import { useHeader } from '@/modules/ui/app-level/useHeader';
+import { useHeader } from '@/modules/app/ui/app-level/useHeader';
 
 export const Header = () => {
     const presenter = useHeader()

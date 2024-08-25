@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
 import { UsersModel } from '@/modules/user/model/users.model';
+import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';
 
 type InitialState = {
     activeUser: UsersModel.User
@@ -26,6 +27,10 @@ export const userSlice = createSlice({
         });
 
         builder.addCase(getUserUsecase.rejected, (state) => {
+            state.activeUser = {} as UsersModel.User
+        });
+
+        builder.addCase(logoutUserUsecase.fulfilled, (state,) => {
             state.activeUser = {} as UsersModel.User
         })
     }
