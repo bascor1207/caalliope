@@ -28,9 +28,9 @@ export const BookInfoCard: React.FC<Props> = ({ book }) => {
       <CardHeader>
         <div className='flex gap-5'>
           <div className='flex gap-5'>
-            <Image src={book.image} alt='book cover' className='w-34 h-36 object-cover' />
+            <Image src={book.image} alt='book cover' className='w-45 h-40 object-cover' />
             <div className='flex flex-col gap-1 items-start justify-center'>
-              <h4 className='font-semibold leading-none text-black mb-4'>{book.title} - {book.author.firstname} {book.author.lastname}</h4>
+              <h4 className='font-bold leading-none text-black mb-4 uppercase text-xl'>{book.title} - {book.author.firstname} {book.author.lastname}</h4>
               <div className='flex gap-5 mb-4'>
                 {generateStars(book.rating)}
                 <span>{book.rating}/5</span>
