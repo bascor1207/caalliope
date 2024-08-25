@@ -5,7 +5,7 @@ import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-us
 
 type InitialState = {
     activeUser: UsersModel.User
-    activeProfileTab: 'my-infos' | 'my-books' | 'my-wishlist' | 'my-abandoned-books'
+    activeProfileTab: 'my-infos' | 'my-books' | 'my-readings' | 'my-wishlist' | 'my-abandoned-books'
 }
 
 const initialState: InitialState = {
@@ -32,7 +32,7 @@ export const userSlice = createSlice({
 
         builder.addCase(logoutUserUsecase.fulfilled, (state,) => {
             state.activeUser = {} as UsersModel.User
-        })
+        });
     }
 });
 

@@ -27,19 +27,19 @@ type Item<TFormValues extends FieldValues> = {
     id: string; name: Path<TFormValues>; label: string; type: string; options?: { value: string; label: string }[];
 }
 
-type CommonFormProps<TFormValues extends FieldValues, A> = {
+type CommonFormProps<TFormValues extends FieldValues, A, ReturnType> = {
     items: Item<TFormValues>[];
     schema: ZodObject<TFormValues>;
-    action?: UnknownAction | AppAsyncThunk<A>;
+    action?: UnknownAction | AppAsyncThunk<ReturnType, A>;
 };
 
-type CustomFormProps<TFormValues extends FieldValues, A = void> =
-    (ModalFormProps & CommonFormProps<TFormValues, A>) |
-    (PlainFormProps & CommonFormProps<TFormValues, A>);
+type CustomFormProps<TFormValues extends FieldValues, A, ReturnType = void> =
+    (ModalFormProps & CommonFormProps<TFormValues, A, ReturnType>) |
+    (PlainFormProps & CommonFormProps<TFormValues, A, ReturnType>);
 
-export const CustomForm = <TFormValues extends FieldValues, A>(
-    { items, schema, action, formType, modalTitle, visibilityTrigger, onCustomClose,
-}: CustomFormProps<TFormValues, A>) => {
+export const CustomForm = <TFormValues extends FieldValues, A, ReturnType>(
+    { items, schema, action, formType, modalTitle, visibilityTrigger, onCustomClose }: CustomFormProps<TFormValues, A, ReturnType>
+) => {
     const dispatch = useDispatch<AppDispatch>();
     const validator = useCustomForm({ schema, action, dispatch, onCustomClose });
 

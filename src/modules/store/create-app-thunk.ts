@@ -11,8 +11,8 @@ export const createAppAsyncThunk = createAsyncThunk.withTypes<{
   extra: Dependencies;
 }>();
 
-export type AppAsyncThunk<T> = AsyncThunk<
-    unknown,
+export type AppAsyncThunk<RType, T> = AsyncThunk<
+    RType,
     T,
     {
       state: RootState;

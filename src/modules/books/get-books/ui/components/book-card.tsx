@@ -26,11 +26,12 @@ export const BookCard: FC<Props> = ({ book, cover = false }) => {
             description={book.type}
             content={() => (
                 <Image
+                    removeWrapper={cover}
                     isZoomed={cover}
                     radius='none'
                     src={book.image}
                     alt='livre'
-                    className='h-full'
+                    className='w-full h-full object-cover'
                 />
             )}
             footer={() => (

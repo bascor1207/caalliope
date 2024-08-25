@@ -33,7 +33,7 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
                 </main>
 
                 {/* Footer */}
-                <footer className='w-full p-4 sm:p-6 md:p-8 lg:p-12 bg-gray-800 text-white text-center'>
+                <footer className='w-full p-4 sm:p-6 md:p-8 lg:p-12 bg-custom-purple text-center'>
                     <Footer/>
                 </footer>
             </div>
