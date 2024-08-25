@@ -25,35 +25,34 @@ export const PublishingSection: FC<Props> = ({ book }) => {
 
     return (
         <div>
-            <div className='flex justify-end'>
+            <div className='flex items-start justify-between mb-4'>
+                {book.publishers.map((publisher) => (
+                    <Card key={publisher.id} className='bg-transparent text-black max-w-md flex-grow'>
+                        <CardBody className='text-black'>
+                            <span className='block mb-4'>
+                                {publisher.dateOfPublication} - {publisher.label} | {publisher.language} | {publisher.numberOfPages} pages
+                            </span>
+                            <div className='flex items-center'>
+                                <Select placeholder={t('selectOption')} className='text-black bg-white"'>
+                                    <SelectItem value='notOwned' key={0}>{t('notOwned')}</SelectItem>
+                                    <SelectItem value='inProgress' key={1}>{t('inProgress')}</SelectItem>
+                                    <SelectItem value='toRead' key={2}>{t('toRead')}</SelectItem>
+                                    <SelectItem value='read' key={3}>{t('read')}</SelectItem>
+                                    <SelectItem value='wishlist' key={4}>{t('whislist')}</SelectItem>
+                                    <SelectItem value='giveUp' key={5}>{t('giveUp')}</SelectItem>
+                                </Select>
+                                <Button onClick={handleClick} className='ml-4 bg-[#D9D9D9] hover:bg-[#f8e9ff] text-black'>
+                                    {t('valid')}
+                                </Button>
+                            </div>
+                        </CardBody>
+                    </Card>
+                ))}
                 <Button onClick={toggle} className='bg-transparent hover:bg-[#f8e9ff] text-black'>
                     {t('library.addPublishing')}
                 </Button>
             </div>
-            {book.publishers.map((publisher) => (
-                <Card key={publisher.id} className='bg-transparent bg-transparent text-black'>
-                    <CardBody className='text-black'>
-                        <span>
-                            {publisher.dateOfPublication} - {publisher.label} | {publisher.language} | {publisher.numberOfPages} pages
-                        </span>
-                        <div className='flex items-center'>
-                            <Select placeholder={t('selectOption')} className='text-black bg-white"'>
-                                <SelectItem value='notOwned' key={0}>{t('notOwned')}</SelectItem>
-                                <SelectItem value='inProgress' key={1}>{t('inProgress')}</SelectItem>
-                                <SelectItem value='toRead' key={2}>{t('toRead')}</SelectItem>
-                                <SelectItem value='read' key={3}>{t('read')}</SelectItem>
-                                <SelectItem value='wishlist' key={4}>{t('whislist')}</SelectItem>
-                                <SelectItem value='giveUp' key={5}>{t('giveUp')}</SelectItem>
-                            </Select>
-                            <Button onClick={handleClick} className='ml-4 bg-[#D9D9D9] hover:bg-[#f8e9ff] text-black'>
-                                {t('valid')}
-                            </Button>
-                        </div>
-                    </CardBody>
-                </Card>
-            ))}
             <CustomModal isShown={isShown} hideModal={toggle} modalContent={<AddPublisherForm />} />
         </div>
-
     );
 };
