@@ -33,12 +33,12 @@ type CommonFormProps<TFormValues extends FieldValues, A, ReturnType> = {
     action?: UnknownAction | AppAsyncThunk<ReturnType, A>;
 };
 
-type CustomFormProps<TFormValues extends FieldValues, A, ReturnType = void> =
+type CustomFormProps<TFormValues extends FieldValues, A, ReturnType> =
     (ModalFormProps & CommonFormProps<TFormValues, A, ReturnType>) |
     (PlainFormProps & CommonFormProps<TFormValues, A, ReturnType>);
 
-export const CustomForm = <TFormValues extends FieldValues, A, ReturnType>(
-    { items, schema, action, formType, modalTitle, visibilityTrigger, onCustomClose }: CustomFormProps<TFormValues, A, ReturnType>
+export const CustomForm = <TFormValues extends FieldValues, ReturnType, A>(
+    { items, schema, action, formType, modalTitle, visibilityTrigger, onCustomClose }: CustomFormProps<TFormValues, ReturnType, A>
 ) => {
     const dispatch = useDispatch<AppDispatch>();
     const validator = useCustomForm({ schema, action, dispatch, onCustomClose });
