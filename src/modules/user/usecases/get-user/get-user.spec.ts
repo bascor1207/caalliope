@@ -47,7 +47,12 @@ async function retrieveUser() {
 }
 
 function thenItShouldBeAUserInStore() {
-    const state = createTestState({ user: { getUser: { activeUser: UserFactory.create({ id, myBooksToRead, myInProgressBooks, myAlreadyReadBooks, myAbandonedBooks, myWishlist }), activeProfileTab: 'my-infos' } } })
+    let state;
+    if (id === '1') {
+        state = createTestState({ user: { getUser: { activeUser: UserFactory.create({ id }), activeProfileTab: 'my-infos' } } })
+    } else {
+        state = createTestState({ user: { getUser: { activeUser: UserFactory.create({ id, myBooksToRead, myInProgressBooks, myAlreadyReadBooks, myAbandonedBooks, myWishlist }), activeProfileTab: 'my-infos' } } })
+    }
     expect(store.getState().user?.getUser.activeUser).toEqual(state.user?.getUser.activeUser)
 }
 
