@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { authUser } from '@/modules/auth/usecases/auth.user';
 import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
 import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';
-import { UsersModel } from '@/modules/user/model/users.model';
 
 type InitialState = {
     authModalVisible: boolean;
