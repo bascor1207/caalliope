@@ -5,14 +5,14 @@ import { AppAsyncThunk } from '@/modules/store/create-app-thunk';
 import { ZodObject, ZodString, ZodNumber, ZodBoolean, ZodDate, ZodType, ZodOptional, ZodEnum } from 'zod';
 import React from 'react';
 
-type UseCustomFormProps<TFormValues extends FieldValues, A = void> = {
+type UseCustomFormProps<TFormValues extends FieldValues, RType = void, A = void> = {
     schema: ZodObject<TFormValues>;
-    action?: any | AppAsyncThunk<A>;
-    dispatch: (data: any | AppAsyncThunk<A>) => ReturnType<AppDispatch>
+    action?: any | AppAsyncThunk<RType, A>;
+    dispatch: (data: any | AppAsyncThunk<RType, A>) => ReturnType<AppDispatch>
     onCustomClose?: () => void;
 }
 
-export function useCustomForm<TFormValues extends FieldValues, A>({ schema, action, dispatch, onCustomClose }: UseCustomFormProps<TFormValues, A> ) {
+export function useCustomForm<TFormValues extends FieldValues, RType, A>({ schema, action, dispatch, onCustomClose }: UseCustomFormProps<TFormValues, RType, A> ) {
     function isRequired(key: string) {
         return !(schema.shape[key] instanceof ZodOptional)
     }
