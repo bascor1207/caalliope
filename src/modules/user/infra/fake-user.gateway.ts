@@ -4,6 +4,7 @@ import { UserFactory } from '@/modules/user/model/user.factory';
 
 export class FakeUserGateway implements ConnectorToUserGateway {
     private readonly users: UsersModel.User[];
+    public returnedResponse!: UsersModel.User[];
 
     constructor() {
         this.users = this.setupUsers()
