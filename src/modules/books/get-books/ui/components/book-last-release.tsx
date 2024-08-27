@@ -16,7 +16,7 @@ export const BooksCarouselsLastRelease = () => {
               return <div>Oops...</div>;
           case 'gettingBooksLastReleaseFulfilled':
               return (
-                <BooksCarousel slides={viewmodel.lastReleaseBooks} withExtraGap />
+                <BooksCarousel slides={viewmodel.lastReleaseBooks} />
               );
       }
   })();
