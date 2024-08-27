@@ -38,7 +38,7 @@ export const ReviewSection: FC<Props> = ({ book }) => {
               </CardBody>
             </Card>
           ))}
-          <Button onClick={toggle} className='bg-transparent hover:bg-[#f8e9ff] text-black mb-4'>
+          <Button onClick={toggle} className='bg-transparent hover:bg-[#f8e9ff] text-black mb-4 underline'>
             {t('library.addReview')}
           </Button>
         </div>

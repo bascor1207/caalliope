@@ -4,6 +4,7 @@ import { UserFactory } from '@/modules/user/model/user.factory';
 
 export class FakeUserGateway implements ConnectorToUserGateway {
     private readonly users: UsersModel.User[];
+    public returnedResponse!: UsersModel.User[];
 
     constructor() {
         this.users = this.setupUsers()
@@ -15,6 +16,16 @@ export class FakeUserGateway implements ConnectorToUserGateway {
             const user = this.users.find((user) => user.id === id);
             if (!user) reject();
             resolve(user as UsersModel.User)
+        })
+    }
+
+    getUsers(): Promise<UsersModel.User[]> {
+        return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                const response = this.returnedResponse;
+                if (!response) reject();
+                return resolve(response);
+            })
         })
     }
 
