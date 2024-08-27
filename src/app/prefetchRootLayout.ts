@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { ssrApp } from '@/modules/main.ssr';
 import { myProfileTabState } from '@/modules/user/core/store/user.slice';
-import { jwtVerify } from 'jose';
+// import { jwtVerify } from 'jose';
 import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
 import { getPopularBooksUseCase } from '@/modules/books/get-books/usecase/get-popular-books/get-popular-books.usecase';
 import {

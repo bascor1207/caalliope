@@ -7,7 +7,6 @@ import { AppDispatch, useAppSelector } from '@/modules/store/create-store';
 import { useTranslation } from 'react-i18next';
 import { registerUser } from '@/modules/auth/usecases/register.user';
 import { selectAuthModalVisible, selectAuthType } from '@/modules/auth/core/store/auth.selectors';
-import { AppAsyncThunk } from '@/modules/store/create-app-thunk';
 
 export const AuthModal = () => {
     const dispatch = useDispatch<AppDispatch>()
