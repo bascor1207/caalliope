@@ -5,7 +5,7 @@ import {
   RootState,
 } from '@/modules/store/create-store'
 
-export function createAppAsyncThunk<RType = void, Payload>(
+export function createAppAsyncThunk<RType = null, Payload>(
     typePrefix: string,
     payloadCreator: AsyncThunkPayloadCreator<RType, Payload, {
         state: RootState;
