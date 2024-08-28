@@ -11,7 +11,7 @@ export class FakeAuthGateway implements ConnectorToAuthGateway {
             if (email.trim() === '' || password.trim() === '') {
                 reject(new Error('There is a missing requirement'))
             }
-            this.systemCookiesProvider.setCookie(null, 'token', 'my-token')
+            this.systemCookiesProvider.setCookie('token', 'my-token')
             return resolve({ id: 2, access_token: 'my-token' })
         })
     }

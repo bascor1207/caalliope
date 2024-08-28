@@ -1,4 +1,4 @@
-import { useAppSelector } from '@/modules/store/create-store';
+import { useAppSelector } from '@/modules/app/core/store/create-store';
 import { selectAuthType } from '@/modules/auth/core/store/auth.selectors';
 import { AuthModel } from '@/modules/auth/model/auth.model';
 import { CustomForm } from '@/modules/app/ui/component-level/custom.form';

@@ -1,4 +1,4 @@
-import { AppStore, createStore, Dependencies } from '@/modules/store/create-store';
+import { AppStore, createStore, Dependencies } from '@/modules/app/core/store/create-store';
 import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books-gateway';
 import { catalog } from '@/modules/catalog';
 import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
