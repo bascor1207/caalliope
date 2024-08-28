@@ -1,5 +1,5 @@
 import { FC, ReactNode } from 'react';
-import { useAppSelector } from '@/modules/store/create-store'
+import { useAppSelector } from '@/modules/app/core/store/create-store'
 
 import { getBooksViewModel } from '../get-books/get-books.viewmodel';
 import { getBooksBySubjectUtils } from '../get-books/get-books-by-subject.utils';

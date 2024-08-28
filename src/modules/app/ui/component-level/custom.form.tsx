@@ -4,9 +4,9 @@ import { Button, Input, Select, SelectItem } from '@nextui-org/react';
 import { useCustomForm } from '@/modules/app/ui/component-level/use-custom-form';
 import { ZodObject } from 'zod';
 import { UnknownAction } from '@reduxjs/toolkit';
-import { AppDispatch } from '@/modules/store/create-store';
+import { AppDispatch } from '@/modules/app/core/store/create-store';
 import { useDispatch } from 'react-redux';
-import { AppAsyncThunk } from '@/modules/store/create-app-thunk';
+import { AppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
 import { CustomModal } from '@/modules/app/ui/component-level/custom.modal';
 
 type ModalFormProps = {

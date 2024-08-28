@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { stateBuilder } from '../../../usecase/get-last-release-books/__tests__/state-builder';
-import { createTestStore } from '@/modules/store/create-store';
+import { createTestStore } from '@/modules/app/core/store/create-store';
 import { getBooksLastReleaseViewmodel, gettingBooks } from '../get-last-release-books.viewmodel';
 import { BooksModel } from '@/modules/books/model/books.model';
 import { BookFactory } from '@/modules/books/model/books.factory';

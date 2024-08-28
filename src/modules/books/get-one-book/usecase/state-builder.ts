@@ -1,6 +1,6 @@
 import { ActionCreatorWithPayload, createAction, createReducer } from '@reduxjs/toolkit';
-import { rootReducer } from '@/modules/store/root-reducer';
-import { RootState } from '@/modules/store/create-store';
+import { rootReducer } from '@/modules/app/core/store/root-reducer';
+import { RootState } from '@/modules/app/core/store/create-store';
 import { BooksModel } from '@/modules/books/model/books.model';
 
 const getOneBook = {

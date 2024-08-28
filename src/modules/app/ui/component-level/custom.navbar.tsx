@@ -9,7 +9,7 @@ import {
 } from '@nextui-org/react';
 import { twMerge } from 'tailwind-merge';
 import { selectLoggedUser } from '@/modules/auth/core/store/auth.selectors';
-import { useAppSelector } from '@/modules/store/create-store';
+import { useAppSelector } from '@/modules/app/core/store/create-store';
 
 type CustomNavBarProps = {
     renderLogo?: () => React.ReactNode;

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { stateBuilder } from '../../../usecase/state-builder';
-import { createTestStore } from '@/modules/store/create-store';
+import { createTestStore } from '@/modules/app/core/store/create-store';
 import { Book } from '../../../connector-to.get-books';
 import { getBooksByAuthorViewmodel } from '../get-books-by-author.viewmodel';
 

@@ -3,7 +3,7 @@ import {
   AppDispatch,
   Dependencies,
   RootState,
-} from '@/modules/store/create-store'
+} from '@/modules/app/core/store/create-store'
 
 export function createAppAsyncThunk<RType, Payload = void>(
     typePrefix: string,

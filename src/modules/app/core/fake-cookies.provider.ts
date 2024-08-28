@@ -6,11 +6,11 @@ export class FakeCookiesProvider implements CookiesInterface {
     // eslint-disable-next-line @typescript-eslint/no-empty-function
     constructor() {}
 
-    destroyCookies(_context: null, cookieName: string) {
+    destroyCookies(cookieName: string) {
         this.cookies.delete(cookieName);
     }
 
-    setCookie(_context: null, cookieName: string, cookieValue: string): void {
+    setCookie(cookieName: string, cookieValue: string): void {
         this.cookies.set(cookieName, cookieValue)
     }
 }
