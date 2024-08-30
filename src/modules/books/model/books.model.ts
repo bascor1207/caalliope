@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import i18n from '@/i18n';
+import { UsersModel } from '@/modules/user/model/users.model';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace BooksModel {
@@ -41,7 +42,7 @@ export namespace BooksModel {
 
   type Review = {
    id: number,
-   userId: number,
+   user: UsersModel.User,
    comment: string,
    date: string
  }

@@ -4,7 +4,6 @@ import { UserFactory } from '@/modules/user/model/user.factory';
 
 export class FakeUserGateway implements ConnectorToUserGateway {
     private readonly users: UsersModel.User[];
-    public returnedResponse!: UsersModel.User[];
 
     constructor() {
         this.users = this.setupUsers()
@@ -19,15 +18,52 @@ export class FakeUserGateway implements ConnectorToUserGateway {
         })
     }
 
-    getUsers(): Promise<UsersModel.User[]> {
+    addBookToUserLibrary({
+        userId,
+        book,
+        status,
+      }: {
+        userId: string;
+        book: UsersModel.BaseUserBook;
+        status:
+          | UsersModel.ToReadBook['status']
+          | UsersModel.InProgressBook['status']
+          | UsersModel.AlreadyReadBook['status']
+          | UsersModel.AbandonedBook['status']
+          | UsersModel.WishBook['status'];
+      }): Promise<void> {
         return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                const response = this.returnedResponse;
-                if (!response) reject();
-                return resolve(response);
-            })
-        })
-    }
+          const user = this.users.find((user) => user.id === userId);
+      
+          if (!user) {
+            return reject('User not found');
+          }
+      
+          const bookWithStatus = { ...book, status };
+      
+          switch (status) {
+            case 'toRead':
+              user.myBooksToRead.push(bookWithStatus as UsersModel.ToReadBook);
+              break;
+            case 'reading':
+              user.myInProgressBooks.push(bookWithStatus as UsersModel.InProgressBook);
+              break;
+            case 'read':
+              user.myAlreadyReadBooks.push(bookWithStatus as UsersModel.AlreadyReadBook);
+              break;
+            case 'wishlist':
+              user.myWishlist.push(bookWithStatus as UsersModel.WishBook);
+              break;
+            case 'abandoned':
+              user.myAbandonedBooks.push(bookWithStatus as UsersModel.AbandonedBook);
+              break;
+            default:
+              return reject('Invalid status');
+          }
+      
+          resolve();
+        });
+      }
 
     private setupUsers() {
         return ([
