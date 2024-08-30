@@ -1,0 +1,16 @@
+import { createAppAsyncThunk } from '@/modules/store/create-app-thunk';
+import { UsersModel } from '../../model/users.model';
+
+export const AddBookToUserLibraryUseCase = createAppAsyncThunk(
+  'user/add_book_to_library',
+  async ( data: AddBookToUserLibraryPayload, { extra: { userAdapter } }) => {
+    const { userId, book, status } = data;
+    return await userAdapter.addBookToUserLibrary({ userId, book, status });
+  }
+);
+
+type AddBookToUserLibraryPayload = {
+  userId: string;
+  book: UsersModel.BaseUserBook;
+  status: 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned';
+};

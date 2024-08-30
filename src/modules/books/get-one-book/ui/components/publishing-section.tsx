@@ -1,11 +1,15 @@
 import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 import { Button, Select, SelectItem, Card, CardBody } from '@nextui-org/react';
+import { useAppSelector } from '@/modules/store/create-store';
 
-import styles from './publishing-section.module.scss';
 import { CustomModal } from '@/modules/app/ui/component-level/custom.modal';
 import { BooksModel } from '@/modules/books/model/books.model';
 import { AddPublisherForm } from '@/modules/books/get-books/ui/forms/add-publisher-form';
+import { UsersModel } from '@/modules/user/model/users.model';
+import { AddBookToUserLibraryUseCase } from '@/modules/user/usecases/add-book-in-user-list/add-book-to-user-library.usecase';
+import { selectActiveUser } from '@/modules/user/core/store/user.selectors';
 
 type Props = {
     book: BooksModel.Book;
@@ -13,10 +17,28 @@ type Props = {
 
 export const PublishingSection: FC<Props> = ({ book }) => {
     const [isShown, setIsShown] = useState(false);
+    const [selectedStatus, setSelectedStatus] = useState<'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned' | undefined>(undefined);
     const { t } = useTranslation('');
+    const dispatch = useDispatch();
+    const activeUser = useAppSelector(selectActiveUser);
+
+    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedStatus(event.target.value as 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned');
+    };
 
     const handleClick = () => {
-        console.log('option selected')
+        if (selectedStatus) {
+            const userBook: UsersModel.BaseUserBook = {
+                id: book.id,
+                title: book.title,
+                type: book.type,
+                image: book.image,
+            };
+            dispatch(AddBookToUserLibraryUseCase({ userId: activeUser.id, book: userBook, status: selectedStatus }));
+            console.log(`Livre ajouté avec le statut : ${selectedStatus}`);
+        } else {
+            console.log('Aucun statut sélectionné');
+        }
     };
 
     const toggle = () => {
@@ -33,13 +55,17 @@ export const PublishingSection: FC<Props> = ({ book }) => {
                                 {publisher.dateOfPublication} - {publisher.label} | {publisher.language} | {publisher.numberOfPages} pages
                             </span>
                             <div className='flex items-center'>
-                                <Select placeholder={t('selectOption')} className='text-black bg-red"'>
-                                    <SelectItem value='notOwned' key={0}>{t('notOwned')}</SelectItem>
-                                    <SelectItem value='inProgress' key={1}>{t('inProgress')}</SelectItem>
-                                    <SelectItem value='toRead' key={2}>{t('toRead')}</SelectItem>
-                                    <SelectItem value='read' key={3}>{t('read')}</SelectItem>
-                                    <SelectItem value='wishlist' key={4}>{t('whislist')}</SelectItem>
-                                    <SelectItem value='giveUp' key={5}>{t('giveUp')}</SelectItem>
+                                <Select
+                                    placeholder={t('selectOption')}
+                                    className='text-black bg-red"'
+                                    onChange={handleSelectChange}
+                                >
+                                    <SelectItem key='notOwned' value='notOwned'>{t('notOwned')}</SelectItem>
+                                    <SelectItem key='inProgress' value='inProgress'>{t('inProgress')}</SelectItem>
+                                    <SelectItem key='toRead' value='toRead'>{t('toRead')}</SelectItem>
+                                    <SelectItem key='read' value='read'>{t('read')}</SelectItem>
+                                    <SelectItem key='wishlist' value='wishlist'>{t('whislist')}</SelectItem>
+                                    <SelectItem key='giveUp' value='giveUp'>{t('giveUp')}</SelectItem>
                                 </Select>
                                 <Button onClick={handleClick} className='ml-4 bg-[#D9D9D9] hover:bg-[#f8e9ff] text-black'>
                                     {t('valid')}
