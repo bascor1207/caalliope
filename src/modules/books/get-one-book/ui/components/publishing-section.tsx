@@ -10,6 +10,7 @@ import { AddPublisherForm } from '@/modules/books/get-books/ui/forms/add-publish
 import { UsersModel } from '@/modules/user/model/users.model';
 import { AddBookToUserLibraryUseCase } from '@/modules/user/usecases/add-book-in-user-list/add-book-to-user-library.usecase';
 import { selectActiveUser } from '@/modules/user/core/store/user.selectors';
+import { UnknownAction } from '@reduxjs/toolkit';
 
 type Props = {
     book: BooksModel.Book;
@@ -34,7 +35,7 @@ export const PublishingSection: FC<Props> = ({ book }) => {
                 type: book.type,
                 image: book.image,
             };
-            dispatch(AddBookToUserLibraryUseCase({ userId: activeUser.id, book: userBook, status: selectedStatus }));
+            dispatch(AddBookToUserLibraryUseCase({ userId: activeUser.id, book: userBook, status: selectedStatus }) as unknown as UnknownAction);
             console.log(`Livre ajouté avec le statut : ${selectedStatus}`);
         } else {
             console.log('Aucun statut sélectionné');
