@@ -3,7 +3,6 @@ import { authUser } from '@/modules/auth/usecases/auth.user';
 import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
 import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';
 import { registerUser } from '@/modules/auth/usecases/register.user';
-import { refreshTokenForUser } from '@/modules/auth/usecases/refresh-token.user';
 
 type InitialState = {
     authModalVisible: boolean;
