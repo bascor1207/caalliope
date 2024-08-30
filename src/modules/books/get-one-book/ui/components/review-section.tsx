@@ -27,7 +27,7 @@ export const ReviewSection: FC<Props> = ({ book }) => {
                 <div className='flex gap-5'>
                   <Avatar isBordered radius='full' size='md' src='https://nextui.org/avatars/avatar-1.png' />
                   <div className='flex flex-col gap-1 items-start justify-center'>
-                    <h4 className='font-semibold leading-none text-black'>Nom prénom</h4>
+                    <h4 className='font-semibold leading-none text-black'>{review.user?.username || 'Anonymous'}</h4>
                   </div>
                 </div>
               </CardHeader>

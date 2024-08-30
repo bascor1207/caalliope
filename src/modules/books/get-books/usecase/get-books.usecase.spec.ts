@@ -8,7 +8,7 @@ import { BookFactory } from '@/modules/books/model/books.factory';
 
 describe('test to retrieve a range of catalog to display', () => {
     it('should retrieve catalog when user go on catalog page', async () => {
-        givenConnectedUser(/*true,*/ books);
+        givenConnectedUser(books);
 
         await whenUserFetchCatalogPage();
 
@@ -18,18 +18,15 @@ describe('test to retrieve a range of catalog to display', () => {
 
 const fakeGetBooksAdapter = new FakeGetBooksGateway();
 const store = createTestStore({ getBooksAdapter: fakeGetBooksAdapter })
-const givenConnectedUser = (/*connectedUser: boolean,*/ books: BooksModel.Book[] ) => {
-    //fakeGetBooksAdapter.connectedUser = connectedUser;
+const givenConnectedUser = (books: BooksModel.Book[] ) => {
     fakeGetBooksAdapter.returnedResponse  = books;
 }
 
 const whenUserFetchCatalogPage = async () => {
-    //const connectedUser = fakeGetBooksAdapter.connectedUser;
-    await store.dispatch(getBooksUseCase(/*{ connectedUser }*/));
+    await store.dispatch(getBooksUseCase());
 }
 const thenTheUserShouldSeeBooks = (): void => {
     const state = stateBuilder().withSuccess({
-        //connectedUser: true,
         books,
         }).build();
     expect(state).toEqual(store.getState())
