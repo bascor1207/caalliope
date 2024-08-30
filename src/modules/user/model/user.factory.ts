@@ -14,6 +14,7 @@ export class UserFactory {
             myInProgressBooks: [],
             avatar: {},
             email: 'john.doe@doe.john.com',
+            roles: [],
             ...data
         })
     }

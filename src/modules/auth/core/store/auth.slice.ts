@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { authUser } from '@/modules/auth/usecases/auth.user';
 import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
 import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';
+import { registerUser } from '@/modules/auth/usecases/register.user';
+import { refreshTokenForUser } from '@/modules/auth/usecases/refresh-token.user';
 
 type InitialState = {
     authModalVisible: boolean;
@@ -35,6 +37,15 @@ export const authSlice = createSlice({
         });
 
         builder.addCase(authUser.fulfilled, (state, _) => {
+            state.loggedUser = true
+        });
+
+        builder.addCase(registerUser.rejected, (state, _) => {
+            state.loggedUser = false;
+            state.error = true;
+        });
+
+        builder.addCase(registerUser.fulfilled, (state, _) => {
             state.loggedUser = true
         });
 
