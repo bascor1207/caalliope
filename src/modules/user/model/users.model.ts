@@ -18,7 +18,8 @@ export namespace UsersModel {
     export type User = {
         id: string; username: string; firstName: string; lastName: string; email: string; avatar: object;
         myBooksToRead: ToReadBook[]; myInProgressBooks: InProgressBook[]; myAlreadyReadBooks: AlreadyReadBook[];
-        myAbandonedBooks: AbandonedBook[]; myWishlist: WishBook[];
+        myAbandonedBooks: AbandonedBook[]; myWishlist: WishBook[]; roles: Array<'user' | 'admin'>;
+        password: string;
     }
 
     export type BaseUserBook = {

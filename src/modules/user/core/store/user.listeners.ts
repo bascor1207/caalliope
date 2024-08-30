@@ -7,7 +7,7 @@ export const registerOnAuthChangeForUserListener = () => {
         actionCreator: authUser.fulfilled,
         effect: async (action, { dispatch }) => {
             const { id } = action.payload;
-            dispatch(getUserUsecase({ id: id.toString() }))
+            dispatch(getUserUsecase({ id }))
         }
     })
 }

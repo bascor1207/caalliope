@@ -5,7 +5,8 @@ import { axiosInstance } from '@/modules/app/core/axios-instance';
 export class HttpGetBooksGateway implements ConnectorToGetBooks {
 
     async getBooks(): Promise<BooksModel.Book[]> {
-        const { data } =  await axiosInstance.get('/books');
+        console.log(process.env.BACK_BASE_URL, 'mzhjfcoçuzhuozuhcu')
+        const { data } =  await axiosInstance.get('/book');
         return data;
     }
 

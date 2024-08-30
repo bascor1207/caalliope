@@ -18,19 +18,37 @@ export namespace AuthModel {
     export type AuthFormSchema = z.infer<typeof signUpFormSchema>
     export type LoginFormSchema = z.infer<typeof signInFormSchema>
 
-    export type AuthUserPayload = {
-        email: string;
-        password: string;
-    }
-
     export const AUTH_TYPES = {
         SIGN_IN: 'signIn',
         SIGN_UP: 'signUp',
         EMPTY: ''
     } as const;
 
+    export type AuthUserPayload = {
+        email: string;
+        password: string;
+    }
+
     export type AuthenticatedUser = {
-        id: number;
-        access_token: string;
+        id: string;
+    }
+
+    export type RegisterUserReturn = {
+        id: string; email: string, lastName: string; firstName: string; roles: Array<'user' | 'admin'>; username: string; password: string;
+    }
+
+    export type RegisteredUser = {
+        id: string; username: string; firstName: string; lastName: string; email: string; avatar: object;
+        myBooksToRead: []; myInProgressBooks: []; myAlreadyReadBooks: [];
+        myAbandonedBooks: []; myWishlist: []; roles: Array<'user' | 'admin'>;
+        password: string;
+    }
+
+    export type RefreshTokenPayload = {
+        token: string;
+    }
+
+    export type RefreshedToken = {
+        id: string;
     }
 }
