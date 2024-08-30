@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
 import { stateBuilder } from '../../../usecase/state-builder';
 import { createTestStore } from '@/modules/app/core/store/create-store';
-import { Book } from '../../../connector-to.get-books';
 import { getBooksByAuthorViewmodel } from '../get-books-by-author.viewmodel';
+import { BooksModel } from '@/modules/books/model/books.model';
 
 describe('test to retrieve a books by name inside store', () => {
   it('should return books with name containing the query', () => {
@@ -22,18 +22,19 @@ describe('test to retrieve a books by name inside store', () => {
   })
 })
 
-const booksList: Book[] = [
+const booksList: BooksModel.Book[] = [
     {
         id: 1,
-        title: 'title novel',
+        title: 'novel title',
         author: {
             id: 1,
-            lastname: 'Corré',
+            lastname: 'Corre',
             firstname: 'Bastien',
-            image: '',
-            email: '',
-            birthDate: ''
+            image: 'test',
+            email: 'test',
+            birthDate: 'test'
         },
+        summary: 'summary test',
         type: 'Novel',
         subjects: [
             {
@@ -41,28 +42,93 @@ const booksList: Book[] = [
                     label: 'Fantasy Medieval'
             }
         ],
-        image: 'test',
-        dateOfPublication: '2023'
+        publishers: [
+            {
+                    id: 1,
+                    label: 'Lumen',
+                    language: 'Français',
+                    numberOfPages: 684,
+                    dateOfPublication: '2023'
+                }
+        ],
+        reviews: [
+            {
+                id: 1,
+                user: {
+                    id: '1',
+                    username: 'username',
+                    firstName: 'firstName',
+                    lastName: 'lastName',
+                    email: 'test@gmail.com',
+                    password: '',
+                    roles: [],
+                    avatar: {},
+                    myBooksToRead: [],
+                    myInProgressBooks: [],
+                    myAlreadyReadBooks: [],
+                    myAbandonedBooks: [],
+                    myWishlist: []
+                },
+                comment: 'test',
+                date: '2023'
+            }
+        ],
+        rating: 4.5,
+        dateOfPublication: '2023',
+        image: 'test'
     },
     {
         id: 2,
-        title: 'title novel2',
+        title: 'novel title',
         author: {
             id: 1,
-            lastname: 'Corré',
+            lastname: 'Corre',
             firstname: 'Bastien',
-            image: '',
-            email: '',
-            birthDate: ''
+            image: 'test',
+            email: 'test',
+            birthDate: 'test'
         },
+        summary: 'summary test',
         type: 'Novel',
         subjects: [
             {
-                    id: 2,
-                    label: 'Romance'
+                    id: 1,
+                    label: 'Fantasy Medieval'
             }
         ],
-        image: 'test',
-        dateOfPublication: '2023'
+        publishers: [
+            {
+                    id: 1,
+                    label: 'Lumen',
+                    language: 'Français',
+                    numberOfPages: 684,
+                    dateOfPublication: '2023'
+                }
+        ],
+        reviews: [
+            {
+                id: 1,
+                user: {
+                    id: '1',
+                    username: 'username',
+                    firstName: 'firstName',
+                    lastName: 'lastName',
+                    email: 'test@gmail.com',
+                    password: '',
+                    roles: [],
+                    avatar: {},
+                    myBooksToRead: [],
+                    myInProgressBooks: [],
+                    myAlreadyReadBooks: [],
+                    myAbandonedBooks: [],
+                    myWishlist: []
+                },
+                comment: 'test',
+                date: '2023'
+            }
+        ],
+        rating: 4.5,
+        dateOfPublication: '2023',
+        image: 'test'
     }
 ];

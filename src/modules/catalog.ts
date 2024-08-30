@@ -35,7 +35,22 @@ export const catalog = [
     reviews: [
       {
         id: 1,
-        userId: 101,
+        user: {
+          id: '101',
+          username: 'john_doe',
+          firstName: 'John',
+          lastName: 'Doe',
+          email: 'john.doe@example.com',
+          avatar: {
+            url: '/avatars/john_doe.jpg',
+            alt: 'Avatar de John Doe'
+          },
+          myBooksToRead: [],
+          myInProgressBooks: [],
+          myAlreadyReadBooks: [],
+          myAbandonedBooks: [],
+          myWishlist: []
+        },
         comment: 'Great book!',
         date: '2022-03-20'
       }
@@ -75,7 +90,22 @@ export const catalog = [
     reviews: [
       {
         id: 2,
-        userId: 102,
+        user: {
+          id: '102',
+          username: 'jane_smith',
+          firstName: 'Jane',
+          lastName: 'Smith',
+          email: 'jane.smith@example.com',
+          avatar: {
+              url: '/avatars/jane_smith.jpg',
+              alt: 'Avatar de Jane Smith'
+          },
+          myBooksToRead: [],
+          myInProgressBooks: [],
+          myAlreadyReadBooks: [],
+          myAbandonedBooks: [],
+          myWishlist: []
+        },
         comment: 'Informative and well-written.',
         date: '2021-07-15'
       }
@@ -115,7 +145,22 @@ export const catalog = [
     reviews: [
       {
         id: 3,
-        userId: 103,
+        user: {
+          id: '103',
+          username: 'charlie_brown',
+          firstName: 'Charlie',
+          lastName: 'Brown',
+          email: 'charliebrown@gmail.com',
+          avatar: {
+            url: '/avatars/charlie_brown.jpg',
+            alt: 'Avatar de Charlie Brown'
+          },
+          myBooksToRead: [],
+          myInProgressBooks: [],
+          myAlreadyReadBooks: [],
+          myAbandonedBooks: [],
+          myWishlist: []
+        },
         comment: 'Could not put it down!',
         date: '2020-12-01'
       }
@@ -155,7 +200,22 @@ export const catalog = [
     reviews: [
       {
         id: 4,
-        userId: 104,
+        user: {
+          id: '104',
+          username: 'emma_johnson',
+          firstName: 'Emma',
+          lastName: 'Johnson',
+          email: 'emma@gmail.com',
+          avatar: {
+            url: '/avatars/emma_johnson.jpg',
+            alt: 'Avatar de Emma Johnson'
+          },
+          myBooksToRead: [],
+          myInProgressBooks: [],
+          myAlreadyReadBooks: [],
+          myAbandonedBooks: [],
+          myWishlist: []
+        },
         comment: 'Very informative.',
         date: '2019-06-12'
       }
@@ -195,7 +255,22 @@ export const catalog = [
     reviews: [
       {
         id: 5,
-        userId: 105,
+        user: {
+          id: '105',
+          username: 'olivia_williams',
+          firstName: 'Olivia',
+          lastName: 'Williams',
+          email: '',
+          avatar: {
+            url: '/avatars/olivia_williams.jpg',
+            alt: 'Avatar de Olivia Williams'
+          },
+          myBooksToRead: [],
+          myInProgressBooks: [],
+          myAlreadyReadBooks: [],
+          myAbandonedBooks: [],
+          myWishlist: []
+        },
         comment: 'A thrilling read!',
         date: '2018-09-01'
       }
@@ -235,7 +310,22 @@ export const catalog = [
     reviews: [
       {
         id: 6,
-        userId: 106,
+        user: {
+          id: '106',
+          username: 'sophia_lee',
+          firstName: 'Sophia',
+          lastName: 'Lee',
+          email: '',
+          avatar: {
+            url: '/avatars/sophia_lee.jpg',
+            alt: 'Avatar de Sophia Lee'
+          },
+          myBooksToRead: [],
+          myInProgressBooks: [],
+          myAlreadyReadBooks: [],
+          myAbandonedBooks: [],
+          myWishlist: []
+        },
         comment: 'A bit long, but very detailed.',
         date: '2017-04-15'
       }

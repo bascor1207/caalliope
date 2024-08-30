@@ -62,12 +62,22 @@ const book: BooksModel.Book = {
     ],
     reviews: [
         {
-            review: {
-                id: 1,
-                userId: 1,
-                comment: 'test',
-                date: '2023'
-            }
+            id: 1,
+            user: {
+                id: '1',
+                username: 'username',
+                firstName: 'firstName',
+                lastName: 'lastName',
+                email: 'test@gmail.com',
+                avatar: {},
+                myBooksToRead: [],
+                myInProgressBooks: [],
+                myAlreadyReadBooks: [],
+                myAbandonedBooks: [],
+                myWishlist: []
+            },
+            comment: 'test',
+            date: '2023'
         }
     ],
     rating: 4.5,
