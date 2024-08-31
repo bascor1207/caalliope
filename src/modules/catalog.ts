@@ -42,8 +42,8 @@ export const catalog = [
           lastName: 'Doe',
           email: 'john.doe@example.com',
           avatar: {
+            id: 1,
             url: '/avatars/john_doe.jpg',
-            alt: 'Avatar de John Doe'
           },
           myBooksToRead: [],
           myInProgressBooks: [],
@@ -97,8 +97,8 @@ export const catalog = [
           lastName: 'Smith',
           email: 'jane.smith@example.com',
           avatar: {
-              url: '/avatars/jane_smith.jpg',
-              alt: 'Avatar de Jane Smith'
+              id: 2,
+              url: '/avatars/jane_smith.jpg'
           },
           myBooksToRead: [],
           myInProgressBooks: [],
@@ -152,8 +152,8 @@ export const catalog = [
           lastName: 'Brown',
           email: 'charliebrown@gmail.com',
           avatar: {
-            url: '/avatars/charlie_brown.jpg',
-            alt: 'Avatar de Charlie Brown'
+            id: 3,
+            url: '/avatars/charlie_brown.jpg'
           },
           myBooksToRead: [],
           myInProgressBooks: [],
@@ -207,8 +207,8 @@ export const catalog = [
           lastName: 'Johnson',
           email: 'emma@gmail.com',
           avatar: {
-            url: '/avatars/emma_johnson.jpg',
-            alt: 'Avatar de Emma Johnson'
+            id: 4,
+            url: '/avatars/emma_johnson.jpg'
           },
           myBooksToRead: [],
           myInProgressBooks: [],
@@ -262,8 +262,8 @@ export const catalog = [
           lastName: 'Williams',
           email: '',
           avatar: {
-            url: '/avatars/olivia_williams.jpg',
-            alt: 'Avatar de Olivia Williams'
+            id: 5,
+            url: '/avatars/olivia_williams.jpg'
           },
           myBooksToRead: [],
           myInProgressBooks: [],
@@ -317,8 +317,8 @@ export const catalog = [
           lastName: 'Lee',
           email: '',
           avatar: {
-            url: '/avatars/sophia_lee.jpg',
-            alt: 'Avatar de Sophia Lee'
+            id: 6,
+            url: '/avatars/sophia_lee.jpg'
           },
           myBooksToRead: [],
           myInProgressBooks: [],

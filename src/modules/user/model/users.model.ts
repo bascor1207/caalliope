@@ -16,10 +16,15 @@ export namespace UsersModel {
     export type EditProfileForm = z.infer<typeof editProfileFormSchema>;
 
     export type User = {
-        id: string; username: string; firstName: string; lastName: string; email: string; avatar: object;
+        id: string; username: string; firstName: string; lastName: string; email: string; avatar: Avatar;
         myBooksToRead: ToReadBook[]; myInProgressBooks: InProgressBook[]; myAlreadyReadBooks: AlreadyReadBook[];
         myAbandonedBooks: AbandonedBook[]; myWishlist: WishBook[]; roles: Array<'user' | 'admin'>;
         password: string;
+    }
+
+    export type Avatar = {
+        id: number;
+        url: string;
     }
 
     export type BaseUserBook = {
