@@ -15,7 +15,7 @@ function givenABookToUpdate({ id }: {id: string}) {
 }
 
 async function updatingBook() {
-
+    return '1'
 }
 
 function thenThereShouldBeAVisualIndicator() {
