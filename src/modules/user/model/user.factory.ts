@@ -7,6 +7,7 @@ export class UserFactory {
             username: 'John',
             firstName: 'John',
             lastName: 'Doe',
+            password: 'secret_password',
             myAbandonedBooks: [],
             myAlreadyReadBooks: [],
             myWishlist: [],
