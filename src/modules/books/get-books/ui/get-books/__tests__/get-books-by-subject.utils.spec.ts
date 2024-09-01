@@ -8,7 +8,7 @@ describe('test for the viewModel layer of getting books by name or author name',
     it('should return the books which subject match the query', () => {
         const initialState = stateBuilder().withSuccess({ books: booksList }).build();
         const state = createTestStore({}, initialState).getState();
-        const books = getBooksBySubjectUtils(state.catalog.getBooks.books, 'fantasy medieval');
+        const books = getBooksBySubjectUtils(state.catalog.getBooks.books, 'mystery');
         expect(books).toStrictEqual([booksList[0]]);
     });
 })

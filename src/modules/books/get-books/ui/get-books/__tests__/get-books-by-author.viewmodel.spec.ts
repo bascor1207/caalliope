@@ -5,16 +5,16 @@ import { BooksModel } from '@/modules/books/model/books.model';
 import { BookFactory } from '@/modules/books/model/books.factory';
 import { createTestStore } from '@/modules/app/core/store/create-store';
 
-describe('test to retrieve a books by name inside store', () => {
-  it('should return books with name containing the query', () => {
+describe('test to retrieve a books by author inside store', () => {
+  it('should return books with author containing the query', () => {
     const initialState = stateBuilder().withSuccess({ books: booksList }).build();
     const state = createTestStore({}, initialState).getState();
-    const books = getBooksByAuthorViewmodel('corr')(state);
+    const books = getBooksByAuthorViewmodel('Do')(state);
 
     expect(books).toStrictEqual(booksList)
   });
 
-  it('should return books with name containing the minimal query', () => {
+  it('should return books with author containing the minimal query', () => {
     const initialState = stateBuilder().withSuccess({ books: booksList }).build();
     const state = createTestStore({}, initialState).getState();
     const books = getBooksByAuthorViewmodel('o')(state);
