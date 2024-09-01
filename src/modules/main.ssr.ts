@@ -17,48 +17,9 @@ import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-bo
 import { catalog } from '@/modules/catalog';
 
 import { CookiesProvider } from '@/modules/app/core/cookies.provider';
+import { BookFactory } from './books/model/books.factory';
 
-const book = {
-    id: 1,
-    title: 'novel title',
-    author: {
-        id: 1,
-        lastname: 'Medieval',
-        firstname: 'Bastien',
-        image: 'test',
-        email: 'test',
-        birthDate: 'test'
-    },
-    summary: 'summary test',
-    type: 'Novel',
-    subjects: [
-        {
-            id: 1,
-            label: 'Fantasy Medieval'
-        }
-    ],
-    publishers: [
-        {
-            id: 1,
-            label: 'Lumen',
-            language: 'Français',
-            numberOfPages: 684,
-            dateOfPublication: '2023'
-        }
-    ],
-    reviews: [
-        {
-            id: 1,
-            userId: 1,
-            comment: 'test',
-            date: '2023'
-        }
-    ],
-    rating: 4.5,
-    dateOfPublication: '2023',
-    image: '/livre1.jpg'
-};
-
+const book = BookFactory.create();
 
 export class SSRApp {
     public dependencies: Dependencies;
