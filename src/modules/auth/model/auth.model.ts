@@ -38,10 +38,15 @@ export namespace AuthModel {
     }
 
     export type RegisteredUser = {
-        id: string; username: string; firstName: string; lastName: string; email: string; avatar: object;
+        id: string; username: string; firstName: string; lastName: string; email: string; avatar: Avatar;
         myBooksToRead: []; myInProgressBooks: []; myAlreadyReadBooks: [];
         myAbandonedBooks: []; myWishlist: []; roles: Array<'user' | 'admin'>;
         password: string;
+    }
+
+    export type Avatar = {
+        id: number;
+        url: string;
     }
 
     export type RefreshTokenPayload = {
