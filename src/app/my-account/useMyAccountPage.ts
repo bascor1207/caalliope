@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { AppDispatch, useAppSelector } from '@/modules/store/create-store';
+import { AppDispatch, useAppSelector } from '@/modules/app/core/store/create-store';
 import { selectActiveProfileTab } from '@/modules/user/core/store/user.selectors';
 import { CookiesProvider } from '@/modules/app/core/cookies.provider';
 import { useRef } from 'react';
@@ -8,7 +8,7 @@ import { myProfileTabState } from '@/modules/user/core/store/user.slice';
 
 export const useMyAccountPage = () => {
     function onChange(key: string) {
-        systemCookiesProvider.current.setCookie(null, 'activeTab', key);
+        systemCookiesProvider.current.setCookie('activeTab', key);
         dispatch(myProfileTabState(key as 'my-infos' | 'my-books' | 'my-wishlist' | 'my-abandoned-books'));
     }
 

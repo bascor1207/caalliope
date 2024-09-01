@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { ControllerRenderProps, DefaultValues, FieldValues, useForm } from 'react-hook-form';
-import { AppDispatch } from '@/modules/store/create-store';
-import { AppAsyncThunk } from '@/modules/store/create-app-thunk';
+import { AppDispatch } from '@/modules/app/core/store/create-store';
+import { AppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
 import { ZodObject, ZodString, ZodNumber, ZodBoolean, ZodDate, ZodType, ZodOptional, ZodEnum } from 'zod';
 import React from 'react';
 

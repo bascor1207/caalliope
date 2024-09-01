@@ -7,6 +7,7 @@ export class UserFactory {
             username: 'John',
             firstName: 'John',
             lastName: 'Doe',
+            password: 'secret_password',
             myAbandonedBooks: [],
             myAlreadyReadBooks: [],
             myWishlist: [],
@@ -14,6 +15,7 @@ export class UserFactory {
             myInProgressBooks: [],
             avatar: {},
             email: 'john.doe@doe.john.com',
+            roles: [],
             ...data
         })
     }

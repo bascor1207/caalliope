@@ -1,10 +1,10 @@
-import { createAppAsyncThunk } from '@/modules/store/create-app-thunk';
+import { createAppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
 import { AuthModel } from '@/modules/auth/model/auth.model';
 
 export const registerUser = createAppAsyncThunk(
     'auth/register',
     async (payload: AuthModel.AuthFormSchema, { extra: { authAdapter } }) => {
-        return await authAdapter.register( payload)
+        return await authAdapter.register(payload)
     }
 );
 

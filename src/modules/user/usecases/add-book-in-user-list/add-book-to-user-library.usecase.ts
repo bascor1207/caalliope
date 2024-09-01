@@ -1,4 +1,4 @@
-import { createAppAsyncThunk } from '@/modules/store/create-app-thunk';
+import { createAppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
 import { UsersModel } from '../../model/users.model';
 
 export const AddBookToUserLibraryUseCase = createAppAsyncThunk(

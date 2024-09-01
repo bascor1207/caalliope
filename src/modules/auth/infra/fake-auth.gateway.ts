@@ -1,6 +1,5 @@
 import { ConnectorToAuthGateway } from '@/modules/auth/core/connector-to-auth.gateway';
 import { AuthModel } from '@/modules/auth/model/auth.model';
-import { undefined } from 'zod';
 import { CookiesProvider } from '@/modules/app/core/cookies.provider';
 
 export class FakeAuthGateway implements ConnectorToAuthGateway {
@@ -11,12 +10,30 @@ export class FakeAuthGateway implements ConnectorToAuthGateway {
             if (email.trim() === '' || password.trim() === '') {
                 reject(new Error('There is a missing requirement'))
             }
-            this.systemCookiesProvider.setCookie(null, 'token', 'my-token')
-            return resolve({ id: 2, access_token: 'my-token' })
+            this.systemCookiesProvider.setCookie('token', 'my-token')
+            return resolve({ id: '2' })
         })
     }
 
-    register(): Promise<unknown> {
-        return Promise.resolve(undefined);
+    register(): Promise<AuthModel.RegisteredUser> {
+        return Promise.resolve({
+            id: '123456789',
+            firstName: 'John',
+            lastName: 'Doe',
+            email: 'john.doe@example.com',
+            username: 'johndoe',
+            roles: ['user', 'admin'],
+            password: 'motdepasse',
+            avatar: {},
+            myWishlist: [],
+            myAlreadyReadBooks: [],
+            myBooksToRead: [],
+            myInProgressBooks: [],
+            myAbandonedBooks: []
+        });
+    }
+
+    refreshToken(): Promise<AuthModel.RefreshedToken> {
+        return Promise.resolve({ id: '' })
     }
 }

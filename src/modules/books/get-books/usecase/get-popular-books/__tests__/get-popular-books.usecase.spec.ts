@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books-gateway';
-import { createTestStore } from '@/modules/store/create-store';
+import { createTestStore } from '@/modules/app/core/store/create-store';
 import { getPopularBooksUseCase } from '../get-popular-books.usecase';
 import { stateBuilder } from './state-builder';
 import { BooksModel } from '@/modules/books/model/books.model';

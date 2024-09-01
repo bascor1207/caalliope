@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { RootState } from '@/modules/store/create-store';
+import { RootState } from '@/modules/app/core/store/create-store';
 
 const selectUserState = (state: RootState) => state.user.getUser;
 

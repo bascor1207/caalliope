@@ -1,4 +1,4 @@
-import { RootState } from '@/modules/store/create-store';
+import { RootState } from '@/modules/app/core/store/create-store';
 import { selectBooks } from '@/modules/books/get-books/core/get-books.selectors';
 
 export const getBooksByAuthorViewmodel = (query: string) => (state: RootState) => {

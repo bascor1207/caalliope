@@ -87,9 +87,12 @@ const booksList: BooksModel.Book[] = [
             birthDate: 'test'
         },
         summary: 'summary test',
+        summary: 'summary test',
         type: 'Novel',
         subjects: [
             {
+                    id: 1,
+                    label: 'Fantasy Medieval'
                     id: 1,
                     label: 'Fantasy Medieval'
             }

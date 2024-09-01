@@ -1,5 +1,5 @@
 export interface CookiesInterface {
-    destroyCookies(context: null, cookieName: string): void;
+    destroyCookies(cookieName: string): void;
 
-    setCookie(context: null, cookieName: string, cookieValue: string): void;
+    setCookie(cookieName: string, cookieValue: string): void;
 }

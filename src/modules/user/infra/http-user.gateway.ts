@@ -1,15 +1,10 @@
 import { ConnectorToUserGateway } from '@/modules/user/connector-to-user.gateway';
 import { UsersModel } from '@/modules/user/model/users.model';
-import axios from 'axios';
+import { axiosInstance } from '@/modules/app/core/axios-instance';
 
 export class HttpUserGateway implements ConnectorToUserGateway {
-    async getUser({ id, token }: {id: string; token?: string}): Promise<UsersModel.User> {
-        const { data } =  await axios.get(`http://localhost:3000/user/${id}`, {
-            headers: {
-                Authorization: `Bearer ${token}`
-            },
-                withCredentials: true
-        });
+    async getUser({ id }: {id: string }): Promise<UsersModel.User> {
+        const { data } =  await axiosInstance.get(`/user/${id}`);
         return data.data
     }
 }

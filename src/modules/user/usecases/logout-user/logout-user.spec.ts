@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { AppStore, createTestState, createTestStore } from '@/modules/store/create-store';
+import { AppStore, createTestState, createTestStore } from '@/modules/app/core/store/create-store';
 import { UserFactory } from '@/modules/user/model/user.factory';
 import { UsersModel } from '@/modules/user/model/users.model';
 import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';

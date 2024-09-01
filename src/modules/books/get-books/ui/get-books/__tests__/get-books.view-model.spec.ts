@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { stateBuilder } from '../../../usecase/state-builder';
-import { createTestStore } from '@/modules/store/create-store';
+import { createTestStore } from '@/modules/app/core/store/create-store';
 import { getBooksViewModel, gettingBooks } from '@/modules/books/get-books/ui/get-books/get-books.viewmodel';
 
 describe('test for the viewModel layer of getting books', () => {

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { createTestStore, RootState } from '@/modules/store/create-store';
+import { createTestStore, RootState } from '@/modules/app/core/store/create-store';
 import { stateBuilder } from '@/modules/books/get-one-book/usecase/state-builder';
 import { getOneBookViewmodel } from '@/modules/books/get-one-book/ui/get-one-book.viewmodel';
 import { BooksModel } from '@/modules/books/model/books.model';

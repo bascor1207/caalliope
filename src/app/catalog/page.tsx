@@ -3,7 +3,7 @@ import { ReactNode, useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { getBooksUseCase } from '@/modules/books/get-books/usecase/get-books.usecase';
-import { AppDispatch, useAppSelector } from '@/modules/store/create-store';
+import { AppDispatch, useAppSelector } from '@/modules/app/core/store/create-store';
 import { BooksListBySubject } from '@/modules/books/get-books/ui/components/books-list-by-subject';
 import { SearchLayout } from '@/modules/books/get-books/ui/components/search-layout';
 import { getBooksByNameViewmodel } from '@/modules/books/get-books/ui/get-books/get-books-by-name.viewmodel';

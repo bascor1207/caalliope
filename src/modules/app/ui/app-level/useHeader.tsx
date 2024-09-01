@@ -1,6 +1,6 @@
 import { useRouter } from 'next/navigation';
 import { useDispatch } from 'react-redux';
-import { AppDispatch, useAppSelector } from '@/modules/store/create-store';
+import { AppDispatch, useAppSelector } from '@/modules/app/core/store/create-store';
 import { useTranslation } from 'react-i18next';
 import { ChangeEvent } from 'react';
 import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';

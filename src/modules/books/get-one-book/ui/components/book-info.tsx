@@ -1,6 +1,6 @@
 'use client';
 import { ReactNode } from 'react';
-import { useAppSelector } from '@/modules/store/create-store'
+import { useAppSelector } from '@/modules/app/core/store/create-store'
 
 import { getOneBookViewmodel } from '../get-one-book.viewmodel';
 import { BookInfoCard } from './book-info-card';

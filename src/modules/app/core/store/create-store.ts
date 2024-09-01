@@ -5,7 +5,7 @@ import {
     MiddlewareAPI,
     ListenerMiddlewareInstance
 } from '@reduxjs/toolkit';
-import { rootReducer } from '@/modules/store/root-reducer';
+import { rootReducer } from '@/modules/app/core/store/root-reducer';
 import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books-gateway';
 import { ConnectorToGetOneBook } from '@/modules/books/get-one-book/connector-to.get-one-book';
 import { ConnectorToGetBooks } from '@/modules/books/get-books/connector-to.get-books';
@@ -18,7 +18,7 @@ import { TypedUseSelectorHook, useSelector } from 'react-redux';
 import { CookiesInterface } from '@/modules/app/core/cookies.interface';
 import { FakeCookiesProvider } from '@/modules/app/core/fake-cookies.provider';
 import { registerOnAuthChangeForUserListener } from '@/modules/user/core/store/user.listeners';
-import { listenerMiddleware } from '@/modules/store/create-app-listener';
+import { listenerMiddleware } from '@/modules/app/core/store/create-app-listener';
 
 export type Dependencies = {
     getBooksAdapter: ConnectorToGetBooks;
