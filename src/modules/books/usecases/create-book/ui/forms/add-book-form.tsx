@@ -2,9 +2,10 @@ import React from 'react';
 import { CustomForm } from '@/modules/app/ui/component-level/custom.form';
 import { BooksModel } from '@/modules/books/model/books.model';
 import { useTranslation } from 'react-i18next';
+import { createBookUsecase } from '@/modules/books/usecases/create-book/core/create-book.usecase';
 
 export const AddBookForm: React.FC = () => {
-    const { t } = useTranslation()
+    const { t } = useTranslation();
 
     const formItems = [
         { id: 'isbn', name: 'isbn', label: t('form.isbn'), type: 'text' },
@@ -27,6 +28,7 @@ export const AddBookForm: React.FC = () => {
         <CustomForm
             items={formItems}
             schema={BooksModel.addBookFormSchema}
+            action={createBookUsecase}
             formType='plain'
         />
     );

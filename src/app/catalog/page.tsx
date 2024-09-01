@@ -10,6 +10,8 @@ import { getBooksByNameViewmodel } from '@/modules/books/get-books/ui/get-books/
 import { getBooksByAuthorViewmodel } from '@/modules/books/get-books/ui/get-books/get-books-by-author.viewmodel';
 import { NoResults } from '@/modules/books/get-books/ui/components/no-results';
 import { BookCard } from '@/modules/books/get-books/ui/components/book-card';
+import { CreateBookPage } from '@/modules/books/usecases/create-book/ui/pages/create-book.page';
+import { AddBookForm } from '@/modules/books/usecases/create-book/ui/forms/add-book-form';
 
 export default function CatalogPage() {
   const dispatch = useDispatch<AppDispatch>();
@@ -40,8 +42,12 @@ export default function CatalogPage() {
       viewmodel = booksByAuthor;
     }
 
-    if (viewmodel.length === 0) {
-      return <NoResults />;
+    if (viewmodel.length < 1) {
+      return (
+          <CreateBookPage>
+            <AddBookForm />
+          </CreateBookPage>
+      );
     }
 
     return viewmodel.map((book) => (
