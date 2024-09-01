@@ -8,6 +8,6 @@ export const rootReducer = combineReducers({
     catalog: catalogReducer,
     selectedBook: getBookReducer,
     auth: authReducer,
-    user: userReducer,
+    user: userReducer
 });
 

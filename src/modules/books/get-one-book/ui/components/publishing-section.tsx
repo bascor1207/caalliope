@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { Button, Select, SelectItem, Card, CardBody } from '@nextui-org/react';
-import { useAppSelector } from '@/modules/store/create-store';
+import { useAppSelector } from '@/modules/app/core/store/create-store';
 
 import { CustomModal } from '@/modules/app/ui/component-level/custom.modal';
 import { BooksModel } from '@/modules/books/model/books.model';
