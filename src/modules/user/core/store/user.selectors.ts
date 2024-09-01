@@ -12,3 +12,8 @@ export const selectActiveProfileTab = createSelector(
     [selectUserState],
     (userState) => userState.activeProfileTab
 );
+
+export const selectInformativeToast = createSelector(
+    [selectUserState],
+    (userState) => userState.informativeToast
+)

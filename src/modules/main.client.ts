@@ -19,6 +19,7 @@ import { catalog } from '@/modules/catalog';
 
 import { CookiesProvider } from '@/modules/app/core/cookies.provider';
 import { BookFactory } from './books/model/books.factory';
+import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infra/fake-create-book.gateway';
 
 const book = BookFactory.create();
 
@@ -49,6 +50,7 @@ export class App {
         const getBooksAdapter = new FakeGetBooksGateway(1000);
         getBooksAdapter.returnedResponse = catalog;
         getBooksAdapter.connectedUser = true;
+        const createBookAdapter = new FakeCreateBookGateway();
 
 
 
@@ -59,7 +61,8 @@ export class App {
             getOneBookAdapter,
             authAdapter,
             userAdapter,
-            cookiesAdapter
+            cookiesAdapter,
+            createBookAdapter
         };
     }
 }

@@ -108,6 +108,7 @@ export const CustomForm = <TFormValues extends FieldValues, ReturnType, A>(
                     {validator.errors[item.name] && <p className='text-red-500'>{String(validator.errors[item.name]?.message)}</p>}
                 </div>
             ))}
+            <Button variant='light' type='submit' onClick={validator.handleSubmit(validator.onSubmit)}>Submit</Button>
         </form>
     );
 

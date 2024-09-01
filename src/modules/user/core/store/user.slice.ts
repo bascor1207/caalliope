@@ -8,12 +8,14 @@ import { registerUser } from '@/modules/auth/usecases/register.user';
 
 type InitialState = {
     activeUser: UsersModel.User
-    activeProfileTab: 'my-infos' | 'my-books' | 'my-readings' | 'my-wishlist' | 'my-abandoned-books'
+    activeProfileTab: 'my-infos' | 'my-books' | 'my-readings' | 'my-wishlist' | 'my-abandoned-books';
+    informativeToast: {status: 'displayed' | 'hidden', message: string, type: 'success' | 'error' | 'noTyped'};
 }
 
 const initialState: InitialState = {
     activeUser: {} as UsersModel.User,
-    activeProfileTab: 'my-infos'
+    activeProfileTab: 'my-infos',
+    informativeToast: { status: 'hidden', message: '', type: 'noTyped' }
 }
 
 export const userSlice = createSlice({
@@ -22,6 +24,12 @@ export const userSlice = createSlice({
     reducers: {
         myProfileTabState: (state, action: PayloadAction<InitialState['activeProfileTab']>) => {
             state.activeProfileTab = action.payload
+        },
+
+        informUser: (state, action: PayloadAction<InitialState['informativeToast']>) => {
+            state.informativeToast.status = action.payload.status;
+            state.informativeToast.type = action.payload.type;
+            state.informativeToast.message = action.payload.message
         }
     },
     extraReducers: (builder) => {
@@ -39,8 +47,8 @@ export const userSlice = createSlice({
 
         builder.addCase(registerUser.fulfilled, (state, action) => {
             state.activeUser = action.payload;
-        })
+        });
     }
 });
 
-export const { myProfileTabState } = userSlice.actions;
+export const { myProfileTabState, informUser } = userSlice.actions;

@@ -172,4 +172,10 @@ export namespace BooksModel {
  });
 
  export type AddReviewForm = z.infer<typeof addReviewFormSchema>
+
+ export type BookCreation = {
+  status: 'displayed';
+  message: string;
+  type: 'success' | 'error';
+ }
 }
