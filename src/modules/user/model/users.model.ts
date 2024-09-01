@@ -32,7 +32,6 @@ export namespace UsersModel {
     }
 
     export type Avatar = {
-        id: number;
         url: string;
     }
 

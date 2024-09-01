@@ -24,7 +24,9 @@ export class FakeAuthGateway implements ConnectorToAuthGateway {
             username: 'johndoe',
             roles: ['user', 'admin'],
             password: 'motdepasse',
-            avatar: {},
+            avatar: {
+                url: 'https://example.com/avatar.jpg'
+            },
             myWishlist: [],
             myAlreadyReadBooks: [],
             myBooksToRead: [],

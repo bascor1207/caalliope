@@ -45,7 +45,6 @@ export namespace AuthModel {
     }
 
     export type Avatar = {
-        id: number;
         url: string;
     }
 

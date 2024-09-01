@@ -14,7 +14,6 @@ export class UserFactory {
             myBooksToRead: [],
             myInProgressBooks: [],
             avatar: {
-                id: 1,
                 url: '/avatar.jpg'
             },
             email: 'john.doe@doe.john.com',
