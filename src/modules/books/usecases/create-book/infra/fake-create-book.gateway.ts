@@ -10,9 +10,21 @@ export class FakeCreateBookGateway implements ConnectorToCreateBookGateway {
         console.log(this.bookToCreate)
         return new Promise((resolve, reject) => {
             if (!this.bookToCreate) {
-                reject(this.rejectedValue);
+               throw new CustomErrorWrapper(this.rejectedValue)
             }
             resolve(this.resolvedValue)
         })
+    }
+}
+
+
+class CustomErrorWrapper extends Error {
+    public payload: any;
+
+    constructor(payload?: any) {
+        super('');
+        this.name = this.constructor.name;
+        this.payload = payload;
+        Error.captureStackTrace(this, this.constructor);
     }
 }

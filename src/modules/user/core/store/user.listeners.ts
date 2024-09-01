@@ -27,7 +27,8 @@ export const registerOnBookCreationErrorForUserListener = () => {
     startAppListening({
         actionCreator: createBookUsecase.rejected,
         effect: async (action, { dispatch }) => {
-            const { message } = action.error as {message: string}
+            const { message } = action.payload;
+            console.log(action)
             dispatch(informUser({ message, type: 'error', status: 'displayed' }))
         }
     })
