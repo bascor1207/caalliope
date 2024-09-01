@@ -25,7 +25,7 @@ export const ReviewSection: FC<Props> = ({ book }) => {
             <Card className='max-w-[340px] mt-2 bg-transparent text-black max-w-md flex-grow' key={review.id}>
               <CardHeader className='justify-between'>
                 <div className='flex gap-5'>
-                  <Avatar isBordered radius='full' size='md' src={review.user?.avatar.url}/>
+                  <Avatar isBordered radius='full' size='md' src={review.user?.avatar}/>
                   <div className='flex flex-col gap-1 items-start justify-center'>
                     <h4 className='font-semibold leading-none text-black'>{review.user?.username}</h4>
                   </div>

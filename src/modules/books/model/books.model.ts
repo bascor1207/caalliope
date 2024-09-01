@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import i18n from '@/i18n';
-import { UsersModel } from '@/modules/user/model/users.model';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace BooksModel {
@@ -42,10 +41,16 @@ export namespace BooksModel {
 
   type Review = {
    id: number,
-   user: UsersModel.User,
+    user: UserReview,
    comment: string,
    date: string
- }
+    }
+    
+    type UserReview = {
+        id: string,
+        username: string,
+        avatar: string
+    }
 
  const MAX_UPLOAD_SIZE = 2000000;
  const ACCEPTED_FILE_TYPES = [

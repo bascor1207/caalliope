@@ -38,18 +38,7 @@ export const catalog = [
         user: {
           id: '101',
           username: 'john_doe',
-          firstName: 'John',
-          lastName: 'Doe',
-          email: 'john.doe@example.com',
-          avatar: {
-            id: 1,
-            url: '/avatars/john_doe.jpg',
-          },
-          myBooksToRead: [],
-          myInProgressBooks: [],
-          myAlreadyReadBooks: [],
-          myAbandonedBooks: [],
-          myWishlist: []
+          avatar: '/avatars/john_doe.jpg'
         },
         comment: 'Great book!',
         date: '2022-03-20'
@@ -93,18 +82,7 @@ export const catalog = [
         user: {
           id: '102',
           username: 'jane_smith',
-          firstName: 'Jane',
-          lastName: 'Smith',
-          email: 'jane.smith@example.com',
-          avatar: {
-              id: 2,
-              url: '/avatars/jane_smith.jpg'
-          },
-          myBooksToRead: [],
-          myInProgressBooks: [],
-          myAlreadyReadBooks: [],
-          myAbandonedBooks: [],
-          myWishlist: []
+          avatar: '/avatars/jane_smith.jpg'
         },
         comment: 'Informative and well-written.',
         date: '2021-07-15'
@@ -148,18 +126,7 @@ export const catalog = [
         user: {
           id: '103',
           username: 'charlie_brown',
-          firstName: 'Charlie',
-          lastName: 'Brown',
-          email: 'charliebrown@gmail.com',
-          avatar: {
-            id: 3,
-            url: '/avatars/charlie_brown.jpg'
-          },
-          myBooksToRead: [],
-          myInProgressBooks: [],
-          myAlreadyReadBooks: [],
-          myAbandonedBooks: [],
-          myWishlist: []
+          avatar: '/avatars/charlie_brown.jpg'
         },
         comment: 'Could not put it down!',
         date: '2020-12-01'
@@ -203,18 +170,7 @@ export const catalog = [
         user: {
           id: '104',
           username: 'emma_johnson',
-          firstName: 'Emma',
-          lastName: 'Johnson',
-          email: 'emma@gmail.com',
-          avatar: {
-            id: 4,
-            url: '/avatars/emma_johnson.jpg'
-          },
-          myBooksToRead: [],
-          myInProgressBooks: [],
-          myAlreadyReadBooks: [],
-          myAbandonedBooks: [],
-          myWishlist: []
+          avatar: '/avatars/emma_johnson.jpg'
         },
         comment: 'Very informative.',
         date: '2019-06-12'
@@ -258,18 +214,7 @@ export const catalog = [
         user: {
           id: '105',
           username: 'olivia_williams',
-          firstName: 'Olivia',
-          lastName: 'Williams',
-          email: '',
-          avatar: {
-            id: 5,
-            url: '/avatars/olivia_williams.jpg'
-          },
-          myBooksToRead: [],
-          myInProgressBooks: [],
-          myAlreadyReadBooks: [],
-          myAbandonedBooks: [],
-          myWishlist: []
+          avatar: '/avatars/olivia_williams.jpg'
         },
         comment: 'A thrilling read!',
         date: '2018-09-01'
@@ -313,18 +258,7 @@ export const catalog = [
         user: {
           id: '106',
           username: 'sophia_lee',
-          firstName: 'Sophia',
-          lastName: 'Lee',
-          email: '',
-          avatar: {
-            id: 6,
-            url: '/avatars/sophia_lee.jpg'
-          },
-          myBooksToRead: [],
-          myInProgressBooks: [],
-          myAlreadyReadBooks: [],
-          myAbandonedBooks: [],
-          myWishlist: []
+          avatar: '/avatars/sophia_lee.jpg'
         },
         comment: 'A bit long, but very detailed.',
         date: '2017-04-15'

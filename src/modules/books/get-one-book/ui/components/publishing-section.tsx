@@ -2,7 +2,6 @@ import { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { Button, Select, SelectItem, Card, CardBody } from '@nextui-org/react';
-import { useAppSelector } from '@/modules/store/create-store';
 
 import { CustomModal } from '@/modules/app/ui/component-level/custom.modal';
 import { BooksModel } from '@/modules/books/model/books.model';
@@ -11,6 +10,7 @@ import { UsersModel } from '@/modules/user/model/users.model';
 import { AddBookToUserLibraryUseCase } from '@/modules/user/usecases/add-book-in-user-list/add-book-to-user-library.usecase';
 import { selectActiveUser } from '@/modules/user/core/store/user.selectors';
 import { UnknownAction } from '@reduxjs/toolkit';
+import { useAppSelector } from '@/modules/app/core/store/create-store';
 
 type Props = {
     book: BooksModel.Book;

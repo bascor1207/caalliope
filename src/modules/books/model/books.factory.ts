@@ -39,18 +39,7 @@ export class BookFactory {
                 user: {
                   id: '101',
                   username: 'john_doe',
-                  firstName: 'John',
-                  lastName: 'Doe',
-                  email: 'john.doe@example.com',
-                  avatar: {
-                    id: 1,
-                    url: '/avatars/john_doe.jpg',
-                  },
-                  myBooksToRead: [],
-                  myInProgressBooks: [],
-                  myAlreadyReadBooks: [],
-                  myAbandonedBooks: [],
-                  myWishlist: []
+                  avatar: '/avatar.jpg'
                 },
                 comment: 'Great book!',
                 date: '2022-03-20'

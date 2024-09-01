@@ -13,7 +13,10 @@ export class UserFactory {
             myWishlist: [],
             myBooksToRead: [],
             myInProgressBooks: [],
-            avatar: {},
+            avatar: {
+                id: 1,
+                url: '/avatar.jpg'
+            },
             email: 'john.doe@doe.john.com',
             roles: [],
             ...data
