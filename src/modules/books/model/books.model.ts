@@ -41,10 +41,16 @@ export namespace BooksModel {
 
   type Review = {
    id: number,
-   userId: number,
+    user: UserReview,
    comment: string,
    date: string
- }
+    }
+    
+    type UserReview = {
+        id: string,
+        username: string,
+        avatar: string
+    }
 
  const MAX_UPLOAD_SIZE = 2000000;
  const ACCEPTED_FILE_TYPES = [

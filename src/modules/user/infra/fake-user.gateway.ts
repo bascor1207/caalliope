@@ -18,6 +18,53 @@ export class FakeUserGateway implements ConnectorToUserGateway {
         })
     }
 
+    addBookToUserLibrary({
+        userId,
+        book,
+        status,
+      }: {
+        userId: string;
+        book: UsersModel.BaseUserBook;
+        status:
+          | UsersModel.ToReadBook['status']
+          | UsersModel.InProgressBook['status']
+          | UsersModel.AlreadyReadBook['status']
+          | UsersModel.AbandonedBook['status']
+          | UsersModel.WishBook['status'];
+      }): Promise<void> {
+        return new Promise((resolve, reject) => {
+          const user = this.users.find((user) => user.id === userId);
+      
+          if (!user) {
+            return reject('User not found');
+          }
+      
+          const bookWithStatus = { ...book, status };
+      
+          switch (status) {
+            case 'toRead':
+              user.myBooksToRead.push(bookWithStatus as UsersModel.ToReadBook);
+              break;
+            case 'reading':
+              user.myInProgressBooks.push(bookWithStatus as UsersModel.InProgressBook);
+              break;
+            case 'read':
+              user.myAlreadyReadBooks.push(bookWithStatus as UsersModel.AlreadyReadBook);
+              break;
+            case 'wishlist':
+              user.myWishlist.push(bookWithStatus as UsersModel.WishBook);
+              break;
+            case 'abandoned':
+              user.myAbandonedBooks.push(bookWithStatus as UsersModel.AbandonedBook);
+              break;
+            default:
+              return reject('Invalid status');
+          }
+      
+          resolve();
+        });
+      }
+
     private setupUsers() {
         return ([
             UserFactory.create(),

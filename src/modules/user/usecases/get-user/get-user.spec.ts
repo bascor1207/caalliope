@@ -3,6 +3,7 @@ import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
 import { createTestState, createTestStore } from '@/modules/app/core/store/create-store';
 import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
 import { UserFactory } from '@/modules/user/model/user.factory';
+import { UsersModel } from '../../model/users.model';
 
 
 describe('Get user happy path', () => {

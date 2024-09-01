@@ -35,7 +35,11 @@ export const catalog = [
     reviews: [
       {
         id: 1,
-        userId: 101,
+        user: {
+          id: '101',
+          username: 'john_doe',
+          avatar: '/avatars/john_doe.jpg'
+        },
         comment: 'Great book!',
         date: '2022-03-20'
       }
@@ -75,7 +79,11 @@ export const catalog = [
     reviews: [
       {
         id: 2,
-        userId: 102,
+        user: {
+          id: '102',
+          username: 'jane_smith',
+          avatar: '/avatars/jane_smith.jpg'
+        },
         comment: 'Informative and well-written.',
         date: '2021-07-15'
       }
@@ -115,7 +123,11 @@ export const catalog = [
     reviews: [
       {
         id: 3,
-        userId: 103,
+        user: {
+          id: '103',
+          username: 'charlie_brown',
+          avatar: '/avatars/charlie_brown.jpg'
+        },
         comment: 'Could not put it down!',
         date: '2020-12-01'
       }
@@ -155,7 +167,11 @@ export const catalog = [
     reviews: [
       {
         id: 4,
-        userId: 104,
+        user: {
+          id: '104',
+          username: 'emma_johnson',
+          avatar: '/avatars/emma_johnson.jpg'
+        },
         comment: 'Very informative.',
         date: '2019-06-12'
       }
@@ -195,7 +211,11 @@ export const catalog = [
     reviews: [
       {
         id: 5,
-        userId: 105,
+        user: {
+          id: '105',
+          username: 'olivia_williams',
+          avatar: '/avatars/olivia_williams.jpg'
+        },
         comment: 'A thrilling read!',
         date: '2018-09-01'
       }
@@ -235,7 +255,11 @@ export const catalog = [
     reviews: [
       {
         id: 6,
-        userId: 106,
+        user: {
+          id: '106',
+          username: 'sophia_lee',
+          avatar: '/avatars/sophia_lee.jpg'
+        },
         comment: 'A bit long, but very detailed.',
         date: '2017-04-15'
       }

@@ -13,7 +13,9 @@ export class UserFactory {
             myWishlist: [],
             myBooksToRead: [],
             myInProgressBooks: [],
-            avatar: {},
+            avatar: {
+                url: '/avatar.jpg'
+            },
             email: 'john.doe@doe.john.com',
             roles: [],
             ...data

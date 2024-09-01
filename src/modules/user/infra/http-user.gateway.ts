@@ -7,4 +7,9 @@ export class HttpUserGateway implements ConnectorToUserGateway {
         const { data } =  await axiosInstance.get(`/user/${id}`);
         return data.data
     }
+
+    addBookToUserLibrary({ userId, book, status }: { userId: string; book: UsersModel.BaseUserBook; status: 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned'; }): Promise<void> {
+        console.log(userId, book, status);
+        throw new Error('Method not implemented.');
+    }
 }

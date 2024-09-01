@@ -2,7 +2,8 @@ import { describe, it, expect } from 'vitest';
 import { stateBuilder } from '../../../usecase/state-builder';
 import { createTestStore } from '@/modules/app/core/store/create-store';
 import { getBooksByNameViewmodel } from '../get-books-by-name.viewmodel';
-import { Book } from '../../../connector-to.get-books';
+import { BooksModel } from '@/modules/books/model/books.model';
+import { BookFactory } from '@/modules/books/model/books.factory';
 
 describe('test to retrieve a books by name inside store', () => {
   it('should return books with name containing the query', () => {
@@ -22,51 +23,4 @@ describe('test to retrieve a books by name inside store', () => {
   })
 })
 
-const booksList: Book[] = [
-    {
-        id: 1,
-        title: 'title novel',
-        author: {
-            id: 1, 
-            lastname: 'Corré',
-            firstname: 'Bastien',
-            image: '',
-            email: '',
-            birthDate: ''
-        },
-        type: 'Novel',
-        subject: [
-            {
-                subject: {
-                    id: 1,
-                    label: 'Fantasy Medieval'
-                }
-            }
-        ],
-        image: 'test',
-        dateOfPublication: '2023'
-    },
-    {
-        id: 2,
-        title: 'novel2',
-        author: {
-            id: 1, 
-            lastname: 'Corré',
-            firstname: 'Bastien',
-            image: '',
-            email: '',
-            birthDate: ''
-        },
-        type: 'Novel',
-        subject: [
-            {
-                subject: {
-                    id: 2,
-                    label: 'Romance'
-                }
-            }
-        ],
-        image: 'test',
-        dateOfPublication: '2023'
-    }
-];
+const booksList: BooksModel.Book[] = [BookFactory.create()];

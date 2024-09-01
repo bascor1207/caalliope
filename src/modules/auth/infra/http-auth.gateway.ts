@@ -25,7 +25,9 @@ export class HttpAuthGateway implements ConnectorToAuthGateway {
             username: data.data.username,
             roles: data.data.roles,
             password: data.data.password,
-            avatar: {},
+            avatar: {
+                url: 'https://example.com/avatar.jpg'
+            },
             myWishlist: [],
             myAlreadyReadBooks: [],
             myBooksToRead: [],

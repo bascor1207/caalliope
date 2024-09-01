@@ -4,6 +4,7 @@ import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-g
 import { getOneBookById } from '@/modules/books/get-one-book/usecase/get-one-book-by-id.usecase';
 import { stateBuilder } from '@/modules/books/get-one-book/usecase/state-builder';
 import { BooksModel } from '@/modules/books/model/books.model';
+import { BookFactory } from '../../model/books.factory';
 
 
 describe('test to retrieve one book by id', () => {
@@ -32,47 +33,7 @@ const thenItShouldBe = () => {
     expect(state).toStrictEqual(store.getState());
 };
 
-const book: BooksModel.Book = {
-    id: 1,
-    title: 'novel title',
-    author: {
-        id: 1,
-        lastname: 'Medieval',
-        firstname: 'Bastien',
-        image: 'test',
-        email: 'test',
-        birthDate: 'test'
-    },
-    summary: 'summary test',
-    type: 'Novel',
-    subjects: [
-        {
-                id: 1,
-                label: 'Fantasy Medieval'
-        }
-    ],
-    publishers: [
-        {
-                id: 1,
-                label: 'Lumen',
-                language: 'Français',
-                numberOfPages: 684,
-                dateOfPublication: '2023'
-            }
-    ],
-    reviews: [
-        {
-            review: {
-                id: 1,
-                userId: 1,
-                comment: 'test',
-                date: '2023'
-            }
-        }
-    ],
-    rating: 4.5,
-    dateOfPublication: '2023',
-    image: 'test'
-};
+const book: BooksModel.Book = BookFactory.create();
+
 
 

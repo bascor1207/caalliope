@@ -1,4 +1,4 @@
-import { Box, Tab, Tabs } from '@mui/material';
+import { Tabs, Tab } from '@nextui-org/react';
 import { FC, useState } from 'react';
 
 import { PublishingSection } from './publishing-section';
@@ -6,7 +6,7 @@ import { ReviewSection } from './review-section';
 import { BooksModel } from '@/modules/books/model/books.model';
 
 type Props = {
-    book: BooksModel.Book;
+  book: BooksModel.Book;
 }
 
 const SUBJECTS_TAB = [
@@ -14,31 +14,40 @@ const SUBJECTS_TAB = [
   { id: 1, label: 'Critiques', value: 'review' }
 ];
 
+const classNames = {
+  tab: 'text-custom-dark-purple',
+  cursor: 'cursor-pointer',
+  tabList: 'flex flex-col w-48', 
+  tabContent: 'w-full',
+  tabPanel: 'w-full',
+};
+
 export const TabBookInfo: FC<Props> = ({ book }) => {
-  const [value, setValue] = useState('');
+  const [selectedTab, setSelectedTab] = useState(SUBJECTS_TAB[0].value);
 
   return (
-    <Box sx={{ maxWidth: { xs: 500, sm: 1500 }, margin: '10px' }}>
+    <div className='flex'>
       <Tabs
-        className='tabs'
-        value={value}
-        onChange={(_, newValue) => setValue(newValue)}
+        aria-label='Book Info Tabs'
+        selectedKey={selectedTab}
+        onSelectionChange={(key) => {
+          setSelectedTab(key as string);
+        }}
+        classNames={classNames}
       >
         {SUBJECTS_TAB.map((tab) => (
           <Tab
-            className='tab'
             key={tab.id}
+            title={tab.label}
             value={tab.value}
-            label={tab.label}
-            onClick={() => {
-                setValue(tab.value);
-            }}
+            className='h-16 flex items-center justify-center'
           />
         ))}
       </Tabs>
-
-      {value === 'edition' && <PublishingSection book={book} />}
-      {value === 'review' && <ReviewSection book={book} />}
-    </Box>
+      <div className='ml-8 w-full'>
+        {selectedTab === '0' && <PublishingSection book={book} />}
+        {selectedTab === '1' && <ReviewSection book={book} />}
+      </div>
+    </div>
   );
 };
