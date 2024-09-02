@@ -24,12 +24,12 @@ export const AddPublisherForm: FC = () => {
             ]
         },
         { id: 'cover', name: 'cover', label: t('form.cover'), type: 'file' }
-    ] satisfies  Array<{id: string, name: keyof BooksModel.AddBookPublisherForm, label: string, type: string, options?: {value: string, label: string}[]}>;
+    ] satisfies  Array<{id: string, name: keyof BooksModel.AddBookEditionForm, label: string, type: string, options?: {value: string, label: string}[]}>;
 
     return (
             <CustomForm
                 items={formItems}
-                schema={BooksModel.addBookPublisherFormSchema}
+                schema={BooksModel.addBookEditionFormSchema}
                 formType='plain'
             />
     );

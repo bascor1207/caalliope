@@ -6,6 +6,7 @@ import type { ConnectorToAuthGateway } from '@/modules/auth/core/connector-to-au
 import type { ConnectorToGetBooks } from '@/modules/books/get-books/connector-to.get-books';
 import type { ConnectorToGetOneBook } from '@/modules/books/get-one-book/connector-to.get-one-book';
 import type { ConnectorToCreateBookGateway } from '@/modules/books/usecases/create-book/core/connector-to-create-book.gateway';
+import type { ConnectorToCreateEditionGateway } from '@/modules/books/usecases/create-edition/core/connector-to-create-edition.gateway';
 import type { ConnectorToUserGateway } from '@/modules/user/connector-to-user.gateway';
 import type {
     UnknownAction,
@@ -17,27 +18,27 @@ import type { TypedUseSelectorHook } from 'react-redux';
 
 import { listenerMiddleware } from '@/modules/app/core/store/create-app-listener';
 import { rootReducer } from '@/modules/app/core/store/root-reducer';
-import { registerOnAuthChangeForUserListener, registerOnBookCreationErrorForUserListener,
-    registerOnBookCreationSuccessForUserListener } from '@/modules/user/core/store/user.listeners';
+import {
+    registerOnAuthChangeForUserListener,
+    registerOnBookCreationErrorForUserListener,
+    registerOnBookCreationSuccessForUserListener,
+    registerOnEditionCreationErrorForUserListener,
+    registerOnEditionCreationSuccessForUserListener
+} from '@/modules/user/core/store/user.listeners';
 
 import { FakeCookiesProvider } from '@/modules/app/infra/fake-cookies.provider';
 import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
 import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books-gateway';
 import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
 import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infra/fake-create-book.gateway';
+import { FakeCreateEditionGateway } from '@/modules/books/usecases/create-edition/infra/fake-create-edition.gateway';
 import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
-
-
-
-
-
-
-
 
 export type Dependencies = {
     getBooksAdapter: ConnectorToGetBooks;
     getOneBookAdapter: ConnectorToGetOneBook;
     createBookAdapter: ConnectorToCreateBookGateway;
+    createEditionAdapter: ConnectorToCreateEditionGateway;
     authAdapter: ConnectorToAuthGateway;
     userAdapter: ConnectorToUserGateway;
     cookiesAdapter: CookiesInterface;
@@ -53,6 +54,8 @@ export const createStore = (
         registerOnAuthChangeForUserListener();
         registerOnBookCreationSuccessForUserListener();
         registerOnBookCreationErrorForUserListener();
+        registerOnEditionCreationSuccessForUserListener();
+        registerOnEditionCreationErrorForUserListener();
       return getDefaultMiddleware({
         thunk: {
           extraArgument: dependencies,
@@ -68,13 +71,16 @@ export const createTestStore = (
     getBooksAdapter = new FakeGetBooksGateway(),
     getOneBookAdapter = new FakeGetOneBookGateway(),
     createBookAdapter = new FakeCreateBookGateway(),
+    createEditionAdapter = new FakeCreateEditionGateway(),
     authAdapter = new FakeAuthGateway(),
     userAdapter = new FakeUserGateway(),
     cookiesAdapter = new FakeCookiesProvider()
   }: Partial<Dependencies> = {},
   preloadedState?: DeepPartial<ReturnType<typeof rootReducer>>,
 ) => {
-  return createStore({ getBooksAdapter, getOneBookAdapter, createBookAdapter, authAdapter, userAdapter, cookiesAdapter }, preloadedState as never);
+  return createStore({
+      getBooksAdapter, getOneBookAdapter, createBookAdapter, createEditionAdapter, authAdapter, userAdapter, cookiesAdapter
+}, preloadedState as never);
 };
 
 export const createTestState = (partialState?: DeepPartial<RootState>) => {

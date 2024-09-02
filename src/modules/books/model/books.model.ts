@@ -4,7 +4,6 @@ import i18n from '@/i18n';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace BooksModel {
- // Types liés au livre
  export type Book = {
   id: number;
   title: string;
@@ -33,7 +32,6 @@ export namespace BooksModel {
   reviews: Review[];
  };
 
- // Types liés à l'auteur, sujet, édition et revue
  export type Author = {
   id?: number;
   lastname: string;
@@ -69,14 +67,18 @@ export namespace BooksModel {
   avatar: string;
  };
 
- // Type lié à la création de livre
  export type BookCreation = {
   status: 'displayed';
   message: string;
   type: 'success' | 'error';
  };
 
- // Schémas de validation
+ export type EditionCreation = {
+  status: 'displayed';
+  message: string;
+  type: 'success' | 'error';
+ }
+
  const isbnSchema = z
      .string()
      .min(10, { message: i18n.t('form.errors.isbnInvalid') })
@@ -118,7 +120,6 @@ export namespace BooksModel {
 
  const reviewSchema = z.string().min(1, { message: i18n.t('form.errors.required') });
 
- // Schémas de formulaires
  export const addBookFormSchema = z.object({
   isbn: isbnSchema,
   title: titleSchema,
@@ -149,7 +150,7 @@ export namespace BooksModel {
 
  export type EditBookForm = z.infer<typeof editBookFormSchema>;
 
- export const addBookPublisherFormSchema = z.object({
+ export const addBookEditionFormSchema = z.object({
   isbn: isbnSchema,
   date: dateSchema,
   editor: editorSchema,
@@ -160,9 +161,9 @@ export namespace BooksModel {
   cover: coverSchema,
  });
 
- export type AddBookPublisherForm = z.infer<typeof addBookPublisherFormSchema>;
+ export type AddBookEditionForm = z.infer<typeof addBookEditionFormSchema>;
 
- export const editPublisherFormSchema = z.object({
+ export const editEditionFormSchema = z.object({
   isbn: isbnSchema,
   date: dateSchema,
   editor: editorSchema,
@@ -173,7 +174,7 @@ export namespace BooksModel {
   cover: coverSchema,
  });
 
- export type EditBookPublisherForm = z.infer<typeof editPublisherFormSchema>;
+ export type EditBookEditionForm = z.infer<typeof editEditionFormSchema>;
 
  export const addReviewFormSchema = z.object({
   review: reviewSchema,
