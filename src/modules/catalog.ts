@@ -21,10 +21,10 @@ export const catalog = [
     ],
     image: '/livre1.jpg',
     dateOfPublication: '2022-03-15',
-    publishers: [
+    editions: [
       {
         id: 1,
-        label: 'Publisher Name',
+        label: 'Edition Name',
         language: 'English',
         numberOfPages: 320,
         dateOfPublication: '2022-03-15'
@@ -65,10 +65,10 @@ export const catalog = [
     ],
     image: '/livre1.jpg',
     dateOfPublication: '2021-07-10',
-    publishers: [
+    editions: [
       {
         id: 2,
-        label: 'Publisher Name',
+        label: 'Edition Name',
         language: 'English',
         numberOfPages: 220,
         dateOfPublication: '2021-07-10'
@@ -109,7 +109,7 @@ export const catalog = [
     ],
     image: '/livre1.jpg',
     dateOfPublication: '2020-11-25',
-    publishers: [
+    editions: [
       {
         id: 3,
         label: 'Adventure Press',
@@ -153,7 +153,7 @@ export const catalog = [
     ],
     image: '/livre1.jpg',
     dateOfPublication: '2019-05-10',
-    publishers: [
+    editions: [
       {
         id: 4,
         label: 'Science World',
@@ -197,7 +197,7 @@ export const catalog = [
     ],
     image: '/livre1.jpg',
     dateOfPublication: '2018-08-22',
-    publishers: [
+    editions: [
       {
         id: 5,
         label: 'Mystery House',
@@ -241,7 +241,7 @@ export const catalog = [
     ],
     image: '/livre1.jpg',
     dateOfPublication: '2017-03-30',
-    publishers: [
+    editions: [
       {
         id: 6,
         label: 'History Books',

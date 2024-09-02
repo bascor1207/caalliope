@@ -38,7 +38,7 @@ const book: BooksModel.Book = {
             label: 'Fantasy Medieval'
         }
     ],
-    publishers: [
+    editions: [
         {
             id: 1,
             label: 'Lumen',

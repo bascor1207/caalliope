@@ -49,7 +49,7 @@ export const PublishingSection: FC<Props> = ({ book }) => {
     return (
         <div>
             <div className='flex items-start justify-between mb-4'>
-                {book.publishers.map((publisher) => (
+                {book.editions.map((publisher) => (
                     <Card key={publisher.id} className='bg-transparent text-black max-w-md flex-grow'>
                         <CardBody className='text-black'>
                             <span className='block mb-4'>
