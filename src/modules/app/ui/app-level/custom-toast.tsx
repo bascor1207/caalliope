@@ -1,9 +1,13 @@
-import { twMerge } from 'tailwind-merge';
 import { useEffect } from 'react';
-import { AppDispatch, useAppSelector } from '@/modules/app/core/store/create-store';
+import { useDispatch } from 'react-redux';
+import { twMerge } from 'tailwind-merge';
+
+import type { AppDispatch } from '@/modules/app/core/store/create-store';
+
+import { useAppSelector } from '@/modules/app/core/store/create-store';
 import { selectInformativeToast } from '@/modules/user/core/store/user.selectors';
 import { informUser } from '@/modules/user/core/store/user.slice';
-import { useDispatch } from 'react-redux';
+
 
 export const CustomToast = () => {
     const dispatch = useDispatch<AppDispatch>()

@@ -1,9 +1,10 @@
-import { ConnectorToAuthGateway } from '@/modules/auth/core/connector-to-auth.gateway';
-import { AuthModel } from '@/modules/auth/model/auth.model';
-import { CookiesProvider } from '@/modules/app/core/cookies.provider';
+import type { ConnectorToAuthGateway } from '@/modules/auth/core/connector-to-auth.gateway';
+import type { AuthModel } from '@/modules/auth/model/auth.model';
+
+import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
 
 export class FakeAuthGateway implements ConnectorToAuthGateway {
-    private readonly systemCookiesProvider = new CookiesProvider()
+    private readonly systemCookiesProvider = new HttpCookiesProvider()
 
     async authenticate({ email, password }: AuthModel.AuthUserPayload): Promise<AuthModel.AuthenticatedUser> {
         return new Promise((resolve, reject) => {

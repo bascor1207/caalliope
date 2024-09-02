@@ -1,7 +1,11 @@
-import { ActionCreatorWithPayload, createAction, createReducer } from '@reduxjs/toolkit';
+import { createAction, createReducer } from '@reduxjs/toolkit';
+
+import type { RootState } from '@/modules/app/core/store/create-store';
+import type { BooksModel } from '@/modules/books/model/books.model';
+import type { ActionCreatorWithPayload } from '@reduxjs/toolkit';
+
 import { rootReducer } from '@/modules/app/core/store/root-reducer';
-import { RootState } from '@/modules/app/core/store/create-store';
-import { BooksModel } from '@/modules/books/model/books.model';
+
 
 // @ts-expect-error I do not understand the error for now
 const initialState = rootReducer(undefined, createAction(''));

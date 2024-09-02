@@ -1,7 +1,10 @@
 'use client'
-import { FC, ReactNode } from 'react';
-import { Card as NextUICard, CardBody, CardFooter, CardHeader } from '@nextui-org/react';
+import {
+ Card as NextUICard, CardBody, CardFooter, CardHeader 
+} from '@nextui-org/react';
 import { twMerge } from 'tailwind-merge';
+
+import type { FC, ReactNode } from 'react';
 
 const CardText: FC<{ className?: string; children: ReactNode }> = ({ className, children }) => {
     return (

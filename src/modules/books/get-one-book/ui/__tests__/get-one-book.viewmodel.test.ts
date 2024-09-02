@@ -1,8 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { createTestStore, RootState } from '@/modules/app/core/store/create-store';
-import { stateBuilder } from '@/modules/books/get-one-book/usecase/state-builder';
+
+import type { RootState } from '@/modules/app/core/store/create-store';
+import type { BooksModel } from '@/modules/books/model/books.model';
+
+import { createTestStore } from '@/modules/app/core/store/create-store';
 import { getOneBookViewmodel } from '@/modules/books/get-one-book/ui/get-one-book.viewmodel';
-import { BooksModel } from '@/modules/books/model/books.model';
+import { stateBuilder } from '@/modules/books/get-one-book/usecase/state-builder';
 import { BookFactory } from '@/modules/books/model/books.factory';
 
 

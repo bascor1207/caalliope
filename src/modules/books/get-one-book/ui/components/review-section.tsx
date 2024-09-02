@@ -1,10 +1,15 @@
-import { FC, useState } from 'react';
+import {
+ Avatar, Button, Card, CardBody, CardHeader 
+} from '@nextui-org/react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Avatar, Button, Card, CardBody, CardHeader } from '@nextui-org/react';
+
+import type { BooksModel } from '@/modules/books/model/books.model';
+import type { FC } from 'react';
 
 import { CustomModal } from '@/modules/app/ui/component-level/custom.modal';
 import { AddReviewForm } from '@/modules/books/get-books/ui/forms/add-review-form';
-import { BooksModel } from '@/modules/books/model/books.model';
+
 
 type Props = {
     book: BooksModel.Book;

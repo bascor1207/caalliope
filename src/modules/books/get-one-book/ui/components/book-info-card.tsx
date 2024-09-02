@@ -1,7 +1,9 @@
+import {
+ Card, CardHeader, Chip, Image 
+} from '@nextui-org/react';
 import React from 'react';
-import { Card, CardHeader, Chip, Image } from '@nextui-org/react';
 
-import { BooksModel } from '@/modules/books/model/books.model';
+import type { BooksModel } from '@/modules/books/model/books.model';
 
 type Props = {
     book: BooksModel.Book;

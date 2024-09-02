@@ -1,8 +1,11 @@
 'use client'
-import { useRouter } from 'next/navigation';
-import { FC } from 'react';
 import { Image } from '@nextui-org/react';
-import { BooksModel } from '@/modules/books/model/books.model';
+import { useRouter } from 'next/navigation';
+
+import type { BooksModel } from '@/modules/books/model/books.model';
+import type { FC } from 'react';
+
+
 import { CustomCard } from '@/modules/app/ui/component-level/custom.card';
 
 

@@ -1,4 +1,5 @@
 {
+  "root": true,
   "env": {
     "browser": true,
     "es2021": true,
@@ -10,6 +11,8 @@
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
     "plugin:jsx-a11y/recommended",
+    "plugin:import/recommended",
+    "plugin:import/typescript",
     "next",
     "next/core-web-vitals"
   ],
@@ -27,25 +30,126 @@
     "react",
     "@typescript-eslint",
     "react-hooks",
-    "jsx-a11y"
+    "jsx-a11y",
+    "import"
   ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.json"
+      }
+    }
+  },
   "rules": {
-    "quotes": ["error", "single", { "avoidEscape": true }],
-    "object-curly-spacing": ["error", "always"],
-    "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
-    "jsx-quotes": ["error", "prefer-single"],
+    "quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ],
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_"
+      }
+    ],
+    "jsx-quotes": [
+      "error",
+      "prefer-single"
+    ],
     "react/react-in-jsx-scope": "off",
-    "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
-    "react/jsx-curly-spacing": ["error", "never", { "allowMultiline": true }],
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".tsx"
+        ]
+      }
+    ],
+    "react/jsx-curly-spacing": [
+      "error",
+      "never",
+      {
+        "allowMultiline": true
+      }
+    ],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "off",
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "jsx-a11y/click-events-have-key-events": "off",
-    "jsx-a11y/no-static-element-interactions": "off"
-  },
-  "settings": {
-    "react": {
-      "version": "detect"
-    }
+    "jsx-a11y/no-static-element-interactions": "off",
+    "object-curly-newline": [
+      "error",
+      {
+        "ImportDeclaration": {
+          "minProperties": 4,
+          "multiline": false,
+          "consistent": false
+        },
+        "ObjectExpression": { "consistent": true },
+        "ObjectPattern": { "consistent": true }
+      }
+    ],
+    "import/order": [
+      "error",
+      {
+        "groups": [
+          ["builtin", "external"], // Regroupe les imports externes (librairies, Node.js)
+          ["type"],                // Regroupe les imports de types séparément
+          ["internal"],              // Regroupe les autres imports internes
+          ["index"]                  // Regroupe les imports de fichiers "index"
+        ],
+        "pathGroups": [
+          {
+            "pattern": "**/*.ts",
+            "group": "internal",
+            "position": "before"
+          },
+          {
+            "pattern": "**/*.tsx",
+            "group": "index",
+            "position": "before"
+          },
+          {
+            "pattern": "**/http-*",
+            "group": "internal",
+            "position": "after"
+          },
+          {
+            "pattern": "**/fake-*",
+            "group": "internal",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": [
+          "builtin",
+          "external"
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": true
+        }
+      }
+    ],
+    "@typescript-eslint/consistent-type-imports": [
+      "error",
+      {
+        "prefer": "type-imports",
+        "disallowTypeAnnotations": false
+      }
+    ]
   }
 }

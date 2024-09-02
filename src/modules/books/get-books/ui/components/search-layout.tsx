@@ -1,4 +1,5 @@
-import { PropsWithChildren } from 'react';
+import type { PropsWithChildren } from 'react';
+
 import { SearchBar } from './search-bar';
 import { TabSubjectBooks } from './tab-subject-books';
 

@@ -1,8 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+
+import type { PayloadAction } from '@reduxjs/toolkit';
+
 import { authUser } from '@/modules/auth/usecases/auth.user';
+import { registerUser } from '@/modules/auth/usecases/register.user';
 import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
 import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';
-import { registerUser } from '@/modules/auth/usecases/register.user';
 
 type InitialState = {
     authModalVisible: boolean;

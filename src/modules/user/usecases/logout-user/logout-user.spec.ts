@@ -1,9 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import { AppStore, createTestState, createTestStore } from '@/modules/app/core/store/create-store';
+
+import type { AppStore } from '@/modules/app/core/store/create-store';
+import type { UsersModel } from '@/modules/user/model/users.model';
+
+import { createTestState, createTestStore } from '@/modules/app/core/store/create-store';
 import { UserFactory } from '@/modules/user/model/user.factory';
-import { UsersModel } from '@/modules/user/model/users.model';
 import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';
-import { FakeCookiesProvider } from '@/modules/app/core/fake-cookies.provider';
+
+import { FakeCookiesProvider } from '@/modules/app/infra/fake-cookies.provider';
 
 
 describe('Test suite to logout user', () => {

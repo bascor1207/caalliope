@@ -1,10 +1,13 @@
 import { useRouter } from 'next/navigation';
-import { useDispatch } from 'react-redux';
-import { AppDispatch, useAppSelector } from '@/modules/app/core/store/create-store';
 import { useTranslation } from 'react-i18next';
-import { ChangeEvent } from 'react';
-import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';
+import { useDispatch } from 'react-redux';
+
+import type { AppDispatch } from '@/modules/app/core/store/create-store';
+import type { ChangeEvent } from 'react';
+
+import { useAppSelector } from '@/modules/app/core/store/create-store';
 import { selectLoggedUser } from '@/modules/auth/core/store/auth.selectors';
+import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';
 
 const ACCOUNT_PATHS = {
     MY_INFOS: 'activeTab=my-infos',

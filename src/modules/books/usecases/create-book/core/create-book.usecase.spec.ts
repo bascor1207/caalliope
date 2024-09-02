@@ -1,9 +1,12 @@
 import { describe, test, expect } from 'vitest';
-import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infra/fake-create-book.gateway';
-import { BookFactory } from '@/modules/books/model/books.factory';
+
+import type { BooksModel } from '@/modules/books/model/books.model';
+
 import { createTestState, createTestStore } from '@/modules/app/core/store/create-store';
+import { BookFactory } from '@/modules/books/model/books.factory';
 import { createBookUsecase } from '@/modules/books/usecases/create-book/core/create-book.usecase';
-import { BooksModel } from '@/modules/books/model/books.model';
+
+import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infra/fake-create-book.gateway';
 
 describe('Test suite to create a book', () => {
     test('Happy path', async () => {
@@ -24,18 +27,8 @@ describe('Test suite to create a book', () => {
 })
 
 const fakeCreateBookGateway = new FakeCreateBookGateway();
-fakeCreateBookGateway.resolvedValue = {
-    status: 'displayed',
-    message: 'The demand will be proceeded by an admin',
-    type: 'success'
-}
-fakeCreateBookGateway.rejectedValue = {
-    status: 'displayed',
-    message: 'There was an error trying create the book, please retry later',
-    type: 'error'
-};
-const store = createTestStore({ createBookAdapter: fakeCreateBookGateway })
 
+const store = createTestStore({ createBookAdapter: fakeCreateBookGateway })
 
 function givenABookToCreate(payload?: BooksModel.AddBookFormSchemaType) {
     fakeCreateBookGateway.bookToCreate = payload;

@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
-import { RootState } from '@/modules/app/core/store/create-store';
+
+import type { RootState } from '@/modules/app/core/store/create-store';
 
 const selectGetBooksState = (state: RootState) => state.catalog.getBooks;
 

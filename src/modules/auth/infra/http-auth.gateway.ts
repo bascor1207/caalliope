@@ -1,12 +1,17 @@
-import { ConnectorToAuthGateway } from '@/modules/auth/core/connector-to-auth.gateway';
-import { AuthModel } from '@/modules/auth/model/auth.model';
-import { axiosInstance } from '@/modules/app/core/axios-instance';
-import { CookiesProvider } from '@/modules/app/core/cookies.provider';
-import { CookiesInterface } from '@/modules/app/core/cookies.interface';
 import { jwtVerify } from 'jose';
 
+import type { CookiesInterface } from '@/modules/app/core/cookies.interface';
+import type { ConnectorToAuthGateway } from '@/modules/auth/core/connector-to-auth.gateway';
+import type { AuthModel } from '@/modules/auth/model/auth.model';
+
+import { axiosInstance } from '@/modules/app/core/axios-instance';
+
+import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
+
+
+
 export class HttpAuthGateway implements ConnectorToAuthGateway {
-    private cookiesManager: CookiesInterface = new CookiesProvider();
+    private cookiesManager: CookiesInterface = new HttpCookiesProvider();
 
     async authenticate({ email, password }: AuthModel.AuthUserPayload): Promise<AuthModel.AuthenticatedUser> {
         const { data } = await axiosInstance.post('/auth/login', { email, password })

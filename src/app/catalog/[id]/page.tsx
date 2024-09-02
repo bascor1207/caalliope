@@ -1,10 +1,11 @@
 'use client';
 
-import { useDispatch } from 'react-redux';
 import { usePathname } from 'next/navigation';
+import { useDispatch } from 'react-redux';
+
+import type { AppDispatch } from '@/modules/app/core/store/create-store';
 
 import { BookInfo } from '@/modules/books/get-one-book/ui/components/book-info';
-import { AppDispatch } from '@/modules/app/core/store/create-store';
 import { getOneBookById } from '@/modules/books/get-one-book/usecase/get-one-book-by-id.usecase';
 
 const BookInfoPage = () => {

@@ -1,5 +1,4 @@
 'use client';
-import React, { useState } from 'react';
 import {
     Navbar,
     NavbarContent,
@@ -7,9 +6,11 @@ import {
     NavbarMenu,
     NavbarBrand
 } from '@nextui-org/react';
+import React, { useState } from 'react';
 import { twMerge } from 'tailwind-merge';
-import { selectLoggedUser } from '@/modules/auth/core/store/auth.selectors';
+
 import { useAppSelector } from '@/modules/app/core/store/create-store';
+import { selectLoggedUser } from '@/modules/auth/core/store/auth.selectors';
 
 type CustomNavBarProps = {
     renderLogo?: () => React.ReactNode;

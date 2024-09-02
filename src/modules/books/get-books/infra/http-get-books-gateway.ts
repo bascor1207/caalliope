@@ -1,7 +1,8 @@
-import { BooksModel } from '@/modules/books/model/books.model';
-import { ConnectorToGetBooks } from '@/modules/books/get-books/connector-to.get-books';
-import { axiosInstance } from '@/modules/app/core/axios-instance';
+import type { ConnectorToGetBooks } from '@/modules/books/get-books/connector-to.get-books';
+import type { BooksModel } from '@/modules/books/model/books.model';
+
 import i18n from '@/i18n';
+import { axiosInstance } from '@/modules/app/core/axios-instance';
 
 export class HttpGetBooksGateway implements ConnectorToGetBooks {
 

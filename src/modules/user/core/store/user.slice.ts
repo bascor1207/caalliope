@@ -1,10 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
-import {
-    UsersModel,
-} from '@/modules/user/model/users.model';
-import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';
+import { createSlice } from '@reduxjs/toolkit';
+
+import type { UsersModel, } from '@/modules/user/model/users.model';
+import type { PayloadAction } from '@reduxjs/toolkit';
+
 import { registerUser } from '@/modules/auth/usecases/register.user';
+import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
+import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';
 
 type InitialState = {
     activeUser: UsersModel.User

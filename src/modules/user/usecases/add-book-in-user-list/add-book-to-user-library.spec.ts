@@ -1,7 +1,11 @@
 import { describe, it, expect } from 'vitest';
-import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
+
+import type { UsersModel } from '@/modules/user/model/users.model';
+
 import { createTestStore } from '@/modules/app/core/store/create-store';
-import { UsersModel } from '@/modules/user/model/users.model';
+
+import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
+
 import { AddBookToUserLibraryUseCase } from './add-book-to-user-library.usecase';
 
 describe('Add book to user library', () => {

@@ -1,11 +1,13 @@
 'use client';
-import { ReactNode } from 'react';
-import { useAppSelector } from '@/modules/app/core/store/create-store'
+import type { ReactNode } from 'react';
 
-import { getOneBookViewmodel } from '../get-one-book.viewmodel';
+import { useAppSelector } from '@/modules/app/core/store/create-store'
+import { CustomSpinner } from '@/modules/app/ui/app-level/custom.spinner';
+
 import { BookInfoCard } from './book-info-card';
 import { TabBookInfo } from './tab-book-info';
-import { CustomSpinner } from '@/modules/app/ui/app-level/custom.spinner';
+import { getOneBookViewmodel } from '../get-one-book.viewmodel';
+
 
 export const BookInfo = () => {
   const viewmodel = useAppSelector(getOneBookViewmodel());

@@ -1,9 +1,12 @@
 import { describe, it, expect } from 'vitest';
-import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
+
+import type { UsersModel } from '../../model/users.model';
+
 import { createTestState, createTestStore } from '@/modules/app/core/store/create-store';
-import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
 import { UserFactory } from '@/modules/user/model/user.factory';
-import { UsersModel } from '../../model/users.model';
+import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
+
+import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
 
 
 describe('Get user happy path', () => {

@@ -1,9 +1,12 @@
 import { describe, it, expect } from 'vitest';
+
+import type { BooksModel } from '@/modules/books/model/books.model';
+
+import { createTestStore } from '@/modules/app/core/store/create-store';
+import { BookFactory } from '@/modules/books/model/books.factory';
+
 import { stateBuilder } from '../../../usecase/state-builder';
 import { getBooksByAuthorViewmodel } from '../get-books-by-author.viewmodel';
-import { BooksModel } from '@/modules/books/model/books.model';
-import { BookFactory } from '@/modules/books/model/books.factory';
-import { createTestStore } from '@/modules/app/core/store/create-store';
 
 describe('test to retrieve a books by author inside store', () => {
   it('should return books with author containing the query', () => {

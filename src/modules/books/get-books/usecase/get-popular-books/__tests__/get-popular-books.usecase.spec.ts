@@ -1,10 +1,15 @@
 import { describe, it, expect } from 'vitest';
-import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books-gateway';
+
+import type { BooksModel } from '@/modules/books/model/books.model';
+
 import { createTestStore } from '@/modules/app/core/store/create-store';
-import { getPopularBooksUseCase } from '../get-popular-books.usecase';
-import { stateBuilder } from './state-builder';
-import { BooksModel } from '@/modules/books/model/books.model';
 import { BookFactory } from '@/modules/books/model/books.factory';
+
+import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books-gateway';
+
+import { stateBuilder } from './state-builder';
+import { getPopularBooksUseCase } from '../get-popular-books.usecase';
+
 
 describe('test to retrieve a list of popular books', () => {
     it('should retrieve a list of popular books', async () => {

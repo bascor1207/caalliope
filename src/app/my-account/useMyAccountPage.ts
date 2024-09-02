@@ -1,9 +1,14 @@
-import { useDispatch } from 'react-redux';
-import { AppDispatch, useAppSelector } from '@/modules/app/core/store/create-store';
-import { selectActiveProfileTab } from '@/modules/user/core/store/user.selectors';
-import { CookiesProvider } from '@/modules/app/core/cookies.provider';
 import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
+
+import type { AppDispatch } from '@/modules/app/core/store/create-store';
+
+
+import { useAppSelector } from '@/modules/app/core/store/create-store';
+import { selectActiveProfileTab } from '@/modules/user/core/store/user.selectors';
 import { myProfileTabState } from '@/modules/user/core/store/user.slice';
+
+import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
 
 
 export const useMyAccountPage = () => {
@@ -25,7 +30,7 @@ export const useMyAccountPage = () => {
     const classNames=
         { tab: 'text-custom-dark-purple', cursor: 'cursor-pointer' };
 
-    const systemCookiesProvider = useRef(new CookiesProvider())
+    const systemCookiesProvider = useRef(new HttpCookiesProvider())
     const loggedUser= true;
 
 
