@@ -63,4 +63,17 @@ export class BookFactory {
             ...data
         };
     }
+
+    static createPayloadForEditionCreation(data?: Partial<BooksModel.AddBookEditionForm>): BooksModel.AddBookEditionForm {
+        return {
+            isbn: '9783161484100',
+            date: new Date('2023-06-15'),
+            editor: 'Éditions OpenAI',
+            translator: 'Marie Curie',
+            nbPage: 256,
+            language: 'français',
+            format: 'paper',
+            ...data
+        };
+    }
 }

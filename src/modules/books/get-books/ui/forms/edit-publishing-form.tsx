@@ -24,13 +24,13 @@ export const EditPublisherForm: FC = () => {
             ]
         },
         { id: 'cover', name: 'cover', label: t('form.cover'), type: 'file' }
-    ] satisfies Array<{ id: string, name: keyof BooksModel.EditBookPublisherForm, label: string, type: string, options?: { value: string, label: string }[] }>;
+    ] satisfies Array<{ id: string, name: keyof BooksModel.EditBookEditionForm, label: string, type: string, options?: { value: string, label: string }[] }>;
 
     return (
             <CustomForm
                 modalTitle={t('form.editPublishing')}
                 items={formItems}
-                schema={BooksModel.editPublisherFormSchema}
+                schema={BooksModel.editEditionFormSchema}
                 formType='modal'
                 onCustomClose={() => console.log('close')}
                 visibilityTrigger={false}
