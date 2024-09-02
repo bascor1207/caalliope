@@ -15,7 +15,7 @@ export const Header = () => {
         <CustomNavBar
             renderLogo={() => (
                 <Link href='/'>
-                    <Image src='/logo.png' alt={presenter.t('navbar.homePage')} width={200} height={200} />
+                    <Image src='/logo.png' alt={presenter.t('navbar.homePage')} width={150} height={150} />
                 </Link>
             )}
             renderMenuToggle={() => (

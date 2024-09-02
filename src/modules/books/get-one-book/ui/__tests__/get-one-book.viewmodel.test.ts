@@ -3,6 +3,7 @@ import { createTestStore, RootState } from '@/modules/app/core/store/create-stor
 import { stateBuilder } from '@/modules/books/get-one-book/usecase/state-builder';
 import { getOneBookViewmodel } from '@/modules/books/get-one-book/ui/get-one-book.viewmodel';
 import { BooksModel } from '@/modules/books/model/books.model';
+import { BookFactory } from '@/modules/books/model/books.factory';
 
 
 describe('test for one book viewmodel', () => {
@@ -19,58 +20,7 @@ describe('test for one book viewmodel', () => {
     })
 });
 
-const book: BooksModel.Book = {
-    id: 1,
-    title: 'novel title',
-    author: {
-        id: 1,
-        lastname: 'Medieval',
-        firstname: 'Bastien',
-        image: 'test',
-        email: 'test',
-        birthDate: 'test'
-    },
-    summary: 'summary test',
-    type: 'Novel',
-    subjects: [
-        {
-            id: 1,
-            label: 'Fantasy Medieval'
-        }
-    ],
-    editions: [
-        {
-            id: 1,
-            label: 'Lumen',
-            language: 'Français',
-            numberOfPages: 684,
-            dateOfPublication: '2023'
-        }
-    ],
-    reviews: [
-        {
-            id: 1,
-            user: {
-                id: '1',
-                username: 'username',
-                firstName: 'firstName',
-                lastName: 'lastName',
-                email: 'test@gmail.com',
-                avatar: {},
-                myBooksToRead: [],
-                myInProgressBooks: [],
-                myAlreadyReadBooks: [],
-                myAbandonedBooks: [],
-                myWishlist: []
-            },
-            comment: 'test',
-            date: '2023'
-        }
-    ],
-    rating: 4.5,
-    dateOfPublication: '2023',
-    image: 'test'
-};
+const book: BooksModel.Book = BookFactory.create()
 
 
 const thenItShouldReturn = (state: RootState, response: { type: string, selectedBook?: typeof book }) => {
