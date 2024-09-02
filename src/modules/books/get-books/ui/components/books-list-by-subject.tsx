@@ -2,8 +2,7 @@ import type { FC, ReactNode } from 'react';
 
 import { useAppSelector } from '@/modules/app/core/store/create-store'
 import { CustomSpinner } from '@/modules/app/ui/app-level/custom.spinner';
-import { AddBookForm } from '@/modules/books/usecases/create-book/ui/forms/add-book-form';
-import { CreateBookPage } from '@/modules/books/usecases/create-book/ui/pages/create-book.page';
+import { NoResults } from '@/modules/books/get-books/ui/components/no-results';
 
 import { BooksCatalog } from './book-card-catalog';
 import { getBooksBySubjectUtils } from '../get-books/get-books-by-subject.utils';
@@ -26,9 +25,7 @@ export const BooksListBySubject: FC<BooksListBySubjectProps> = ({ subject }: Boo
         const filteredBooks = getBooksBySubjectUtils(viewmodel.books, subject);
         if (filteredBooks.length === 0) {
           return (
-              <CreateBookPage>
-                <AddBookForm />
-              </CreateBookPage>
+              <NoResults />
           );
         }
         return (

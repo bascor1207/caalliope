@@ -10,17 +10,13 @@ import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infr
 
 describe('Test suite to create a book', () => {
     test('Happy path', async () => {
-        givenABookToCreate(BookFactory.createPayloadForBookCreation());
-
-        await whenRegisteringBookData();
+        await whenRegisteringBookData(BookFactory.createPayloadForBookCreation());
 
         thenThereShouldBeAnSuccessfulToast();
     });
 
     test('Error in book creation', async () => {
-        givenABookToCreate();
-
-        await whenRegisteringBookData();
+        await whenRegisteringBookData({} as BooksModel.AddBookFormSchemaType);
 
         thenThereShouldBeAnErrorToast();
     })
@@ -30,12 +26,8 @@ const fakeCreateBookGateway = new FakeCreateBookGateway();
 
 const store = createTestStore({ createBookAdapter: fakeCreateBookGateway })
 
-function givenABookToCreate(payload?: BooksModel.AddBookFormSchemaType) {
-    fakeCreateBookGateway.bookToCreate = payload;
-}
-
-async function whenRegisteringBookData() {
-    await store.dispatch(createBookUsecase(BookFactory.createPayloadForBookCreation()));
+async function whenRegisteringBookData(payload: BooksModel.AddBookFormSchemaType) {
+    await store.dispatch(createBookUsecase(payload));
 }
 
 function thenThereShouldBeAnSuccessfulToast() {

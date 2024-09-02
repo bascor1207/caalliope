@@ -5,7 +5,6 @@ import type { ConnectorToCreateBookGateway } from '@/modules/books/usecases/crea
 import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
 
 export class FakeCreateBookGateway implements ConnectorToCreateBookGateway {
-    bookToCreate: BooksModel.AddBookFormSchemaType | undefined;
     resolvedValue!: BooksModel.BookCreation;
     rejectedValue!: BooksModel.BookCreation;
 
@@ -13,9 +12,9 @@ export class FakeCreateBookGateway implements ConnectorToCreateBookGateway {
         this.setup()
     }
 
-    async create(): Promise<BooksModel.BookCreation> {
+    async create(payload: BooksModel.AddBookFormSchemaType): Promise<BooksModel.BookCreation> {
         return new Promise((resolve) => {
-            if (!this.bookToCreate) {
+            if (Object.keys(payload).length < 1) {
                CustomErrorWrapper.throwError(this.rejectedValue)
             }
             resolve(this.resolvedValue)

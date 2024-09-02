@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import {
- ZodString, ZodNumber, ZodBoolean, ZodDate, ZodOptional, ZodEnum 
+ ZodString, ZodNumber, ZodBoolean, ZodDate, ZodOptional, ZodEnum
 } from 'zod';
 
 import type { AppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
@@ -48,6 +48,7 @@ export function useCustomForm<TFormValues extends FieldValues, RType, A>({ schem
     }
 
     function onSubmit(data: TFormValues) {
+        console.log(data)
         reset()
         if (action) {
             dispatch(action(data));

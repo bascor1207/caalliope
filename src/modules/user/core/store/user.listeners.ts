@@ -1,3 +1,5 @@
+import type { BooksModel } from '@/modules/books/model/books.model';
+
 import { startAppListening } from '@/modules/app/core/store/create-app-listener';
 import { authUser } from '@/modules/auth/usecases/auth.user'
 import { createBookUsecase } from '@/modules/books/usecases/create-book/core/create-book.usecase';
@@ -18,7 +20,8 @@ export const registerOnBookCreationSuccessForUserListener = () => {
     startAppListening({
         actionCreator: createBookUsecase.fulfilled,
         effect: async (action, { dispatch }) => {
-            dispatch(informUser({ message: action.payload.message, type: action.payload.type, status: 'displayed' }))
+            const { message } = action.payload as BooksModel.BookCreation;
+            dispatch(informUser({ message: message, type: 'success', status: 'displayed' }))
         }
     })
 }
@@ -27,8 +30,7 @@ export const registerOnBookCreationErrorForUserListener = () => {
     startAppListening({
         actionCreator: createBookUsecase.rejected,
         effect: async (action, { dispatch }) => {
-            const { message } = action.payload;
-            console.log(action)
+            const { message } = action.payload as BooksModel.BookCreation;
             dispatch(informUser({ message, type: 'error', status: 'displayed' }))
         }
     })
