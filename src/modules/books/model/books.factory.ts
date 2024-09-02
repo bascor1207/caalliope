@@ -36,7 +36,7 @@ export class BookFactory {
             reviews: [
               {
                 id: 1,
-                user: {
+                reviewer: {
                   id: '101',
                   username: 'john_doe',
                   avatar: '/avatar.jpg'
