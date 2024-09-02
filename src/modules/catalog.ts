@@ -35,7 +35,7 @@ export const catalog = [
     reviews: [
       {
         id: 1,
-        user: {
+        reviewer: {
           id: '101',
           username: 'john_doe',
           avatar: '/avatars/john_doe.jpg'
@@ -79,7 +79,7 @@ export const catalog = [
     reviews: [
       {
         id: 2,
-        user: {
+        reviewer: {
           id: '102',
           username: 'jane_smith',
           avatar: '/avatars/jane_smith.jpg'
@@ -123,7 +123,7 @@ export const catalog = [
     reviews: [
       {
         id: 3,
-        user: {
+        reviewer: {
           id: '103',
           username: 'charlie_brown',
           avatar: '/avatars/charlie_brown.jpg'
@@ -167,7 +167,7 @@ export const catalog = [
     reviews: [
       {
         id: 4,
-        user: {
+        reviewer: {
           id: '104',
           username: 'emma_johnson',
           avatar: '/avatars/emma_johnson.jpg'
@@ -211,7 +211,7 @@ export const catalog = [
     reviews: [
       {
         id: 5,
-        user: {
+        reviewer: {
           id: '105',
           username: 'olivia_williams',
           avatar: '/avatars/olivia_williams.jpg'
@@ -255,7 +255,7 @@ export const catalog = [
     reviews: [
       {
         id: 6,
-        user: {
+        reviewer: {
           id: '106',
           username: 'sophia_lee',
           avatar: '/avatars/sophia_lee.jpg'
