@@ -1,5 +1,5 @@
 import {
- Modal, ModalBody, ModalContent, ModalFooter, ModalHeader 
+ Modal, ModalBody, ModalContent, ModalFooter, ModalHeader
 } from '@nextui-org/react';
 import React from 'react';
 
@@ -16,11 +16,11 @@ export interface ModalProps {
 
 export const CustomModal: FunctionComponent<ModalProps> = ({ isShown, hideModal, modalContent, modalTitle, modalFooter }) => {
     return (
-        <Modal isOpen={isShown} onClose={hideModal} className='bg-custom-grey' size='2xl'>
+        <Modal isOpen={isShown} onClose={hideModal} className='bg-custom-grey' size='2xl' scrollBehavior='inside'>
             <ModalContent>
                 <>
-                    <ModalHeader className='flex items-center flex-col gap-1 bg-custom-purple text-custom-dark-purple'>{modalTitle}</ModalHeader>
-                    <ModalBody>
+                    <ModalHeader className='rounded-t-[14px] flex items-center flex-col gap-1 bg-custom-purple text-custom-dark-purple'>{modalTitle}</ModalHeader>
+                    <ModalBody className='max-h-[600px]'>
                         {modalContent}
                     </ModalBody>
                     <ModalFooter>

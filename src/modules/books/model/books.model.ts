@@ -4,6 +4,7 @@ import i18n from '@/i18n';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace BooksModel {
+ // Types liés au livre
  export type Book = {
   id: number;
   title: string;
@@ -30,8 +31,9 @@ export namespace BooksModel {
   rating?: number;
   summary?: string;
   reviews: Review[];
- }
+ };
 
+ // Types liés à l'auteur, sujet, édition et revue
  export type Author = {
   id?: number;
   lastname: string;
@@ -47,41 +49,41 @@ export namespace BooksModel {
  };
 
  export type Edition = {
-   id?: number,
-   label: string,
-   language: string,
-   numberOfPages: number
-   dateOfPublication: string
-  }
+  id?: number;
+  label: string;
+  language: string;
+  numberOfPages: number;
+  dateOfPublication: string;
+ };
 
-  export type Review = {
-   id?: number,
-   reviewer: UserReview,
-   comment: string,
-   date: string
- }
+ export type Review = {
+  id?: number;
+  reviewer: UserReview;
+  comment: string;
+  date: string;
+ };
 
-  type UserReview = {
-    id?: string,
-    username: string,
-    avatar: string
-  }
+ type UserReview = {
+  id?: string;
+  username: string;
+  avatar: string;
+ };
 
- const MAX_UPLOAD_SIZE = 2000000;
- const ACCEPTED_FILE_TYPES = [
-  'image/jpeg',
-  'image/jpg',
-  'image/png',
-  'image/webp',
- ];
+ // Type lié à la création de livre
+ export type BookCreation = {
+  status: 'displayed';
+  message: string;
+  type: 'success' | 'error';
+ };
 
- const isbnSchema = z.string()
+ // Schémas de validation
+ const isbnSchema = z
+     .string()
      .min(10, { message: i18n.t('form.errors.isbnInvalid') })
      .max(13, { message: i18n.t('form.errors.isbnInvalid') })
      .regex(/^\d{10}(\d{3})?$/, { message: i18n.t('form.errors.isbnInvalid') });
 
  const titleSchema = z.string().min(1, { message: i18n.t('form.errors.required') });
-
  const authorSchema = z.string().min(1, { message: i18n.t('form.errors.required') });
 
  const dateSchema = z.date({
@@ -90,19 +92,23 @@ export namespace BooksModel {
  });
 
  const editorSchema = z.string().min(1, { message: i18n.t('form.errors.required') });
-
  const translatorSchema = z.string().optional();
 
- const nbPageSchema = z.number()
+ const nbPageSchema = z
+     .number()
      .min(1, { message: i18n.t('form.errors.minValue', { count: 1 }) })
      .positive({ message: i18n.t('form.errors.minValue', { count: 1 }) })
      .int({ message: i18n.t('form.errors.invalidNumber') });
 
  const languageSchema = z.string().optional();
-
  const formatSchema = z.enum(['paper', 'ebook', 'audio'], { message: i18n.t('form.errors.required') });
 
- const coverSchema = z.instanceof(File).optional()
+ const MAX_UPLOAD_SIZE = 2000000;
+ const ACCEPTED_FILE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+
+ const coverSchema = z
+     .instanceof(File)
+     .optional()
      .refine((file) => !file || file.size <= MAX_UPLOAD_SIZE, {
       message: i18n.t('form.errors.fileTooLarge'),
      })
@@ -112,6 +118,7 @@ export namespace BooksModel {
 
  const reviewSchema = z.string().min(1, { message: i18n.t('form.errors.required') });
 
+ // Schémas de formulaires
  export const addBookFormSchema = z.object({
   isbn: isbnSchema,
   title: titleSchema,
@@ -125,7 +132,7 @@ export namespace BooksModel {
   cover: coverSchema.optional(),
  });
 
- export type AddBookFormSchemaType = z.infer<typeof addBookFormSchema>
+ export type AddBookFormSchemaType = z.infer<typeof addBookFormSchema>;
 
  export const editBookFormSchema = z.object({
   isbn: isbnSchema,
@@ -140,7 +147,7 @@ export namespace BooksModel {
   cover: coverSchema,
  });
 
- export type EditBookForm = z.infer<typeof editBookFormSchema>
+ export type EditBookForm = z.infer<typeof editBookFormSchema>;
 
  export const addBookPublisherFormSchema = z.object({
   isbn: isbnSchema,
@@ -153,7 +160,7 @@ export namespace BooksModel {
   cover: coverSchema,
  });
 
- export type AddBookPublisherForm = z.infer<typeof addBookPublisherFormSchema>
+ export type AddBookPublisherForm = z.infer<typeof addBookPublisherFormSchema>;
 
  export const editPublisherFormSchema = z.object({
   isbn: isbnSchema,
@@ -164,19 +171,13 @@ export namespace BooksModel {
   language: languageSchema,
   format: formatSchema,
   cover: coverSchema,
- })
+ });
 
- export type EditBookPublisherForm = z.infer<typeof editPublisherFormSchema>
+ export type EditBookPublisherForm = z.infer<typeof editPublisherFormSchema>;
 
  export const addReviewFormSchema = z.object({
   review: reviewSchema,
  });
 
- export type AddReviewForm = z.infer<typeof addReviewFormSchema>
-
- export type BookCreation = {
-  status: 'displayed';
-  message: string;
-  type: 'success' | 'error';
- }
+ export type AddReviewForm = z.infer<typeof addReviewFormSchema>;
 }

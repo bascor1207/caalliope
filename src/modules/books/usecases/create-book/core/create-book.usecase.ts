@@ -9,11 +9,10 @@ export const createBookUsecase = createAppAsyncThunk(
         try {
             return await createBookAdapter.create(payload)
         } catch (error) {
-            error instanceof CustomErrorWrapper ? (
-            rejectWithValue(error.payload)
-            ) : (
-                rejectWithValue({ message: 'Erreur inconnue' })
-            )
+            if (error instanceof CustomErrorWrapper) {
+                return  rejectWithValue(error.payload)
+            }
+            return rejectWithValue({ message: 'Erreur inconnue' })
         }
     }
 )

@@ -5,7 +5,12 @@ import { CustomForm } from '@/modules/app/ui/component-level/custom.form';
 import { BooksModel } from '@/modules/books/model/books.model';
 import { createBookUsecase } from '@/modules/books/usecases/create-book/core/create-book.usecase';
 
-export const AddBookForm: React.FC = () => {
+type AddBookFormProps = {
+    formType: 'plain' | 'modal';
+    isShown: boolean;
+    onCustomClose: () => void;
+}
+export const AddBookForm: React.FC<AddBookFormProps> = ({ formType, isShown, onCustomClose }) => {
     const { t } = useTranslation();
 
     const formItems = [
@@ -25,12 +30,25 @@ export const AddBookForm: React.FC = () => {
         { id: 'cover', name: 'cover', label: t('form.cover'), type: 'file' }
     ] satisfies Array<{id: string, name: keyof BooksModel.AddBookFormSchemaType, label: string, type: string, options?: {value: string, label: string}[]}>;
 
+    if (formType === 'plain') {
+        return (
+            <CustomForm
+                items={formItems}
+                schema={BooksModel.addBookFormSchema}
+                action={createBookUsecase}
+                formType={formType}
+            />
+        )
+    }
     return (
         <CustomForm
             items={formItems}
             schema={BooksModel.addBookFormSchema}
             action={createBookUsecase}
-            formType='plain'
+            formType={formType}
+            modalTitle={'Add Book'}
+            visibilityTrigger={isShown}
+            onCustomClose={onCustomClose}
         />
     );
 };

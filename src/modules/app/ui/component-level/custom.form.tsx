@@ -1,5 +1,5 @@
 import {
- Button, Input, Select, SelectItem 
+ Button, Input, Select, SelectItem
 } from '@nextui-org/react';
 import React from 'react';
 import { Controller } from 'react-hook-form';
@@ -49,7 +49,7 @@ export const CustomForm = <TFormValues extends FieldValues, ReturnType, A>(
     const validator = useCustomForm({ schema, action, dispatch, onCustomClose });
 
     const formContent = (
-        <form onSubmit={validator.handleSubmit(validator.onSubmit)} className='space-y-4'>
+        <form onSubmit={validator.handleSubmit(validator.onSubmit)} className='space-y-4 z-0'>
             {items.map((item) => (
                 <div key={item.id}>
                     <Controller
@@ -94,6 +94,22 @@ export const CustomForm = <TFormValues extends FieldValues, ReturnType, A>(
                                     />
                                 );
                             }
+                            if (item.type === 'file') {
+                                return (
+                                    <Input
+                                        type='file'
+                                        classNames={validator.classNames}
+                                        onChange={(e) => {
+                                            const file = e.target.files?.[0];
+                                            field.onChange(file);
+                                        }}
+                                        isRequired={validator.isRequired(item.id)}
+                                        label={item.label}
+                                        id={item.id}
+                                        variant={validator.props.variant}
+                                    />
+                                );
+                            }
                             return (
                                 <Input
                                     defaultValue={field.value}
@@ -113,7 +129,9 @@ export const CustomForm = <TFormValues extends FieldValues, ReturnType, A>(
                     {validator.errors[item.name] && <p className='text-red-500'>{String(validator.errors[item.name]?.message)}</p>}
                 </div>
             ))}
-            <Button variant='light' type='submit' onClick={validator.handleSubmit(validator.onSubmit)}>Submit</Button>
+            {formType ==='plain' && (
+                <Button variant='light' type='submit' onClick={validator.handleSubmit(validator.onSubmit)}>Submit</Button>
+            )}
         </form>
     );
 

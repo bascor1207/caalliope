@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { useDispatch } from 'react-redux';
 import { twMerge } from 'tailwind-merge';
 
@@ -27,7 +28,7 @@ export const CustomToast = () => {
         return () => clearTimeout(timer);
     }, []);
 
-    return toast.status === 'displayed' && (
+    const toastContent = toast.status === 'displayed' && (
         <div className={toastClasses}>
             {toast.type === 'success' ? (
                 <svg
@@ -55,4 +56,6 @@ export const CustomToast = () => {
             <span>{toast.message}</span>
         </div>
     );
+
+    return createPortal(toastContent, document.body);
 }
