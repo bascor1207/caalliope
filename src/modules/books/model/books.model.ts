@@ -11,14 +11,28 @@ export namespace BooksModel {
   subjects: Subject[];
   dateOfPublication: string;
   image: string;
-  publishers: Publisher[];
+  editions: Edition[];
   rating?: number;
   summary?: string;
   reviews: Review[];
  };
 
- export type Author = {
+ export type GetBooksReturn = {
   id: number;
+  title: string;
+  author: Author;
+  type: string;
+  subjects: Subject[];
+  publicationDate: Date;
+  image: string;
+  editions: Edition[];
+  rating?: number;
+  summary?: string;
+  reviews: Review[];
+ }
+
+ export type Author = {
+  id?: number;
   lastname: string;
   firstname: string;
   image: string;
@@ -27,30 +41,30 @@ export namespace BooksModel {
  };
 
  export type Subject = {
-  id: number;
+  id?: number;
   label: string;
  };
 
- type Publisher = {
-   id: number,
+ export type Edition = {
+   id?: number,
    label: string,
    language: string,
    numberOfPages: number
    dateOfPublication: string
   }
 
-  type Review = {
-   id: number,
-    user: UserReview,
+  export type Review = {
+   id?: number,
+   reviewer: UserReview,
    comment: string,
    date: string
-    }
-    
-    type UserReview = {
-        id: string,
-        username: string,
-        avatar: string
-    }
+ }
+
+  type UserReview = {
+    id?: string,
+    username: string,
+    avatar: string
+  }
 
  const MAX_UPLOAD_SIZE = 2000000;
  const ACCEPTED_FILE_TYPES = [

@@ -22,10 +22,10 @@ export class BookFactory {
             ],
             image: '/livre1.jpg',
             dateOfPublication: '2022-03-15',
-            publishers: [
+            editions: [
               {
                 id: 1,
-                label: 'Publisher Name',
+                label: 'Edition Name',
                 language: 'English',
                 numberOfPages: 320,
                 dateOfPublication: '2022-03-15'
@@ -36,7 +36,7 @@ export class BookFactory {
             reviews: [
               {
                 id: 1,
-                user: {
+                reviewer: {
                   id: '101',
                   username: 'john_doe',
                   avatar: '/avatar.jpg'

@@ -21,10 +21,10 @@ export const catalog = [
     ],
     image: '/livre1.jpg',
     dateOfPublication: '2022-03-15',
-    publishers: [
+    editions: [
       {
         id: 1,
-        label: 'Publisher Name',
+        label: 'Edition Name',
         language: 'English',
         numberOfPages: 320,
         dateOfPublication: '2022-03-15'
@@ -35,7 +35,7 @@ export const catalog = [
     reviews: [
       {
         id: 1,
-        user: {
+        reviewer: {
           id: '101',
           username: 'john_doe',
           avatar: '/avatars/john_doe.jpg'
@@ -65,10 +65,10 @@ export const catalog = [
     ],
     image: '/livre1.jpg',
     dateOfPublication: '2021-07-10',
-    publishers: [
+    editions: [
       {
         id: 2,
-        label: 'Publisher Name',
+        label: 'Edition Name',
         language: 'English',
         numberOfPages: 220,
         dateOfPublication: '2021-07-10'
@@ -79,7 +79,7 @@ export const catalog = [
     reviews: [
       {
         id: 2,
-        user: {
+        reviewer: {
           id: '102',
           username: 'jane_smith',
           avatar: '/avatars/jane_smith.jpg'
@@ -109,7 +109,7 @@ export const catalog = [
     ],
     image: '/livre1.jpg',
     dateOfPublication: '2020-11-25',
-    publishers: [
+    editions: [
       {
         id: 3,
         label: 'Adventure Press',
@@ -123,7 +123,7 @@ export const catalog = [
     reviews: [
       {
         id: 3,
-        user: {
+        reviewer: {
           id: '103',
           username: 'charlie_brown',
           avatar: '/avatars/charlie_brown.jpg'
@@ -153,7 +153,7 @@ export const catalog = [
     ],
     image: '/livre1.jpg',
     dateOfPublication: '2019-05-10',
-    publishers: [
+    editions: [
       {
         id: 4,
         label: 'Science World',
@@ -167,7 +167,7 @@ export const catalog = [
     reviews: [
       {
         id: 4,
-        user: {
+        reviewer: {
           id: '104',
           username: 'emma_johnson',
           avatar: '/avatars/emma_johnson.jpg'
@@ -197,7 +197,7 @@ export const catalog = [
     ],
     image: '/livre1.jpg',
     dateOfPublication: '2018-08-22',
-    publishers: [
+    editions: [
       {
         id: 5,
         label: 'Mystery House',
@@ -211,7 +211,7 @@ export const catalog = [
     reviews: [
       {
         id: 5,
-        user: {
+        reviewer: {
           id: '105',
           username: 'olivia_williams',
           avatar: '/avatars/olivia_williams.jpg'
@@ -241,7 +241,7 @@ export const catalog = [
     ],
     image: '/livre1.jpg',
     dateOfPublication: '2017-03-30',
-    publishers: [
+    editions: [
       {
         id: 6,
         label: 'History Books',
@@ -255,7 +255,7 @@ export const catalog = [
     reviews: [
       {
         id: 6,
-        user: {
+        reviewer: {
           id: '106',
           username: 'sophia_lee',
           avatar: '/avatars/sophia_lee.jpg'
