@@ -1,29 +1,38 @@
-import {
+import { configureStore } from '@reduxjs/toolkit';
+import { useSelector } from 'react-redux';
+
+import type { CookiesInterface } from '@/modules/app/core/cookies.interface';
+import type { ConnectorToAuthGateway } from '@/modules/auth/core/connector-to-auth.gateway';
+import type { ConnectorToGetBooks } from '@/modules/books/get-books/connector-to.get-books';
+import type { ConnectorToGetOneBook } from '@/modules/books/get-one-book/connector-to.get-one-book';
+import type { ConnectorToCreateBookGateway } from '@/modules/books/usecases/create-book/core/connector-to-create-book.gateway';
+import type { ConnectorToUserGateway } from '@/modules/user/connector-to-user.gateway';
+import type {
     UnknownAction,
-    configureStore,
     ThunkDispatch,
     MiddlewareAPI,
     ListenerMiddlewareInstance
 } from '@reduxjs/toolkit';
-import { rootReducer } from '@/modules/app/core/store/root-reducer';
-import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books-gateway';
-import { ConnectorToGetOneBook } from '@/modules/books/get-one-book/connector-to.get-one-book';
-import { ConnectorToGetBooks } from '@/modules/books/get-books/connector-to.get-books';
-import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
-import { ConnectorToAuthGateway } from '@/modules/auth/core/connector-to-auth.gateway';
-import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
-import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
-import { ConnectorToUserGateway } from '@/modules/user/connector-to-user.gateway';
-import { TypedUseSelectorHook, useSelector } from 'react-redux';
-import { CookiesInterface } from '@/modules/app/core/cookies.interface';
-import { FakeCookiesProvider } from '@/modules/app/core/fake-cookies.provider';
-import {
-    registerOnAuthChangeForUserListener, registerOnBookCreationErrorForUserListener,
-    registerOnBookCreationSuccessForUserListener
-} from '@/modules/user/core/store/user.listeners';
+import type { TypedUseSelectorHook } from 'react-redux';
+
 import { listenerMiddleware } from '@/modules/app/core/store/create-app-listener';
-import { ConnectorToCreateBookGateway } from '@/modules/books/usecases/create-book/core/connector-to-create-book.gateway';
+import { rootReducer } from '@/modules/app/core/store/root-reducer';
+import { registerOnAuthChangeForUserListener, registerOnBookCreationErrorForUserListener,
+    registerOnBookCreationSuccessForUserListener } from '@/modules/user/core/store/user.listeners';
+
+import { FakeCookiesProvider } from '@/modules/app/infra/fake-cookies.provider';
+import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
+import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books-gateway';
+import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
 import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infra/fake-create-book.gateway';
+import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
+
+
+
+
+
+
+
 
 export type Dependencies = {
     getBooksAdapter: ConnectorToGetBooks;

@@ -1,9 +1,12 @@
 import { Tabs, Tab } from '@nextui-org/react';
-import { FC, useState } from 'react';
+import { useState } from 'react';
+
+import type { BooksModel } from '@/modules/books/model/books.model';
+import type { FC } from 'react';
+
 
 import { PublishingSection } from './publishing-section';
 import { ReviewSection } from './review-section';
-import { BooksModel } from '@/modules/books/model/books.model';
 
 type Props = {
   book: BooksModel.Book;

@@ -1,9 +1,13 @@
 import { describe, it, expect } from 'vitest';
-import { stateBuilder } from '../../../usecase/get-popular-books/__tests__/state-builder';
+
+import type { BooksModel } from '@/modules/books/model/books.model';
+
 import { createTestStore } from '@/modules/app/core/store/create-store';
-import { getPopularBooksViewmodel, gettingBooks } from '../get-popular-books.viewmodel';
-import { BooksModel } from '@/modules/books/model/books.model';
 import { BookFactory } from '@/modules/books/model/books.factory';
+
+import { stateBuilder } from '../../../usecase/get-popular-books/__tests__/state-builder';
+import { getPopularBooksViewmodel, gettingBooks } from '../get-popular-books.viewmodel';
+
 
 describe('test for the viewModel layer of getting popular books', () => {
     it('should handle loading when getting popular books is pending', () => {

@@ -1,10 +1,9 @@
-import { RootState } from '@/modules/app/core/store/create-store';
-import { BooksModel } from '@/modules/books/model/books.model';
-import {
-    selectMostPopularBooks,
+import type { RootState } from '@/modules/app/core/store/create-store';
+import type { BooksModel } from '@/modules/books/model/books.model';
+
+import { selectMostPopularBooks,
     selectPendingRequest,
-    selectRejectedRequest
-} from '@/modules/books/get-books/core/get-books.selectors';
+    selectRejectedRequest } from '@/modules/books/get-books/core/get-books.selectors';
 
 export const gettingBooks = {
     pending: 'gettingPopularBooksPending',

@@ -1,9 +1,9 @@
-import { AsyncThunk, AsyncThunkPayloadCreator, createAsyncThunk } from '@reduxjs/toolkit';
-import {
-  AppDispatch,
+import { createAsyncThunk } from '@reduxjs/toolkit';
+
+import type { AppDispatch,
   Dependencies,
-  RootState,
-} from '@/modules/app/core/store/create-store'
+  RootState, } from '@/modules/app/core/store/create-store'
+import type { AsyncThunk, AsyncThunkPayloadCreator } from '@reduxjs/toolkit';
 
 export function createAppAsyncThunk<RType, Payload = void>(
     typePrefix: string,

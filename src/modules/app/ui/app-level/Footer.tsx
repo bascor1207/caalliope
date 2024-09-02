@@ -1,6 +1,6 @@
 'use client';
-import { useTranslation } from 'react-i18next';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
 export const Footer = () => {
     const { t } = useTranslation();

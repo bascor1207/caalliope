@@ -1,4 +1,4 @@
-import { BooksModel } from '@/modules/books/model/books.model';
+import type { BooksModel } from '@/modules/books/model/books.model';
 
 export const catalog = [
   {

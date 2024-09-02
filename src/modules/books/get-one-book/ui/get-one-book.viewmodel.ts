@@ -1,5 +1,5 @@
-import { RootState } from '@/modules/app/core/store/create-store';
-import { BooksModel } from '@/modules/books/model/books.model';
+import type { RootState } from '@/modules/app/core/store/create-store';
+import type { BooksModel } from '@/modules/books/model/books.model';
 
 export const gettingBook = {
     pending: 'pending',

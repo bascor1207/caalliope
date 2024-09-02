@@ -1,13 +1,18 @@
+import {
+ Button, Input, Select, SelectItem 
+} from '@nextui-org/react';
 import React from 'react';
-import { Controller, FieldValues, Path } from 'react-hook-form';
-import { Button, Input, Select, SelectItem } from '@nextui-org/react';
-import { useCustomForm } from '@/modules/app/ui/component-level/use-custom-form';
-import { ZodObject } from 'zod';
-import { UnknownAction } from '@reduxjs/toolkit';
-import { AppDispatch } from '@/modules/app/core/store/create-store';
+import { Controller } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { AppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
+
+import type { AppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
+import type { AppDispatch } from '@/modules/app/core/store/create-store';
+import type { UnknownAction } from '@reduxjs/toolkit';
+import type { FieldValues, Path } from 'react-hook-form';
+import type { ZodObject } from 'zod';
+
 import { CustomModal } from '@/modules/app/ui/component-level/custom.modal';
+import { useCustomForm } from '@/modules/app/ui/component-level/use-custom-form';
 
 type ModalFormProps = {
     formType: 'modal';

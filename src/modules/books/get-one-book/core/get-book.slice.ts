@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+
+import type { BooksModel } from '@/modules/books/model/books.model';
+
 import { getOneBookById } from '@/modules/books/get-one-book/usecase/get-one-book-by-id.usecase';
-import { BooksModel } from '@/modules/books/model/books.model';
 
 type InitialState = {
     requestStatus: 'pending' | 'rejected' | 'fulfilled' | '',

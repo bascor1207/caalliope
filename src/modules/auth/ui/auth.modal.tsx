@@ -1,12 +1,15 @@
+import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+
+import type { AppDispatch } from '@/modules/app/core/store/create-store';
+
+import { useAppSelector } from '@/modules/app/core/store/create-store';
 import { CustomForm } from '@/modules/app/ui/component-level/custom.form';
+import { selectAuthModalVisible, selectAuthType } from '@/modules/auth/core/store/auth.selectors';
+import { toggleAuthModal } from '@/modules/auth/core/store/auth.slice';
 import { AuthModel } from '@/modules/auth/model/auth.model';
 import { authUser } from '@/modules/auth/usecases/auth.user';
-import { toggleAuthModal } from '@/modules/auth/core/store/auth.slice';
-import { useDispatch } from 'react-redux';
-import { AppDispatch, useAppSelector } from '@/modules/app/core/store/create-store';
-import { useTranslation } from 'react-i18next';
 import { registerUser } from '@/modules/auth/usecases/register.user';
-import { selectAuthModalVisible, selectAuthType } from '@/modules/auth/core/store/auth.selectors';
 
 export const AuthModal = () => {
     const dispatch = useDispatch<AppDispatch>()

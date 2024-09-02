@@ -1,7 +1,8 @@
-import { selectActiveUser } from '@/modules/user/core/store/user.selectors';
+import { useTranslation } from 'react-i18next';
+
 import { useAppSelector } from '@/modules/app/core/store/create-store';
 import { CustomCard } from '@/modules/app/ui/component-level/custom.card';
-import { useTranslation } from 'react-i18next';
+import { selectActiveUser } from '@/modules/user/core/store/user.selectors';
 import { UserBookCard } from '@/modules/user/ui/components/user-book.card';
 
 export const MyReadingsPage = () => {

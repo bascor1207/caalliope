@@ -1,13 +1,16 @@
+import React from 'react';
+
 import type { Metadata } from 'next';
-import React, { FC, PropsWithChildren } from 'react';
+import type { FC, PropsWithChildren } from 'react';
 
-import { AppWrapper } from '@/modules/AppWrapper';
-
-import './globals.css';
+import { prefetchRootLayout } from '@/app/prefetchRootLayout';
 import { Footer } from '@/modules/app/ui/app-level/Footer';
 import { Header } from '@/modules/app/ui/app-level/Header';
 import { Modals } from '@/modules/app/ui/app-level/modals';
-import { prefetchRootLayout } from '@/app/prefetchRootLayout';
+import { AppWrapper } from '@/modules/AppWrapper';
+
+import './globals.css';
+
 
 export const metadata: Metadata = {
     title: 'Caalliope',

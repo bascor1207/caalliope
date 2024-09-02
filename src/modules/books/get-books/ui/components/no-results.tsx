@@ -1,17 +1,17 @@
-import React, { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+// import React, { useState } from 'react';
+// import { useTranslation } from 'react-i18next';
 
-import { CustomModal } from '@/modules/app/ui/component-level/custom.modal';
+// import { CustomModal } from '@/modules/app/ui/component-level/custom.modal';
 
 import styles from './no-results.module.scss';
 
 export const NoResults = () => {
-  const { t } = useTranslation();
-  const [isShown, setIsShown] = useState(false);
-
-  const toggle = () => {
-    setIsShown(!isShown);
-  };
+  // const { t } = useTranslation();
+  // const [isShown, setIsShown] = useState(false);
+  //
+  // const toggle = () => {
+  //   setIsShown(!isShown);
+  // };
 
   return (
     <div className={styles['no-results']}>

@@ -1,5 +1,5 @@
-import { createPortal } from 'react-dom';
 import { Spinner } from '@nextui-org/react';
+import { createPortal } from 'react-dom';
 
 export const CustomSpinner = () => {
     return createPortal(

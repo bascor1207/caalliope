@@ -1,5 +1,7 @@
+import type { BooksModel } from '@/modules/books/model/books.model';
+
+import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
 import { createAppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
-import { BooksModel } from '@/modules/books/model/books.model';
 
 export const createBookUsecase = createAppAsyncThunk(
     'books/create-book',
@@ -7,8 +9,11 @@ export const createBookUsecase = createAppAsyncThunk(
         try {
             return await createBookAdapter.create(payload)
         } catch (error) {
-            console.log(error.payload);
-            return rejectWithValue(error.payload)
+            error instanceof CustomErrorWrapper ? (
+            rejectWithValue(error.payload)
+            ) : (
+                rejectWithValue({ message: 'Erreur inconnue' })
+            )
         }
     }
 )

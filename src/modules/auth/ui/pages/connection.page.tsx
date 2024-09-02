@@ -1,7 +1,7 @@
 import { useAppSelector } from '@/modules/app/core/store/create-store';
+import { CustomForm } from '@/modules/app/ui/component-level/custom.form';
 import { selectAuthType } from '@/modules/auth/core/store/auth.selectors';
 import { AuthModel } from '@/modules/auth/model/auth.model';
-import { CustomForm } from '@/modules/app/ui/component-level/custom.form';
 import { authUser } from '@/modules/auth/usecases/auth.user';
 import { registerUser } from '@/modules/auth/usecases/register.user';
 

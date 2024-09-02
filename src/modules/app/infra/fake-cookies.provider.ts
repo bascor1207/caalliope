@@ -1,4 +1,4 @@
-import { CookiesInterface } from '@/modules/app/core/cookies.interface';
+import type { CookiesInterface } from '@/modules/app/core/cookies.interface';
 
 export class FakeCookiesProvider implements CookiesInterface {
     public cookies = new Map<string, string>()

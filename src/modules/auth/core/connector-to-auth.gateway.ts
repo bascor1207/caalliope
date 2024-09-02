@@ -1,4 +1,4 @@
-import { AuthModel } from '@/modules/auth/model/auth.model';
+import type { AuthModel } from '@/modules/auth/model/auth.model';
 
 export interface ConnectorToAuthGateway {
     authenticate({ email, password }: AuthModel.AuthUserPayload): Promise<AuthModel.AuthenticatedUser>

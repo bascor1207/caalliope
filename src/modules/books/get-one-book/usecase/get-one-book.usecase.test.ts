@@ -1,9 +1,13 @@
 import { describe, it, expect } from 'vitest';
+
+import type { BooksModel } from '@/modules/books/model/books.model';
+
 import { createTestStore } from '@/modules/app/core/store/create-store';
-import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
 import { getOneBookById } from '@/modules/books/get-one-book/usecase/get-one-book-by-id.usecase';
 import { stateBuilder } from '@/modules/books/get-one-book/usecase/state-builder';
-import { BooksModel } from '@/modules/books/model/books.model';
+
+import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
+
 import { BookFactory } from '../../model/books.factory';
 
 

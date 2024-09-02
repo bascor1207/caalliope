@@ -1,12 +1,13 @@
-import { FC, ReactNode } from 'react';
-import { useAppSelector } from '@/modules/app/core/store/create-store'
+import type { FC, ReactNode } from 'react';
 
-import { getBooksViewModel } from '../get-books/get-books.viewmodel';
-import { getBooksBySubjectUtils } from '../get-books/get-books-by-subject.utils';
-import { BooksCatalog } from './book-card-catalog';
+import { useAppSelector } from '@/modules/app/core/store/create-store'
 import { CustomSpinner } from '@/modules/app/ui/app-level/custom.spinner';
-import { CreateBookPage } from '@/modules/books/usecases/create-book/ui/pages/create-book.page';
 import { AddBookForm } from '@/modules/books/usecases/create-book/ui/forms/add-book-form';
+import { CreateBookPage } from '@/modules/books/usecases/create-book/ui/pages/create-book.page';
+
+import { BooksCatalog } from './book-card-catalog';
+import { getBooksBySubjectUtils } from '../get-books/get-books-by-subject.utils';
+import { getBooksViewModel } from '../get-books/get-books.viewmodel';
 
 type BooksListBySubjectProps = {
     subject: string;

@@ -1,5 +1,6 @@
+import type { AuthModel } from '@/modules/auth/model/auth.model';
+
 import { createAppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
-import { AuthModel } from '@/modules/auth/model/auth.model';
 
 export const authUser = createAppAsyncThunk(
     'auth/authenticate',

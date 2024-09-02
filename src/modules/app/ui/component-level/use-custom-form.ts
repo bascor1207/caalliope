@@ -1,9 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ControllerRenderProps, DefaultValues, FieldValues, useForm } from 'react-hook-form';
-import { AppDispatch } from '@/modules/app/core/store/create-store';
-import { AppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
-import { ZodObject, ZodString, ZodNumber, ZodBoolean, ZodDate, ZodType, ZodOptional, ZodEnum } from 'zod';
-import React from 'react';
+import { useForm } from 'react-hook-form';
+import {
+ ZodString, ZodNumber, ZodBoolean, ZodDate, ZodOptional, ZodEnum 
+} from 'zod';
+
+import type { AppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
+import type { AppDispatch } from '@/modules/app/core/store/create-store';
+import type React from 'react';
+import type { ControllerRenderProps, DefaultValues, FieldValues } from 'react-hook-form';
+import type { ZodObject, ZodType } from 'zod';
 
 type UseCustomFormProps<TFormValues extends FieldValues, RType = void, A = void> = {
     schema: ZodObject<TFormValues>;

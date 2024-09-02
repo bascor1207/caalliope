@@ -1,6 +1,9 @@
-import React, { FunctionComponent } from 'react';
+import {
+ Modal, ModalBody, ModalContent, ModalFooter, ModalHeader 
+} from '@nextui-org/react';
+import React from 'react';
 
-import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from '@nextui-org/react';
+import type { FunctionComponent } from 'react';
 
 export interface ModalProps {
     isShown: boolean;

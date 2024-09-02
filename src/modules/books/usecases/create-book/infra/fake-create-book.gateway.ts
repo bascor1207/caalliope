@@ -1,30 +1,37 @@
-import { ConnectorToCreateBookGateway } from '@/modules/books/usecases/create-book/core/connector-to-create-book.gateway';
-import { BooksModel } from '@/modules/books/model/books.model';
+
+import type { BooksModel } from '@/modules/books/model/books.model';
+import type { ConnectorToCreateBookGateway } from '@/modules/books/usecases/create-book/core/connector-to-create-book.gateway';
+
+import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
 
 export class FakeCreateBookGateway implements ConnectorToCreateBookGateway {
     bookToCreate: BooksModel.AddBookFormSchemaType | undefined;
     resolvedValue!: BooksModel.BookCreation;
     rejectedValue!: BooksModel.BookCreation;
 
+    constructor() {
+        this.setup()
+    }
+
     async create(): Promise<BooksModel.BookCreation> {
-        console.log(this.bookToCreate)
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             if (!this.bookToCreate) {
-               throw new CustomErrorWrapper(this.rejectedValue)
+               CustomErrorWrapper.throwError(this.rejectedValue)
             }
             resolve(this.resolvedValue)
         })
     }
-}
 
-
-class CustomErrorWrapper extends Error {
-    public payload: any;
-
-    constructor(payload?: any) {
-        super('');
-        this.name = this.constructor.name;
-        this.payload = payload;
-        Error.captureStackTrace(this, this.constructor);
+    private setup() {
+        this.resolvedValue = {
+            status: 'displayed',
+            message: 'The demand will be proceeded by an admin',
+            type: 'success'
+        }
+        this.rejectedValue = {
+            status: 'displayed',
+            message: 'There was an error trying create the book, please retry later',
+            type: 'error'
+        };
     }
 }

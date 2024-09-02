@@ -1,6 +1,7 @@
 import TextField from '@mui/material/TextField';
-import { ChangeEvent } from 'react';
 import { useTranslation } from 'react-i18next';
+
+import type { ChangeEvent } from 'react';
 
 type SearchBarProps = {
     setQuery: (query: string, type: 'name' | 'author') => void;

@@ -1,8 +1,7 @@
 'use client';
+import { Button, Image } from '@nextui-org/react';
 import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react';
 import * as React from 'react';
-
-import { Button, Image } from '@nextui-org/react';
 import { twMerge } from 'tailwind-merge';
 
 type CarouselApi = UseEmblaCarouselType[1];

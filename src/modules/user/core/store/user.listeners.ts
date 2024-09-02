@@ -1,8 +1,8 @@
-import { authUser } from '@/modules/auth/usecases/auth.user'
-import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
 import { startAppListening } from '@/modules/app/core/store/create-app-listener';
+import { authUser } from '@/modules/auth/usecases/auth.user'
 import { createBookUsecase } from '@/modules/books/usecases/create-book/core/create-book.usecase';
 import { informUser } from '@/modules/user/core/store/user.slice';
+import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
 
 export const registerOnAuthChangeForUserListener = () => {
    startAppListening({

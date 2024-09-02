@@ -1,9 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getBooksUseCase } from '../usecase/get-books.usecase';
 
+import type { BooksModel } from '@/modules/books/model/books.model';
+
+import { getBooksUseCase } from '../usecase/get-books.usecase';
 import { getBooksLastReleaseUseCase } from '../usecase/get-last-release-books/get-last-release-books.usecase';
 import { getPopularBooksUseCase } from '../usecase/get-popular-books/get-popular-books.usecase';
-import { BooksModel } from '@/modules/books/model/books.model';
 
 type InitialState = {
     books: BooksModel.Book[];
