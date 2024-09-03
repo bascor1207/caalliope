@@ -18,3 +18,8 @@ export const selectInformativeToast = createSelector(
     [selectUserState],
     (userState) => userState.informativeToast
 )
+
+export const selectInformativeSpinner = createSelector(
+    [selectUserState],
+    (userState) => userState.informativeSpinner
+)

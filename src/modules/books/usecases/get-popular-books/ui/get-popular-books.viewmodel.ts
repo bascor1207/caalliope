@@ -1,10 +1,7 @@
 import type { RootState } from '@/modules/app/core/store/create-store';
 import type { BooksModel } from '@/modules/books/model/books.model';
 
-import { selectMostPopularBooks } from '@/modules/books/usecases/get-popular-books/core/store/get-most-popular-books.selectors';
-
-import { selectPendingRequest, selectRejectedRequest } from '@/modules/books/usecases/get-catalog/core/get-books.selectors';
-
+import { selectMostPopularBooks, selectMostPopularBooksPendingRequest, selectMostPopularBooksRejectedRequest } from '@/modules/books/usecases/get-popular-books/core/store/get-most-popular-books.selectors';
 
 export const gettingBooks = {
     pending: 'gettingPopularBooksPending',
@@ -31,8 +28,8 @@ type ViewModelResponse = BooksGettingPending | BooksGettingRejected | BooksGetti
 
 export const getPopularBooksViewmodel = () => (state: RootState): ViewModelResponse => {
     const mostPopularBooks = selectMostPopularBooks(state);
-    const pendingRequest = selectPendingRequest(state);
-    const rejectedRequest = selectRejectedRequest(state);
+    const pendingRequest = selectMostPopularBooksPendingRequest(state);
+    const rejectedRequest = selectMostPopularBooksRejectedRequest(state);
 
     if (pendingRequest) {
         return { type: gettingBooks.pending, pendingRequest };

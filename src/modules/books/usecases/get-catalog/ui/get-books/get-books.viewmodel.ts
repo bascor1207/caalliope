@@ -3,7 +3,8 @@ import type { BooksModel } from '@/modules/books/model/books.model';
 
 import { selectBooks,
     selectPendingRequest,
-    selectRejectedRequest } from '@/modules/books/usecases/get-catalog/core/get-books.selectors';
+    selectRejectedRequest } from '@/modules/books/usecases/get-catalog/core/store/get-books.selectors';
+
 
 export const gettingBooks = {
     pending: 'gettingBooksPending',

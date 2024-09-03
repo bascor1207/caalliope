@@ -1,14 +1,18 @@
+'use client';
 import { Tab, Tabs } from '@nextui-org/react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useTransition } from 'react';
 
 import type { FC, PropsWithChildren } from 'react';
 
+import { CustomSpinner } from '@/modules/app/ui/app-level/custom.spinner';
+
 type TabBooksProps = {
-  returnSubject: (value: string) => void;
   disabled: boolean;
 };
 
 export const TabSubjectBooks: FC<PropsWithChildren<TabBooksProps>> = ({
-    returnSubject, disabled
+     disabled
 }) => {
   const SUBJECTS_TAB = [
     { id: 0, label: 'Tout', value: '' },
@@ -21,30 +25,40 @@ export const TabSubjectBooks: FC<PropsWithChildren<TabBooksProps>> = ({
     { id: 7, label: 'Biographie', value: 'biography' },
     { id: 8, label: 'Développement personnel', value: 'developpement' },
     { id: 9, label: 'Historique', value: 'history' },
-    { id: 10, label: 'théatre', value: 'theatre' },
+    { id: 10, label: 'Théatre', value: 'theatre' },
     { id: 11, label: 'Philosophie', value: 'philosophy' },
     { id: 12, label: 'Mystère', value: 'mystery' },
     { id: 13, label: 'Science', value: 'science' },
   ];
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const [isLoading, startTransition] = useTransition();
+  const selectedKey = SUBJECTS_TAB.find((tab) => tab.value === searchParams.get('subject'));
 
-  const labelSubject = (value: string) => {
-    returnSubject(value);
+  const handleTabChange = (key: string) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set('subject', key);
+    startTransition(() => {
+      router.push(`?${params.toString()}`);
+    })
   };
 
   const classNames=
       { tab: 'text-custom-dark-purple', cursor: 'cursor-pointer' }
 
-
   return (
-      <div className='flex items-center justify-center my-4'>
-        <Tabs
-            aria-label='Dynamic tabs' items={SUBJECTS_TAB} classNames={classNames} onSelectionChange={(e) => labelSubject(e.toString())}
-            isDisabled={disabled}
-        >
-          {(item) => (
-              <Tab key={item.value} title={item.label} />
-          )}
-        </Tabs>
-      </div>
+      <>
+        {isLoading && <CustomSpinner />}
+        <div className='flex items-center justify-center my-4'>
+          <Tabs
+              aria-label='Dynamic tabs' items={SUBJECTS_TAB} classNames={classNames} onSelectionChange={(e) => handleTabChange(e.toString())}
+              isDisabled={disabled} defaultSelectedKey={selectedKey?.value || ''}
+          >
+            {(item) => (
+                <Tab key={item.value} title={item.label} />
+            )}
+          </Tabs>
+        </div>
+      </>
   );
 };

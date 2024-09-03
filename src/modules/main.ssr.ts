@@ -48,9 +48,8 @@ export class SSRApp {
         const userAdapter = new FakeUserGateway();
         const getOneBookAdapter = new FakeGetOneBookGateway();
         getOneBookAdapter.returnedResponse = book;
-        const getBooksAdapter = new FakeGetBooksGateway(1000);
+        const getBooksAdapter = new FakeGetBooksGateway(500);
         getBooksAdapter.returnedResponse = catalog;
-        getBooksAdapter.connectedUser = true;
         const createBookAdapter = new FakeCreateBookGateway();
 
         const getPopularBooksAdapter = new FakeGetPopularBooksGateway();
