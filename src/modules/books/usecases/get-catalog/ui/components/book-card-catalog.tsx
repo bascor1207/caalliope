@@ -3,7 +3,7 @@
 import type { BooksModel } from '@/modules/books/model/books.model';
 import type { FC } from 'react';
 
-import { BookCard } from '@/modules/books/get-books/ui/components/book-card';
+import { BookCard } from '@/modules/books/usecases/get-catalog/ui/components/book-card';
 
 
 type Props = {

@@ -3,13 +3,13 @@ import { useSelector } from 'react-redux';
 
 import type { CookiesInterface } from '@/modules/app/core/cookies.interface';
 import type { ConnectorToAuthGateway } from '@/modules/auth/core/connector-to-auth.gateway';
-import type { ConnectorToGetBooks } from '@/modules/books/get-books/connector-to.get-books';
-import type { ConnectorToGetOneBook } from '@/modules/books/get-one-book/connector-to.get-one-book';
+import type { ConnectorToGetOneBook } from '@/modules/books/get-one-book/core/connector-to.get-one-book';
 import type { ConnectorToCreateBookGateway } from '@/modules/books/usecases/create-book/core/connector-to-create-book.gateway';
 import type { ConnectorToCreateEditionGateway } from '@/modules/books/usecases/create-edition/core/connector-to-create-edition.gateway';
+import type { ConnectorToGetBooks } from '@/modules/books/usecases/get-catalog/core/connector-to.get-books';
 import type { ConnectorToLastReleaseBooks } from '@/modules/books/usecases/get-last-release-books/core/connector-to-last-release-books';
 import type { ConnectorToPopularBooks } from '@/modules/books/usecases/get-popular-books/core/connector-to-popular-books.gateway';
-import type { ConnectorToUserGateway } from '@/modules/user/connector-to-user.gateway';
+import type { ConnectorToUserGateway } from '@/modules/user/core/connector-to-user.gateway';
 import type {
     UnknownAction,
     ThunkDispatch,
@@ -30,10 +30,10 @@ import {
 
 import { FakeCookiesProvider } from '@/modules/app/infra/fake-cookies.provider';
 import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
-import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books.gateway';
 import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
 import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infra/fake-create-book.gateway';
 import { FakeCreateEditionGateway } from '@/modules/books/usecases/create-edition/infra/fake-create-edition.gateway';
+import { FakeGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/fake-get-books.gateway';
 import { FakeGetLastReleaseBooksGateway } from '@/modules/books/usecases/get-last-release-books/infra/fake-get-last-release-books.gateway';
 import { FakeGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/fake-get-popular-books.gateway';
 import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';

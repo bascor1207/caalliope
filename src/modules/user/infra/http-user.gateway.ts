@@ -1,4 +1,4 @@
-import type { ConnectorToUserGateway } from '@/modules/user/connector-to-user.gateway';
+import type { ConnectorToUserGateway } from '@/modules/user/core/connector-to-user.gateway';
 import type { UsersModel } from '@/modules/user/core/model/users.model';
 
 import { axiosInstance } from '@/modules/app/core/axios-instance';

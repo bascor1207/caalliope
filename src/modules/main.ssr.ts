@@ -6,15 +6,15 @@ import { catalog } from '@/modules/catalog';
 // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
 // import { HttpAuthGateway } from '@/modules/auth/infra/http-auth.gateway';
 // import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
-// import { HttpGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books.gateway';
+// import { HttpGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/fake-get-books.gateway';
 import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
 
 //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
 import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
-import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books.gateway';
 import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
 import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infra/fake-create-book.gateway';
 import { FakeCreateEditionGateway } from '@/modules/books/usecases/create-edition/infra/fake-create-edition.gateway';
+import { FakeGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/fake-get-books.gateway';
 import { FakeGetLastReleaseBooksGateway } from '@/modules/books/usecases/get-last-release-books/infra/fake-get-last-release-books.gateway';
 import { FakeGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/fake-get-popular-books.gateway';
 import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';

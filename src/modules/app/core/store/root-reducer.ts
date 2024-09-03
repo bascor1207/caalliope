@@ -1,10 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
 import { authReducer } from '@/modules/auth/core/store/auth.reducer';
-import { getBooksReducer } from '@/modules/books/get-books/core/store/catalog.reducer';
 import { getBookReducer } from '@/modules/books/get-one-book/core/get-book.reducer';
 import { createBookReducer } from '@/modules/books/usecases/create-book/core/store/create-book.reducer';
 import { createEditionReducer } from '@/modules/books/usecases/create-edition/core/store/create-edition.reducer';
+import { getBooksReducer } from '@/modules/books/usecases/get-catalog/core/store/catalog.reducer';
 import { getLastReleaseBooksSlice } from '@/modules/books/usecases/get-last-release-books/core/store/get-last-release-books.slice';
 import { getPopularBooksSlice } from '@/modules/books/usecases/get-popular-books/core/store/get-popular-books.slice';
 import { userReducer } from '@/modules/user/core/store/user.reducer';

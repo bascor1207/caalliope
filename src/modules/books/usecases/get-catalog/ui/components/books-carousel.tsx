@@ -7,7 +7,7 @@ import {
     CarouselNext,
     CarouselPrevious,
 } from '@/components/ui/carousel';
-import { BookCard } from '@/modules/books/get-books/ui/components/book-card';
+import { BookCard } from '@/modules/books/usecases/get-catalog/ui/components/book-card';
 
 
 

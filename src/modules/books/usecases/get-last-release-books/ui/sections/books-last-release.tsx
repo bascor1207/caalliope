@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 
 import { useAppSelector } from '@/modules/app/core/store/create-store';
 import { CustomSpinner } from '@/modules/app/ui/app-level/custom.spinner';
-import { BooksCarousel } from '@/modules/books/get-books/ui/components/books-carousel';
+import { BooksCarousel } from '@/modules/books/usecases/get-catalog/ui/components/books-carousel';
 import { getBooksLastReleaseViewmodel } from '@/modules/books/usecases/get-last-release-books/ui/get-last-release-books.viewmodel';
 
 

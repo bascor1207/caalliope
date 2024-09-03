@@ -3,16 +3,18 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import type { AppDispatch } from '@/modules/app/core/store/create-store';
+import type { BooksModel } from '@/modules/books/model/books.model';
 import type { ReactNode } from 'react';
 
 import { useAppSelector } from '@/modules/app/core/store/create-store';
-import { BookCard } from '@/modules/books/get-books/ui/components/book-card';
-import { BooksListBySubject } from '@/modules/books/get-books/ui/components/books-list-by-subject';
-import { NoResults } from '@/modules/books/get-books/ui/components/no-results';
-import { SearchLayout } from '@/modules/books/get-books/ui/components/search-layout';
-import { getBooksByAuthorViewmodel } from '@/modules/books/get-books/ui/get-books/get-books-by-author.viewmodel';
-import { getBooksByNameViewmodel } from '@/modules/books/get-books/ui/get-books/get-books-by-name.viewmodel';
-import { getBooksUseCase } from '@/modules/books/get-books/usecase/get-books.usecase';
+import { getBooksUseCase } from '@/modules/books/usecases/get-catalog/core/get-books.usecase';
+import { BookCard } from '@/modules/books/usecases/get-catalog/ui/components/book-card';
+import { BooksListBySubject } from '@/modules/books/usecases/get-catalog/ui/components/books-list-by-subject';
+import { NoResults } from '@/modules/books/usecases/get-catalog/ui/components/no-results';
+import { SearchLayout } from '@/modules/books/usecases/get-catalog/ui/components/search-layout';
+import { getBooksByAuthorViewmodel } from '@/modules/books/usecases/get-catalog/ui/get-books/get-books-by-author.viewmodel';
+import { getBooksByNameViewmodel } from '@/modules/books/usecases/get-catalog/ui/get-books/get-books-by-name.viewmodel';
+
 
 export default function CatalogPage() {
   const dispatch = useDispatch<AppDispatch>();
@@ -49,7 +51,7 @@ export default function CatalogPage() {
       );
     }
 
-    return viewmodel.map((book) => (
+    return viewmodel.map((book: BooksModel.Book) => (
       <BookCard
         key={book.id}
         book={book}
