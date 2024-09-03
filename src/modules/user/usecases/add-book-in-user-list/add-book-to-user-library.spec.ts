@@ -3,10 +3,10 @@ import { describe, it, expect } from 'vitest';
 import type { UsersModel } from '@/modules/user/core/model/users.model';
 
 import { createTestStore } from '@/modules/app/core/store/create-store';
+import { addBookToUserLibraryUseCase, } from '@/modules/user/usecases/add-book-in-user-list/add-book-to-user-library.usecase';
 
 import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
 
-import { AddBookToUserLibraryUseCase } from './add-book-to-user-library.usecase';
 
 describe('Add book to user library', () => {
     it('should add the book to the user\'s to-read list', async () => {
@@ -49,7 +49,7 @@ function givenBookAndStatus(bookStatus: 'toRead' | 'reading' | 'read' | 'wishlis
 }
 
 async function addBookToLibrary() {
-    await store.dispatch(AddBookToUserLibraryUseCase({ userId, book, status }));
+    await store.dispatch(addBookToUserLibraryUseCase({ userId, book, status }));
 }
 
 async function thenTheBookShouldBeInUserLibrary(expectedStatus: string) {

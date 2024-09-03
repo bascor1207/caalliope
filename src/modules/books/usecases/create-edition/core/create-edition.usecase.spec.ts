@@ -34,6 +34,7 @@ function thenThereShouldBeASuccessfulToast() {
     const state = createTestState({
         editionCreation: { createEdition: { success: true, error: false } },
         user: { getUser: {
+            informativeSpinner: false,
             informativeToast: { type: 'success', message: 'The demand will be proceeded by an admin', status: 'displayed' },
             activeProfileTab: 'my-infos',
             activeUser: {}
@@ -46,6 +47,7 @@ function thenThereShouldBeAnErrorToast() {
     const state = createTestState({
         editionCreation: { createEdition: { success: false, error: true } },
         user: { getUser: {
+                informativeSpinner: false,
                 informativeToast: { type: 'error', message: 'There was an error trying create the book, please retry later', status: 'displayed' },
                 activeProfileTab: 'my-infos',
                 activeUser: {}

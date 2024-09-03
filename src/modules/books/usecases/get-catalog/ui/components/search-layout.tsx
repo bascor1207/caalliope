@@ -1,7 +1,8 @@
 import type { PropsWithChildren } from 'react';
 
-import { SearchBar } from './search-bar';
-import { TabSubjectBooks } from './tab-subject-books';
+import { SearchBar } from '@/modules/books/usecases/get-catalog/ui/components/search-bar';
+import { TabSubjectBooks } from '@/modules/books/usecases/get-catalog/ui/components/tab-subject-books';
+
 
 type SearchLayoutProps = {
   query: boolean;

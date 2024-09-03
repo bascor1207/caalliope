@@ -22,7 +22,7 @@ describe('test to retrieve a range of catalog to display', () => {
     test('should retrieve catalog by genre when user filters a genre', async () => {
         givenBooks(books);
 
-        await whenUserFetchCatalogPageBy('genre', 'fantasy');
+        await whenUserFetchCatalogPageBy('genre', 'mystery');
 
         thenTheUserShouldSeeBooks();
     });

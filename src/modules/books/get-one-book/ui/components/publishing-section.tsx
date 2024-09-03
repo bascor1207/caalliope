@@ -1,20 +1,20 @@
 import {
- Button, Select, SelectItem, Card, CardBody 
+ Button, Select, SelectItem, Card, CardBody
 } from '@nextui-org/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
+import type { AppDispatch } from '@/modules/app/core/store/create-store';
 import type { BooksModel } from '@/modules/books/model/books.model';
 import type { UsersModel } from '@/modules/user/core/model/users.model';
-import type { UnknownAction } from '@reduxjs/toolkit';
 import type { FC } from 'react';
 
 import { useAppSelector } from '@/modules/app/core/store/create-store';
 import { CustomModal } from '@/modules/app/ui/component-level/custom.modal';
 import { AddPublisherForm } from '@/modules/books/usecases/get-catalog/ui/forms/add-publisher-form';
 import { selectActiveUser } from '@/modules/user/core/store/user.selectors';
-import { AddBookToUserLibraryUseCase } from '@/modules/user/usecases/add-book-in-user-list/add-book-to-user-library.usecase';
+import { addBookToUserLibraryUseCase } from '@/modules/user/usecases/add-book-in-user-list/add-book-to-user-library.usecase';
 
 
 type Props = {
@@ -25,7 +25,7 @@ export const PublishingSection: FC<Props> = ({ book }) => {
     const [isShown, setIsShown] = useState(false);
     const [selectedStatus, setSelectedStatus] = useState<'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned' | undefined>(undefined);
     const { t } = useTranslation('');
-    const dispatch = useDispatch();
+    const dispatch = useDispatch<AppDispatch>();
     const activeUser = useAppSelector(selectActiveUser);
 
     const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -40,7 +40,7 @@ export const PublishingSection: FC<Props> = ({ book }) => {
                 type: book.type,
                 image: book.image,
             };
-            dispatch(AddBookToUserLibraryUseCase({ userId: activeUser.id, book: userBook, status: selectedStatus }) as unknown as UnknownAction);
+            dispatch(addBookToUserLibraryUseCase({ userId: activeUser.id, book: userBook, status: selectedStatus }));
             console.log(`Livre ajouté avec le statut : ${selectedStatus}`);
         } else {
             console.log('Aucun statut sélectionné');

@@ -4,9 +4,10 @@ import type { BooksModel } from '@/modules/books/model/books.model';
 
 import { createTestStore } from '@/modules/app/core/store/create-store';
 import { BookFactory } from '@/modules/books/model/books.factory';
+import { stateBuilder } from '@/modules/books/usecases/get-popular-books/core/__tests__/state-builder';
+import { getPopularBooksViewmodel,
+    gettingBooks } from '@/modules/books/usecases/get-popular-books/ui/get-popular-books.viewmodel';
 
-import { stateBuilder } from '../../../usecase/get-popular-books/__tests__/state-builder';
-import { getPopularBooksViewmodel, gettingBooks } from '../get-popular-books.viewmodel';
 
 
 describe('test for the viewModel layer of getting popular books', () => {

@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { b } from 'vite-node/index-CCsqCcr7';
 
 import type { UsersModel, } from '@/modules/user/core/model/users.model';
 import type { PayloadAction } from '@reduxjs/toolkit';
