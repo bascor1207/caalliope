@@ -9,16 +9,6 @@ export const selectBooks = createSelector(
     (getBooksState) => getBooksState.books
 );
 
-export const selectMostPopularBooks = createSelector(
-    [selectGetBooksState],
-    (getBooksState) => getBooksState.mostPopularBooks
-);
-
-export const selectLastReleaseBooks = createSelector(
-    [selectGetBooksState],
-    (getBooksState) => getBooksState.lastReleaseBooks
-);
-
 export const selectPendingRequest = createSelector(
     [selectGetBooksState],
     (getBooksState) => getBooksState.pendingRequest

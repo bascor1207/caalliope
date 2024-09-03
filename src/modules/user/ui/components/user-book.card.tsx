@@ -1,6 +1,6 @@
 import { Image } from '@nextui-org/react';
 
-import type { UsersModel } from '@/modules/user/model/users.model';
+import type { UsersModel } from '@/modules/user/core/model/users.model';
 import type { FC } from 'react';
 
 import { CustomCard } from '@/modules/app/ui/component-level/custom.card';

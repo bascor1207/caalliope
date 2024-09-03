@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
-import type { UsersModel } from '@/modules/user/model/users.model';
+import type { UsersModel } from '@/modules/user/core/model/users.model';
 
 import { createTestStore } from '@/modules/app/core/store/create-store';
 

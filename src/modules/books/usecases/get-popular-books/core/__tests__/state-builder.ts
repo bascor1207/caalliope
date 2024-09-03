@@ -6,9 +6,7 @@ import type { ActionCreatorWithPayload } from '@reduxjs/toolkit';
 
 import { rootReducer } from '@/modules/app/core/store/root-reducer';
 
-
-// @ts-expect-error I do not understand the error for now
-const initialState = rootReducer(undefined, createAction(''));
+const initialState = rootReducer(undefined, createAction('')());
 
 export const withPendingRequest = createAction<boolean>('WithPendingRequest');
 export const withRejectedRequest = createAction<boolean>('WithRejectedRequest');
@@ -16,13 +14,13 @@ export const withSuccess = createAction<BooksModel.Book[]>('WithSuccess');
 
 const reducer = createReducer(initialState, (builder) => {
     builder.addCase(withPendingRequest, (state, action) => {
-        state.catalog.getBooks.pendingRequest = action.payload;
-    }),
+        state.homePage.getPopularBooks.pendingRequest = action.payload;
+    })
     builder.addCase(withRejectedRequest, (state, action) => {
-        state.catalog.getBooks.rejectedRequest = action.payload;
-    }),
+        state.homePage.getPopularBooks.rejectedRequest = action.payload;
+    })
     builder.addCase(withSuccess, (state, action) => {
-        state.catalog.getBooks.lastReleaseBooks = action.payload;
+        state.homePage.getPopularBooks.mostPopularBooks = action.payload;
     });
 });
 
@@ -48,11 +46,11 @@ export const stateBuilderProvider = () => {
         getState() {
             return builder.build();
         },
-        setState(updateFn: (_builder: GetBooksLastReleaseStateBuilder) => GetBooksLastReleaseStateBuilder) {
+        setState(updateFn: (_builder: GetPopularBooksStateBuilder) => GetPopularBooksStateBuilder) {
             builder = updateFn(builder);
         },
     };
 };
 
-export type GetBooksLastReleaseStateBuilder = ReturnType<typeof stateBuilder>;
-export type GetBooksLastReleaseStateBuilderProvider = ReturnType<typeof stateBuilderProvider>;
+export type GetPopularBooksStateBuilder = ReturnType<typeof stateBuilder>;
+export type GetPopularBooksStateBuilderProvider = ReturnType<typeof stateBuilderProvider>;

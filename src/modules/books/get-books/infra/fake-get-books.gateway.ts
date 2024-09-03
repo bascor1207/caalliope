@@ -18,26 +18,6 @@ export class FakeGetBooksGateway implements ConnectorToGetBooks {
         })
     }
 
-    getPopularBooks(): Promise<BooksModel.Book[]> {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                const response = this.returnedResponse;
-                if (!response) reject();
-                return resolve(response);
-            }, this.delayToResponse)
-        })
-    }
-
-    getLastReleaseBooks(): Promise<BooksModel.Book[]> {
-        return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                const response = this.returnedResponse;
-                if (!response) reject();
-                return resolve(response);
-            }, this.delayToResponse)
-        })
-    }
-
     getBooksBySearch(search: string): Promise<BooksModel.Book[]> {
         return new Promise((resolve, reject) => {
             if (!search) return reject();

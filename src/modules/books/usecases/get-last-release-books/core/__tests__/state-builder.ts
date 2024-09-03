@@ -16,13 +16,13 @@ export const withSuccess = createAction<BooksModel.Book[]>('WithSuccess');
 
 const reducer = createReducer(initialState, (builder) => {
     builder.addCase(withPendingRequest, (state, action) => {
-        state.catalog.getBooks.pendingRequest = action.payload;
-    })
+        state.homePage.getLastReleaseBooks.pendingRequest = action.payload;
+    }),
     builder.addCase(withRejectedRequest, (state, action) => {
-        state.catalog.getBooks.rejectedRequest = action.payload;
-    })
+        state.homePage.getLastReleaseBooks.rejectedRequest = action.payload;
+    }),
     builder.addCase(withSuccess, (state, action) => {
-        state.catalog.getBooks.mostPopularBooks = action.payload;
+        state.homePage.getLastReleaseBooks.lastReleaseBooks = action.payload;
     });
 });
 
@@ -48,11 +48,11 @@ export const stateBuilderProvider = () => {
         getState() {
             return builder.build();
         },
-        setState(updateFn: (_builder: GetPopularBooksStateBuilder) => GetPopularBooksStateBuilder) {
+        setState(updateFn: (_builder: GetBooksLastReleaseStateBuilder) => GetBooksLastReleaseStateBuilder) {
             builder = updateFn(builder);
         },
     };
 };
 
-export type GetPopularBooksStateBuilder = ReturnType<typeof stateBuilder>;
-export type GetPopularBooksStateBuilderProvider = ReturnType<typeof stateBuilderProvider>;
+export type GetBooksLastReleaseStateBuilder = ReturnType<typeof stateBuilder>;
+export type GetBooksLastReleaseStateBuilderProvider = ReturnType<typeof stateBuilderProvider>;

@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 
-import type { AuthModel } from '@/modules/auth/model/auth.model';
+import type { AuthModel } from '@/modules/auth/core/model/auth.model';
 
 import { createTestState, createTestStore } from '@/modules/app/core/store/create-store';
 import { authUser } from '@/modules/auth/usecases/auth.user';

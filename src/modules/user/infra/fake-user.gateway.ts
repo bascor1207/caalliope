@@ -1,7 +1,7 @@
 import type { ConnectorToUserGateway } from '@/modules/user/connector-to-user.gateway';
-import type { UsersModel } from '@/modules/user/model/users.model';
+import type { UsersModel } from '@/modules/user/core/model/users.model';
 
-import { UserFactory } from '@/modules/user/model/user.factory';
+import { UserFactory } from '@/modules/user/core/model/user.factory';
 
 export class FakeUserGateway implements ConnectorToUserGateway {
     private readonly users: UsersModel.User[];

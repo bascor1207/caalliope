@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
 import type { BooksModel } from '@/modules/books/model/books.model';
-import type { UsersModel } from '@/modules/user/model/users.model';
+import type { UsersModel } from '@/modules/user/core/model/users.model';
 import type { UnknownAction } from '@reduxjs/toolkit';
 import type { FC } from 'react';
 
