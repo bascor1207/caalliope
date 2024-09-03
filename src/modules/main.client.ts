@@ -8,7 +8,7 @@ import { catalog } from '@/modules/catalog';
 
 // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
 import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
-import { HttpCreateBookGateway } from '@/modules/books/usecases/create-book/infra/http-create-book.gateway';
+// import { HttpCreateBookGateway } from '@/modules/books/usecases/create-book/infra/http-create-book.gateway';
 // import { HttpAuthGateway } from '@/modules/auth/infra/http-auth.gateway';
 // import { HttpGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/fake-get-books.gateway';
 // import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
@@ -16,7 +16,7 @@ import { HttpCreateBookGateway } from '@/modules/books/usecases/create-book/infr
 //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
 import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
 import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
-// import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infra/fake-create-book.gateway';
+import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infra/fake-create-book.gateway';
 import { FakeCreateEditionGateway } from '@/modules/books/usecases/create-edition/infra/fake-create-edition.gateway';
 import { FakeGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/fake-get-books.gateway';
 import { FakeGetLastReleaseBooksGateway } from '@/modules/books/usecases/get-last-release-books/infra/fake-get-last-release-books.gateway';
@@ -44,7 +44,7 @@ export class App {
         // const userAdapter = new HttpUserGateway()
         // const getBooksAdapter = new HttpGetBooksGateway()
         const cookiesAdapter = new HttpCookiesProvider();
-        const createBookAdapter = new HttpCreateBookGateway();
+        // const createBookAdapter = new HttpCreateBookGateway();
 
 
         //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
@@ -54,8 +54,7 @@ export class App {
         getOneBookAdapter.returnedResponse = book;
         const getBooksAdapter = new FakeGetBooksGateway(1000);
         getBooksAdapter.returnedResponse = catalog;
-        getBooksAdapter.connectedUser = true;
-        // const createBookAdapter = new FakeCreateBookGateway();
+        const createBookAdapter = new FakeCreateBookGateway();
         const getPopularBooksAdapter = new FakeGetPopularBooksGateway();
         const getLastReleaseBooksAdapter = new FakeGetLastReleaseBooksGateway();
 

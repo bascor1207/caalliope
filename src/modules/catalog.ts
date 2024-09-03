@@ -188,7 +188,7 @@ export const catalog = [
       email: '',
       birthDate: ''
     },
-    type: 'Fiction',
+    type: 'Crime',
     subjects: [
       {
         id: 5,

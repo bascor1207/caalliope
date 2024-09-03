@@ -1,15 +1,15 @@
 'use client';
 
 import {
- Avatar, Button, Select, SelectItem, Link 
+ Avatar, Button, Select, SelectItem, Link
 } from '@nextui-org/react';
 import Image from 'next/image';
 import { twMerge } from 'tailwind-merge';
 
 import { useHeader } from '@/modules/app/ui/app-level/useHeader';
 import { CustomNavBar } from '@/modules/app/ui/component-level/custom.navbar';
+import { AuthModel } from '@/modules/auth/core/model/auth.model';
 import { toggleAuthModal } from '@/modules/auth/core/store/auth.slice';
-import { AuthModel } from '@/modules/auth/model/auth.model';
 
 export const Header = () => {
     const presenter = useHeader()

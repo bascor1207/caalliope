@@ -4,8 +4,8 @@ import type { BooksModel } from '@/modules/books/model/books.model';
 
 import { createTestStore } from '@/modules/app/core/store/create-store';
 import { BookFactory } from '@/modules/books/model/books.factory';
+import { stateBuilder } from '@/modules/books/usecases/get-catalog/core/__tests__/state-builder';
 
-import { stateBuilder } from '../../../usecase/state-builder';
 import { getBooksByAuthorViewmodel } from '../get-books-by-author.viewmodel';
 
 describe('test to retrieve a books by author inside store', () => {
