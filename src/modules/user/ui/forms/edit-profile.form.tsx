@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import type { FC } from 'react';
 
 import { CustomForm } from '@/modules/app/ui/component-level/custom.form';
-import { UsersModel } from '@/modules/user/model/users.model';
+import { UsersModel } from '@/modules/user/core/model/users.model';
 
 export const EditProfileForm: FC = () => {
     const { t } = useTranslation();

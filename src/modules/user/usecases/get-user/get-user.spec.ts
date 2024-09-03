@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
-import type { UsersModel } from '../../model/users.model';
+
+import type { UsersModel } from '@/modules/user/core/model/users.model';
 
 import { createTestState, createTestStore } from '@/modules/app/core/store/create-store';
 import { UserFactory } from '@/modules/user/core/model/user.factory';

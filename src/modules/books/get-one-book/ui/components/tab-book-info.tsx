@@ -4,9 +4,10 @@ import { useState } from 'react';
 import type { BooksModel } from '@/modules/books/model/books.model';
 import type { FC } from 'react';
 
+import { PublishingSection } from '@/modules/books/get-one-book/ui/components/publishing-section';
+import { ReviewSection } from '@/modules/books/get-one-book/ui/components/review-section';
 
-import { PublishingSection } from './publishing-section';
-import { ReviewSection } from './review-section';
+
 
 type Props = {
   book: BooksModel.Book;
@@ -20,7 +21,7 @@ const SUBJECTS_TAB = [
 const classNames = {
   tab: 'text-custom-dark-purple',
   cursor: 'cursor-pointer',
-  tabList: 'flex flex-col w-48', 
+  tabList: 'flex flex-col w-48',
   tabContent: 'w-full',
   tabPanel: 'w-full',
 };

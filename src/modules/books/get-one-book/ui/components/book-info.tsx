@@ -3,10 +3,10 @@ import type { ReactNode } from 'react';
 
 import { useAppSelector } from '@/modules/app/core/store/create-store'
 import { CustomSpinner } from '@/modules/app/ui/app-level/custom.spinner';
+import { BookInfoCard } from '@/modules/books/get-one-book/ui/components/book-info-card';
+import { TabBookInfo } from '@/modules/books/get-one-book/ui/components/tab-book-info';
+import { getOneBookViewmodel } from '@/modules/books/get-one-book/ui/get-one-book.viewmodel';
 
-import { BookInfoCard } from './book-info-card';
-import { TabBookInfo } from './tab-book-info';
-import { getOneBookViewmodel } from '../get-one-book.viewmodel';
 
 
 export const BookInfo = () => {

@@ -7,9 +7,6 @@ import { getBooksByUsecase } from '@/modules/books/usecases/get-catalog/core/get
 import { getBooksUseCase } from '@/modules/books/usecases/get-catalog/core/get-books.usecase';
 import { BooksCatalog } from '@/modules/books/usecases/get-catalog/ui/components/book-card-catalog';
 import { NoResults } from '@/modules/books/usecases/get-catalog/ui/components/no-results';
-import { getBooksByAuthorViewmodel } from '@/modules/books/usecases/get-catalog/ui/get-books/get-books-by-author.viewmodel';
-import { getBooksByNameViewmodel } from '@/modules/books/usecases/get-catalog/ui/get-books/get-books-by-name.viewmodel';
-import { getBooksBySubjectUtils } from '@/modules/books/usecases/get-catalog/ui/get-books/get-books-by-subject.utils';
 import { getBooksViewModel } from '@/modules/books/usecases/get-catalog/ui/get-books/get-books.viewmodel';
 import { ssrApp } from '@/modules/main.ssr';
 

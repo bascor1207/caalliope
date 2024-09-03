@@ -5,10 +5,10 @@ import type { BooksModel } from '@/modules/books/model/books.model';
 import { createTestStore } from '@/modules/app/core/store/create-store';
 import { getOneBookById } from '@/modules/books/get-one-book/usecase/get-one-book-by-id.usecase';
 import { stateBuilder } from '@/modules/books/get-one-book/usecase/state-builder';
+import { BookFactory } from '@/modules/books/model/books.factory';
 
 import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
 
-import { BookFactory } from '../../model/books.factory';
 
 
 describe('test to retrieve one book by id', () => {

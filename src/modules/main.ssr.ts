@@ -1,6 +1,7 @@
 import type { AppStore, Dependencies, RootState } from '@/modules/app/core/store/create-store';
 
 import { createStore } from '@/modules/app/core/store/create-store';
+import { BookFactory } from '@/modules/books/model/books.factory';
 import { catalog } from '@/modules/catalog';
 
 // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
@@ -19,7 +20,6 @@ import { FakeGetLastReleaseBooksGateway } from '@/modules/books/usecases/get-las
 import { FakeGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/fake-get-popular-books.gateway';
 import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
 
-import { BookFactory } from './books/model/books.factory';
 
 
 const book = BookFactory.create();

@@ -10,7 +10,6 @@ import { getPopularBooksUseCase } from '@/modules/books/usecases/get-popular-boo
 import { FakeGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/fake-get-popular-books.gateway';
 
 
-
 describe('test to retrieve a list of popular books', () => {
     it('should retrieve a list of popular books', async () => {
         givenWantingToRetrievePopularBooks(books);
