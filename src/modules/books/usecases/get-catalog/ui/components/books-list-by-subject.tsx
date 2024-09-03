@@ -2,7 +2,7 @@ import type { FC, ReactNode } from 'react';
 
 import { useAppSelector } from '@/modules/app/core/store/create-store'
 import { CustomSpinner } from '@/modules/app/ui/app-level/custom.spinner';
-import { NoResults } from '@/modules/books/get-books/ui/components/no-results';
+import { NoResults } from '@/modules/books/usecases/get-catalog/ui/components/no-results';
 
 import { BooksCatalog } from './book-card-catalog';
 import { getBooksBySubjectUtils } from '../get-books/get-books-by-subject.utils';

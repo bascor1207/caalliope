@@ -12,7 +12,7 @@ import type { FC } from 'react';
 
 import { useAppSelector } from '@/modules/app/core/store/create-store';
 import { CustomModal } from '@/modules/app/ui/component-level/custom.modal';
-import { AddPublisherForm } from '@/modules/books/get-books/ui/forms/add-publisher-form';
+import { AddPublisherForm } from '@/modules/books/usecases/get-catalog/ui/forms/add-publisher-form';
 import { selectActiveUser } from '@/modules/user/core/store/user.selectors';
 import { AddBookToUserLibraryUseCase } from '@/modules/user/usecases/add-book-in-user-list/add-book-to-user-library.usecase';
 

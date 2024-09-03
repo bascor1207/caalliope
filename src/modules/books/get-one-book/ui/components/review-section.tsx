@@ -8,7 +8,7 @@ import type { BooksModel } from '@/modules/books/model/books.model';
 import type { FC } from 'react';
 
 import { CustomModal } from '@/modules/app/ui/component-level/custom.modal';
-import { AddReviewForm } from '@/modules/books/get-books/ui/forms/add-review-form';
+import { AddReviewForm } from '@/modules/books/usecases/get-catalog/ui/forms/add-review-form';
 
 
 type Props = {

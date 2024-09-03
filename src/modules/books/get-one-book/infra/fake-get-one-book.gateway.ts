@@ -1,4 +1,4 @@
-import type { ConnectorToGetOneBook } from '@/modules/books/get-one-book/connector-to.get-one-book';
+import type { ConnectorToGetOneBook } from '@/modules/books/get-one-book/core/connector-to.get-one-book';
 import type { BooksModel } from '@/modules/books/model/books.model';
 
 export class FakeGetOneBookGateway implements ConnectorToGetOneBook {

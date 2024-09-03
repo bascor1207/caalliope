@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest';
 
 import { createTestStore } from '@/modules/app/core/store/create-store';
-import { getBooksViewModel, gettingBooks } from '@/modules/books/get-books/ui/get-books/get-books.viewmodel';
 import { BookFactory } from '@/modules/books/model/books.factory';
+import { getBooksViewModel, gettingBooks } from '@/modules/books/usecases/get-catalog/ui/get-books/get-books.viewmodel';
 
 import { stateBuilder } from '../../../usecase/state-builder';
 

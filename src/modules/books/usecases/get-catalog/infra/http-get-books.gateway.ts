@@ -1,5 +1,5 @@
-import type { ConnectorToGetBooks } from '@/modules/books/get-books/connector-to.get-books';
 import type { BooksModel } from '@/modules/books/model/books.model';
+import type { ConnectorToGetBooks } from '@/modules/books/usecases/get-catalog/core/connector-to.get-books';
 
 import i18n from '@/i18n';
 import { axiosInstance } from '@/modules/app/core/axios-instance';
