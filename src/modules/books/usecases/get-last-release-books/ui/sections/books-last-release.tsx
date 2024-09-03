@@ -6,7 +6,6 @@ import { CustomSpinner } from '@/modules/app/ui/app-level/custom.spinner';
 import { BooksCarousel } from '@/modules/books/usecases/get-catalog/ui/components/books-carousel';
 import { getBooksLastReleaseViewmodel } from '@/modules/books/usecases/get-last-release-books/ui/get-last-release-books.viewmodel';
 
-
 export const BooksCarouselsLastRelease = () => {
     const viewmodel = useAppSelector(getBooksLastReleaseViewmodel());
 

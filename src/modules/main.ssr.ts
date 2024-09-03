@@ -53,7 +53,9 @@ export class SSRApp {
         const createBookAdapter = new FakeCreateBookGateway();
 
         const getPopularBooksAdapter = new FakeGetPopularBooksGateway();
+        getPopularBooksAdapter.returnedResponse = catalog;
         const getLastReleaseBooksAdapter = new FakeGetLastReleaseBooksGateway();
+        getLastReleaseBooksAdapter.returnedResponse = catalog;
 
         const createEditionAdapter = new FakeCreateEditionGateway();
 

@@ -9,8 +9,6 @@ import {
 } from '@/components/ui/carousel';
 import { BookCard } from '@/modules/books/usecases/get-catalog/ui/components/book-card';
 
-
-
 type BooksCarouselProps = {
     slides: BooksModel.Book[];
     title?: string;
