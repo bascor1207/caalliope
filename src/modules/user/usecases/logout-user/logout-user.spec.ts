@@ -1,10 +1,10 @@
 import { describe, it, expect } from 'vitest';
 
 import type { AppStore } from '@/modules/app/core/store/create-store';
-import type { UsersModel } from '@/modules/user/model/users.model';
+import type { UsersModel } from '@/modules/user/core/model/users.model';
 
 import { createTestState, createTestStore } from '@/modules/app/core/store/create-store';
-import { UserFactory } from '@/modules/user/model/user.factory';
+import { UserFactory } from '@/modules/user/core/model/user.factory';
 import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';
 
 import { FakeCookiesProvider } from '@/modules/app/infra/fake-cookies.provider';

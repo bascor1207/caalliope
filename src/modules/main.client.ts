@@ -10,14 +10,17 @@ import { catalog } from '@/modules/catalog';
 import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
 import { HttpCreateBookGateway } from '@/modules/books/usecases/create-book/infra/http-create-book.gateway';
 // import { HttpAuthGateway } from '@/modules/auth/infra/http-auth.gateway';
-// import { HttpGetBooksGateway } from '@/modules/books/get-books/infra/http-get-books-gateway';
+// import { HttpGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books.gateway';
 // import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
 
 //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
 import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
-import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books-gateway';
+import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books.gateway';
 import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
 // import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infra/fake-create-book.gateway';
+import { FakeCreateEditionGateway } from '@/modules/books/usecases/create-edition/infra/fake-create-edition.gateway';
+import { FakeGetLastReleaseBooksGateway } from '@/modules/books/usecases/get-last-release-books/infra/fake-get-last-release-books.gateway';
+import { FakeGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/fake-get-popular-books.gateway';
 import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
 
 
@@ -53,15 +56,22 @@ export class App {
         getBooksAdapter.returnedResponse = catalog;
         getBooksAdapter.connectedUser = true;
         // const createBookAdapter = new FakeCreateBookGateway();
+        const getPopularBooksAdapter = new FakeGetPopularBooksGateway();
+        const getLastReleaseBooksAdapter = new FakeGetLastReleaseBooksGateway();
+
+        const createEditionAdapter = new FakeCreateEditionGateway();
 
 
         return {
             getBooksAdapter,
+            getPopularBooksAdapter,
+            getLastReleaseBooksAdapter,
             getOneBookAdapter,
             authAdapter,
             userAdapter,
             cookiesAdapter,
-            createBookAdapter
+            createBookAdapter,
+            createEditionAdapter
         };
     }
 }

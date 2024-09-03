@@ -1,9 +1,7 @@
 import type { RootState } from '@/modules/app/core/store/create-store';
 import type { BooksModel } from '@/modules/books/model/books.model';
 
-import { selectLastReleaseBooks,
-    selectPendingRequest,
-    selectRejectedRequest } from '@/modules/books/get-books/core/get-books.selectors';
+import { selectLastReleaseBooks, selectLastReleaseBooksPendingRequest, selectLastReleaseBooksRejectedRequest } from '@/modules/books/usecases/get-last-release-books/core/store/get-last-release-books.selectors';
 
 export const gettingBooks = {
     pending: 'gettingBooksLastReleasePending',
@@ -30,8 +28,8 @@ type ViewModelResponse = BooksGettingPending | BooksGettingRejected | BooksGetti
 
 export const getBooksLastReleaseViewmodel = () => (state: RootState) : ViewModelResponse => {
     const lastReleaseBooks = selectLastReleaseBooks(state);
-    const pendingRequest = selectPendingRequest(state);
-    const rejectedRequest = selectRejectedRequest(state);
+    const pendingRequest = selectLastReleaseBooksPendingRequest(state);
+    const rejectedRequest = selectLastReleaseBooksRejectedRequest(state);
 
     if (pendingRequest) {
         return { type: gettingBooks.pending, pendingRequest };

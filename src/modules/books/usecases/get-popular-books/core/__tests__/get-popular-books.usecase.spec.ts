@@ -4,11 +4,11 @@ import type { BooksModel } from '@/modules/books/model/books.model';
 
 import { createTestStore } from '@/modules/app/core/store/create-store';
 import { BookFactory } from '@/modules/books/model/books.factory';
+import { stateBuilder } from '@/modules/books/usecases/get-popular-books/core/__tests__/state-builder';
+import { getPopularBooksUseCase } from '@/modules/books/usecases/get-popular-books/core/get-popular-books.usecase';
 
-import { FakeGetBooksGateway } from '@/modules/books/get-books/infra/fake-get-books-gateway';
+import { FakeGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/fake-get-popular-books.gateway';
 
-import { stateBuilder } from './state-builder';
-import { getPopularBooksUseCase } from '../get-popular-books.usecase';
 
 
 describe('test to retrieve a list of popular books', () => {
@@ -21,8 +21,8 @@ describe('test to retrieve a list of popular books', () => {
     })
 });
 
-const fakeGetBooksAdapter = new FakeGetBooksGateway();
-const store = createTestStore({ getBooksAdapter: fakeGetBooksAdapter })
+const fakeGetBooksAdapter = new FakeGetPopularBooksGateway();
+const store = createTestStore({ getPopularBooksAdapter: fakeGetBooksAdapter })
 
 const givenWantingToRetrievePopularBooks = (payload: typeof books) => {
     fakeGetBooksAdapter.returnedResponse = payload;

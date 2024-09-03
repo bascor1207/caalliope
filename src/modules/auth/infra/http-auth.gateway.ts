@@ -2,7 +2,7 @@ import { jwtVerify } from 'jose';
 
 import type { CookiesInterface } from '@/modules/app/core/cookies.interface';
 import type { ConnectorToAuthGateway } from '@/modules/auth/core/connector-to-auth.gateway';
-import type { AuthModel } from '@/modules/auth/model/auth.model';
+import type { AuthModel } from '@/modules/auth/core/model/auth.model';
 
 import { axiosInstance } from '@/modules/app/core/axios-instance';
 

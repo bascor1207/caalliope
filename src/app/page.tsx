@@ -2,8 +2,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { BooksCarouselsLastRelease } from '@/modules/books/get-books/ui/components/book-last-release';
-import { PopularBooksCarousels } from '@/modules/books/get-books/ui/components/book-popular';
+import { BooksCarouselsLastRelease } from '@/modules/books/usecases/get-last-release-books/ui/sections/books-last-release';
+import { PopularBooksCarousels } from '@/modules/books/usecases/get-popular-books/ui/sections/books-popular';
 
 export default function Home() {
     const { t } = useTranslation();

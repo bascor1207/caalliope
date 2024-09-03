@@ -3,7 +3,7 @@ import { describe, it, expect } from 'vitest';
 import type { UsersModel } from '../../model/users.model';
 
 import { createTestState, createTestStore } from '@/modules/app/core/store/create-store';
-import { UserFactory } from '@/modules/user/model/user.factory';
+import { UserFactory } from '@/modules/user/core/model/user.factory';
 import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
 
 import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';

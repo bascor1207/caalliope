@@ -2,6 +2,6 @@ import { combineReducers } from '@reduxjs/toolkit';
 
 import { getBooksSlice } from './get-books.slice';
 
-export const catalogReducer = combineReducers({
+export const getBooksReducer = combineReducers({
     [getBooksSlice.name]: getBooksSlice.reducer,
 });

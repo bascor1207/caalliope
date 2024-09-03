@@ -1,5 +1,5 @@
 import type { ConnectorToAuthGateway } from '@/modules/auth/core/connector-to-auth.gateway';
-import type { AuthModel } from '@/modules/auth/model/auth.model';
+import type { AuthModel } from '@/modules/auth/core/model/auth.model';
 
 import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
 

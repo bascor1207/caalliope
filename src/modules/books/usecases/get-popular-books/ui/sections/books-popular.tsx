@@ -3,9 +3,9 @@ import type { ReactNode } from 'react';
 
 import { useAppSelector } from '@/modules/app/core/store/create-store';
 import { CustomSpinner } from '@/modules/app/ui/app-level/custom.spinner';
-import BooksCarousel from '@/modules/books/get-books/ui/components/books-carousel';
+import { BooksCarousel } from '@/modules/books/get-books/ui/components/books-carousel';
+import { getPopularBooksViewmodel } from '@/modules/books/usecases/get-popular-books/ui/get-popular-books.viewmodel';
 
-import { getPopularBooksViewmodel } from '../get-popular-books/get-popular-books.viewmodel';
 
 export const PopularBooksCarousels = () => {
     const viewmodel = useAppSelector(getPopularBooksViewmodel())
@@ -13,14 +13,14 @@ export const PopularBooksCarousels = () => {
     const nodeToRender: ReactNode = (() => {
         switch (viewmodel.type) {
             case 'gettingPopularBooksPending':
-              return <CustomSpinner />;
+                return <CustomSpinner />;
             case 'gettingPopularBooksRejected':
-              return <div>Oops...</div>;
+                return <div>Oops...</div>;
             case 'gettingPopularBooksFulfilled':
-              return (
-                <BooksCarousel slides={viewmodel.mostPopularBooks} title={''} />
-              );
-      }
+                return (
+                    <BooksCarousel slides={viewmodel.mostPopularBooks} title={''} />
+                );
+        }
     })();
 
     return nodeToRender;

@@ -1,14 +1,15 @@
 import { jwtVerify } from 'jose';
 import { cookies } from 'next/headers';
 
-import type { AuthModel } from '@/modules/auth/model/auth.model';
+import type { AuthModel } from '@/modules/auth/core/model/auth.model';
 
 import { refreshTokenForUser } from '@/modules/auth/usecases/refresh-token.user';
-import { getBooksLastReleaseUseCase } from '@/modules/books/get-books/usecase/get-last-release-books/get-last-release-books.usecase';
-import { getPopularBooksUseCase } from '@/modules/books/get-books/usecase/get-popular-books/get-popular-books.usecase';
+import { getBooksLastReleaseUseCase } from '@/modules/books/usecases/get-last-release-books/core/get-last-release-books.usecase';
+import { getPopularBooksUseCase } from '@/modules/books/usecases/get-popular-books/core/get-popular-books.usecase';
 import { ssrApp } from '@/modules/main.ssr';
 import { myProfileTabState } from '@/modules/user/core/store/user.slice';
 import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
+
 
 
 export async function prefetchRootLayout() {

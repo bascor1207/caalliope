@@ -1,4 +1,4 @@
-import type { AuthModel } from '@/modules/auth/model/auth.model';
+import type { AuthModel } from '@/modules/auth/core/model/auth.model';
 
 import { createAppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
 
