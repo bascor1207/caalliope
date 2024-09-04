@@ -6,8 +6,9 @@ import { getBooksByUsecase } from '@/modules/books/usecases/get-catalog/core/get
 import { getBooksUseCase } from '@/modules/books/usecases/get-catalog/core/get-books.usecase';
 
 
+
 type InitialState = {
-    books: BooksModel.Book[];
+    books: Partial<BooksModel.Book>[];
 };
 
 type GetBooksSliceType = InitialState & {
