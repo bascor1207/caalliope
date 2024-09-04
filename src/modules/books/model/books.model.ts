@@ -4,6 +4,12 @@ import i18n from '@/i18n';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace BooksModel {
+
+ export type BookForCatalog = {
+  id: number;
+  image: string;
+ }
+
  export type Book = {
   id: number;
   title: string;
