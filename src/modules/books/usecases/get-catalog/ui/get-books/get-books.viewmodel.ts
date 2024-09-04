@@ -24,7 +24,7 @@ type BooksGettingRejected = {
 
 type BooksGettingFulfilled = {
     type: typeof gettingBooks.fulfilled,
-    books: BooksModel.Book[]
+    books: BooksModel.BookForCatalog[]
 }
 
 type ViewModelResponse = BooksGettingPending | BooksGettingRejected | BooksGettingFulfilled;

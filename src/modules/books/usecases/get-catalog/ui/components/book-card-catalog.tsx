@@ -7,7 +7,7 @@ import { BookCard } from '@/modules/books/usecases/get-catalog/ui/components/boo
 
 
 type Props = {
-    books: BooksModel.Book[];
+    books: BooksModel.BookForCatalog[];
 }
 
 export const BooksCatalog: FC<Props> = ({ books }) => {

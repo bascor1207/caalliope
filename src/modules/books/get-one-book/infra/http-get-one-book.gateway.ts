@@ -5,7 +5,7 @@ import { axiosInstance } from '@/modules/app/core/axios-instance';
 
 export class HttpGetOneBookGateway implements ConnectorToGetOneBook {
 
-    async getOneBookById(id: number): Promise<Partial<BooksModel.Book>> {
+    async getOneBookById(id: number): Promise<BooksModel.BookForCatalog> {
         const { data } = await axiosInstance.get(`/book/${id}`)
         return this.createReturnPayload(data.data);
     }

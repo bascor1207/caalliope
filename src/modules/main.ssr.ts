@@ -24,7 +24,7 @@ import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
 
 
 
-const book = BookFactory.create();
+// const book = BookFactory.create();
 
 export class SSRApp {
     public dependencies: Dependencies;
