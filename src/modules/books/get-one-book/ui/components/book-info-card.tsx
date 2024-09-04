@@ -11,15 +11,19 @@ type Props = {
 
 const generateStars = (rating?: number) => {
   const totalStars = 5;
-  const filledStars = rating && Math.floor(rating);
+  const filledStars = rating && Math.floor(rating) || 0;
   const halfStar = rating && rating % 1 !== 0;
-  const emptyStars = filledStars &&  totalStars - filledStars - (halfStar ? 1 : 0);
+  const emptyStars = totalStars - filledStars - (halfStar ? 1 : 0);
 
   return (
       <>
-          {Array(filledStars).fill(<span key={Math.random()}>★</span>)}
-          {halfStar && <span key={Math.random()}>☆</span>}
-          {Array(emptyStars).fill(<span key={Math.random()}>☆</span>)}
+          {Array.from({ length: filledStars }, (_, index) => (
+              <span key={`filled-${index}`}>★</span>
+          ))}
+          {halfStar && <span key='half'>☆</span>}
+          {Array.from({ length: emptyStars }, (_, index) => (
+              <span key={`empty-${index}`}>☆</span>
+          ))}
       </>
   );
 };
