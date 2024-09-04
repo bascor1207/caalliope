@@ -5,8 +5,13 @@ import { createAppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
 export const getBooksByUsecase = createAppAsyncThunk(
     'catalog/getBooksBy',
     async (payload: Payload, { extra: { getBooksAdapter } }) => {
+        try {
+
         const methodName = methodMap[payload.type];
         return await getBooksAdapter[methodName].call(getBooksAdapter, payload.value);
+        } catch(error) {
+            console.log(error, 'erroooooooooor')
+        }
     }
 )
 

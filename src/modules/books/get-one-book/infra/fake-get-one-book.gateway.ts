@@ -5,13 +5,6 @@ export class FakeGetOneBookGateway implements ConnectorToGetOneBook {
 
     returnedResponse!: BooksModel.Book;
 
-    getOneBookByAuthor(authorName: string): Promise<BooksModel.Book> {
-        return new Promise((resolve, reject) => {
-            if (!authorName) return reject();
-            return resolve(this.returnedResponse);
-        })
-    }
-
     getOneBookById(id: number): Promise<BooksModel.Book> {
         return new Promise((resolve, reject) => {
             if (!id) return reject();

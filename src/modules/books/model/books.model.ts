@@ -21,16 +21,27 @@ export namespace BooksModel {
  export type GetBooksReturn = {
   id: number;
   title: string;
-  author: Author;
+  author: AuthorFromBack;
   type: string;
-  subjects: Subject[];
+  genre: GenreFromBack[];
   publicationDate: Date;
-  image: string;
-  editions: Edition[];
+  cover: { filename: string };
+  publishing: EditionFromBack[];
   rating?: number;
   summary?: string;
-  reviews: Review[];
+  comment: ReviewFromBack[];
  };
+
+ type GenreFromBack = {
+  id: number;
+  genre: string;
+ }
+
+ type EditionFromBack = Omit<Edition, 'dateOfPublication'> & { publicationDate: string }
+
+ type ReviewFromBack = Omit<Review, 'comment' | 'date'> & { content: string; createdAt: string }
+
+ type AuthorFromBack = Pick<Author, 'id' | 'birthDate' | 'email' | 'image'> & { lastName: string; firstName: string }
 
  export type Author = {
   id?: number;
