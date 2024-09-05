@@ -10,6 +10,7 @@ import type { ConnectorToGetBooks } from '@/modules/books/usecases/get-catalog/c
 import type { ConnectorToLastReleaseBooks } from '@/modules/books/usecases/get-last-release-books/core/connector-to-last-release-books';
 import type { ConnectorToPopularBooks } from '@/modules/books/usecases/get-popular-books/core/connector-to-popular-books.gateway';
 import type { ConnectorToUpdateBookGateway } from '@/modules/books/usecases/update-book/core/connector-to-update-book.gateway';
+import type { ConnectorToUpdateEditionGateway } from '@/modules/books/usecases/update-edition/core/connector-to-update-edition.gateway';
 import type { ConnectorToDonateGateway } from '@/modules/donate/infra/connector-to-donate.gateway';
 import type { ConnectorToUserGateway } from '@/modules/user/core/connector-to-user.gateway';
 import type { ConnectorToAdminGateway } from '@/modules/user/usecases/admin/core/connector-to-admin.gateway';
@@ -23,14 +24,9 @@ import type { TypedUseSelectorHook } from 'react-redux';
 
 import { listenerMiddleware } from '@/modules/app/core/store/create-app-listener';
 import { rootReducer } from '@/modules/app/core/store/root-reducer';
-import { registerOnDetailsModalDisplayedForBookListener } from '@/modules/books/get-one-book/core/get-book.listeners';
-import {
-  registerOnUpdatedBookStatusErrorForUserListener,
-  registerOnUpdatedBookStatusForUserListener,
-  registerOnAuthChangeForUserListener,
-  registerOnEditionCreationForUserListener,
-  registerOnBookUpdateForUserListener,
-  registerOnBookCreationForUserListener,
+import { 
+  registerOnAuthChangeForUserListener, registerOnUserActionToInformHim,
+  registerOnUpdatedBookStatusErrorForUserListener, registerOnUpdatedBookStatusForUserListener
 } from '@/modules/user/core/store/user.listeners';
 
 import { FakeCookiesProvider } from '@/modules/app/infra/fake-cookies.provider';
@@ -42,6 +38,7 @@ import { FakeGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/
 import { FakeGetLastReleaseBooksGateway } from '@/modules/books/usecases/get-last-release-books/infra/fake-get-last-release-books.gateway';
 import { FakeGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/fake-get-popular-books.gateway';
 import { FakeUpdateBookGateway } from '@/modules/books/usecases/update-book/infra/fake-update-book.gateway';
+import { FakeUpdateEditionGateway } from '@/modules/books/usecases/update-edition/infra/fake-update-edition.gateway';
 import { FakeDonateGateway } from '@/modules/donate/infra/fake-donate.gateway';
 import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
 import { FakeAdminGateway } from '@/modules/user/usecases/admin/infra/fake-admin.gateway';
@@ -56,6 +53,7 @@ export type Dependencies = {
     createBookAdapter: ConnectorToCreateBookGateway;
     createEditionAdapter: ConnectorToCreateEditionGateway;
     updateBookAdapter: ConnectorToUpdateBookGateway;
+    updateEditionAdapter: ConnectorToUpdateEditionGateway;
     authAdapter: ConnectorToAuthGateway;
     userAdapter: ConnectorToUserGateway;
     donateAdapter: ConnectorToDonateGateway;
@@ -70,14 +68,10 @@ export const createStore = (
   return configureStore({
     reducer: rootReducer,
     middleware(getDefaultMiddleware) {
-      registerOnAuthChangeForUserListener();
-      registerOnDetailsModalDisplayedForBookListener();
-      registerOnEditionCreationForUserListener();
-      registerOnUpdatedBookStatusForUserListener();
-      registerOnBookUpdateForUserListener();
-      registerOnBookCreationForUserListener();
-      registerOnUpdatedBookStatusErrorForUserListener();
-      registerOnAuthChangeForUserListener();
+        registerOnAuthChangeForUserListener();
+        registerOnUserActionToInformHim();
+        registerOnUpdatedBookStatusErrorForUserListener();
+        registerOnUpdatedBookStatusForUserListener();
       return getDefaultMiddleware({
         thunk: {
           extraArgument: dependencies,
@@ -97,6 +91,7 @@ export const createTestStore = (
     createBookAdapter = new FakeCreateBookGateway(),
     createEditionAdapter = new FakeCreateEditionGateway(),
     updateBookAdapter = new FakeUpdateBookGateway(),
+    updateEditionAdapter = new FakeUpdateEditionGateway(),
     authAdapter = new FakeAuthGateway(),
     adminAdapter = new FakeAdminGateway(),
     userAdapter = new FakeUserGateway(),
@@ -108,7 +103,7 @@ export const createTestStore = (
   return createStore({
     getBooksAdapter, getPopularBooksAdapter, getLastReleaseBooksAdapter, getOneBookAdapter,
     createBookAdapter, createEditionAdapter,
-    authAdapter, userAdapter, adminAdapter, updateBookAdapter,
+    authAdapter, userAdapter, adminAdapter, updateBookAdapter, updateEditionAdapter,
     cookiesAdapter, donateAdapter
   }, preloadedState as never);
 };

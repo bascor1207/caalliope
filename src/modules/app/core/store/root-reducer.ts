@@ -9,13 +9,15 @@ import { getBooksReducer } from '@/modules/books/usecases/get-catalog/core/store
 import { getLastReleaseBooksSlice } from '@/modules/books/usecases/get-last-release-books/core/store/get-last-release-books.slice';
 import { getPopularBooksSlice } from '@/modules/books/usecases/get-popular-books/core/store/get-popular-books.slice';
 import { updateBookSlice } from '@/modules/books/usecases/update-book/core/store/update-book.slice';
+import { updateEditionSlice } from '@/modules/books/usecases/update-edition/core/store/update-edition.slice';
 import { userSlice } from '@/modules/user/core/store/user.slice';
 import { updateBookStatusSlice } from '@/modules/user/usecases/admin/core/store/update-book-status.slice';
 
 const actions = combineReducers({
     [createBookSlice.name]: createBookSlice.reducer,
     [createEditionSlice.name]: createEditionSlice.reducer,
-    [updateBookSlice.name]: updateBookSlice.reducer
+    [updateBookSlice.name]: updateBookSlice.reducer,
+    [updateEditionSlice.name]: updateEditionSlice.reducer
 })
 
 export const rootReducer = combineReducers({

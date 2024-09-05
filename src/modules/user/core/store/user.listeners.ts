@@ -6,6 +6,7 @@ import { authUser } from '@/modules/auth/usecases/auth.user'
 import { createBookUsecase } from '@/modules/books/usecases/create-book/core/create-book.usecase';
 import { createEditionUsecase } from '@/modules/books/usecases/create-edition/core/create-edition.usecase';
 import { updateBookUsecase } from '@/modules/books/usecases/update-book/core/update-book.usecase';
+import { updateEditionUsecase } from '@/modules/books/usecases/update-edition/core/update-edition.usecase';
 import { informUser } from '@/modules/user/core/store/user.slice';
 import { updateBookStatusUsecase } from '@/modules/user/usecases/admin/update-book-status.usecase';
 import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
@@ -17,6 +18,8 @@ const actionsToListen = [
     createEditionUsecase.rejected.type,
     updateBookUsecase.fulfilled.type,
     updateBookUsecase.rejected.type,
+    updateEditionUsecase.fulfilled.type,
+    updateEditionUsecase.rejected.type
 ];
 
 
@@ -34,39 +37,7 @@ export const registerOnUserActionToInformHim = () => {
     startAppListening({
         predicate: (action) => actionsToListen.includes(action.type),
         effect: async (action , { dispatch }) => {
-            const { message, type } = action.payload as BooksModel.InformUser;
-            dispatch(informUser({ message: message, type, status: 'displayed' }))
-        }
-    })
-}
-
-export const registerOnBookCreationForUserListener = () => {
-    startAppListening({
-        predicate: (action) =>
-            action.type === createBookUsecase.fulfilled.type || action.type === createBookUsecase.rejected.type,
-        effect: async (action, { dispatch }) => {
-            const { message, type } = action.payload as BooksModel.InformUser;
-            dispatch(informUser({ message: message, type, status: 'displayed' }))
-        }
-    })
-}
-
-export const registerOnEditionCreationForUserListener = () => {
-    startAppListening({
-        predicate: (action) =>
-            action.type === createEditionUsecase.fulfilled.type || action.type === createEditionUsecase.rejected.type,
-        effect: async (action, { dispatch }) => {
-            const { message, type } = action.payload as BooksModel.InformUser;
-            dispatch(informUser({ message: message, type, status: 'displayed' }))
-        }
-    })
-}
-
-export const registerOnBookUpdateForUserListener = () => {
-    startAppListening({
-        predicate: (action) =>
-            action.type === updateBookUsecase.fulfilled.type || action.type === updateBookUsecase.rejected.type,
-        effect: async (action, { dispatch }) => {
+            console.log(action.type)
             const { message, type } = action.payload as BooksModel.InformUser;
             dispatch(informUser({ message: message, type, status: 'displayed' }))
         }

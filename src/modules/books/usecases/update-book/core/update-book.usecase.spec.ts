@@ -50,7 +50,9 @@ function thenThereShouldBeAVisualIndicator() {
                 activeProfileTab: 'my-infos',
                 activeUser: {}
             },
-            actions: { updateBook: { success: true, error: false } }
+            actions: {
+                updateBook: { success: true, error: false }
+            }
         }
     });
     expect(store.getState()).toEqual(state);
@@ -61,7 +63,7 @@ function thenThereShouldBeAnErrorToast() {
         user: {
             getUser: {
                 informativeSpinner: false,
-                informativeToast: { type: 'error', message: 'There was an error trying create the book, please retry later', status: 'displayed' },
+                informativeToast: { type: 'error', message: 'There was an error trying update the book, please retry later', status: 'displayed' },
                 activeProfileTab: 'my-infos',
                 activeUser: {}
             },
