@@ -31,6 +31,7 @@ export const CustomToast = () => {
     );
 
     const iconClasses = 'w-6 h-6';
+    console.log(toast, 'hey je suis le toast');
 
     const SuccessIcon = () => (
         <svg xmlns='http://www.w3.org/2000/svg' className={iconClasses} viewBox='0 0 20 20' fill='currentColor'>

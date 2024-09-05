@@ -8,6 +8,7 @@ import { catalog } from '@/modules/catalog';
 
 // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
 import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
+// import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-get-one-book.gateway';
 // import { HttpCreateBookGateway } from '@/modules/books/usecases/create-book/infra/http-create-book.gateway';
 // import { HttpAuthGateway } from '@/modules/auth/infra/http-auth.gateway';
 // import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-get-one-book.gateway';
