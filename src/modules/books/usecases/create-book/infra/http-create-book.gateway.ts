@@ -7,10 +7,10 @@ import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
 export class HttpCreateBookGateway implements ConnectorToCreateBookGateway {
     async create(payload: BooksModel.AddBookFormSchemaType): Promise<BooksModel.InformUser | undefined> {
         try {
-            const { data } = await axiosInstance.post('/book', payload)
-            return data;
+            await axiosInstance.post('/book', payload)
+            return { message: 'La requête sera soumise à un administrateur', type: 'success', status: 'displayed' };
         } catch (error) {
-            CustomErrorWrapper.throwError({ message: 'Erreur imprévue' })
+            CustomErrorWrapper.throwError({ message: 'Erreur imprévue', type: 'error', status: 'displayed' })
         }
     }
 }

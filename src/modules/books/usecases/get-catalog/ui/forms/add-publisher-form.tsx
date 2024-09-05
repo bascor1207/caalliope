@@ -23,7 +23,6 @@ export const AddPublisherForm: FC = () => {
                 { value: 'audio', label: t('form.audio') }
             ]
         },
-        { id: 'cover', name: 'cover', label: t('form.cover'), type: 'file' }
     ] satisfies  Array<{id: string, name: keyof BooksModel.AddBookEditionForm, label: string, type: string, options?: {value: string, label: string}[]}>;
 
     return (

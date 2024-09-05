@@ -37,7 +37,6 @@ export const registerOnUserActionToInformHim = () => {
     startAppListening({
         predicate: (action) => actionsToListen.includes(action.type),
         effect: async (action , { dispatch }) => {
-            console.log(action.type)
             const { message, type } = action.payload as BooksModel.InformUser;
             dispatch(informUser({ message: message, type, status: 'displayed' }))
         }

@@ -169,7 +169,6 @@ export namespace BooksModel {
   nbPage: nbPageSchema,
   language: languageSchema,
   format: formatSchema,
-  cover: coverSchema,
  });
 
  export type AddBookEditionForm = z.infer<typeof addBookEditionFormSchema>;
