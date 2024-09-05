@@ -23,6 +23,8 @@ import { FakeCreateEditionGateway } from '@/modules/books/usecases/create-editio
 import { FakeGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/fake-get-books.gateway';
 import { FakeGetLastReleaseBooksGateway } from '@/modules/books/usecases/get-last-release-books/infra/fake-get-last-release-books.gateway';
 import { FakeGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/fake-get-popular-books.gateway';
+import { FakeUpdateBookGateway } from '@/modules/books/usecases/update-book/infra/fake-update-book.gateway';
+import { FakeUpdateEditionGateway } from '@/modules/books/usecases/update-edition/infra/fake-update-edition.gateway';
 import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
 import { FakeAdminGateway } from '@/modules/user/usecases/admin/infra/fake-admin.gateway';
 
@@ -69,6 +71,8 @@ export class SSRApp {
         getLastReleaseBooksAdapter.returnedResponse = catalog;
 
         const createEditionAdapter = new FakeCreateEditionGateway();
+        const updateBookAdapter = new FakeUpdateBookGateway();
+        const updateEditionAdapter = new FakeUpdateEditionGateway();
 
         return {
             getBooksAdapter,
@@ -81,7 +85,9 @@ export class SSRApp {
             cookiesAdapter,
             donateAdapter,
             createBookAdapter,
-            createEditionAdapter
+            createEditionAdapter,
+            updateEditionAdapter,
+            updateBookAdapter
         };
     }
 }

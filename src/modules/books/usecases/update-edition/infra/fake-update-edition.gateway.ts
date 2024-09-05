@@ -1,12 +1,12 @@
 import type { BooksModel } from '@/modules/books/model/books.model';
-import type { ConnectorToUpdateBookGateway } from '@/modules/books/usecases/update-book/core/connector-to-update-book.gateway';
+import type { ConnectorToUpdateEditionGateway } from '@/modules/books/usecases/update-edition/core/connector-to-update-edition.gateway';
 
 import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
 import { BookFactory } from '@/modules/books/model/books.factory';
 
-export class FakeUpdateBookGateway implements ConnectorToUpdateBookGateway {
+export class FakeUpdateEditionGateway implements ConnectorToUpdateEditionGateway {
     books!: BooksModel.Book[];
-    bookToUpdate!: BooksModel.Book | undefined;
+    editionToUpdate!: BooksModel.Book | undefined;
     resolvedValue!: BooksModel.InformUser;
     rejectedValue!: BooksModel.InformUser;
 
@@ -14,12 +14,12 @@ export class FakeUpdateBookGateway implements ConnectorToUpdateBookGateway {
         this.setup()
     }
 
-    async updateBook(payload: BooksModel.EditBookForm): Promise<BooksModel.InformUser | undefined> {
+    async updateEdition(payload: BooksModel.EditBookForm): Promise<BooksModel.InformUser | undefined> {
         return new Promise((resolve) => {
             if (Object.keys(payload).length < 1) {
                 CustomErrorWrapper.throwError(this.rejectedValue)
             }
-            if (!this.bookToUpdate) {
+            if (!this.editionToUpdate) {
                 CustomErrorWrapper.throwError(this.rejectedValue)
             }
             resolve(this.resolvedValue)
@@ -34,7 +34,7 @@ export class FakeUpdateBookGateway implements ConnectorToUpdateBookGateway {
         }
         this.rejectedValue = {
             status: 'displayed',
-            message: 'There was an error trying update the book, please retry later',
+            message: 'There was an error trying update the edition, please retry later',
             type: 'error'
         };
         this.books = [BookFactory.create(), BookFactory.create({ id: 2 })]
