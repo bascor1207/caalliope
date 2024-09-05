@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-import { createEditionUsecase } from '@/modules/books/usecases/create-edition/core/create-editon.usecase';
+import { createEditionUsecase } from '@/modules/books/usecases/create-edition/core/create-edition.usecase';
 
 
 type InitialState = {

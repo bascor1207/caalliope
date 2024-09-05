@@ -32,15 +32,19 @@ async function whenRegisteringBookData(payload: BooksModel.AddBookFormSchemaType
 
 function thenThereShouldBeAnSuccessfulToast() {
     const state = createTestState({
-        bookCreation: { createBook: { success: true, error: false } },
-        user: { getUser: {
-            informativeSpinner: false,
-            informativeToast: { type: 'success', message: 'The demand will be proceeded by an admin', status: 'displayed' },
-            activeProfileTab: 'my-infos',
-            activeUser: {},
-            contactFormState: 'hidden',
-            editProfileFormState: 'hidden'
-        } }
+        user: {
+            getUser: {
+                informativeSpinner: false,
+                informativeToast: { type: 'success', message: 'The demand will be proceeded by an admin', status: 'displayed' },
+                activeProfileTab: 'my-infos',
+                activeUser: {},
+                contactFormState: 'hidden',
+                editProfileFormState: 'hidden'
+            },
+            actions: {
+                createBook: { success: true, error: false }
+            }
+    }
     });
 
     expect(store.getState()).toEqual(state)
@@ -48,15 +52,19 @@ function thenThereShouldBeAnSuccessfulToast() {
 
 function thenThereShouldBeAnErrorToast() {
     const state = createTestState({
-        bookCreation: { createBook: { success: false, error: true } },
-        user: { getUser: {
+        user: {
+            getUser: {
                 informativeSpinner: false,
                 informativeToast: { type: 'error', message: 'There was an error trying create the book, please retry later', status: 'displayed' },
                 activeProfileTab: 'my-infos',
                 activeUser: {},
                 contactFormState: 'hidden',
                 editProfileFormState: 'hidden'
-            } }
+            },
+            actions: {
+                createBook: { success: false, error: true }
+            }
+        }
     });
     expect(store.getState()).toEqual(state)
 }

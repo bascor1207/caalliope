@@ -5,7 +5,7 @@ import { axiosInstance } from '@/modules/app/core/axios-instance';
 import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
 
 export class HttpCreateBookGateway implements ConnectorToCreateBookGateway {
-    async create(payload: BooksModel.AddBookFormSchemaType): Promise<BooksModel.BookCreation | undefined> {
+    async create(payload: BooksModel.AddBookFormSchemaType): Promise<BooksModel.InformUser | undefined> {
         try {
             const { data } = await axiosInstance.post('/book', payload)
             return data;

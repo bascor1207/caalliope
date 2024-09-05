@@ -12,7 +12,7 @@ export const createBookUsecase = createAppAsyncThunk(
             if (error instanceof CustomErrorWrapper) {
                 return  rejectWithValue(error.payload)
             }
-            return rejectWithValue({ message: 'Erreur inconnue' })
+            return rejectWithValue({ message: 'Erreur inconnue', type: 'error' })
         }
     }
 )

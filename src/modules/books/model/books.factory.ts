@@ -76,4 +76,32 @@ export class BookFactory {
             ...data
         };
     }
+
+    static createPayloadForBookUpdate(data?: Partial<BooksModel.EditBookForm>): BooksModel.EditBookForm {
+        return {
+            isbn: '9783161484100',
+            title: 'Les mystères de la nuit',
+            author: 'Jean Dupont',
+            date: new Date('2023-06-15'),
+            editor: 'Éditions OpenAI',
+            translator: 'Marie Curie',
+            nbPage: 256,
+            language: 'français',
+            format: 'paper',
+            ...data
+        };
+    }
+
+    static createPayloadForEditionUpdate(data?: BooksModel.EditBookEditionForm): BooksModel.EditBookEditionForm {
+        return {
+            isbn: '9783161484100',
+            date: new Date('2023-06-15'),
+            editor: 'Éditions OpenAI',
+            translator: 'Marie Curie',
+            nbPage: 256,
+            language: 'français',
+            format: 'paper',
+            ...data
+        }
+    }
 }

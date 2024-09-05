@@ -1,10 +1,12 @@
-
 import type { BooksModel } from '@/modules/books/model/books.model';
-import type { ConnectorToCreateBookGateway } from '@/modules/books/usecases/create-book/core/connector-to-create-book.gateway';
+import type { ConnectorToUpdateBookGateway } from '@/modules/books/usecases/update-book/core/connector-to-update-book.gateway';
 
 import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
+import { BookFactory } from '@/modules/books/model/books.factory';
 
-export class FakeCreateBookGateway implements ConnectorToCreateBookGateway {
+export class FakeUpdateBookGateway implements ConnectorToUpdateBookGateway {
+    books!: BooksModel.Book[];
+    bookToUpdate!: BooksModel.Book | undefined;
     resolvedValue!: BooksModel.InformUser;
     rejectedValue!: BooksModel.InformUser;
 
@@ -12,10 +14,13 @@ export class FakeCreateBookGateway implements ConnectorToCreateBookGateway {
         this.setup()
     }
 
-    async create(payload: BooksModel.AddBookFormSchemaType): Promise<BooksModel.InformUser> {
+    async updateBook(payload: BooksModel.EditBookForm): Promise<BooksModel.InformUser | undefined> {
         return new Promise((resolve) => {
             if (Object.keys(payload).length < 1) {
-               CustomErrorWrapper.throwError(this.rejectedValue)
+                CustomErrorWrapper.throwError(this.rejectedValue)
+            }
+            if (!this.bookToUpdate) {
+                CustomErrorWrapper.throwError(this.rejectedValue)
             }
             resolve(this.resolvedValue)
         })
@@ -32,5 +37,6 @@ export class FakeCreateBookGateway implements ConnectorToCreateBookGateway {
             message: 'There was an error trying create the book, please retry later',
             type: 'error'
         };
+        this.books = [BookFactory.create(), BookFactory.create({ id: 2 })]
     }
 }

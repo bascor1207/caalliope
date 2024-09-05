@@ -4,10 +4,21 @@ import type { UsersModel } from '@/modules/user/core/model/users.model';
 import { startAppListening } from '@/modules/app/core/store/create-app-listener';
 import { authUser } from '@/modules/auth/usecases/auth.user'
 import { createBookUsecase } from '@/modules/books/usecases/create-book/core/create-book.usecase';
-import { createEditionUsecase } from '@/modules/books/usecases/create-edition/core/create-editon.usecase';
+import { createEditionUsecase } from '@/modules/books/usecases/create-edition/core/create-edition.usecase';
+import { updateBookUsecase } from '@/modules/books/usecases/update-book/core/update-book.usecase';
 import { informUser } from '@/modules/user/core/store/user.slice';
 import { updateBookStatusUsecase } from '@/modules/user/usecases/admin/update-book-status.usecase';
 import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
+
+const actionsToListen = [
+    createBookUsecase.fulfilled.type,
+    createBookUsecase.rejected.type,
+    createEditionUsecase.fulfilled.type,
+    createEditionUsecase.rejected.type,
+    updateBookUsecase.fulfilled.type,
+    updateBookUsecase.rejected.type,
+];
+
 
 export const registerOnAuthChangeForUserListener = () => {
    startAppListening({
@@ -19,42 +30,45 @@ export const registerOnAuthChangeForUserListener = () => {
     })
 }
 
-export const registerOnBookCreationSuccessForUserListener = () => {
+export const registerOnUserActionToInformHim = () => {
     startAppListening({
-        actionCreator: createBookUsecase.fulfilled,
-        effect: async (action, { dispatch }) => {
-            const { message } = action.payload as BooksModel.BookCreation;
-            dispatch(informUser({ message: message, type: 'success', status: 'displayed' }))
+        predicate: (action) => actionsToListen.includes(action.type),
+        effect: async (action , { dispatch }) => {
+            const { message, type } = action.payload as BooksModel.InformUser;
+            dispatch(informUser({ message: message, type, status: 'displayed' }))
         }
     })
 }
 
-export const registerOnBookCreationErrorForUserListener = () => {
+export const registerOnBookCreationForUserListener = () => {
     startAppListening({
-        actionCreator: createBookUsecase.rejected,
+        predicate: (action) =>
+            action.type === createBookUsecase.fulfilled.type || action.type === createBookUsecase.rejected.type,
         effect: async (action, { dispatch }) => {
-            const { message } = action.payload as BooksModel.BookCreation;
-            dispatch(informUser({ message, type: 'error', status: 'displayed' }))
+            const { message, type } = action.payload as BooksModel.InformUser;
+            dispatch(informUser({ message: message, type, status: 'displayed' }))
         }
     })
 }
 
-export const registerOnEditionCreationSuccessForUserListener = () => {
+export const registerOnEditionCreationForUserListener = () => {
     startAppListening({
-        actionCreator: createEditionUsecase.fulfilled,
+        predicate: (action) =>
+            action.type === createEditionUsecase.fulfilled.type || action.type === createEditionUsecase.rejected.type,
         effect: async (action, { dispatch }) => {
-            const { message } = action.payload as BooksModel.BookCreation;
-            dispatch(informUser({ message: message, type: 'success', status: 'displayed' }))
+            const { message, type } = action.payload as BooksModel.InformUser;
+            dispatch(informUser({ message: message, type, status: 'displayed' }))
         }
     })
 }
 
-export const registerOnEditionCreationErrorForUserListener = () => {
+export const registerOnBookUpdateForUserListener = () => {
     startAppListening({
-        actionCreator: createEditionUsecase.rejected,
+        predicate: (action) =>
+            action.type === updateBookUsecase.fulfilled.type || action.type === updateBookUsecase.rejected.type,
         effect: async (action, { dispatch }) => {
-            const { message } = action.payload as BooksModel.BookCreation;
-            dispatch(informUser({ message, type: 'error', status: 'displayed' }))
+            const { message, type } = action.payload as BooksModel.InformUser;
+            dispatch(informUser({ message: message, type, status: 'displayed' }))
         }
     })
 }
