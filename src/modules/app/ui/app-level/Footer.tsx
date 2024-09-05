@@ -7,7 +7,7 @@ export const Footer = () => {
     return (
         <div className='flex items-center justify-end text-custom-dark-purple p-5 h-24'>
             <div className='flex items-center gap-12'>
-                <Link className='flex justify-center text-lg cursor-pointer hover:font-bold' href='/'>
+                <Link className='flex justify-center text-lg cursor-pointer hover:font-bold' href='/donate'>
                     { t('footer.donation') }
                 </Link>
                 <Link className='flex justify-center text-lg cursor-pointer hover:font-bold' href='/'>

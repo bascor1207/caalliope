@@ -4,35 +4,32 @@
     "valid": "Valider",
     "required": "Champs requis",
     "inProgress": "En cours",
-    "finish": "Terminé",
-    "giveUp": "Abandonner",
-    "toRead": "À lire",
+    "finish": "Terminés",
+    "giveUp": "Abandonné",     
+    "toRead": "A lire", 
     "read": "Lu",
-    "whislist": "Liste de souhaits",
-    "notOwned": "Non possédé",
+    "whislist": "A acheter", 
+    "notOwned": "Non possédé", 
     "delete": "Supprimer",
-    "state": "État",
+    "state": "Status",
     "addABook": "Ajouter un livre",
     "add": "Ajouter",
     "edit": "Modifier",
     "saga": "Saga",
-    "oneShot": "One shot",
+    "oneShot": "One shot",   
+    "yes": "Oui",
+    "no": "No",
     "lastname": "Nom :",
     "firstname": "Prénom :",
     "email": "Email :",
+    "thankyou": "Merci pour votre don",
     "navbar": {
         "library": "Bibliothèque",
+        "login": "Se Connecter",
         "account": "Profil",
         "en": "Anglais",
-        "fr": "Français",
-        "profile": "Profil",
-        "myBooks": "Mes livres",
-        "logout": "Se déconnecter",
-        "catalog": "Catalogue",
-        "signIn": "Se connecter",
-        "signUp": "S'inscrire",
-        "login": "Se connecter"
-    },
+        "fr": "Français"
+    }, 
     "footer": {
         "donation": "Faire un don",
         "contact": "Nous Contacter"
@@ -44,10 +41,7 @@
     "loginPage": {
         "title": "Veuillez-vous identifier :",
         "noAccount": "Pas de compte",
-        "register": "Inscrivez-vous",
-        "login": "Identifiant :",
-        "password": "Mot de passe :",
-        "valid": "Valider"
+        "register": "Inscrivez-vous"
     },
     "register": {
         "title": "Créer votre compte"
@@ -95,7 +89,7 @@
         "ebook": "E-book",
         "audio": "Audio",
         "language": "Langue",
-        "cover": "Couverture du livre",
+        "cover": "Couverture",
         "noFile": "Aucun fichier",
         "birthDate": "Date de naissance",
         "deathDate": "Date de décés",
@@ -111,21 +105,6 @@
             "bookList": "Liste des livres",
             "authorList": "Liste des auteurs",
             "reject": "Refuser"
-        },
-        "errors": {
-            "required": "Ce champ est requis.",
-            "invalidEmail": "Adresse email invalide.",
-            "minLength": "Ce champ doit contenir au moins {{count}} caractères.",
-            "maxLength": "Ce champ ne peut pas contenir plus de {{count}} caractères.",
-            "minValue": "La valeur doit être supérieure ou égale à {{count}}.",
-            "maxValue": "La valeur doit être inférieure ou égale à {{count}}.",
-            "invalidDate": "Format de date invalide.",
-            "invalidNumber": "Ce champ doit être un nombre valide.",
-            "passwordMismatch": "Les mots de passe ne correspondent pas.",
-            "isbnInvalid": "L'ISBN doit être un numéro valide (10 ou 13 caractères).",
-            "fileTooLarge": "Le fichier est trop volumineux.",
-            "fileTypeInvalid": "Type de fichier non pris en charge."
         }
-    },
-    "error": "Une erreur est survenue, merci de contacter le service"
+    }
 }
