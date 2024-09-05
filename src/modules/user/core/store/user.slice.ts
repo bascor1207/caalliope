@@ -34,6 +34,7 @@ export const userSlice = createSlice({
         },
 
         informUser: (state, action: PayloadAction<InitialState['informativeToast']>) => {
+            console.log(action.payload)
             state.informativeToast.status = action.payload.status;
             state.informativeToast.type = action.payload.type;
             state.informativeToast.message = action.payload.message

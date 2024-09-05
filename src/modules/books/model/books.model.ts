@@ -84,13 +84,7 @@ export namespace BooksModel {
   avatar: string;
  };
 
- export type BookCreation = {
-  status: 'displayed';
-  message: string;
-  type: 'success' | 'error';
- };
-
- export type EditionCreation = {
+ export type InformUser = {
   status: 'displayed';
   message: string;
   type: 'success' | 'error';
