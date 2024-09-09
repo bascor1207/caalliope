@@ -17,7 +17,7 @@ export const Header = () => {
     return (
         <CustomNavBar
             renderLogo={() => (
-                <Link href='/'>
+                <Link href={'/'}>
                     <Image src='/logo.png' alt={presenter.t('navbar.homePage')} width={150} height={150} />
                 </Link>
             )}
@@ -27,7 +27,7 @@ export const Header = () => {
             renderRightContent={() => (
                 <>
                     <Select
-                        defaultSelectedKeys={[presenter.t(`navbar.${presenter.i18n.language}`)]}
+                        defaultSelectedKeys={[presenter.t(`navbar.${presenter.locale}`)]}
                         className='bg-custom-grey w-1/4'
                         labelPlacement='inside'
                         size='sm'
@@ -38,6 +38,7 @@ export const Header = () => {
                         {presenter.languages.map((language) => {
                             const shortKeyForSVG = language === 'English' ? 'gb' : 'fr';
                             const shortKeyForTrad = language === 'English' ? 'en' : 'fr';
+                            console.log(shortKeyForTrad)
                             return (
                                 <SelectItem
                                     key={language}
@@ -53,7 +54,7 @@ export const Header = () => {
                     <Button
                         radius='md'
                         size='md'
-                        onPress={() => presenter.router.push('/catalog')}
+                        onPress={() => presenter.router.push(`/${presenter.locale}/catalog`)}
                         variant='light'
                         className={twMerge(
                             'text-custom-dark-purple px-8',

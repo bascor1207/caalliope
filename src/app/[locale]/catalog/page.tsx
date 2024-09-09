@@ -1,6 +1,6 @@
 import { headers } from 'next/headers';
 
-import { prefetchCatalogLayout } from '@/app/catalog/prefetchCatalogLayout';
+import { prefetchCatalogLayout } from '@/app/[locale]/catalog/prefetchCatalogLayout';
 import { CatalogPage } from '@/modules/books/ui/pages/catalog.page';
 
 export async function generateMetadata({ searchParams }: {searchParams?: { [key: string]: string | undefined }}) {

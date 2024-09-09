@@ -32,11 +32,12 @@ import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
 // const book = BookFactory.create();
 
 export class App {
-    public dependencies: Dependencies;
-    public store: AppStore;
+    public dependencies!: Dependencies;
+    public store!: AppStore;
 
     constructor(initialState?: RootState) {
-        initLocale();
+        const language = HttpCookiesProvider.getCookie('i18next')
+        initLocale(language || 'fr')
         this.dependencies = this.setupDependencies();
         this.store = createStore(this.dependencies, initialState);
     }

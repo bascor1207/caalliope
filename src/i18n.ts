@@ -4,7 +4,7 @@ import { initReactI18next } from 'react-i18next';
 import enTranslation from '@/locales/en/translation.json';
 import frTranslation from '@/locales/fr/translation.json';
 
-export const initLocale = () => {
+export const initLocale = (language: string) => {
     const resources = {
         en: {
             translation: enTranslation
@@ -13,17 +13,17 @@ export const initLocale = () => {
             translation: frTranslation
         }
     };
-    i18n.use(initReactI18next) // passes i18n down to react-i18next
+    i18n.use(initReactI18next)
         .init({
             resources,
-            lng: 'en',
-            fallbackLng: 'fr', // use fr if detected lng is not available
-            saveMissing: true, // send not translated keys to endpoint
+            lng: language,
+            fallbackLng: 'fr',
+            saveMissing: true,
             interpolation: {
-                escapeValue: false // react already safes from xss
+                escapeValue: false
             },
             react: {
-                useSuspense: false // don't use Suspense
+                useSuspense: false
             }
         });
 

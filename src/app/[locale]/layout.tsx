@@ -1,9 +1,11 @@
+import { cookies } from 'next/headers';
 import React from 'react';
 
 import type { Metadata } from 'next';
 import type { FC, PropsWithChildren } from 'react';
 
-import { prefetchRootLayout } from '@/app/prefetchRootLayout';
+import { prefetchRootLayout } from '@/app/[locale]/prefetchRootLayout';
+import { initI18next } from '@/app/i18n/server';
 import { Footer } from '@/modules/app/ui/app-level/Footer';
 import { Header } from '@/modules/app/ui/app-level/Header';
 import { Modals } from '@/modules/app/ui/app-level/modals';
@@ -18,10 +20,12 @@ export const metadata: Metadata = {
 };
 
 const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
+    const language = cookies().get('i18next')?.value || 'fr';
+    await initI18next(language as 'en' | 'fr', 'translation');
     const initialState = await prefetchRootLayout()
 
     return (
-        <html lang='fr' suppressHydrationWarning>
+        <html lang={language} suppressHydrationWarning>
         <body className='light min-h-screen flex flex-col bg-background font-sans antialiased overflow-x-hidden'>
         <AppWrapper initialState={initialState}>
             <Modals/>

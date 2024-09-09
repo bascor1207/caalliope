@@ -1,4 +1,4 @@
-import { destroyCookie, setCookie } from 'nookies';
+import { destroyCookie, parseCookies, setCookie } from 'nookies';
 
 import type { CookiesInterface } from '@/modules/app/core/cookies.interface';
 
@@ -9,5 +9,10 @@ export class HttpCookiesProvider implements CookiesInterface {
 
     setCookie(cookieName: string, cookieValue: string): void {
         setCookie(null, cookieName, cookieValue)
+    }
+
+    static getCookie(cookieName: string): string | undefined {
+       const cookies = parseCookies();
+       return cookies?.[cookieName]
     }
 }

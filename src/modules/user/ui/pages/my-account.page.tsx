@@ -1,7 +1,8 @@
 'use client'
 import { Tab, Tabs } from '@nextui-org/react';
 
-import { useMyAccountPage } from '@/app/my-account/useMyAccountPage';
+import { useMyAccountPage } from '@/app/[locale]/my-account/useMyAccountPage';
+import { AdminSection } from '@/modules/user/ui/sections/admin.section';
 import { MyAbandonedBooksSection } from '@/modules/user/ui/sections/my-abandoned-books.section';
 import { MyBooksToReadSections } from '@/modules/user/ui/sections/my-books-to-read.sections';
 import { MyInfosSection } from '@/modules/user/ui/sections/my-infos.section';
