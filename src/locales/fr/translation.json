@@ -74,6 +74,10 @@
         "username": "Pseudo",
         "newPassword": "Nouveau mot de passe"
     },
+    "donate": {
+        "successTitle": "Paiement réussi !",
+        "thanks": "Merci pour votre don ! Votre soutien nous est précieux et nous permet de continuer à vous proposer des services de qualité."
+    },
     "form": {
         "editing": "Modifier un livre",
         "editingAuthor": "Modifier les informations d'un auteur",

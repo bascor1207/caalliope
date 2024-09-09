@@ -6,26 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 import type { FC } from 'react';
 
-// import styles from './donate-form.module.scss';
 import { HttpDonateGateway } from '../../infra/http-donate.gateway';
-
-// const cardElementOptions = {
-//     style: {
-//       base: {
-//         color: 'black',
-//         fontSize: '16px',
-//         fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-//         '::placeholder': {
-//           color: 'black',
-//             },
-//         padding: '10px',
-//       },
-//       invalid: {
-//         color: '#e5424d',
-//         iconColor: '#e5424d',
-//       },
-//     },
-//   };
 
 export const DonateForm: FC = () => {
   const [amount, setAmount] = useState(0);

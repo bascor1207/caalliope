@@ -75,6 +75,10 @@
         "username": "Username",
         "newPassword": "New password"
     },
+    "donate": {
+        "successTitle": "Payment successful!",
+        "thanks": "Thank you for your donation! Your support is invaluable to us."
+    },
     "form": {
         "editing": "Editing a book",
         "editingAuthor": "Editing author information",
