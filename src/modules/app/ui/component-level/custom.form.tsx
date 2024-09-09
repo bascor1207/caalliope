@@ -117,6 +117,7 @@ export const CustomForm = <TFormValues extends FieldValues, ReturnType, A>(
                                     defaultValue={field.value}
                                     value={field.value}
                                     classNames={validator.classNames}
+                                    className='text-base'
                                     onClear={() => validator.resetField(field.name)}
                                     onChange={validator.handleChange(field, item.type)}
                                     isRequired={validator.isRequired(item.id)}

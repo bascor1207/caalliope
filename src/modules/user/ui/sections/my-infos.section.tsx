@@ -5,7 +5,7 @@ import { CustomCard } from '@/modules/app/ui/component-level/custom.card';
 import { selectActiveUser } from '@/modules/user/core/store/user.selectors';
 
 
-export const MyInfosPage = () => {
+export const MyInfosSection = () => {
     const { t } = useTranslation()
     const activeUser = useAppSelector(selectActiveUser);
 

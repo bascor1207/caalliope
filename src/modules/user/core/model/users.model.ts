@@ -30,6 +30,7 @@ export namespace UsersModel {
         myWishlist: WishBook[];
         roles: Array<'user' | 'admin'>;
         password: string;
+        waitingForValidationBooks?: BaseUserBook[];
     }
 
     export type Avatar = {
@@ -41,6 +42,7 @@ export namespace UsersModel {
         title: string;
         type: string;
         image: string;
+        status: '';
     }
 
     export type ToReadBook = BaseUserBook & {
@@ -82,4 +84,10 @@ export namespace UsersModel {
         type: string;
         image: string;
     }
+
+    export const contactUsSchema = z.object({
+        reason: z.string().min(1, { message: i18n.t('form.errors.required') }),
+    })
+
+    export type ContactUsForm = z.infer<typeof contactUsSchema>;
 }

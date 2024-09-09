@@ -9,16 +9,18 @@ import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-us
 
 type InitialState = {
     activeUser: UsersModel.User
-    activeProfileTab: 'my-infos' | 'my-books' | 'my-readings' | 'my-wishlist' | 'my-abandoned-books';
+    activeProfileTab: 'admin' | 'my-infos' | 'my-books' | 'my-readings' | 'my-wishlist' | 'my-abandoned-books';
     informativeToast: {status: 'displayed' | 'hidden', message: string, type: 'success' | 'error' | 'noTyped'};
     informativeSpinner: boolean;
+    contactFormState: 'displayed' | 'hidden'
 }
 
 const initialState: InitialState = {
     activeUser: {} as UsersModel.User,
     activeProfileTab: 'my-infos',
     informativeToast: { status: 'hidden', message: '', type: 'noTyped' },
-    informativeSpinner: false
+    informativeSpinner: false,
+    contactFormState: 'hidden'
 }
 
 export const userSlice = createSlice({
@@ -37,6 +39,10 @@ export const userSlice = createSlice({
 
         showUserHeShouldWait: (state, action: PayloadAction<boolean>) => {
             state.informativeSpinner = action.payload;
+        },
+
+        contactUs: (state, action: PayloadAction<'displayed' | 'hidden'>) => {
+            state.contactFormState = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -58,4 +64,4 @@ export const userSlice = createSlice({
     }
 });
 
-export const { myProfileTabState, informUser, showUserHeShouldWait } = userSlice.actions;
+export const { myProfileTabState, informUser, showUserHeShouldWait, contactUs } = userSlice.actions;

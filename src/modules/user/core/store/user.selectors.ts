@@ -23,3 +23,8 @@ export const selectInformativeSpinner = createSelector(
     [selectUserState],
     (userState) => userState.informativeSpinner
 )
+
+export const selectContactFormState = createSelector(
+    [selectUserState],
+    (userState) => userState.contactFormState
+)

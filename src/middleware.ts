@@ -10,28 +10,32 @@ export function middleware(request: NextRequest) {
     }
 
     const token = request.cookies.get('token');
-    if (!token && url.pathname.includes('/my-account')) {
+    if (!token && url.pathname.startsWith('/my-account')) {
         url.pathname = '/auth/sign-in';
         return NextResponse.redirect(url);
     }
-    const searchParams = url.searchParams;
-    searchParams.delete('activeTab');
-    const existingCookieActiveTab = request.cookies.get('activeTab')?.value;
-    const queryActiveTab = request.nextUrl.searchParams.get('activeTab');
 
-    const activeTab = queryActiveTab || existingCookieActiveTab || 'my-infos';
+    if (url.searchParams.get('activeTab')) {
+        const searchParams = url.searchParams;
+        searchParams.delete('activeTab');
+        const existingCookieActiveTab = request.cookies.get('activeTab')?.value;
+        const queryActiveTab = request.nextUrl.searchParams.get('activeTab');
 
-    const response = NextResponse.redirect(url.toString());
-    response.cookies.set('activeTab', activeTab, {
-        path: '/',
-        maxAge: 60 * 60 * 24 * 7
-    });
-    return response;
+        const activeTab = queryActiveTab || existingCookieActiveTab || 'my-infos';
+
+        const response = NextResponse.redirect(url.toString());
+        response.cookies.set('activeTab', activeTab, {
+            path: '/',
+            maxAge: 60 * 60 * 24 * 7
+        });
+        return response;
+    }
+
+    return NextResponse.next();
 }
 
 export const config = {
     matcher: [
-        { source: '/my-account', has: [{ type: 'query', key:'activeTab' }] },
         { source: '/my-account' },
         { source: '/auth' }
     ]

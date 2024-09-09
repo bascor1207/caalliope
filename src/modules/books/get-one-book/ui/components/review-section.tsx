@@ -1,5 +1,5 @@
 import {
- Avatar, Button, Card, CardBody, CardHeader 
+ Avatar, Button, Card, CardBody, CardHeader
 } from '@nextui-org/react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -47,7 +47,7 @@ export const ReviewSection: FC<Props> = ({ book }) => {
             {t('library.addReview')}
           </Button>
         </div>
-        <CustomModal isShown={isShown} hideModal={toggle} modalContent={<AddReviewForm />} />
+        <CustomModal modalTitle={'Ajouter une critique'} isShown={isShown} hideModal={toggle} modalContent={<AddReviewForm />} />
       </div>
   );
 };

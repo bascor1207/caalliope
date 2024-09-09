@@ -5,15 +5,17 @@ import { CustomCard } from '@/modules/app/ui/component-level/custom.card';
 import { selectActiveUser } from '@/modules/user/core/store/user.selectors';
 import { UserBookCard } from '@/modules/user/ui/components/user-book.card';
 
-export const MyAbandonedBooksPage = () => {
+export const MyBooksToReadSections = () => {
     const { t } = useTranslation()
     const activeUser = useAppSelector(selectActiveUser);
 
     const content = () => {
         return (
             <div className='grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
-                {activeUser.myAbandonedBooks.map((book) => (
-                    <UserBookCard key={book.id} book={book}/>
+                {activeUser.myBooksToRead.map((book) => (
+                    <div key={book.id}>
+                        <UserBookCard book={book}/>
+                    </div>
                 ))}
             </div>
         )
