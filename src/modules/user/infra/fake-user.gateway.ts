@@ -35,13 +35,13 @@ export class FakeUserGateway implements ConnectorToUserGateway {
       }): Promise<void> {
         return new Promise((resolve, reject) => {
           const user = this.users.find((user) => user.id === userId);
-      
+
           if (!user) {
             return reject('User not found');
           }
-      
+
           const bookWithStatus = { ...book, status };
-      
+
           switch (status) {
             case 'toRead':
               user.myBooksToRead.push(bookWithStatus as UsersModel.ToReadBook);
@@ -61,7 +61,7 @@ export class FakeUserGateway implements ConnectorToUserGateway {
             default:
               return reject('Invalid status');
           }
-      
+
           resolve();
         });
       }
@@ -69,7 +69,7 @@ export class FakeUserGateway implements ConnectorToUserGateway {
     private setupUsers() {
         return ([
             UserFactory.create(),
-            UserFactory.create({ id: '2', myBooksToRead, myInProgressBooks, myAlreadyReadBooks, myAbandonedBooks, myWishlist })
+            UserFactory.create({ id: '2', myBooksToRead, myInProgressBooks, myAlreadyReadBooks, myAbandonedBooks, myWishlist, roles: ['admin'] })
         ])
     }
 }

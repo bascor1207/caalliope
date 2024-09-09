@@ -7,7 +7,7 @@ import { CustomCard } from '@/modules/app/ui/component-level/custom.card';
 
 
 type UserBookCardProps = {
-    book: UsersModel.ToReadBook | UsersModel.InProgressBook | UsersModel.AlreadyReadBook | UsersModel.AbandonedBook | UsersModel.WishBook;
+    book: UsersModel.ToReadBook | UsersModel.InProgressBook | UsersModel.AlreadyReadBook | UsersModel.AbandonedBook | UsersModel.WishBook | UsersModel.BaseUserBook;
 }
 
 

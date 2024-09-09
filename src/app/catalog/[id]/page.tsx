@@ -1,27 +1,26 @@
-'use client';
-
-import { usePathname } from 'next/navigation';
-import { useDispatch } from 'react-redux';
-
-import type { AppDispatch } from '@/modules/app/core/store/create-store';
-
-import { BookInfo } from '@/modules/books/get-one-book/ui/components/book-info';
+import BookInfoPage from '@/modules/books/get-one-book/ui/pages/book.page';
 import { getOneBookById } from '@/modules/books/get-one-book/usecase/get-one-book-by-id.usecase';
+import { ssrApp } from '@/modules/main.ssr';
 
-const BookInfoPage = () => {
-  const dispatch = useDispatch<AppDispatch>();
-  const pathname = usePathname();
-  const id = pathname.substring(pathname.lastIndexOf('/') + 1);
+export async function generateMetadata({ params }: { params: { id: string } }) {
+    const { id } = params;
+    const store = ssrApp.store;
 
-  if (id) {
-    dispatch(getOneBookById(parseInt(id)))
-  }
+    await store.dispatch(getOneBookById(parseInt(id)));
 
-  return (
-      <div>
-        <BookInfo />
-      </div>
-  );
-};
+    const bookDetails = store.getState().selectedBook.getBook.selectedBook;
 
-export default BookInfoPage;
+    return {
+        title: `Livre - ${bookDetails.title} de ${bookDetails.author.firstname} ${bookDetails.author.lastname}`,
+        description: `Découvrez le livre ${bookDetails.title} de ${bookDetails.author} sur Caalliope.`,
+        icons: '/favico.png',
+        metadataBase: new URL('https://caalliope.vercel.app'),
+    };
+}
+
+export default function BookPage() {
+
+    return (
+        <BookInfoPage />
+    )
+}

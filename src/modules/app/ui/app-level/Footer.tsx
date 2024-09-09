@@ -1,4 +1,5 @@
 'use client';
+import { Button } from '@nextui-org/react';
 import Link from 'next/link';
 import { useTranslation } from 'react-i18next';
 
@@ -10,9 +11,9 @@ export const Footer = () => {
                 <Link className='flex justify-center text-lg cursor-pointer hover:font-bold' href='/donate'>
                     { t('footer.donation') }
                 </Link>
-                <Link className='flex justify-center text-lg cursor-pointer hover:font-bold' href='/'>
+                <Button className='flex justify-center text-lg bg-transparent hover:bg-custom-grey' as={Link} href='/contact'>
                     { t('footer.contact') }
-                </Link>
+                </Button>
             </div>
         </div>
     )
