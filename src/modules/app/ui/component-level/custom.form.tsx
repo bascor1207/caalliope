@@ -4,6 +4,7 @@ import {
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
+import { twMerge } from 'tailwind-merge';
 
 import type { AppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
 import type { AppDispatch } from '@/modules/app/core/store/create-store';
@@ -36,6 +37,7 @@ type CommonFormProps<TFormValues extends FieldValues, A, ReturnType> = {
     items: Item<TFormValues>[];
     schema: ZodObject<TFormValues>;
     action?: UnknownAction | AppAsyncThunk<ReturnType, A>;
+    className?: string;
 };
 
 type CustomFormProps<TFormValues extends FieldValues, A, ReturnType> =
@@ -43,13 +45,13 @@ type CustomFormProps<TFormValues extends FieldValues, A, ReturnType> =
     (PlainFormProps & CommonFormProps<TFormValues, A, ReturnType>);
 
 export const CustomForm = <TFormValues extends FieldValues, ReturnType, A>(
-    { items, schema, action, formType, modalTitle, visibilityTrigger, onCustomClose }: CustomFormProps<TFormValues, ReturnType, A>
+    { items, schema, action, formType, modalTitle, visibilityTrigger, onCustomClose, className }: CustomFormProps<TFormValues, ReturnType, A>
 ) => {
     const dispatch = useDispatch<AppDispatch>();
     const validator = useCustomForm({ schema, action, dispatch, onCustomClose });
 
     const formContent = (
-        <form onSubmit={validator.handleSubmit(validator.onSubmit)} className='space-y-4 z-0'>
+        <form onSubmit={validator.handleSubmit(validator.onSubmit)} className={twMerge('space-y-4 z-0', className)}>
             {items.map((item) => (
                 <div key={item.id}>
                     <Controller
@@ -130,7 +132,7 @@ export const CustomForm = <TFormValues extends FieldValues, ReturnType, A>(
                 </div>
             ))}
             {formType ==='plain' && (
-                <Button variant='light' type='submit' onClick={validator.handleSubmit(validator.onSubmit)}>Submit</Button>
+                <Button variant='light' type='submit' isDisabled={!validator.isSubmittable()} onClick={validator.handleSubmit(validator.onSubmit)}>Submit</Button>
             )}
         </form>
     );

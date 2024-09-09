@@ -11,7 +11,7 @@ export const registerOnAuthChangeForUserListener = () => {
    startAppListening({
         actionCreator: authUser.fulfilled,
         effect: async (action, { dispatch }) => {
-            const { id } = action.payload;
+            const { id } = action.payload as {id: string};
             dispatch(getUserUsecase({ id }))
         }
     })

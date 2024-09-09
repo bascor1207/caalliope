@@ -30,6 +30,9 @@ export const authSlice = createSlice({
         },
         loggUser: (state) => {
             state.loggedUser = true
+        },
+        switchAuthFormType: (state, action: PayloadAction<{ type: InitialState['authType'] }>) => {
+            state.authType = action.payload.type;
         }
     },
     extraReducers: (builder) => {
@@ -60,4 +63,4 @@ export const authSlice = createSlice({
     }
 })
 
-export const { toggleAuthModal, loggUser } = authSlice.actions
+export const { toggleAuthModal, loggUser, switchAuthFormType } = authSlice.actions
