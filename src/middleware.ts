@@ -4,6 +4,16 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
     const url = request.nextUrl.clone();
+    if (url.pathname === '/auth') {
+        url.pathname = '/auth/sign-in';
+        return NextResponse.redirect(url);
+    }
+
+    const token = request.cookies.get('token');
+    if (!token && url.pathname.includes('/my-account')) {
+        url.pathname = '/auth/sign-in';
+        return NextResponse.redirect(url);
+    }
     const searchParams = url.searchParams;
     searchParams.delete('activeTab');
     const existingCookieActiveTab = request.cookies.get('activeTab')?.value;
@@ -20,5 +30,9 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: { source: '/my-account', has: [{ type: 'query', key:'activeTab' }] }
+    matcher: [
+        { source: '/my-account', has: [{ type: 'query', key:'activeTab' }] },
+        { source: '/my-account' },
+        { source: '/auth' }
+    ]
 };

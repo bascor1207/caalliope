@@ -22,6 +22,10 @@ export function useCustomForm<TFormValues extends FieldValues, RType, A>({ schem
         return !(schema.shape[key] instanceof ZodOptional)
     }
 
+    function isSubmittable() {
+        return Object.values(errors).every((error) => error === undefined)
+    }
+
     const handleChange = (field: ControllerRenderProps<TFormValues>, itemType: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
         let value;
         switch (itemType) {
@@ -110,6 +114,6 @@ export function useCustomForm<TFormValues extends FieldValues, RType, A>({ schem
         defaultValues: generateDefaultValues()
     });
 
-    return { isRequired, handleSelectChange, handleChange, control, handleSubmit, errors, onSubmit, resetField, props, classNames, onClose }
+    return { isSubmittable, isRequired, handleSelectChange, handleChange, control, handleSubmit, errors, onSubmit, resetField, props, classNames, onClose }
 
 }
