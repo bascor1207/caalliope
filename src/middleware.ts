@@ -4,14 +4,18 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
     const url = request.nextUrl.clone();
+
+    const languageCookie = request.cookies.get('i18next');
+    const language = languageCookie?.value || 'fr';
+
     if (url.pathname === '/auth') {
-        url.pathname = '/auth/sign-in';
+        url.pathname = `/${language}/auth/sign-in`;
         return NextResponse.redirect(url);
     }
 
     const token = request.cookies.get('token');
     if (!token && url.pathname.startsWith('/my-account')) {
-        url.pathname = '/auth/sign-in';
+        url.pathname = `/${language}/auth/sign-in`;
         return NextResponse.redirect(url);
     }
 
@@ -26,9 +30,15 @@ export function middleware(request: NextRequest) {
         const response = NextResponse.redirect(url.toString());
         response.cookies.set('activeTab', activeTab, {
             path: '/',
-            maxAge: 60 * 60 * 24 * 7
+            maxAge: 60 * 60 * 24 * 7,
         });
         return response;
+    }
+
+    const supportedLanguages = ['en', 'fr'];
+    if (!supportedLanguages.some((lang) => url.pathname.startsWith(`/${lang}`))) {
+        url.pathname = `/${language}${url.pathname}`;
+        return NextResponse.redirect(url);
     }
 
     return NextResponse.next();
