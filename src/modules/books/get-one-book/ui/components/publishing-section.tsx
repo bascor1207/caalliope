@@ -7,7 +7,6 @@ import { useDispatch } from 'react-redux';
 
 import type { AppDispatch } from '@/modules/app/core/store/create-store';
 import type { BooksModel } from '@/modules/books/model/books.model';
-import type { UsersModel } from '@/modules/user/core/model/users.model';
 import type { FC } from 'react';
 
 import { useAppSelector } from '@/modules/app/core/store/create-store';
@@ -34,7 +33,7 @@ export const PublishingSection: FC<Props> = ({ book }) => {
 
     const handleClick = () => {
         if (selectedStatus) {
-            const userBook: UsersModel.BaseUserBook = {
+            const userBook = {
                 id: book.id,
                 title: book.title,
                 type: book.type,
