@@ -69,7 +69,10 @@ export class FakeUserGateway implements ConnectorToUserGateway {
     private setupUsers() {
         return ([
             UserFactory.create(),
-            UserFactory.create({ id: '2', myBooksToRead, myInProgressBooks, myAlreadyReadBooks, myAbandonedBooks, myWishlist, roles: ['admin'] })
+            UserFactory.create({
+                id: '2', roles: ['admin'],
+                myBooksToRead, myInProgressBooks, myAlreadyReadBooks, myAbandonedBooks, myWishlist, waitingForValidationBooks
+             })
         ])
     }
 }
@@ -97,5 +100,10 @@ const myAbandonedBooks: UsersModel.AbandonedBook[] = [
 const myWishlist: UsersModel.WishBook[] = [
     { id: 9, title: 'Book 9', type: 'Adventure', image: '/livre1.jpg', status: 'wishlist' },
     { id: 10, title: 'Book 10', type: 'Philosophy', image: '/livre1.jpg', status: 'wishlist' },
+];
+
+const waitingForValidationBooks: UsersModel.BaseUserBook[] = [
+    { id: 11, title: 'Book 11', type: 'History', image: '/livre1.jpg', status: '' },
+    { id: 12, title: 'Book 12', type: 'Fantasy', image: '/livre1.jpg', status: '' },
 ];
 

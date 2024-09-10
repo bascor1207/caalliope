@@ -9,6 +9,7 @@ import { getBooksReducer } from '@/modules/books/usecases/get-catalog/core/store
 import { getLastReleaseBooksSlice } from '@/modules/books/usecases/get-last-release-books/core/store/get-last-release-books.slice';
 import { getPopularBooksSlice } from '@/modules/books/usecases/get-popular-books/core/store/get-popular-books.slice';
 import { userReducer } from '@/modules/user/core/store/user.reducer';
+import { updateBookStatusSlice } from '@/modules/user/usecases/admin/core/store/update-book-status.slice';
 
 export const rootReducer = combineReducers({
     app: rootSlice.reducer,
@@ -19,5 +20,6 @@ export const rootReducer = combineReducers({
     bookCreation: createBookReducer,
     editionCreation: createEditionReducer,
     homePage: combineReducers({ [getPopularBooksSlice.name]: getPopularBooksSlice.reducer,
-        [getLastReleaseBooksSlice.name]: getLastReleaseBooksSlice.reducer })
+        [getLastReleaseBooksSlice.name]: getLastReleaseBooksSlice.reducer }),
+    updateBook: updateBookStatusSlice.reducer,
 });
