@@ -14,6 +14,9 @@ import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-g
 // import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
 import { HttpGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/http-get-books.gateway';
 import { HttpDonateGateway } from '@/modules/donate/infra/http-donate.gateway';
+// import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-get-one-book.gateway';
+// import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
+// import { HttpGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/http-get-books.gateway';
 
 
 //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
@@ -25,7 +28,6 @@ import { FakeCreateEditionGateway } from '@/modules/books/usecases/create-editio
 import { FakeGetLastReleaseBooksGateway } from '@/modules/books/usecases/get-last-release-books/infra/fake-get-last-release-books.gateway';
 import { FakeGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/fake-get-popular-books.gateway';
 import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
-
 
 // const book = BookFactory.create();
 
@@ -48,6 +50,8 @@ export class App {
         const getBooksAdapter = new HttpGetBooksGateway();
         const getOneBookAdapter = new HttpGetOneBookGateway();
         const donateAdapter = new HttpDonateGateway();
+        // const getBooksAdapter = new HttpGetBooksGateway();
+        // const getOneBookAdapter = new HttpGetOneBookGateway();
         const cookiesAdapter = new HttpCookiesProvider();
         // const createBookAdapter = new HttpCreateBookGateway();
 

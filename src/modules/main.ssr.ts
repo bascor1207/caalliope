@@ -11,6 +11,8 @@ import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
 import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-get-one-book.gateway';
 import { HttpGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/http-get-books.gateway';
 import { HttpDonateGateway } from '@/modules/donate/infra/http-donate.gateway';
+// import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-get-one-book.gateway';
+// import { HttpGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/http-get-books.gateway';
 
 //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
 
@@ -44,6 +46,8 @@ export class SSRApp {
         // const userAdapter = new HttpUserGateway();
         const getBooksAdapter = new HttpGetBooksGateway();
         const getOneBookAdapter = new HttpGetOneBookGateway();
+        // const getBooksAdapter = new HttpGetBooksGateway();
+        // const getOneBookAdapter = new HttpGetOneBookGateway();
         const cookiesAdapter = new HttpCookiesProvider();
         const donateAdapter = new HttpDonateGateway();
 
