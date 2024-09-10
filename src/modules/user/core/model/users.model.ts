@@ -31,14 +31,14 @@ export namespace UsersModel {
         myWishlist: WishBook[];
         roles: Array<'user' | 'admin'>;
         password: string;
-        waitingForValidationBooks?: BaseUserBook<''>[];
+        waitingForValidationBooks?: BaseUserBook[];
     }
 
     export type Avatar = {
         url: string;
     }
 
-    export type BaseUserBook<T extends 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned' | ''> = {
+    export type BaseUserBook<T extends 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned' | '' = ''> = {
         id: number;
         title: string;
         type: string;
@@ -61,4 +61,39 @@ export namespace UsersModel {
     })
 
     export type ContactUsForm = z.infer<typeof contactUsSchema>;
+
+    export type AdminBook = {
+        id: number;
+        title: string;
+        author: Author;
+        type: string;
+        subjects: Subject[];
+        dateOfPublication: string;
+        image: string;
+        editions: Edition[];
+        summary?: string;
+        status: 'waiting' | 'rejected' | 'accepted';
+    }
+
+    type Author = {
+        id: number;
+        lastname: string;
+        firstname: string;
+    };
+
+    type Subject = {
+        id: number;
+        label: string;
+    };
+
+    type Edition = {
+        id: number;
+        label: string;
+        language: string;
+        numberOfPages: number;
+        dateOfPublication: string;
+    };
+
+    export type UpdateBookStatusPayload = {  status: 'rejected' | 'accepted', bookId: number, userRole: 'admin' | 'user' | Array<'admin' | 'user'>  }
+    export type UpdateBookStatusResponse = {  message: string, type: 'success' | 'error' }
 }

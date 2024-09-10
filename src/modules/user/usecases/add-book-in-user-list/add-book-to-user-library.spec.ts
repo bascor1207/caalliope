@@ -45,6 +45,7 @@ function givenBookAndStatus(bookStatus: 'toRead' | 'reading' | 'read' | 'wishlis
         title: 'New Book',
         type: 'Fiction',
         image: '/newbook.jpg',
+        status: ''
     };
 }
 

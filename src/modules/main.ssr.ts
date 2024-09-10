@@ -9,8 +9,8 @@ import { catalog } from '@/modules/catalog';
 // import { HttpAuthGateway } from '@/modules/auth/infra/http-auth.gateway';
 // import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
 import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
-import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-get-one-book.gateway';
-import { HttpGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/http-get-books.gateway';
+// import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-get-one-book.gateway';
+// import { HttpGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/http-get-books.gateway';
 import { HttpDonateGateway } from '@/modules/donate/infra/http-donate.gateway';
 // import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-get-one-book.gateway';
 // import { HttpGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/http-get-books.gateway';
@@ -18,17 +18,18 @@ import { HttpDonateGateway } from '@/modules/donate/infra/http-donate.gateway';
 //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
 
 import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
-// import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
+import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
 import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infra/fake-create-book.gateway';
 import { FakeCreateEditionGateway } from '@/modules/books/usecases/create-edition/infra/fake-create-edition.gateway';
-// import { FakeGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/fake-get-books.gateway';
+import { FakeGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/fake-get-books.gateway';
 import { FakeGetLastReleaseBooksGateway } from '@/modules/books/usecases/get-last-release-books/infra/fake-get-last-release-books.gateway';
 import { FakeGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/fake-get-popular-books.gateway';
 import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
+import { FakeAdminGateway } from '@/modules/user/usecases/admin/infra/fake-admin.gateway';
 
 
 
-// const book = BookFactory.create();
+const book = BookFactory.create();
 
 export class SSRApp {
     public dependencies: Dependencies;
@@ -45,8 +46,8 @@ export class SSRApp {
         // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
         // const authAdapter = new HttpAuthGateway();
         // const userAdapter = new HttpUserGateway();
-        const getBooksAdapter = new HttpGetBooksGateway();
-        const getOneBookAdapter = new HttpGetOneBookGateway();
+        // const getBooksAdapter = new HttpGetBooksGateway();
+        // const getOneBookAdapter = new HttpGetOneBookGateway();
         // const getBooksAdapter = new HttpGetBooksGateway();
         // const getOneBookAdapter = new HttpGetOneBookGateway();
         const cookiesAdapter = new HttpCookiesProvider();
@@ -56,10 +57,11 @@ export class SSRApp {
         //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
         const authAdapter = new FakeAuthGateway();
         const userAdapter = new FakeUserGateway();
-        // const getOneBookAdapter = new FakeGetOneBookGateway();
-        // getOneBookAdapter.returnedResponse = book;
-        // const getBooksAdapter = new FakeGetBooksGateway(500);
-        // getBooksAdapter.returnedResponse = catalog;
+        const adminAdapter = new FakeAdminGateway();
+        const getOneBookAdapter = new FakeGetOneBookGateway();
+        getOneBookAdapter.returnedResponse = book;
+        const getBooksAdapter = new FakeGetBooksGateway(500);
+        getBooksAdapter.returnedResponse = catalog;
         const createBookAdapter = new FakeCreateBookGateway();
 
         const getPopularBooksAdapter = new FakeGetPopularBooksGateway();
@@ -76,6 +78,7 @@ export class SSRApp {
             getOneBookAdapter,
             authAdapter,
             userAdapter,
+            adminAdapter,
             cookiesAdapter,
             donateAdapter,
             createBookAdapter,

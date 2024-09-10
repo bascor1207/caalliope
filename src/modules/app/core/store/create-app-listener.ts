@@ -1,17 +1,15 @@
-import { createListenerMiddleware, addListener } from '@reduxjs/toolkit'
+import { createListenerMiddleware } from '@reduxjs/toolkit'
+
 
 import type { RootState, AppDispatch } from '@/modules/app/core/store/create-store'
-import type { TypedStartListening, TypedAddListener } from '@reduxjs/toolkit'
+import type { TypedStartListening } from '@reduxjs/toolkit'
+import type { AddListenerOverloads } from '@reduxjs/toolkit/src/listenerMiddleware/types';
 
 
-export const listenerMiddleware = createListenerMiddleware()
+export const listenerMiddleware = createListenerMiddleware();
 
-export type AppStartListening = TypedStartListening<RootState, AppDispatch>
+export type AppStartListening = TypedStartListening<RootState, AppDispatch>;
 
-export const startAppListening =
-    listenerMiddleware.startListening as AppStartListening
+export type EnhancedStartListening = AddListenerOverloads<void, RootState, AppDispatch>;
 
-export const addAppListener = addListener as TypedAddListener<
-    RootState,
-    AppDispatch
->
+export const startAppListening: EnhancedStartListening = listenerMiddleware.startListening as EnhancedStartListening;

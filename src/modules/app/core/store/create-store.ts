@@ -11,6 +11,7 @@ import type { ConnectorToLastReleaseBooks } from '@/modules/books/usecases/get-l
 import type { ConnectorToPopularBooks } from '@/modules/books/usecases/get-popular-books/core/connector-to-popular-books.gateway';
 import type { ConnectorToDonateGateway } from '@/modules/donate/infra/connector-to-donate.gateway';
 import type { ConnectorToUserGateway } from '@/modules/user/core/connector-to-user.gateway';
+import type { ConnectorToAdminGateway } from '@/modules/user/usecases/admin/core/connector-to-admin.gateway';
 import type {
     UnknownAction,
     ThunkDispatch,
@@ -21,12 +22,15 @@ import type { TypedUseSelectorHook } from 'react-redux';
 
 import { listenerMiddleware } from '@/modules/app/core/store/create-app-listener';
 import { rootReducer } from '@/modules/app/core/store/root-reducer';
+import { registerOnDetailsModalDisplayedForBookListener } from '@/modules/books/get-one-book/core/get-book.listeners';
 import {
     registerOnAuthChangeForUserListener,
     registerOnBookCreationErrorForUserListener,
     registerOnBookCreationSuccessForUserListener,
     registerOnEditionCreationErrorForUserListener,
-    registerOnEditionCreationSuccessForUserListener
+    registerOnEditionCreationSuccessForUserListener,
+    registerOnUpdatedBookStatusErrorForUserListener,
+    registerOnUpdatedBookStatusForUserListener
 } from '@/modules/user/core/store/user.listeners';
 
 import { FakeCookiesProvider } from '@/modules/app/infra/fake-cookies.provider';
@@ -39,6 +43,8 @@ import { FakeGetLastReleaseBooksGateway } from '@/modules/books/usecases/get-las
 import { FakeGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/fake-get-popular-books.gateway';
 import { FakeDonateGateway } from '@/modules/donate/infra/fake-donate.gateway';
 import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
+import { FakeAdminGateway } from '@/modules/user/usecases/admin/infra/fake-admin.gateway';
+
 
 export type Dependencies = {
     getBooksAdapter: ConnectorToGetBooks;
@@ -48,6 +54,7 @@ export type Dependencies = {
     createBookAdapter: ConnectorToCreateBookGateway;
     createEditionAdapter: ConnectorToCreateEditionGateway;
     authAdapter: ConnectorToAuthGateway;
+    adminAdapter: ConnectorToAdminGateway;
     userAdapter: ConnectorToUserGateway;
     donateAdapter: ConnectorToDonateGateway;
     cookiesAdapter: CookiesInterface;
@@ -57,6 +64,7 @@ export const createStore = (
   dependencies: Dependencies,
   preloadedState?: Partial<RootState>,
 ) => {
+
   return configureStore({
     reducer: rootReducer,
     middleware(getDefaultMiddleware) {
@@ -65,6 +73,9 @@ export const createStore = (
         registerOnBookCreationErrorForUserListener();
         registerOnEditionCreationSuccessForUserListener();
         registerOnEditionCreationErrorForUserListener();
+        registerOnDetailsModalDisplayedForBookListener();
+        registerOnUpdatedBookStatusForUserListener();
+        registerOnUpdatedBookStatusErrorForUserListener();
       return getDefaultMiddleware({
         thunk: {
           extraArgument: dependencies,
@@ -84,6 +95,7 @@ export const createTestStore = (
     createBookAdapter = new FakeCreateBookGateway(),
     createEditionAdapter = new FakeCreateEditionGateway(),
     authAdapter = new FakeAuthGateway(),
+    adminAdapter = new FakeAdminGateway(),
     userAdapter = new FakeUserGateway(),
     donateAdapter = new FakeDonateGateway(),
     cookiesAdapter = new FakeCookiesProvider()
@@ -91,7 +103,10 @@ export const createTestStore = (
   preloadedState?: DeepPartial<ReturnType<typeof rootReducer>>,
 ) => {
   return createStore({
-      getBooksAdapter, getPopularBooksAdapter, getLastReleaseBooksAdapter, getOneBookAdapter, createBookAdapter, createEditionAdapter, authAdapter, userAdapter, donateAdapter, cookiesAdapter
+      getBooksAdapter, getPopularBooksAdapter, getLastReleaseBooksAdapter, getOneBookAdapter,
+      createBookAdapter, createEditionAdapter,
+      authAdapter, userAdapter, adminAdapter,
+      cookiesAdapter, donateAdapter
 }, preloadedState as never);
 };
 

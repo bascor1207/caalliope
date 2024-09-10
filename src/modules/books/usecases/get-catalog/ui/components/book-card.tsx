@@ -5,6 +5,8 @@ import { useRouter } from 'next/navigation';
 import type { BooksModel } from '@/modules/books/model/books.model';
 import type { FC } from 'react';
 
+import { useAppSelector } from '@/modules/app/core/store/create-store';
+import { selectLocale } from '@/modules/app/core/store/root.selectors';
 import { CustomCard } from '@/modules/app/ui/component-level/custom.card';
 
 type Props = {
@@ -20,10 +22,11 @@ type PropsForCatalog = {
 type BookCardProps = Props | PropsForCatalog;
 
 export const BookCard: FC<BookCardProps> = ({ book, cover }) => {
+    const locale = useAppSelector(selectLocale);
     const router = useRouter();
 
     const getOneBookAndRedirect = () => {
-        router.push(`/catalog/${book.id}`);
+        router.push(`/${locale}/catalog/${book.id}`);
     };
 
     if (cover) {
@@ -36,6 +39,7 @@ export const BookCard: FC<BookCardProps> = ({ book, cover }) => {
                         removeWrapper={cover}
                         isZoomed={cover}
                         radius='none'
+                        isBlurred={cover}
                         src={book.image}
                         alt='livre'
                         className='w-full h-full object-cover'
@@ -57,7 +61,7 @@ export const BookCard: FC<BookCardProps> = ({ book, cover }) => {
                     removeWrapper={cover}
                     isZoomed={cover}
                     radius='none'
-                    src={book.image} // Utilise la bonne propriété selon `cover`
+                    src={book.image}
                     alt='livre'
                     className='w-full h-full object-cover'
                 />

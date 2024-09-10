@@ -8,13 +8,15 @@ import { CustomCard } from '@/modules/app/ui/component-level/custom.card';
 
 type UserBookCardProps = {
     book: UsersModel.ToReadBook | UsersModel.InProgressBook | UsersModel.AlreadyReadBook | UsersModel.AbandonedBook | UsersModel.WishBook | UsersModel.BaseUserBook;
+    onClick?: () => void;
 }
 
 
 
-export const UserBookCard: FC<UserBookCardProps> = ({ book }) => {
+export const UserBookCard: FC<UserBookCardProps> = ({ book, onClick }) => {
     return (
         <CustomCard
+            onClick={onClick}
             className='max-w-full'
             title={book.title}
             description={book.type}
