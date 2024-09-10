@@ -43,7 +43,7 @@ export const useHeader = () => {
     const { t } = useTranslation();
     const urlSegments = useSelectedLayoutSegments();
 
-    const languages = ['English', 'French']
+    const languages = ['English', 'French'];
 
     const changeLanguage = () => async (e: ChangeEvent<HTMLSelectElement>) => {
         const selectedLanguage = e.target.value === 'English' ? 'en' : 'fr'

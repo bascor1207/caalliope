@@ -1,5 +1,6 @@
 import { combineReducers } from '@reduxjs/toolkit';
 
+import { rootSlice } from '@/modules/app/core/store/root.slice';
 import { authReducer } from '@/modules/auth/core/store/auth.reducer';
 import { getBookReducer } from '@/modules/books/get-one-book/core/get-book.reducer';
 import { createBookReducer } from '@/modules/books/usecases/create-book/core/store/create-book.reducer';
@@ -10,6 +11,7 @@ import { getPopularBooksSlice } from '@/modules/books/usecases/get-popular-books
 import { userReducer } from '@/modules/user/core/store/user.reducer';
 
 export const rootReducer = combineReducers({
+    app: rootSlice.reducer,
     catalog: getBooksReducer,
     selectedBook: getBookReducer,
     auth: authReducer,

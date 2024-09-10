@@ -1,13 +1,13 @@
 'use client'
 import { Tab, Tabs } from '@nextui-org/react';
 
-import { useMyAccountPage } from '@/app/[locale]/my-account/useMyAccountPage';
-import { AdminSection } from '@/modules/user/ui/sections/admin.section';
-import { MyAbandonedBooksSection } from '@/modules/user/ui/sections/my-abandoned-books.section';
-import { MyBooksToReadSections } from '@/modules/user/ui/sections/my-books-to-read.sections';
-import { MyInfosSection } from '@/modules/user/ui/sections/my-infos.section';
-import { MyReadingsSection } from '@/modules/user/ui/sections/my-readings.section';
-import { MyWishlistSection } from '@/modules/user/ui/sections/my-wishlist.section';
+import { useMyAccountPage } from '@/modules/user/usecases/get-user/ui/pages/useMyAccountPage';
+import { AdminSection } from '@/modules/user/usecases/get-user/ui/sections/admin.section';
+import { MyAbandonedBooksSection } from '@/modules/user/usecases/get-user/ui/sections/my-abandoned-books.section';
+import { MyBooksToReadSections } from '@/modules/user/usecases/get-user/ui/sections/my-books-to-read.sections';
+import { MyInfosSection } from '@/modules/user/usecases/get-user/ui/sections/my-infos.section';
+import { MyReadingsSection } from '@/modules/user/usecases/get-user/ui/sections/my-readings.section';
+import { MyWishlistSection } from '@/modules/user/usecases/get-user/ui/sections/my-wishlist.section';
 
 export default function MyAccountPage() {
     const presenter = useMyAccountPage()

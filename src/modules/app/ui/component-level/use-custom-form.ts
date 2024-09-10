@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import {
- ZodString, ZodNumber, ZodBoolean, ZodDate, ZodOptional, ZodEnum
+    ZodString, ZodNumber, ZodBoolean, ZodDate, ZodOptional, ZodEnum, z
 } from 'zod';
 
 import type { AppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
@@ -18,6 +18,15 @@ type UseCustomFormProps<TFormValues extends FieldValues, RType = void, A = void>
 }
 
 export function useCustomForm<TFormValues extends FieldValues, RType, A>({ schema, action, dispatch, onCustomClose }: UseCustomFormProps<TFormValues, RType, A> ) {
+    function getDefaults() {
+        return Object.fromEntries(
+            Object.entries(schema.shape).map(([key, value]) => {
+                if (value instanceof z.ZodDefault) return [key, value._def.defaultValue()]
+                return [key, undefined]
+            })
+        )
+    }
+
     function isRequired(key: string) {
         return !(schema.shape[key] instanceof ZodOptional)
     }
@@ -52,7 +61,6 @@ export function useCustomForm<TFormValues extends FieldValues, RType, A>({ schem
     }
 
     function onSubmit(data: TFormValues) {
-        console.log(data)
         reset()
         if (action) {
             dispatch(action(data));
@@ -114,6 +122,8 @@ export function useCustomForm<TFormValues extends FieldValues, RType, A>({ schem
         defaultValues: generateDefaultValues()
     });
 
-    return { isSubmittable, isRequired, handleSelectChange, handleChange, control, handleSubmit, errors, onSubmit, resetField, props, classNames, onClose }
-
+    return {
+        defaultValues: getDefaults(), isSubmittable, isRequired, handleSelectChange, handleChange,
+        control, handleSubmit, errors, onSubmit, resetField, props, classNames, onClose
+    }
 }

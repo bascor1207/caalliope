@@ -21,7 +21,7 @@ export const useMyAccountPage = () => {
     const dispatch = useDispatch<AppDispatch>()
     const activeProfileTab = useAppSelector(selectActiveProfileTab)
     const items = [
-        user.roles.includes('admin') && { id: 'admin', label: 'Admin panel', value: 'admin' },
+        user.roles?.includes('admin') && { id: 'admin', label: 'Admin panel', value: 'admin' },
         { id: 'my-infos', label: 'My informations', value: 'my-infos' },
         { id: 'my-books', label: 'My books to read', value: 'my-books' },
         { id: 'my-readings', label: 'My readings', value: 'my-readings' },
@@ -34,5 +34,5 @@ export const useMyAccountPage = () => {
 
     const systemCookiesProvider = useRef(new HttpCookiesProvider())
 
-    return { onChange, dispatch, activeProfileTab, items, classNames, isUserAdmin: user.roles.includes('admin') }
+    return { onChange, dispatch, activeProfileTab, items, classNames, isUserAdmin: user.roles?.includes('admin') }
 }

@@ -114,7 +114,7 @@ export const CustomForm = <TFormValues extends FieldValues, ReturnType, A>(
                             }
                             return (
                                 <Input
-                                    defaultValue={field.value}
+                                    defaultValue={validator.defaultValues[item.name] || field.value}
                                     value={field.value}
                                     classNames={validator.classNames}
                                     className='text-base'

@@ -28,3 +28,8 @@ export const selectContactFormState = createSelector(
     [selectUserState],
     (userState) => userState.contactFormState
 )
+
+export const selectEditProfileFormState = createSelector(
+    [selectUserState],
+    (userState) => userState.editProfileFormState
+)

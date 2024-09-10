@@ -8,13 +8,14 @@ export namespace UsersModel {
     const emailSchema = z.string().email({ message: i18n.t('form.errors.invalidEmail') });
     const passwordSchema = z.string().min(8, { message: i18n.t('form.errors.passwordTooShort') });
 
-    export const editProfileFormSchema = z.object({
-        username: usernameSchema,
-        email: emailSchema,
-        password: passwordSchema,
+    export const editProfileFormSchema= (userInformations: Pick<UsersModel.User, 'username' | 'email' | 'password'>) =>
+        z.object({
+        username: usernameSchema.default(userInformations.username ?? ''),
+        email: emailSchema.default(userInformations.email ?? ''),
+        password: passwordSchema
     });
 
-    export type EditProfileForm = z.infer<typeof editProfileFormSchema>;
+    export type EditProfileForm = z.infer<ReturnType<typeof editProfileFormSchema>>;
 
     export type User = {
         id: string;
