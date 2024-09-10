@@ -76,7 +76,9 @@
     },
     "donate": {
         "successTitle": "Paiement réussi !",
-        "thanks": "Merci pour votre don ! Votre soutien nous est précieux et nous permet de continuer à vous proposer des services de qualité."
+        "thanks": "Merci pour votre don ! Votre soutien nous est précieux et nous permet de continuer à vous proposer des services de qualité.",
+        "cancelTitle": "Paiement annulé",
+        "cancel": "Votre paiement a été annulé. Si vous avez des questions, n'hésitez pas à nous contacter."
     },
     "form": {
         "editing": "Modifier un livre",
