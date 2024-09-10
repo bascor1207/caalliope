@@ -36,10 +36,9 @@ export class App {
     public store!: AppStore;
 
     constructor(initialState?: RootState) {
-        const language = HttpCookiesProvider.getCookie('i18next')
-        initLocale(language || 'fr')
         this.dependencies = this.setupDependencies();
         this.store = createStore(this.dependencies, initialState);
+        initLocale(this.store.getState().app.language)
     }
 
     setupDependencies(): Dependencies {

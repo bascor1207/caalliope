@@ -1,4 +1,4 @@
-import MyAccountPage from '@/modules/user/ui/pages/my-account.page';
+import MyAccountPage from '@/modules/user/usecases/get-user/ui/pages/my-account.page';
 
 export async function generateMetadata() {
     return {

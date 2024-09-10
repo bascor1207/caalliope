@@ -8,7 +8,7 @@ export class HttpCookiesProvider implements CookiesInterface {
     }
 
     setCookie(cookieName: string, cookieValue: string): void {
-        setCookie(null, cookieName, cookieValue)
+        setCookie(null, cookieName, cookieValue, { path: '/' })
     }
 
     static getCookie(cookieName: string): string | undefined {

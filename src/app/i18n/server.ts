@@ -22,11 +22,3 @@ export const initI18next = async (lang: LocaleTypes, ns: string) => {
 
     return i18nInstance;
 };
-
-export async function createTranslation(lang: LocaleTypes, ns: string) {
-    const i18nextInstance = await initI18next(lang, ns);
-
-    return {
-        t: i18nextInstance.getFixedT(lang, Array.isArray(ns) ? ns[0] : ns),
-    };
-}

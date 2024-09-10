@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useAppSelector } from '@/modules/app/core/store/create-store';
 import { CustomCard } from '@/modules/app/ui/component-level/custom.card';
 import { selectActiveUser } from '@/modules/user/core/store/user.selectors';
-import { UserBookCard } from '@/modules/user/ui/components/user-book.card';
+import { UserBookCard } from '@/modules/user/usecases/get-user/ui/components/user-book.card';
 
 export const AdminSection = () => {
     const { t } = useTranslation()

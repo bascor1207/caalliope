@@ -103,6 +103,10 @@
         "image": "Image",
         "choiceFile": "Choisir un fichier",
         "alert": "Votre demande a été envoyée. Un administrateur va valider l'ajout.",
+        "editProfile": "Modifier mon profil",
+        "username": "Pseudo",
+        "email": "Email",
+        "password": "Mot de passe",
         "admin": {
             "recentAdd": "Ajout réçent",
             "addAnAuthor": "Ajouter un auteur",

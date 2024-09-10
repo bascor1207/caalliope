@@ -13,6 +13,7 @@ type InitialState = {
     informativeToast: {status: 'displayed' | 'hidden', message: string, type: 'success' | 'error' | 'noTyped'};
     informativeSpinner: boolean;
     contactFormState: 'displayed' | 'hidden'
+    editProfileFormState: 'displayed' | 'hidden'
 }
 
 const initialState: InitialState = {
@@ -20,7 +21,8 @@ const initialState: InitialState = {
     activeProfileTab: 'my-infos',
     informativeToast: { status: 'hidden', message: '', type: 'noTyped' },
     informativeSpinner: false,
-    contactFormState: 'hidden'
+    contactFormState: 'hidden',
+    editProfileFormState: 'hidden'
 }
 
 export const userSlice = createSlice({
@@ -43,6 +45,10 @@ export const userSlice = createSlice({
 
         contactUs: (state, action: PayloadAction<'displayed' | 'hidden'>) => {
             state.contactFormState = action.payload;
+        },
+
+        editProfile: (state, action: PayloadAction<'displayed' | 'hidden'>) => {
+            state.editProfileFormState = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -64,4 +70,7 @@ export const userSlice = createSlice({
     }
 });
 
-export const { myProfileTabState, informUser, showUserHeShouldWait, contactUs } = userSlice.actions;
+export const {
+    myProfileTabState, informUser, showUserHeShouldWait,
+    contactUs, editProfile
+} = userSlice.actions;

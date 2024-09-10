@@ -17,7 +17,7 @@ export const Header = () => {
     return (
         <CustomNavBar
             renderLogo={() => (
-                <Link href={'/'}>
+                <Link href={`/${presenter.locale}`}>
                     <Image src='/logo.png' alt={presenter.t('navbar.homePage')} width={150} height={150} />
                 </Link>
             )}
@@ -38,7 +38,6 @@ export const Header = () => {
                         {presenter.languages.map((language) => {
                             const shortKeyForSVG = language === 'English' ? 'gb' : 'fr';
                             const shortKeyForTrad = language === 'English' ? 'en' : 'fr';
-                            console.log(shortKeyForTrad)
                             return (
                                 <SelectItem
                                     key={language}

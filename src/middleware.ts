@@ -4,9 +4,14 @@ import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
     const url = request.nextUrl.clone();
-
     const languageCookie = request.cookies.get('i18next');
     const language = languageCookie?.value || 'fr';
+
+    const supportedLanguages = ['en', 'fr'];
+    if (!supportedLanguages.some((lang) => url.pathname.startsWith(`/${lang}`))) {
+        url.pathname = `/${language}${url.pathname}`;
+        return NextResponse.redirect(url);
+    }
 
     if (url.pathname === '/auth') {
         url.pathname = `/${language}/auth/sign-in`;
@@ -19,7 +24,8 @@ export function middleware(request: NextRequest) {
         return NextResponse.redirect(url);
     }
 
-    if (url.searchParams.get('activeTab')) {
+
+    if (request.nextUrl.searchParams.get('activeTab')) {
         const searchParams = url.searchParams;
         searchParams.delete('activeTab');
         const existingCookieActiveTab = request.cookies.get('activeTab')?.value;
@@ -35,18 +41,13 @@ export function middleware(request: NextRequest) {
         return response;
     }
 
-    const supportedLanguages = ['en', 'fr'];
-    if (!supportedLanguages.some((lang) => url.pathname.startsWith(`/${lang}`))) {
-        url.pathname = `/${language}${url.pathname}`;
-        return NextResponse.redirect(url);
-    }
-
     return NextResponse.next();
 }
 
 export const config = {
     matcher: [
-        { source: '/my-account' },
-        { source: '/auth' }
+        { source: '/:locale(fr|en)?/my-account' },
+        { source: '/:locale(fr|en)?/auth' },
+        { source: '/' }
     ]
 };
