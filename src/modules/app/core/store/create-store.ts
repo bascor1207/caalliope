@@ -9,6 +9,7 @@ import type { ConnectorToCreateEditionGateway } from '@/modules/books/usecases/c
 import type { ConnectorToGetBooks } from '@/modules/books/usecases/get-catalog/core/connector-to.get-books';
 import type { ConnectorToLastReleaseBooks } from '@/modules/books/usecases/get-last-release-books/core/connector-to-last-release-books';
 import type { ConnectorToPopularBooks } from '@/modules/books/usecases/get-popular-books/core/connector-to-popular-books.gateway';
+import type { ConnectorToDonateGateway } from '@/modules/donate/infra/connector-to-donate.gateway';
 import type { ConnectorToUserGateway } from '@/modules/user/core/connector-to-user.gateway';
 import type {
     UnknownAction,
@@ -36,6 +37,7 @@ import { FakeCreateEditionGateway } from '@/modules/books/usecases/create-editio
 import { FakeGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/fake-get-books.gateway';
 import { FakeGetLastReleaseBooksGateway } from '@/modules/books/usecases/get-last-release-books/infra/fake-get-last-release-books.gateway';
 import { FakeGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/fake-get-popular-books.gateway';
+import { FakeDonateGateway } from '@/modules/donate/infra/fake-donate.gateway';
 import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
 
 export type Dependencies = {
@@ -47,6 +49,7 @@ export type Dependencies = {
     createEditionAdapter: ConnectorToCreateEditionGateway;
     authAdapter: ConnectorToAuthGateway;
     userAdapter: ConnectorToUserGateway;
+    donateAdapter: ConnectorToDonateGateway;
     cookiesAdapter: CookiesInterface;
 };
 
@@ -82,12 +85,13 @@ export const createTestStore = (
     createEditionAdapter = new FakeCreateEditionGateway(),
     authAdapter = new FakeAuthGateway(),
     userAdapter = new FakeUserGateway(),
+    donateAdapter = new FakeDonateGateway(),
     cookiesAdapter = new FakeCookiesProvider()
   }: Partial<Dependencies> = {},
   preloadedState?: DeepPartial<ReturnType<typeof rootReducer>>,
 ) => {
   return createStore({
-      getBooksAdapter, getPopularBooksAdapter, getLastReleaseBooksAdapter, getOneBookAdapter, createBookAdapter, createEditionAdapter, authAdapter, userAdapter, cookiesAdapter
+      getBooksAdapter, getPopularBooksAdapter, getLastReleaseBooksAdapter, getOneBookAdapter, createBookAdapter, createEditionAdapter, authAdapter, userAdapter, donateAdapter, cookiesAdapter
 }, preloadedState as never);
 };
 
