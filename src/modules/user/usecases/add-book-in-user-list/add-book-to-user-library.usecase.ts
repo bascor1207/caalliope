@@ -1,5 +1,4 @@
-
-import type { UsersModel } from '@/modules/user/core/model/users.model';
+import type { BooksModel } from '@/modules/books/model/books.model';
 
 import { createAppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
 
@@ -14,6 +13,6 @@ export const addBookToUserLibraryUseCase = createAppAsyncThunk(
 
 type AddBookToUserLibraryPayload = {
   userId: string;
-  book: UsersModel.BaseUserBook;
+  book: Pick<BooksModel.Book, 'id' | 'title' | 'type' | 'image'>;
   status: 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned';
 };

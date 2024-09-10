@@ -24,67 +24,37 @@ export namespace UsersModel {
         lastName: string;
         email: string;
         avatar: Avatar;
-        myBooksToRead: ToReadBook[];
+        myBooksToRead: BaseUserBook<'toRead'>[];
         myInProgressBooks: InProgressBook[];
         myAlreadyReadBooks: AlreadyReadBook[];
         myAbandonedBooks: AbandonedBook[];
         myWishlist: WishBook[];
         roles: Array<'user' | 'admin'>;
         password: string;
-        waitingForValidationBooks?: BaseUserBook[];
+        waitingForValidationBooks?: BaseUserBook<''>[];
     }
 
     export type Avatar = {
         url: string;
     }
 
-    export type BaseUserBook = {
+    export type BaseUserBook<T extends 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned' | ''> = {
         id: number;
         title: string;
         type: string;
         image: string;
-        status: '';
+        status: T;
     }
 
-    export type ToReadBook = BaseUserBook & {
-        status: 'toRead',
-        id: number;
-        title: string;
-        type: string;
-        image: string;
-    }
+    export type ToReadBook = BaseUserBook<'toRead'>
 
-    export type InProgressBook = BaseUserBook & {
-        status: 'reading',
-        id: number;
-        title: string;
-        type: string;
-        image: string;
-    }
+    export type InProgressBook = BaseUserBook<'reading'>
 
-    export type AlreadyReadBook = BaseUserBook & {
-        status: 'read',
-        id: number;
-        title: string;
-        type: string;
-        image: string;
-    }
+    export type AlreadyReadBook = BaseUserBook<'read'>
 
-    export type AbandonedBook = BaseUserBook & {
-        status: 'abandoned',
-        id: number;
-        title: string;
-        type: string;
-        image: string;
-    }
+    export type AbandonedBook = BaseUserBook<'abandoned'>
 
-    export type WishBook = BaseUserBook & {
-        status: 'wishlist',
-        id: number;
-        title: string;
-        type: string;
-        image: string;
-    }
+    export type WishBook = BaseUserBook<'wishlist'>
 
     export const contactUsSchema = z.object({
         reason: z.string().min(1, { message: i18n.t('form.errors.required') }),
