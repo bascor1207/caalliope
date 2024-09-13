@@ -1,13 +1,21 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 
+import type { AppDispatch } from '@/modules/app/core/store/create-store';
 import type { FC } from 'react';
 
+import { useAppSelector } from '@/modules/app/core/store/create-store';
 import { CustomForm } from '@/modules/app/ui/component-level/custom.form';
 import { BooksModel } from '@/modules/books/model/books.model';
+import { createEditionUsecase } from '@/modules/books/usecases/create-edition/core/create-edition.usecase';
+import { selectCreateEditionForm } from '@/modules/books/usecases/create-edition/core/store/create-edition.selectors';
+import { createEditionForm } from '@/modules/books/usecases/create-edition/core/store/create-edition.slice';
 
-export const AddPublisherForm: FC = () => {
+export const AddEditionForm: FC = () => {
     const { t } = useTranslation();
+    const dispatch = useDispatch<AppDispatch>();
+    const createEditionFormStatus = useAppSelector(selectCreateEditionForm)
 
     const formItems = [
         { id: 'isbn', name: 'isbn', label: t('form.isbn'), type: 'string' },
@@ -29,7 +37,11 @@ export const AddPublisherForm: FC = () => {
             <CustomForm
                 items={formItems}
                 schema={BooksModel.addBookEditionFormSchema}
-                formType='plain'
+                formType='modal'
+                action={createEditionUsecase}
+                modalTitle={t('form.addEdition')}
+                visibilityTrigger={createEditionFormStatus === 'displayed'}
+                onCustomClose={() => dispatch(createEditionForm('hidden'))}
             />
     );
 };

@@ -1,13 +1,20 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
 
+import type { AppDispatch } from '@/modules/app/core/store/create-store';
 import type { FC } from 'react';
 
+import { useAppSelector } from '@/modules/app/core/store/create-store';
 import { CustomForm } from '@/modules/app/ui/component-level/custom.form';
 import { BooksModel } from '@/modules/books/model/books.model';
+import { selectUpdateEditionForm } from '@/modules/books/usecases/update-edition/core/store/update-edition.selectors';
+import { updateEdition } from '@/modules/books/usecases/update-edition/core/store/update-edition.slice';
 
-export const EditPublisherForm: FC = () => {
+export const UpdateBookEditionModal: FC = () => {
     const { t } = useTranslation();
+    const dispatch = useDispatch<AppDispatch>();
+    const updateEditionFormStatus = useAppSelector(selectUpdateEditionForm)
 
     const formItems = [
         { id: 'isbn', name: 'isbn', label: t('form.isbn'), type: 'string' },
@@ -32,8 +39,8 @@ export const EditPublisherForm: FC = () => {
                 items={formItems}
                 schema={BooksModel.editEditionFormSchema}
                 formType='modal'
-                onCustomClose={() => console.log('close')}
-                visibilityTrigger={false}
+                onCustomClose={() => dispatch(updateEdition('hidden'))}
+                visibilityTrigger={updateEditionFormStatus === 'displayed'}
             />
     );
 };

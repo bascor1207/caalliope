@@ -1,21 +1,29 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import type { PayloadAction } from '@reduxjs/toolkit';
+
 import { createEditionUsecase } from '@/modules/books/usecases/create-edition/core/create-edition.usecase';
 
 
 type InitialState = {
     success: boolean;
     error: boolean;
+    formStatus: 'displayed' | 'hidden';
 }
 const initialState: InitialState = {
     success: false,
-    error: false
+    error: false,
+    formStatus: 'hidden'
 }
 
 export const createEditionSlice = createSlice({
     name: 'createEdition',
     initialState,
-    reducers:  {},
+    reducers:  {
+        createEditionForm: (state, action: PayloadAction<'displayed' | 'hidden'>) => {
+            state.formStatus = action.payload
+        },
+    },
     extraReducers: (builder) => {
         builder.addCase(createEditionUsecase.pending, (state) => {
             state.error = false;
@@ -32,5 +40,6 @@ export const createEditionSlice = createSlice({
             state.success = true;
         });
     }
-
 })
+
+export const { createEditionForm }  = createEditionSlice.actions;

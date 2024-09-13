@@ -53,7 +53,9 @@ export const userSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(getUserUsecase.fulfilled, (state, action) => {
-            state.activeUser = action.payload;
+            if (action.payload) {
+                state.activeUser = action.payload;
+            }
         });
 
         builder.addCase(getUserUsecase.rejected, (state) => {

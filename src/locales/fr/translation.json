@@ -83,6 +83,7 @@
     "form": {
         "editing": "Modifier un livre",
         "editingAuthor": "Modifier les informations d'un auteur",
+        "addEdition": "Ajouter une édition",
         "isbn": "ISBN 13",
         "title": "Titre",
         "author": "Auteur",

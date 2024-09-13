@@ -5,14 +5,12 @@ import { BookFactory } from '@/modules/books/model/books.factory';
 import { catalog } from '@/modules/catalog';
 
 // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
-// import { HttpAuthGateway } from '@/modules/auth/infra/http-auth.gateway';
-// import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
 import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
 // import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-get-one-book.gateway';
 // import { HttpGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/http-get-books.gateway';
 import { HttpDonateGateway } from '@/modules/donate/infra/http-donate.gateway';
-// import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-get-one-book.gateway';
-// import { HttpGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/http-get-books.gateway';
+// import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
+
 
 //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
 

@@ -21,7 +21,7 @@ export class HttpAuthGateway implements ConnectorToAuthGateway {
     }
 
     async register(payload: AuthModel.AuthFormSchema): Promise<AuthModel.RegisteredUser> {
-        const { data } : { data: { data: AuthModel.RegisterUserReturn } } = await axiosInstance.post('/auth/register', payload)
+        const { data }: { data: { data: AuthModel.RegisterUserReturn } } = await axiosInstance.post('/auth/register', payload)
         return {
             id: data.data.id.toString(),
             firstName: data.data.firstName,
@@ -43,12 +43,12 @@ export class HttpAuthGateway implements ConnectorToAuthGateway {
 
     async refreshToken(refreshTokenPayload: AuthModel.RefreshTokenPayload): Promise<AuthModel.RefreshedToken> {
         try {
-            const { data } = await axiosInstance.post('auth/refresh', { refreshToken: refreshTokenPayload.token });
+            const { data } = await axiosInstance.post('auth/refresh', { expiredToken: refreshTokenPayload.token });
             this.cookiesManager.setCookie('token', data.data.access_token)
             const { payload } = await jwtVerify(data.data.access_token, new TextEncoder().encode('azerty'));
             return { id: payload.sub as string }
-        } catch(error) {
-            return { id: '' }
+        } catch (error) {
+            throw new Error('Erreur lors du refresh token')
         }
     }
 }

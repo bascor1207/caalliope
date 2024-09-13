@@ -2,16 +2,16 @@
 
 import type { ReactNode } from 'react';
 
+import { getServerStore } from '@/modules/app/core/store/server-store';
 import { CustomSpinner } from '@/modules/app/ui/app-level/custom.spinner';
 import { getBooksByUsecase } from '@/modules/books/usecases/get-catalog/core/get-books-by.usecase';
 import { getBooksUseCase } from '@/modules/books/usecases/get-catalog/core/get-books.usecase';
 import { BooksCatalog } from '@/modules/books/usecases/get-catalog/ui/components/book-card-catalog';
 import { NoResults } from '@/modules/books/usecases/get-catalog/ui/components/no-results';
 import { getBooksViewModel } from '@/modules/books/usecases/get-catalog/ui/get-books/get-books.viewmodel';
-import { ssrApp } from '@/modules/main.ssr';
 
 export const prefetchCatalogLayout = async ({ searchParams }: {searchParams?: { [key: string]: string | undefined }}) => {
-    const store = ssrApp.store;
+    const store = getServerStore();
     const subject = searchParams?.subject || '';
     const type = searchParams?.type as 'author' | 'name' || '';
     const search = searchParams?.search || '';

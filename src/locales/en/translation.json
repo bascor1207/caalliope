@@ -52,7 +52,7 @@
         "publishing": "Publishing",
         "review": "Review",
         "addReview": "Add a review",
-        "addPublishing": "Add a publishing",
+        "addPublishing": "Add an edition",
         "addBook": "Add a book",
         "search": "Search for a book",
         "notfound": "No result for this search",
@@ -84,6 +84,7 @@
     "form": {
         "editing": "Editing a book",
         "editingAuthor": "Editing author information",
+        "addEdition": "Add an edition",
         "isbn": "ISBN 13",
         "title": "Title",
         "author": "Author",
