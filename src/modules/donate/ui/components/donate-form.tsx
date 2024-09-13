@@ -18,8 +18,6 @@ export const DonateForm: FC = () => {
   const { t } = useTranslation();
   const httpDonateGateway = new HttpDonateGateway();
 
-  console.log(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!stripe || !elements) {

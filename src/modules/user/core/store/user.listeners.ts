@@ -19,7 +19,8 @@ const actionsToListen = [
     updateBookUsecase.fulfilled.type,
     updateBookUsecase.rejected.type,
     updateEditionUsecase.fulfilled.type,
-    updateEditionUsecase.rejected.type
+    updateEditionUsecase.rejected.type,
+    getUserUsecase.rejected.type
 ];
 
 
@@ -57,7 +58,6 @@ export const registerOnUpdatedBookStatusErrorForUserListener = () => {
     startAppListening({
         actionCreator: updateBookStatusUsecase.rejected,
         effect: async (action, { dispatch }) => {
-            console.log('updateBookStatusUsecase.rejected');
             const { message, type } = action.payload as UsersModel.UpdateBookStatusResponse;
             dispatch(informUser({ message: message, type, status: 'displayed' }))
         }

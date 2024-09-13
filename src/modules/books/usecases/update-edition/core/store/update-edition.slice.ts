@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 import { updateEditionUsecase } from '@/modules/books/usecases/update-edition/core/update-edition.usecase';
 
@@ -6,16 +6,22 @@ import { updateEditionUsecase } from '@/modules/books/usecases/update-edition/co
 type InitialState = {
     success: boolean;
     error: boolean;
+    formStatus: 'hidden' | 'displayed';
 }
 const initialState: InitialState = {
     success: false,
-    error: false
+    error: false,
+    formStatus: 'hidden'
 }
 
 export const updateEditionSlice = createSlice({
     name: 'updateEdition',
     initialState,
-    reducers: {},
+    reducers: {
+        updateEdition: (state, action: PayloadAction<'displayed' | 'hidden'>) => {
+            state.formStatus = action.payload;
+        }
+    },
     extraReducers: (builder) => {
         builder.addCase(updateEditionUsecase.pending, (state) => {
             state.success = false;
@@ -31,3 +37,5 @@ export const updateEditionSlice = createSlice({
         });
     }
 })
+
+export const { updateEdition } = updateEditionSlice.actions;

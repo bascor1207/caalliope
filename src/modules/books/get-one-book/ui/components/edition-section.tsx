@@ -10,8 +10,7 @@ import type { BooksModel } from '@/modules/books/model/books.model';
 import type { FC } from 'react';
 
 import { useAppSelector } from '@/modules/app/core/store/create-store';
-import { CustomModal } from '@/modules/app/ui/component-level/custom.modal';
-import { AddPublisherForm } from '@/modules/books/usecases/get-catalog/ui/forms/add-publisher-form';
+import { createEditionForm } from '@/modules/books/usecases/create-edition/core/store/create-edition.slice';
 import { selectActiveUser } from '@/modules/user/core/store/user.selectors';
 import { addBookToUserLibraryUseCase } from '@/modules/user/usecases/add-book-in-user-list/add-book-to-user-library.usecase';
 
@@ -20,8 +19,7 @@ type Props = {
     book: BooksModel.Book;
 }
 
-export const PublishingSection: FC<Props> = ({ book }) => {
-    const [isShown, setIsShown] = useState(false);
+export const EditionSection: FC<Props> = ({ book }) => {
     const [selectedStatus, setSelectedStatus] = useState<'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned' | undefined>(undefined);
     const { t } = useTranslation('');
     const dispatch = useDispatch<AppDispatch>();
@@ -41,7 +39,7 @@ export const PublishingSection: FC<Props> = ({ book }) => {
     };
 
     const toggle = () => {
-        setIsShown(!isShown);
+        dispatch(createEditionForm('displayed'))
     };
 
     return (
@@ -73,11 +71,10 @@ export const PublishingSection: FC<Props> = ({ book }) => {
                         </CardBody>
                     </Card>
                 ))}
-                <Button onClick={toggle} className='bg-transparent hover:bg-[#f8e9ff] text-black underline'>
+                <Button onPress={toggle} className='bg-transparent hover:bg-[#f8e9ff] text-black underline'>
                     {t('library.addPublishing')}
                 </Button>
             </div>
-            <CustomModal isShown={isShown} hideModal={toggle} modalContent={<AddPublisherForm />} />
         </div>
     );
 };

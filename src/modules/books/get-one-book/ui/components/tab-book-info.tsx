@@ -4,7 +4,7 @@ import { useState } from 'react';
 import type { BooksModel } from '@/modules/books/model/books.model';
 import type { FC } from 'react';
 
-import { PublishingSection } from '@/modules/books/get-one-book/ui/components/publishing-section';
+import { EditionSection } from '@/modules/books/get-one-book/ui/components/edition-section';
 import { ReviewSection } from '@/modules/books/get-one-book/ui/components/review-section';
 
 
@@ -49,7 +49,7 @@ export const TabBookInfo: FC<Props> = ({ book }) => {
         ))}
       </Tabs>
       <div className='ml-8 w-full'>
-        {selectedTab === '0' && <PublishingSection book={book} />}
+        {selectedTab === '0' && <EditionSection book={book} />}
         {selectedTab === '1' && <ReviewSection book={book} />}
       </div>
     </div>

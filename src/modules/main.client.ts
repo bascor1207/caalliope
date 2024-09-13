@@ -16,11 +16,11 @@ import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
 // import { HttpGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/http-get-books.gateway';
 import { HttpDonateGateway } from '@/modules/donate/infra/http-donate.gateway';
 // import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-get-one-book.gateway';
-// import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
 // import { HttpGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/http-get-books.gateway';
 
 
 //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
+
 import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
 import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
 import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infra/fake-create-book.gateway';

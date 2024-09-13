@@ -61,14 +61,21 @@ export function useCustomForm<TFormValues extends FieldValues, RType, A>({ schem
     }
 
     function onSubmit(data: TFormValues) {
-        const formData = new FormData();
-
-        Object.entries(data).forEach(([key, value]) => {
-                formData.append(key, value);
-        });
+        if (data.cover) {
+            const formData = new FormData();
+            Object.entries(data).forEach(([key, value]) => {
+                    formData.append(key, value);
+            });
+            if (action) {
+                dispatch(action(formData));
+            }
+            reset();
+            onCustomClose?.()
+            return;
+        }
 
         if (action) {
-            dispatch(action(formData));
+            dispatch(action(data));
         }
         reset();
         onCustomClose?.()
