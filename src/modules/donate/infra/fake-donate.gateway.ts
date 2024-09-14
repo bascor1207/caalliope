@@ -4,16 +4,16 @@ import type Stripe from 'stripe';
 export class FakeDonateGateway implements ConnectorToDonateGateway {
     returnedResponse!: Stripe.PaymentIntent;
 
-    createPaymentIntent(amount: number): Promise<Stripe.PaymentIntent> {
+    createPaymentIntent(amount: number): Promise<{ clientSecret: string }> {
         return new Promise((resolve, reject) => {
             if (!amount) return reject();
-            return resolve(this.returnedResponse);
+            return resolve({ clientSecret: 'ok' });
         });
     }
 
-    createCheckoutSession(): Promise<Stripe.Checkout.Session> {
+    createCheckoutSession(): Promise<string> {
         return new Promise((resolve) => {
-            resolve({} as Stripe.Checkout.Session);
+            resolve('ok');
         });
     }
 }
