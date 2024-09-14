@@ -11,5 +11,5 @@ const DonatePage: FC = () => {
         </div>
     );
 }
-  
-  export default DonatePage;
+
+export default DonatePage;
