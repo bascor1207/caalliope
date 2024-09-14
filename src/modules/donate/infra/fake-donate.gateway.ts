@@ -1,4 +1,4 @@
-import type { ConnectorToDonateGateway } from '../core/Connector-to-donate-gateway';
+import type { ConnectorToDonateGateway } from '@/modules/donate/core/connector-to-donate.gateway';
 import type Stripe from 'stripe';
 
 export class FakeDonateGateway implements ConnectorToDonateGateway {
@@ -8,6 +8,12 @@ export class FakeDonateGateway implements ConnectorToDonateGateway {
         return new Promise((resolve, reject) => {
             if (!amount) return reject();
             return resolve(this.returnedResponse);
+        });
+    }
+
+    createCheckoutSession(): Promise<Stripe.Checkout.Session> {
+        return new Promise((resolve) => {
+            resolve({} as Stripe.Checkout.Session);
         });
     }
 }

@@ -9,14 +9,14 @@ import type { ConnectorToCreateEditionGateway } from '@/modules/books/usecases/c
 import type { ConnectorToGetBooks } from '@/modules/books/usecases/get-catalog/core/connector-to.get-books';
 import type { ConnectorToLastReleaseBooks } from '@/modules/books/usecases/get-last-release-books/core/connector-to-last-release-books';
 import type { ConnectorToPopularBooks } from '@/modules/books/usecases/get-popular-books/core/connector-to-popular-books.gateway';
-import type { ConnectorToDonateGateway } from '@/modules/donate/infra/connector-to-donate.gateway';
+import type { ConnectorToDonateGateway } from '@/modules/donate/core/connector-to-donate.gateway';
 import type { ConnectorToUserGateway } from '@/modules/user/core/connector-to-user.gateway';
 import type { ConnectorToAdminGateway } from '@/modules/user/usecases/admin/core/connector-to-admin.gateway';
 import type {
-    UnknownAction,
-    ThunkDispatch,
-    MiddlewareAPI,
-    ListenerMiddlewareInstance
+  UnknownAction,
+  ThunkDispatch,
+  MiddlewareAPI,
+  ListenerMiddlewareInstance
 } from '@reduxjs/toolkit';
 import type { TypedUseSelectorHook } from 'react-redux';
 
@@ -24,13 +24,13 @@ import { listenerMiddleware } from '@/modules/app/core/store/create-app-listener
 import { rootReducer } from '@/modules/app/core/store/root-reducer';
 import { registerOnDetailsModalDisplayedForBookListener } from '@/modules/books/get-one-book/core/get-book.listeners';
 import {
-    registerOnAuthChangeForUserListener,
-    registerOnBookCreationErrorForUserListener,
-    registerOnBookCreationSuccessForUserListener,
-    registerOnEditionCreationErrorForUserListener,
-    registerOnEditionCreationSuccessForUserListener,
-    registerOnUpdatedBookStatusErrorForUserListener,
-    registerOnUpdatedBookStatusForUserListener
+  registerOnAuthChangeForUserListener,
+  registerOnBookCreationErrorForUserListener,
+  registerOnBookCreationSuccessForUserListener,
+  registerOnEditionCreationErrorForUserListener,
+  registerOnEditionCreationSuccessForUserListener,
+  registerOnUpdatedBookStatusErrorForUserListener,
+  registerOnUpdatedBookStatusForUserListener
 } from '@/modules/user/core/store/user.listeners';
 
 import { FakeCookiesProvider } from '@/modules/app/infra/fake-cookies.provider';
@@ -47,17 +47,17 @@ import { FakeAdminGateway } from '@/modules/user/usecases/admin/infra/fake-admin
 
 
 export type Dependencies = {
-    getBooksAdapter: ConnectorToGetBooks;
-    getPopularBooksAdapter: ConnectorToPopularBooks;
-    getLastReleaseBooksAdapter: ConnectorToLastReleaseBooks;
-    getOneBookAdapter: ConnectorToGetOneBook;
-    createBookAdapter: ConnectorToCreateBookGateway;
-    createEditionAdapter: ConnectorToCreateEditionGateway;
-    authAdapter: ConnectorToAuthGateway;
-    adminAdapter: ConnectorToAdminGateway;
-    userAdapter: ConnectorToUserGateway;
-    donateAdapter: ConnectorToDonateGateway;
-    cookiesAdapter: CookiesInterface;
+  getBooksAdapter: ConnectorToGetBooks;
+  getPopularBooksAdapter: ConnectorToPopularBooks;
+  getLastReleaseBooksAdapter: ConnectorToLastReleaseBooks;
+  getOneBookAdapter: ConnectorToGetOneBook;
+  createBookAdapter: ConnectorToCreateBookGateway;
+  createEditionAdapter: ConnectorToCreateEditionGateway;
+  authAdapter: ConnectorToAuthGateway;
+  adminAdapter: ConnectorToAdminGateway;
+  userAdapter: ConnectorToUserGateway;
+  donateAdapter: ConnectorToDonateGateway;
+  cookiesAdapter: CookiesInterface;
 };
 
 export const createStore = (
@@ -68,14 +68,14 @@ export const createStore = (
   return configureStore({
     reducer: rootReducer,
     middleware(getDefaultMiddleware) {
-        registerOnAuthChangeForUserListener();
-        registerOnBookCreationSuccessForUserListener();
-        registerOnBookCreationErrorForUserListener();
-        registerOnEditionCreationSuccessForUserListener();
-        registerOnEditionCreationErrorForUserListener();
-        registerOnDetailsModalDisplayedForBookListener();
-        registerOnUpdatedBookStatusForUserListener();
-        registerOnUpdatedBookStatusErrorForUserListener();
+      registerOnAuthChangeForUserListener();
+      registerOnBookCreationSuccessForUserListener();
+      registerOnBookCreationErrorForUserListener();
+      registerOnEditionCreationSuccessForUserListener();
+      registerOnEditionCreationErrorForUserListener();
+      registerOnDetailsModalDisplayedForBookListener();
+      registerOnUpdatedBookStatusForUserListener();
+      registerOnUpdatedBookStatusErrorForUserListener();
       return getDefaultMiddleware({
         thunk: {
           extraArgument: dependencies,
@@ -103,11 +103,11 @@ export const createTestStore = (
   preloadedState?: DeepPartial<ReturnType<typeof rootReducer>>,
 ) => {
   return createStore({
-      getBooksAdapter, getPopularBooksAdapter, getLastReleaseBooksAdapter, getOneBookAdapter,
-      createBookAdapter, createEditionAdapter,
-      authAdapter, userAdapter, adminAdapter,
-      cookiesAdapter, donateAdapter
-}, preloadedState as never);
+    getBooksAdapter, getPopularBooksAdapter, getLastReleaseBooksAdapter, getOneBookAdapter,
+    createBookAdapter, createEditionAdapter,
+    authAdapter, userAdapter, adminAdapter,
+    cookiesAdapter, donateAdapter
+  }, preloadedState as never);
 };
 
 export const createTestState = (partialState?: DeepPartial<RootState>) => {
@@ -124,16 +124,16 @@ export const createTestState = (partialState?: DeepPartial<RootState>) => {
 }
 
 const createDependencies = (
-    dependencies?: DeepPartial<Dependencies>,
+  dependencies?: DeepPartial<Dependencies>,
 ): Dependencies =>
-    ({
-      authAdapter: new FakeAuthGateway(),
-      ...dependencies,
-    }) as Dependencies;
+  ({
+    authAdapter: new FakeAuthGateway(),
+    ...dependencies,
+  }) as Dependencies;
 
 
 type DeepPartial<T> = {
-    [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K]
+  [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K]
 }
 type AppStoreWithGetActions = ReturnType<typeof createStore>;
 export type AppStore = Omit<AppStoreWithGetActions, 'getActions'>;
