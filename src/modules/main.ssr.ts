@@ -1,6 +1,5 @@
 import type { AppStore, Dependencies, RootState } from '@/modules/app/core/store/create-store';
 
-import { initLocale } from '@/i18n';
 import { createStore } from '@/modules/app/core/store/create-store';
 import { BookFactory } from '@/modules/books/model/books.factory';
 import { catalog } from '@/modules/catalog';
