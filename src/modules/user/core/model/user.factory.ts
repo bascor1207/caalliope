@@ -23,6 +23,17 @@ export class UserFactory {
         })
     }
 
+    static createBaseUserBook<T extends '' | 'abandoned' | 'read' | 'wishlist' | 'toRead' | 'reading' = ''>(data?: Partial<UsersModel.BaseUserBook<T>>): UsersModel.BaseUserBook<T> {
+        return ({
+            id: 1,
+            title: 'titre du livre',
+            type: 'type du livre',
+            image: 'image.png',
+            status: data?.status as T ?? '' as T,
+            ...data
+        })
+    }
+
     static createAdminBook(data?: Partial<UsersModel.AdminBook>) : UsersModel.AdminBook {
         return ({
             id: 1,

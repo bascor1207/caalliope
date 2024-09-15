@@ -33,13 +33,7 @@ export const PublishingSection: FC<Props> = ({ book }) => {
 
     const handleClick = () => {
         if (selectedStatus) {
-            const userBook = {
-                id: book.id,
-                title: book.title,
-                type: book.type,
-                image: book.image,
-            };
-            dispatch(addBookToUserLibraryUseCase({ userId: activeUser.id, book: userBook, status: selectedStatus }));
+            dispatch(addBookToUserLibraryUseCase({ userId: activeUser.id, bookId: book.id, status: selectedStatus }));
             console.log(`Livre ajouté avec le statut : ${selectedStatus}`);
         } else {
             console.log('Aucun statut sélectionné');

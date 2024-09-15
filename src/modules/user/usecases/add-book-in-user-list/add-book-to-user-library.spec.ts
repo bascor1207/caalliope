@@ -1,36 +1,34 @@
-import { describe, it, expect } from 'vitest';
-
-import type { UsersModel } from '@/modules/user/core/model/users.model';
+import { describe, test, expect } from 'vitest';
 
 import { createTestStore } from '@/modules/app/core/store/create-store';
+import { UserFactory } from '@/modules/user/core/model/user.factory';
 import { addBookToUserLibraryUseCase, } from '@/modules/user/usecases/add-book-in-user-list/add-book-to-user-library.usecase';
 
 import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
 
 
 describe('Add book to user library', () => {
-    it('should add the book to the user\'s to-read list', async () => {
+    test('should add the book to the user\'s to-read list', async () => {
         givenUserId('2');
         givenBookAndStatus('toRead');
 
-        await addBookToLibrary();
+        await addBookToLibrary(19);
 
-        await thenTheBookShouldBeInUserLibrary('toRead');
+        await thenTheBookShouldBeInUserLibrary('toRead', 19);
     });
 
-    it('should add the book to the user\'s wishlist', async () => {
+    test('should add the book to the user\'s wishlist', async () => {
         givenUserId('2');
         givenBookAndStatus('wishlist');
 
-        await addBookToLibrary();
+        await addBookToLibrary(20);
 
-        await thenTheBookShouldBeInUserLibrary('wishlist');
+        await thenTheBookShouldBeInUserLibrary('wishlist', 20);
     });
 });
 
 const fakeUserGateway = new FakeUserGateway();
 const store = createTestStore({ userAdapter: fakeUserGateway });
-let book: UsersModel.BaseUserBook;
 let userId = '';
 let status: 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned';
 
@@ -40,31 +38,19 @@ function givenUserId(id: string) {
 
 function givenBookAndStatus(bookStatus: 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned') {
     status = bookStatus;
-    book = {
-        id: 11,
-        title: 'New Book',
-        type: 'Fiction',
-        image: '/newbook.jpg',
-        status: ''
-    };
 }
 
-async function addBookToLibrary() {
-    await store.dispatch(addBookToUserLibraryUseCase({ userId, book, status }));
+async function addBookToLibrary(bookId: number) {
+    await store.dispatch(addBookToUserLibraryUseCase({ userId, bookId, status }));
 }
 
-async function thenTheBookShouldBeInUserLibrary(expectedStatus: string) {
+async function thenTheBookShouldBeInUserLibrary(expectedStatus: 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned', bookId: number) {
     const user = await fakeUserGateway.getUser({ id: userId });
-    const expectedBook = { ...book, status: expectedStatus };
+    const expectedBook = UserFactory.createBaseUserBook<typeof expectedStatus>({ id: bookId, status: expectedStatus });
     if (expectedStatus === 'toRead') {
-        expect(user.myBooksToRead).toContainEqual(expectedBook);
-    } else if (expectedStatus === 'reading') {
-        expect(user.myInProgressBooks).toContainEqual(expectedBook);
-    } else if (expectedStatus === 'read') {
-        expect(user.myAlreadyReadBooks).toContainEqual(expectedBook);
-    } else if (expectedStatus === 'wishlist') {
-        expect(user.myWishlist).toContainEqual(expectedBook);
-    } else if (expectedStatus === 'abandoned') {
-        expect(user.myAbandonedBooks).toContainEqual(expectedBook);
+        expect(user.myBooksToRead.find((book) => book.id === expectedBook.id)).toEqual(expectedBook);
+    }
+    if (expectedStatus === 'wishlist') {
+        expect(user.myWishlist.find((book) => book.id === expectedBook.id)).toEqual(expectedBook);
     }
 }
