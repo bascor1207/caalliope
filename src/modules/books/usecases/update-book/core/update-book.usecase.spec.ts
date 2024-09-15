@@ -48,7 +48,9 @@ function thenThereShouldBeAVisualIndicator() {
                 informativeSpinner: false,
                 informativeToast: { type: 'success', message: 'The demand will be proceeded by an admin', status: 'displayed' },
                 activeProfileTab: 'my-infos',
-                activeUser: {}
+                activeUser: {},
+                contactFormState: 'hidden',
+                editProfileFormState: 'hidden'
             },
             actions: {
                 updateBook: { success: true, error: false }
@@ -65,8 +67,11 @@ function thenThereShouldBeAnErrorToast() {
                 informativeSpinner: false,
                 informativeToast: { type: 'error', message: 'There was an error trying update the book, please retry later', status: 'displayed' },
                 activeProfileTab: 'my-infos',
-                activeUser: {}
-            },
+                activeUser: {},
+                contactFormState: 'hidden',
+                editProfileFormState: 'hidden'
+
+},
             actions: { updateBook: { success: false, error: true } }
         }
     });

@@ -15,7 +15,7 @@ export class FakeUserGateway implements ConnectorToUserGateway {
 
     getUser({ id }: {id: string}): Promise<UsersModel.User> {
         return new Promise((resolve, reject) => {
-            if (!id) reject();
+            if (!id || id.trim() === '') return reject();
             const user = this.users.find((user) => user.id === id);
             if (!user) reject();
             resolve(user as UsersModel.User)
