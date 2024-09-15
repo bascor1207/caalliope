@@ -7,11 +7,10 @@ export const getUserUsecase = createAppAsyncThunk(
         try {
             return await userAdapter.getUser({ ...data })
         } catch (error) {
-            console.log('error get user', error);
             if (error instanceof CustomErrorWrapper) {
-                rejectWithValue(error.payload)
+                return rejectWithValue(error.payload)
             }
-            rejectWithValue({ message: 'Erreur inconnue', type: 'error' })
+            return rejectWithValue({ message: 'Erreur inconnue', type: 'error' })
         }
     }
 )

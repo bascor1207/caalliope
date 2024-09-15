@@ -54,7 +54,7 @@ function thenThereShouldBeAVisualIndicator() {
                 contactFormState: 'hidden'
             },
             actions: {
-                updateEdition: { success: true, error: false },
+                updateEdition: { success: true, error: false, formStatus: 'hidden' },
                 updateBook: { success: false, error: false }
             }
         }
@@ -74,7 +74,7 @@ function thenThereShouldBeAnErrorToast() {
                 contactFormState: 'hidden'
             },
             actions: {
-                updateEdition: { success: false, error: true }
+                updateEdition: { success: false, error: true, formStatus: 'hidden' }
             }
         }
     });

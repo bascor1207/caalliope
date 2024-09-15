@@ -40,7 +40,7 @@ function thenThereShouldBeASuccessfulToast() {
             contactFormState: 'hidden',
             editProfileFormState: 'hidden'
         },
-        actions: { createEdition: { success: true, error: false } } }
+        actions: { createEdition: { success: true, error: false, formStatus: 'hidden' } } }
     });
     expect(store.getState()).toEqual(state)
 }
@@ -56,7 +56,7 @@ function thenThereShouldBeAnErrorToast() {
                 contactFormState: 'hidden',
                 editProfileFormState: 'hidden'
             },
-            actions: { createEdition: { success: false, error: true } }
+            actions: { createEdition: { success: false, error: true, formStatus: 'hidden' } }
         }
     });
     expect(store.getState()).toEqual(state)
