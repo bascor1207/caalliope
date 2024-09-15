@@ -29,6 +29,7 @@ const generateStars = (rating?: number) => {
 };
 
 export const BookInfoCard: React.FC<Props> = ({ book }) => {
+  console.log(book)
   return (
     <Card className='bg-transparent text-black'>
       <CardHeader>

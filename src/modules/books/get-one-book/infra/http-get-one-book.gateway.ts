@@ -27,7 +27,7 @@ export class HttpGetOneBookGateway implements ConnectorToGetOneBook {
                 label: subject.genre || 'No subject provided'
             })) || [],
             dateOfPublication: new Date(data.publicationDate).toISOString().split('T')[0] || 'Publication date not available',
-            image: `http://localhost:3001/uploads/covers/${data.cover.filename}` || '',
+            image: `${process.env.BACKEND_URL}/uploads/covers/${data.cover.filename}` || '',
             editions: data.publishing?.map((edition) => ({
                 id: edition.id,
                 label: edition.label || 'No edition provided',

@@ -1,10 +1,10 @@
-import BookInfoPage from '@/modules/books/get-one-book/ui/pages/book.page';
+import { getServerStore } from '@/modules/app/core/store/server-store';
+import { BookInfoPage } from '@/modules/books/get-one-book/ui/pages/book.page';
 import { getOneBookById } from '@/modules/books/get-one-book/usecase/get-one-book-by-id.usecase';
-import { ssrApp } from '@/modules/main.ssr';
 
 export async function generateMetadata({ params }: { params: { id: string } }) {
     const { id } = params;
-    const store = ssrApp.store;
+    const store = getServerStore();
 
     await store.dispatch(getOneBookById(parseInt(id)));
 
@@ -18,7 +18,10 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     };
 }
 
-export default function BookPage() {
+export default async function BookPage() {
+    const store = getServerStore();
+
+    await store.dispatch(getOneBookById(parseInt('197')))
 
     return (
         <BookInfoPage />

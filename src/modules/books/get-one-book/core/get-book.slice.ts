@@ -29,9 +29,14 @@ export const getBookSlice = createSlice({
         builder.addCase(getOneBookById.pending, (state) => {
             state.requestStatus = 'pending';
         });
+
         builder.addCase(getOneBookById.fulfilled, (state, action) => {
             state.selectedBook = action.payload as BooksModel.Book;
             state.requestStatus = 'fulfilled';
+        })
+
+        builder.addCase(getOneBookById.rejected, (state) => {
+            state.requestStatus = 'rejected';
         })
 
         builder.addCase(updateBookStatusUsecase.fulfilled, (state) => {
