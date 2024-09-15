@@ -27,7 +27,6 @@ export const Header = () => {
             renderRightContent={() => (
                 <>
                     <Select
-                        defaultSelectedKeys={[presenter.t(`navbar.${presenter.locale}`)]}
                         className='bg-custom-grey w-1/4'
                         labelPlacement='inside'
                         size='sm'

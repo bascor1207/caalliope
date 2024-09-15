@@ -1,5 +1,5 @@
 'use client';
-import { Card } from '@nextui-org/react';
+import { Button, Card } from '@nextui-org/react';
 import { useStripe, useElements } from '@stripe/react-stripe-js';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -55,13 +55,13 @@ export const DonateForm: FC = () => {
           placeholder='Enter your email'
           required
         />
-        <button
-          className={`w-full p-3 rounded-lg text-white transition-colors duration-300 ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-purple-500 hover:bg-purple-600'}`}
+        <Button
+          className={`w-full p-3 rounded-lg text-custom-dark-purple hover:text-white transition-colors duration-300 ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-custom-purple hover:bg-custom-dark-purple'}`}
           type='submit'
           disabled={!stripe || loading}
         >
           {loading ? 'Processing...' : `Donate ${amount} EUR`}
-        </button>
+        </Button>
       </form>
       {showAlert && (
         <div className='mt-4 p-4 bg-green-100 border border-green-300 text-green-700 rounded-lg text-center'>

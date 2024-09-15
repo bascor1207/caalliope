@@ -57,6 +57,7 @@ export namespace UsersModel {
     export type WishBook = BaseUserBook<'wishlist'>
 
     export const contactUsSchema = z.object({
+        email: emailSchema,
         reason: z.string().min(1, { message: i18n.t('form.errors.required') }),
     })
 
