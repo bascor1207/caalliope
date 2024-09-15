@@ -19,7 +19,7 @@ export function middleware(request: NextRequest) {
     }
 
     const token = request.cookies.get('token');
-    if (!token && url.pathname.startsWith('/my-account')) {
+    if (!token && url.pathname.includes('/my-account')) {
         url.pathname = `/${language}/auth/sign-in`;
         return NextResponse.redirect(url);
     }
