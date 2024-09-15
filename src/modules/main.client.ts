@@ -3,7 +3,7 @@ import type { AppStore, Dependencies, RootState } from '@/modules/app/core/store
 
 import { initLocale } from '@/i18n';
 import { createStore } from '@/modules/app/core/store/create-store';
-import { BookFactory } from '@/modules/books/model/books.factory';
+// import { BookFactory } from '@/modules/books/model/books.factory';
 import { catalog } from '@/modules/catalog';
 
 // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
@@ -33,7 +33,7 @@ import { FakeUpdateEditionGateway } from '@/modules/books/usecases/update-editio
 // import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
 import { FakeAdminGateway } from '@/modules/user/usecases/admin/infra/fake-admin.gateway';
 
-const book = BookFactory.create();
+// const book = BookFactory.create();
 
 export class App {
     public dependencies!: Dependencies;
