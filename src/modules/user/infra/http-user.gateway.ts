@@ -9,8 +9,8 @@ export class HttpUserGateway implements ConnectorToUserGateway {
         return data.data
     }
 
-    addBookToUserLibrary({ userId, book, status }: { userId: string; book: UsersModel.BaseUserBook; status: 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned'; }): Promise<void> {
-        console.log(userId, book, status);
+    addBookToUserLibrary({ userId, bookId, status }: { userId: string; bookId: number; status: 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned'; }): Promise<void> {
+        console.log(userId, bookId, status);
         throw new Error('Method not implemented.');
     }
 }
