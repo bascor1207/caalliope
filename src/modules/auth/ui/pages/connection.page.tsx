@@ -13,6 +13,8 @@ import { switchAuthFormType } from '@/modules/auth/core/store/auth.slice';
 import { authUser } from '@/modules/auth/usecases/auth.user';
 import { registerUser } from '@/modules/auth/usecases/register.user';
 
+import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
+
 type ConnectionPageProps = {
     type?: 'signIn' | 'signUp';
 }
@@ -35,7 +37,8 @@ export const ConnectionPage: FC<ConnectionPageProps> = ({ type }) => {
     ] satisfies Array<{id: string, name: keyof AuthModel.AuthFormSchema, label: string, type: string}>;
 
     const handleChange = async (path: string) => {
-       window.location.replace(`/auth/${path}`);
+        const locale = HttpCookiesProvider.getCookie('i18next')
+        window.location.replace(`${locale}/auth/${path}`);
         dispatch(switchAuthFormType({ type: 'signUp' }))
     }
 
