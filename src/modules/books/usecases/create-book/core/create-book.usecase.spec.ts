@@ -37,9 +37,12 @@ function thenThereShouldBeAnSuccessfulToast() {
             informativeSpinner: false,
             informativeToast: { type: 'success', message: 'The demand will be proceeded by an admin', status: 'displayed' },
             activeProfileTab: 'my-infos',
-            activeUser: {}
+            activeUser: {},
+            contactFormState: 'hidden',
+            editProfileFormState: 'hidden'
         } }
     });
+
     expect(store.getState()).toEqual(state)
 }
 
@@ -50,7 +53,9 @@ function thenThereShouldBeAnErrorToast() {
                 informativeSpinner: false,
                 informativeToast: { type: 'error', message: 'There was an error trying create the book, please retry later', status: 'displayed' },
                 activeProfileTab: 'my-infos',
-                activeUser: {}
+                activeUser: {},
+                contactFormState: 'hidden',
+                editProfileFormState: 'hidden'
             } }
     });
     expect(store.getState()).toEqual(state)

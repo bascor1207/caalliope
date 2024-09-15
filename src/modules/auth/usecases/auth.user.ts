@@ -1,15 +1,18 @@
 import type { AuthModel } from '@/modules/auth/core/model/auth.model';
 
+import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
 import { createAppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
 
 export const authUser = createAppAsyncThunk(
     'auth/authenticate',
-    async (payload: AuthModel.AuthUserPayload, { extra: { authAdapter } }) => {
+    async (payload: AuthModel.AuthUserPayload, { rejectWithValue, extra: { authAdapter } }) => {
         try {
-            await authAdapter.authenticate({ ...payload })
-            return window.location.replace('/my-account');
+            return await authAdapter.authenticate({ ...payload })
         } catch (error) {
-            return error;
+            if (error instanceof CustomErrorWrapper) {
+                return rejectWithValue({ ...error.payload })
+            }
+            return rejectWithValue({ message: 'Unknown error', type: 'error' })
         }
     }
 );

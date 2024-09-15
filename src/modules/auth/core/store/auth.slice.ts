@@ -41,6 +41,11 @@ export const authSlice = createSlice({
             state.error = true;
         });
 
+        builder.addCase(authUser.pending, (state) => {
+            state.loggedUser = false;
+            state.error = false;
+        })
+
         builder.addCase(authUser.fulfilled, (state, _) => {
             state.loggedUser = true
         });
@@ -57,6 +62,7 @@ export const authSlice = createSlice({
         builder.addCase(getUserUsecase.fulfilled, (state) => {
             state.loggedUser = true
         });
+
         builder.addCase(logoutUserUsecase.fulfilled, (state,) => {
             state.loggedUser = false
         })

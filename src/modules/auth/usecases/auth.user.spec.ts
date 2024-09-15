@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest';
+import { describe, test, expect } from 'vitest';
 
 import type { AuthModel } from '@/modules/auth/core/model/auth.model';
 
@@ -8,7 +8,7 @@ import { authUser } from '@/modules/auth/usecases/auth.user';
 import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
 
 describe('Test suite for authenticating user', () => {
-    it('should authenticate the user with happy path', async () => {
+    test('should authenticate the user with happy path', async () => {
         givenNoUserConnected()
 
         await authenticateUser({ email: 'email@email.com', password: 'password' })
@@ -16,7 +16,7 @@ describe('Test suite for authenticating user', () => {
         itShouldBeAUserThen()
     });
 
-    it('should not authenticate the user', async () => {
+    test('should not authenticate the user', async () => {
         givenNoUserConnected()
 
         await authenticateUser()
@@ -46,8 +46,6 @@ function itShouldBeAUserThen() {
 }
 
 function itShouldNotBeAUserThen() {
-    const state = createTestState({ auth: { getAuth: { authModalVisible: false, loggedUser: false, error: true } } })
-    expect(state.auth?.getAuth.loggedUser).toEqual(store.getState().auth?.getAuth.loggedUser)
-    expect(state.auth?.getAuth.error).toEqual(store.getState().auth?.getAuth.error)
-    expect(state.auth?.getAuth.authModalVisible).toEqual(store.getState().auth?.getAuth.authModalVisible)
+    const state = createTestState({ auth: { getAuth: { authModalVisible: false, loggedUser: false, error: true, authType: '' } } })
+    expect(state.auth?.getAuth).toEqual(store.getState().auth?.getAuth)
 }

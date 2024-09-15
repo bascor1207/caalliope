@@ -1,15 +1,17 @@
 import type { ConnectorToAuthGateway } from '@/modules/auth/core/connector-to-auth.gateway';
 import type { AuthModel } from '@/modules/auth/core/model/auth.model';
 
+import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
+
 import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
 
 export class FakeAuthGateway implements ConnectorToAuthGateway {
     private readonly systemCookiesProvider = new HttpCookiesProvider()
 
     async authenticate({ email, password }: AuthModel.AuthUserPayload): Promise<AuthModel.AuthenticatedUser> {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             if (email.trim() === '' || password.trim() === '') {
-                reject(new Error('There is a missing requirement'))
+               CustomErrorWrapper.throwError({ message: 'Missing requirement', type: 'error' })
             }
             this.systemCookiesProvider.setCookie('token', 'my-token')
             return resolve({ id: '2' })
