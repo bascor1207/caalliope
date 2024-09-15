@@ -15,13 +15,12 @@ import { ContactForm } from '@/modules/user/usecases/contact-us/ui/forms/contact
 import { EditProfileForm } from '@/modules/user/usecases/edit-profile/ui/forms/edit-profile.form';
 import { DetailedUserBookModal } from '@/modules/user/usecases/get-user/ui/components/detailed-user-book.modal';
 
- const AuthModal = dynamic(() => import('@/modules/auth/ui/auth.modal').then((module) => module.AuthModal), {
+const AuthModal = dynamic(() => import('@/modules/auth/ui/auth.modal').then((module) => module.AuthModal), {
     ssr: false,
 });
 const CreateEditionModal = dynamic(() => import('@/modules/books/usecases/create-edition/ui/forms/add-edition-form').then((module) => module.AddEditionForm), {
     ssr: false,
 });
-
 const UpdateEditionModal = dynamic(() => import('@/modules/books/usecases/update-edition/ui/forms/update-book-edition-form').then((module) => module.UpdateBookEditionModal), {
     ssr: false
 })
