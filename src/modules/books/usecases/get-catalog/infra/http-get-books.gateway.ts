@@ -30,7 +30,7 @@ export class HttpGetBooksGateway implements ConnectorToGetBooks {
         return data?.map((data) => {
             return {
                 id: data.id || 0,
-                image: `http://localhost:3001/uploads/covers/${data.cover?.filename}` || ''
+                image: `${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/covers/${data.cover?.filename}` || ''
             }
         }) || [];
     }

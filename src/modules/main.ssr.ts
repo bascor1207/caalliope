@@ -6,8 +6,8 @@ import { catalog } from '@/modules/catalog';
 
 // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
 import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
-// import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-get-one-book.gateway';
-// import { HttpGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/http-get-books.gateway';
+import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-get-one-book.gateway';
+import { HttpGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/http-get-books.gateway';
 import { HttpDonateGateway } from '@/modules/donate/infra/http-donate.gateway';
 // import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
 
@@ -15,10 +15,10 @@ import { HttpDonateGateway } from '@/modules/donate/infra/http-donate.gateway';
 //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
 
 import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
-import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
+// import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
 import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infra/fake-create-book.gateway';
 import { FakeCreateEditionGateway } from '@/modules/books/usecases/create-edition/infra/fake-create-edition.gateway';
-import { FakeGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/fake-get-books.gateway';
+// import { FakeGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/fake-get-books.gateway';
 import { FakeGetLastReleaseBooksGateway } from '@/modules/books/usecases/get-last-release-books/infra/fake-get-last-release-books.gateway';
 import { FakeGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/fake-get-popular-books.gateway';
 import { FakeUpdateBookGateway } from '@/modules/books/usecases/update-book/infra/fake-update-book.gateway';
@@ -46,8 +46,8 @@ export class SSRApp {
         // const authAdapter = new HttpAuthGateway();
         // const userAdapter = new HttpUserGateway();
         // const getBooksAdapter = new HttpGetBooksGateway();
-        // const getOneBookAdapter = new HttpGetOneBookGateway();
-        // const getBooksAdapter = new HttpGetBooksGateway();
+        const getOneBookAdapter = new HttpGetOneBookGateway();
+        const getBooksAdapter = new HttpGetBooksGateway();
         // const getOneBookAdapter = new HttpGetOneBookGateway();
         const cookiesAdapter = new HttpCookiesProvider();
         const donateAdapter = new HttpDonateGateway();
@@ -57,10 +57,10 @@ export class SSRApp {
         const authAdapter = new FakeAuthGateway();
         const userAdapter = new FakeUserGateway();
         const adminAdapter = new FakeAdminGateway();
-        const getOneBookAdapter = new FakeGetOneBookGateway();
-        getOneBookAdapter.returnedResponse = book;
-        const getBooksAdapter = new FakeGetBooksGateway(500);
-        getBooksAdapter.returnedResponse = catalog;
+        // const getOneBookAdapter = new FakeGetOneBookGateway();
+        // getOneBookAdapter.returnedResponse = book;
+        // const getBooksAdapter = new FakeGetBooksGateway(500);
+        // getBooksAdapter.returnedResponse = catalog;
         const createBookAdapter = new FakeCreateBookGateway();
 
         const getPopularBooksAdapter = new FakeGetPopularBooksGateway();

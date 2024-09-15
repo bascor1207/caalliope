@@ -11,7 +11,7 @@ import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
 // import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-get-one-book.gateway';
 // import { HttpCreateBookGateway } from '@/modules/books/usecases/create-book/infra/http-create-book.gateway';
 // import { HttpAuthGateway } from '@/modules/auth/infra/http-auth.gateway';
-// import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-get-one-book.gateway';
+import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-get-one-book.gateway';
 // import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
 // import { HttpGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/http-get-books.gateway';
 import { HttpDonateGateway } from '@/modules/donate/infra/http-donate.gateway';
@@ -22,7 +22,7 @@ import { HttpDonateGateway } from '@/modules/donate/infra/http-donate.gateway';
 //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
 
 import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
-import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
+// import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
 import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infra/fake-create-book.gateway';
 import { FakeCreateEditionGateway } from '@/modules/books/usecases/create-edition/infra/fake-create-edition.gateway';
 import { FakeGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/fake-get-books.gateway';
@@ -52,7 +52,7 @@ export class App {
         // const authAdapter = new HttpAuthGateway();
         // const userAdapter = new HttpUserGateway()
         // const getBooksAdapter = new HttpGetBooksGateway();
-        // const getOneBookAdapter = new HttpGetOneBookGateway();
+        const getOneBookAdapter = new HttpGetOneBookGateway();
         const donateAdapter = new HttpDonateGateway();
         // const getBooksAdapter = new HttpGetBooksGateway();
         // const getOneBookAdapter = new HttpGetOneBookGateway();
@@ -66,8 +66,8 @@ export class App {
         const adminAdapter = new FakeAdminGateway();
         adminAdapter.bookId = 1;
         adminAdapter.userRole = 'admin';
-        const getOneBookAdapter = new FakeGetOneBookGateway();
-        getOneBookAdapter.returnedResponse = book;
+        // const getOneBookAdapter = new FakeGetOneBookGateway();
+        // getOneBookAdapter.returnedResponse = book;
         const getBooksAdapter = new FakeGetBooksGateway(1000);
         getBooksAdapter.returnedResponse = catalog;
         const createBookAdapter = new FakeCreateBookGateway();
