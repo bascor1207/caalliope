@@ -1,13 +1,17 @@
 import type { ConnectorToUserGateway } from '@/modules/user/core/connector-to-user.gateway';
 import type { UsersModel } from '@/modules/user/core/model/users.model';
 
+import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
+import { BookFactory } from '@/modules/books/model/books.factory';
 import { UserFactory } from '@/modules/user/core/model/user.factory';
 
 export class FakeUserGateway implements ConnectorToUserGateway {
     private readonly users: UsersModel.User[];
+    private readonly books: UsersModel.BaseUserBook[];
 
     constructor() {
         this.users = this.setupUsers()
+        this.books = this.setupBooks()
     }
 
     getUser({ id }: {id: string}): Promise<UsersModel.User> {
@@ -21,11 +25,11 @@ export class FakeUserGateway implements ConnectorToUserGateway {
 
     addBookToUserLibrary({
         userId,
-        book,
+        bookId,
         status,
       }: {
         userId: string;
-        book: UsersModel.BaseUserBook;
+        bookId: number;
         status:
           | UsersModel.ToReadBook['status']
           | UsersModel.InProgressBook['status']
@@ -40,23 +44,28 @@ export class FakeUserGateway implements ConnectorToUserGateway {
             return reject('User not found');
           }
 
-          const bookWithStatus = { ...book, status };
+          const bookWithStatus = this.books.find((book) => book.id === bookId);
+
+          if (!bookWithStatus) {
+              CustomErrorWrapper.throwError({ message: 'No book to update', type: 'error' })
+              return;
+          }
 
           switch (status) {
             case 'toRead':
-              user.myBooksToRead.push(bookWithStatus as UsersModel.ToReadBook);
+              user.myBooksToRead.push(UserFactory.createBaseUserBook<'toRead'>({ ...bookWithStatus, status }));
               break;
             case 'reading':
-              user.myInProgressBooks.push(bookWithStatus as UsersModel.InProgressBook);
+              user.myInProgressBooks.push(UserFactory.createBaseUserBook<'reading'>({ ...bookWithStatus, status }));
               break;
             case 'read':
-              user.myAlreadyReadBooks.push(bookWithStatus as UsersModel.AlreadyReadBook);
+              user.myAlreadyReadBooks.push(UserFactory.createBaseUserBook<'read'>({ ...bookWithStatus, status }));
               break;
             case 'wishlist':
-              user.myWishlist.push(bookWithStatus as UsersModel.WishBook);
+              user.myWishlist.push(UserFactory.createBaseUserBook<'wishlist'>({ ...bookWithStatus, status }));
               break;
             case 'abandoned':
-              user.myAbandonedBooks.push(bookWithStatus as UsersModel.AbandonedBook);
+              user.myAbandonedBooks.push(UserFactory.createBaseUserBook<'abandoned'>({ ...bookWithStatus, status }));
               break;
             default:
               return reject('Invalid status');
@@ -74,6 +83,16 @@ export class FakeUserGateway implements ConnectorToUserGateway {
                 myBooksToRead, myInProgressBooks, myAlreadyReadBooks, myAbandonedBooks, myWishlist, waitingForValidationBooks
              })
         ])
+    }
+
+    private setupBooks() {
+        let i = 0;
+        const books = []
+        while(i < 11) {
+            books.push(UserFactory.createBaseUserBook({ id: i + 19 }))
+           i++
+        }
+        return books;
     }
 }
 
