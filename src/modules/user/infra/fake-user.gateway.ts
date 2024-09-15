@@ -2,7 +2,6 @@ import type { ConnectorToUserGateway } from '@/modules/user/core/connector-to-us
 import type { UsersModel } from '@/modules/user/core/model/users.model';
 
 import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
-import { BookFactory } from '@/modules/books/model/books.factory';
 import { UserFactory } from '@/modules/user/core/model/user.factory';
 
 export class FakeUserGateway implements ConnectorToUserGateway {
