@@ -15,6 +15,7 @@ export const ContactForm = ({ formType }: {formType: 'modal' | 'plain'}) => {
     const dispatch = useDispatch<AppDispatch>();
 
     const items = [
+        { id: 'email', name: 'email', label: 'Email', type: 'email' },
         { id:'reason', name: 'reason', label: 'Reason', type: 'text' }
     ] satisfies Array<{id: string, name: keyof UsersModel.ContactUsForm, label: string, type: string, options?: {value: string, label: string}[]}>;
 

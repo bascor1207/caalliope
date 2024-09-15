@@ -11,7 +11,7 @@ import type { ConnectorToLastReleaseBooks } from '@/modules/books/usecases/get-l
 import type { ConnectorToPopularBooks } from '@/modules/books/usecases/get-popular-books/core/connector-to-popular-books.gateway';
 import type { ConnectorToUpdateBookGateway } from '@/modules/books/usecases/update-book/core/connector-to-update-book.gateway';
 import type { ConnectorToUpdateEditionGateway } from '@/modules/books/usecases/update-edition/core/connector-to-update-edition.gateway';
-import type { ConnectorToDonateGateway } from '@/modules/donate/infra/connector-to-donate.gateway';
+import type { ConnectorToDonateGateway } from '@/modules/donate/core/connector-to-donate.gateway';
 import type { ConnectorToUserGateway } from '@/modules/user/core/connector-to-user.gateway';
 import type { ConnectorToAdminGateway } from '@/modules/user/usecases/admin/core/connector-to-admin.gateway';
 import type {
@@ -24,7 +24,7 @@ import type { TypedUseSelectorHook } from 'react-redux';
 
 import { listenerMiddleware } from '@/modules/app/core/store/create-app-listener';
 import { rootReducer } from '@/modules/app/core/store/root-reducer';
-import { 
+import {
   registerOnAuthChangeForUserListener, registerOnUserActionToInformHim,
   registerOnUpdatedBookStatusErrorForUserListener, registerOnUpdatedBookStatusForUserListener
 } from '@/modules/user/core/store/user.listeners';

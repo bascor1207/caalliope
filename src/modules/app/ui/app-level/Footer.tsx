@@ -13,9 +13,9 @@ export const Footer = () => {
     return (
         <div className='flex items-center justify-end text-custom-dark-purple p-5 h-24'>
             <div className='flex items-center gap-12'>
-                <Link className='flex justify-center text-lg cursor-pointer hover:font-bold' href='/donate'>
+                <Button className='flex justify-center text-lg bg-transparent hover:bg-custom-grey' as={Link} href={`/${language}/donate`}>
                     { t('footer.donation') }
-                </Link>
+                </Button>
                 <Button className='flex justify-center text-lg bg-transparent hover:bg-custom-grey' as={Link} href={`/${language}/contact`}>
                     { t('footer.contact') }
                 </Button>
