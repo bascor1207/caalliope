@@ -4,6 +4,7 @@ import type { AppStore, Dependencies, RootState } from '@/modules/app/core/store
 import { initLocale } from '@/i18n';
 import { createStore } from '@/modules/app/core/store/create-store';
 // import { BookFactory } from '@/modules/books/model/books.factory';
+import { I18nTranslationProvider } from '@/modules/app/infra/i18n-translation.provider';
 import { catalog } from '@/modules/catalog';
 
 // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
@@ -23,6 +24,8 @@ import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
 
 // import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
 // import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
+import { HttpEditProfileGateway } from '@/modules/user/usecases/edit-profile/infra/http-edit-profile.gateway';
+
 import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infra/fake-create-book.gateway';
 import { FakeCreateEditionGateway } from '@/modules/books/usecases/create-edition/infra/fake-create-edition.gateway';
 import { FakeGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/fake-get-books.gateway';
@@ -32,6 +35,7 @@ import { FakeUpdateBookGateway } from '@/modules/books/usecases/update-book/infr
 import { FakeUpdateEditionGateway } from '@/modules/books/usecases/update-edition/infra/fake-update-edition.gateway';
 // import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
 import { FakeAdminGateway } from '@/modules/user/usecases/admin/infra/fake-admin.gateway';
+import { FakeEditProfileGateway } from '@/modules/user/usecases/edit-profile/infra/fake-edit-profile.gateway';
 
 // const book = BookFactory.create();
 
@@ -47,7 +51,6 @@ export class App {
 
     setupDependencies(): Dependencies {
 
-
         // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
         const authAdapter = new HttpAuthGateway();
         const userAdapter = new HttpUserGateway();
@@ -57,7 +60,9 @@ export class App {
         // const getBooksAdapter = new HttpGetBooksGateway();
         // const getOneBookAdapter = new HttpGetOneBookGateway();
         const cookiesAdapter = new HttpCookiesProvider();
+        const translationAdapter = new I18nTranslationProvider();
         // const createBookAdapter = new HttpCreateBookGateway();
+        const editProfileAdapter = new HttpEditProfileGateway();
 
 
         //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
@@ -80,6 +85,8 @@ export class App {
         const getLastReleaseBooksAdapter = new FakeGetLastReleaseBooksGateway();
         getLastReleaseBooksAdapter.returnedResponse = catalog;
 
+        // const editProfileAdapter = new FakeEditProfileGateway();
+
 
         return {
             getBooksAdapter,
@@ -88,13 +95,15 @@ export class App {
             getOneBookAdapter,
             authAdapter,
             userAdapter,
+            editProfileAdapter,
             donateAdapter,
             adminAdapter,
             cookiesAdapter,
             createBookAdapter,
             createEditionAdapter,
             updateEditionAdapter,
-            updateBookAdapter
+            updateBookAdapter,
+            translationAdapter
         };
     }
 }

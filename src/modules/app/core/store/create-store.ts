@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 
 import type { CookiesInterface } from '@/modules/app/core/cookies.interface';
+import type { TranslationInterface } from '@/modules/app/core/translation.interface';
 import type { ConnectorToAuthGateway } from '@/modules/auth/core/connector-to-auth.gateway';
 import type { ConnectorToGetOneBook } from '@/modules/books/get-one-book/core/connector-to.get-one-book';
 import type { ConnectorToCreateBookGateway } from '@/modules/books/usecases/create-book/core/connector-to-create-book.gateway';
@@ -14,6 +15,7 @@ import type { ConnectorToUpdateEditionGateway } from '@/modules/books/usecases/u
 import type { ConnectorToDonateGateway } from '@/modules/donate/core/connector-to-donate.gateway';
 import type { ConnectorToUserGateway } from '@/modules/user/core/connector-to-user.gateway';
 import type { ConnectorToAdminGateway } from '@/modules/user/usecases/admin/core/connector-to-admin.gateway';
+import type { ConnectorToEditProfileGateway } from '@/modules/user/usecases/edit-profile/core/connector-to-edit-profile.gateway';
 import type {
   UnknownAction,
   ThunkDispatch,
@@ -24,6 +26,7 @@ import type { TypedUseSelectorHook } from 'react-redux';
 
 import { listenerMiddleware } from '@/modules/app/core/store/create-app-listener';
 import { rootReducer } from '@/modules/app/core/store/root-reducer';
+import { I18nTranslationProvider } from '@/modules/app/infra/i18n-translation.provider';
 import {
   registerOnAuthChangeForUserListener, registerOnUserActionToInformHim,
   registerOnUpdatedBookStatusErrorForUserListener, registerOnUpdatedBookStatusForUserListener
@@ -42,6 +45,7 @@ import { FakeUpdateEditionGateway } from '@/modules/books/usecases/update-editio
 import { FakeDonateGateway } from '@/modules/donate/infra/fake-donate.gateway';
 import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
 import { FakeAdminGateway } from '@/modules/user/usecases/admin/infra/fake-admin.gateway';
+import { FakeEditProfileGateway } from '@/modules/user/usecases/edit-profile/infra/fake-edit-profile.gateway';
 
 
 export type Dependencies = {
@@ -56,12 +60,14 @@ export type Dependencies = {
     updateEditionAdapter: ConnectorToUpdateEditionGateway;
     authAdapter: ConnectorToAuthGateway;
     userAdapter: ConnectorToUserGateway;
+    editProfileAdapter: ConnectorToEditProfileGateway;
     donateAdapter: ConnectorToDonateGateway;
     cookiesAdapter: CookiesInterface;
+    translationAdapter: TranslationInterface;
 };
 
 export const createStore = (
-  dependencies: Dependencies,
+  dependencies: Partial<Dependencies>,
   preloadedState?: Partial<RootState>,
 ) => {
 
@@ -95,6 +101,7 @@ export const createTestStore = (
     authAdapter = new FakeAuthGateway(),
     adminAdapter = new FakeAdminGateway(),
     userAdapter = new FakeUserGateway(),
+    editProfileAdapter = new FakeEditProfileGateway(),
     donateAdapter = new FakeDonateGateway(),
     cookiesAdapter = new FakeCookiesProvider()
   }: Partial<Dependencies> = {},
@@ -102,7 +109,7 @@ export const createTestStore = (
 ) => {
   return createStore({
     getBooksAdapter, getPopularBooksAdapter, getLastReleaseBooksAdapter, getOneBookAdapter,
-    createBookAdapter, createEditionAdapter,
+    createBookAdapter, createEditionAdapter, editProfileAdapter,
     authAdapter, userAdapter, adminAdapter, updateBookAdapter, updateEditionAdapter,
     cookiesAdapter, donateAdapter
   }, preloadedState as never);
@@ -131,7 +138,7 @@ const createDependencies = (
 
 
 type DeepPartial<T> = {
-  [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K]
+  [K in keyof T]?: T[K] extends any ? DeepPartial<T[K]> : T[K]
 }
 type AppStoreWithGetActions = ReturnType<typeof createStore>;
 export type AppStore = Omit<AppStoreWithGetActions, 'getActions'>;

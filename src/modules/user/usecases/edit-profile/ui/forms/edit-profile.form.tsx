@@ -10,6 +10,7 @@ import { CustomForm } from '@/modules/app/ui/component-level/custom.form';
 import { UsersModel } from '@/modules/user/core/model/users.model';
 import { selectActiveUser, selectEditProfileFormState } from '@/modules/user/core/store/user.selectors';
 import { editProfile } from '@/modules/user/core/store/user.slice';
+import { editProfileUsecase } from '@/modules/user/usecases/edit-profile/core/edit-profile.usecase';
 
 export const EditProfileForm: FC = () => {
     const { t } = useTranslation();
@@ -27,6 +28,7 @@ export const EditProfileForm: FC = () => {
     return (
         <CustomForm
             items={formItems}
+            action={editProfileUsecase}
             schema={UsersModel.editProfileFormSchema(activeUser)}
             formType='modal'
             modalTitle={t('account.editing')}

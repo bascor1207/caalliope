@@ -12,12 +12,14 @@ import { updateBookSlice } from '@/modules/books/usecases/update-book/core/store
 import { updateEditionSlice } from '@/modules/books/usecases/update-edition/core/store/update-edition.slice';
 import { userSlice } from '@/modules/user/core/store/user.slice';
 import { updateBookStatusSlice } from '@/modules/user/usecases/admin/core/store/update-book-status.slice';
+import { editProfileSlice } from '@/modules/user/usecases/edit-profile/core/store/edit-profile.slice';
 
 const actions = combineReducers({
     [createBookSlice.name]: createBookSlice.reducer,
     [createEditionSlice.name]: createEditionSlice.reducer,
     [updateBookSlice.name]: updateBookSlice.reducer,
-    [updateEditionSlice.name]: updateEditionSlice.reducer
+    [updateEditionSlice.name]: updateEditionSlice.reducer,
+    [editProfileSlice.name]: editProfileSlice.reducer,
 })
 
 export const rootReducer = combineReducers({

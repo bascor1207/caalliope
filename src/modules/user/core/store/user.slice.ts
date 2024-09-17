@@ -4,6 +4,7 @@ import type { UsersModel, } from '@/modules/user/core/model/users.model';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 import { registerUser } from '@/modules/auth/usecases/register.user';
+import { editProfileUsecase } from '@/modules/user/usecases/edit-profile/core/edit-profile.usecase';
 import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
 import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';
 
@@ -67,6 +68,10 @@ export const userSlice = createSlice({
         });
 
         builder.addCase(registerUser.fulfilled, (state, action) => {
+            state.activeUser = action.payload;
+        });
+
+        builder.addCase(editProfileUsecase.fulfilled, (state, action) => {
             state.activeUser = action.payload;
         });
     }

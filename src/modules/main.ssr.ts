@@ -30,7 +30,7 @@ import { FakeAdminGateway } from '@/modules/user/usecases/admin/infra/fake-admin
 // const book = BookFactory.create();
 
 export class SSRApp {
-    public dependencies: Dependencies;
+    public dependencies: Partial<Dependencies>;
     public store: AppStore;
 
     constructor(initialState?: RootState) {
@@ -38,7 +38,7 @@ export class SSRApp {
         this.store = createStore(this.dependencies, initialState);
     }
 
-    setupDependencies(): Dependencies {
+    setupDependencies(): Partial<Dependencies> {
 
 
         // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
