@@ -9,6 +9,7 @@ import { updateBookUsecase } from '@/modules/books/usecases/update-book/core/upd
 import { updateEditionUsecase } from '@/modules/books/usecases/update-edition/core/update-edition.usecase';
 import { informUser } from '@/modules/user/core/store/user.slice';
 import { updateBookStatusUsecase } from '@/modules/user/usecases/admin/update-book-status.usecase';
+import { editProfileUsecase } from '@/modules/user/usecases/edit-profile/core/edit-profile.usecase';
 import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
 
 const actionsToListen = [
@@ -20,7 +21,9 @@ const actionsToListen = [
     updateBookUsecase.rejected.type,
     updateEditionUsecase.fulfilled.type,
     updateEditionUsecase.rejected.type,
-    getUserUsecase.rejected.type
+    getUserUsecase.rejected.type,
+    editProfileUsecase.fulfilled.type,
+    editProfileUsecase.rejected.type,
 ];
 
 
@@ -38,6 +41,10 @@ export const registerOnUserActionToInformHim = () => {
     startAppListening({
         predicate: (action) => actionsToListen.includes(action.type),
         effect: async (action , { dispatch }) => {
+            if (action.type === editProfileUsecase.fulfilled.type) {
+                dispatch(informUser({ message: 'Profile updated', type: 'success', status: 'displayed' }))
+                return;
+            }
             const { message, type } = action.payload as BooksModel.InformUser;
             dispatch(informUser({ message: message, type, status: 'displayed' }))
         }

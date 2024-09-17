@@ -10,6 +10,10 @@ import type React from 'react';
 import type { ControllerRenderProps, DefaultValues, FieldValues } from 'react-hook-form';
 import type { ZodObject, ZodType } from 'zod';
 
+import { useAppSelector } from '@/modules/app/core/store/create-store';
+import { selectCurrentBook } from '@/modules/books/get-one-book/core/get-book.selectors';
+import { selectActiveUser } from '@/modules/user/core/store/user.selectors';
+
 type UseCustomFormProps<TFormValues extends FieldValues, RType = void, A = void> = {
     schema: ZodObject<TFormValues>;
     action?: any | AppAsyncThunk<RType, A>;
@@ -66,16 +70,19 @@ export function useCustomForm<TFormValues extends FieldValues, RType, A>({ schem
             Object.entries(data).forEach(([key, value]) => {
                     formData.append(key, value);
             });
+            const finalFormData = { ...formData, userId: activeUser.id, bookId: selectedBook.id }
             if (action) {
-                dispatch(action(formData));
+                dispatch(action(finalFormData));
             }
             reset();
             onCustomClose?.()
             return;
         }
 
+        const finalData = { payload: data, userId: activeUser.id, bookId: selectedBook.id }
+
         if (action) {
-            dispatch(action(data));
+            dispatch(action(finalData));
         }
         reset();
         onCustomClose?.()
@@ -134,6 +141,9 @@ export function useCustomForm<TFormValues extends FieldValues, RType, A>({ schem
         resolver: zodResolver(schema),
         defaultValues: generateDefaultValues()
     });
+
+    const activeUser = useAppSelector(selectActiveUser);
+    const selectedBook = useAppSelector(selectCurrentBook);
 
     return {
         defaultValues: getDefaults(), isSubmittable, isRequired, handleSelectChange, handleChange,

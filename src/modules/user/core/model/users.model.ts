@@ -4,9 +4,9 @@ import i18n from '@/i18n';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace UsersModel {
-    const usernameSchema = z.string().min(1, { message: i18n.t('form.errors.required') });
-    const emailSchema = z.string().email({ message: i18n.t('form.errors.invalidEmail') });
-    const passwordSchema = z.string().min(8, { message: i18n.t('form.errors.passwordTooShort') });
+    const usernameSchema = z.string().min(1, { message: i18n.t('form.errors.required') }).optional();
+    const emailSchema = z.string().email({ message: i18n.t('form.errors.invalidEmail') }).optional();
+    const passwordSchema = z.string().min(8, { message: i18n.t('form.errors.passwordTooShort') }).optional();
 
     export const editProfileFormSchema= (userInformations: Pick<UsersModel.User, 'username' | 'email' | 'password'>) =>
         z.object({

@@ -5,7 +5,7 @@ import { createAppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
 
 export const authUser = createAppAsyncThunk(
     'auth/authenticate',
-    async (payload: AuthModel.AuthUserPayload, { rejectWithValue, extra: { authAdapter } }) => {
+    async ({ payload }: {payload:AuthModel.AuthUserPayload}, { rejectWithValue, extra: { authAdapter } }) => {
         try {
             return await authAdapter.authenticate({ ...payload })
         } catch (error) {
