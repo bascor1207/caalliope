@@ -12,6 +12,13 @@ export const MyWishlistSection = () => {
     const content = () => {
         return (
             <div className='grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
+                {activeUser.myWishlist.length === 0 && (
+                    <div className='flex flex-col items-center justify-center w-full h-full'>
+                        <div className='text-center'>
+                            {t('account.noWishlistBooks')}
+                        </div>
+                    </div>
+                )}
                 {activeUser.myWishlist.map((book) => (
                     <UserBookCard key={book.id} book={book} />
                 ))}

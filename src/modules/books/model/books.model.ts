@@ -30,7 +30,7 @@ export namespace BooksModel {
   author: AuthorFromBack;
   type: string;
   genre: GenreFromBack[];
-  publicationDate: Date;
+  publicationDate: string;
   cover: { filename: string };
   publishing: EditionFromBack[];
   rating?: number;

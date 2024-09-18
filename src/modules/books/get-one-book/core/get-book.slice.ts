@@ -4,6 +4,8 @@ import type { BooksModel } from '@/modules/books/model/books.model';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 import { getOneBookById } from '@/modules/books/get-one-book/usecase/get-one-book-by-id.usecase';
+import { getBooksByUsecase } from '@/modules/books/usecases/get-catalog/core/get-books-by.usecase';
+import { getBooksUseCase } from '@/modules/books/usecases/get-catalog/core/get-books.usecase';
 import { updateBookStatusUsecase } from '@/modules/user/usecases/admin/update-book-status.usecase';
 
 type InitialState = object & {
@@ -23,16 +25,26 @@ export const getBookSlice = createSlice({
     reducers: {
         bookDetailsModal: (state, action: PayloadAction<{ status: 'displayed'; bookId: number } | { status: 'hidden'; bookId?: never }>) => {
             state.bookDetailsModal = action.payload.status as 'displayed' | 'hidden';
+        },
+
+        emptySelectedBook: (state) => {
+            state.selectedBook = {} as BooksModel.Book;
         }
     },
     extraReducers(builder) {
+        builder.addCase(getOneBookById.pending, (state) => {
+            state.requestStatus = 'pending';
+            state.selectedBook = {} as BooksModel.Book;
+        })
+
         builder.addCase(getOneBookById.fulfilled, (state, action) => {
-            state.selectedBook = action.payload as BooksModel.Book;
             state.requestStatus = 'fulfilled';
+            state.selectedBook = action.payload as BooksModel.Book;
         })
 
         builder.addCase(getOneBookById.rejected, (state) => {
             state.requestStatus = 'rejected';
+            state.selectedBook = {} as BooksModel.Book;
         })
 
         builder.addCase(updateBookStatusUsecase.fulfilled, (state) => {
@@ -46,4 +58,4 @@ export const getBookSlice = createSlice({
     }
 })
 
-export const { bookDetailsModal } = getBookSlice.actions;
+export const { bookDetailsModal, emptySelectedBook } = getBookSlice.actions;

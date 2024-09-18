@@ -32,7 +32,6 @@ export const EditionSection: FC<Props> = ({ book }) => {
     const handleClick = () => {
         if (selectedStatus) {
             dispatch(addBookToUserLibraryUseCase({ userId: activeUser.id, bookId: book.id, status: selectedStatus }));
-            console.log(`Livre ajouté avec le statut : ${selectedStatus}`);
         } else {
             console.log('Aucun statut sélectionné');
         }
@@ -58,11 +57,11 @@ export const EditionSection: FC<Props> = ({ book }) => {
                                     onChange={handleSelectChange}
                                 >
                                     <SelectItem key='notOwned' value='notOwned'>{t('notOwned')}</SelectItem>
-                                    <SelectItem key='inProgress' value='inProgress'>{t('inProgress')}</SelectItem>
+                                    <SelectItem key='reading' value='reading'>{t('inProgress')}</SelectItem>
                                     <SelectItem key='toRead' value='toRead'>{t('toRead')}</SelectItem>
                                     <SelectItem key='read' value='read'>{t('read')}</SelectItem>
                                     <SelectItem key='wishlist' value='wishlist'>{t('whislist')}</SelectItem>
-                                    <SelectItem key='giveUp' value='giveUp'>{t('giveUp')}</SelectItem>
+                                    <SelectItem key='giveUp' value='abandoned'>{t('giveUp')}</SelectItem>
                                 </Select>
                                 <Button onClick={handleClick} className='ml-4 bg-[#D9D9D9] hover:bg-[#f8e9ff] text-black'>
                                     {t('valid')}

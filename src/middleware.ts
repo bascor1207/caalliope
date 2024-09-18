@@ -6,22 +6,27 @@ export function middleware(request: NextRequest) {
     const url = request.nextUrl.clone();
     const languageCookie = request.cookies.get('i18next');
     const language = languageCookie?.value || 'fr';
+    const headers = new Headers(request.headers);
+
+    if (url.pathname.includes('/catalog/')) {
+        headers.set('bookId', request.nextUrl.pathname.split('/')[3]);
+    }
 
     const supportedLanguages = ['en', 'fr'];
     if (!supportedLanguages.some((lang) => url.pathname.startsWith(`/${lang}`))) {
         url.pathname = `/${language}${url.pathname}`;
-        return NextResponse.redirect(url);
+        return NextResponse.redirect(url, { headers });
     }
 
     if (url.pathname === '/auth') {
         url.pathname = `/${language}/auth/sign-in`;
-        return NextResponse.redirect(url);
+        return NextResponse.redirect(url), { headers };
     }
 
     const token = request.cookies.get('token');
     if (!token && url.pathname.includes('/my-account')) {
         url.pathname = `/${language}/auth/sign-in`;
-        return NextResponse.redirect(url);
+        return NextResponse.redirect(url, { headers });
     }
 
 
@@ -33,7 +38,7 @@ export function middleware(request: NextRequest) {
 
         const activeTab = queryActiveTab || existingCookieActiveTab || 'my-infos';
 
-        const response = NextResponse.redirect(url.toString());
+        const response = NextResponse.redirect(url.toString(), { headers });
         response.cookies.set('activeTab', activeTab, {
             path: '/',
             maxAge: 60 * 60 * 24 * 7,
@@ -41,13 +46,18 @@ export function middleware(request: NextRequest) {
         return response;
     }
 
-    return NextResponse.next();
+    return NextResponse.next({
+        request: {
+            headers,
+        }
+    });
 }
 
 export const config = {
     matcher: [
         { source: '/:locale(fr|en)?/my-account' },
         { source: '/:locale(fr|en)?/auth' },
+        { source: '/:locale(fr|en)?/catalog/:path*' },
         { source: '/' }
     ]
 };

@@ -18,6 +18,13 @@ export const AdminSection = () => {
     const content = () => {
         return (
             <div className='grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5'>
+                {activeUser.waitingForValidationBooks?.length === 0 && (
+                    <div className='flex flex-col items-center justify-center w-full h-full'>
+                        <div className='text-center'>
+                            {t('account.noWaitingBooks')}
+                        </div>
+                    </div>
+                )}
                 {activeUser.waitingForValidationBooks?.map((book) => (
                     <div key={book.id}>
                         <UserBookCard onClick={() => dispatch(bookDetailsModal({ status: 'displayed', bookId: book.id }))} book={book}/>

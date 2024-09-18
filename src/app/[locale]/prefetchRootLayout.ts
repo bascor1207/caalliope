@@ -1,11 +1,9 @@
 import { jwtVerify } from 'jose';
-import { cookies } from 'next/headers';
-
-import type { AuthModel } from '@/modules/auth/core/model/auth.model';
+import { cookies, headers } from 'next/headers';
 
 import { setLanguage } from '@/modules/app/core/store/root.slice';
 import { getServerStore } from '@/modules/app/core/store/server-store';
-import { refreshTokenForUser } from '@/modules/auth/usecases/refresh-token.user';
+import { getOneBookById } from '@/modules/books/get-one-book/usecase/get-one-book-by-id.usecase';
 import { getBooksLastReleaseUseCase } from '@/modules/books/usecases/get-last-release-books/core/get-last-release-books.usecase';
 import { getPopularBooksUseCase } from '@/modules/books/usecases/get-popular-books/core/get-popular-books.usecase';
 import { myProfileTabState } from '@/modules/user/core/store/user.slice';
@@ -20,6 +18,12 @@ export async function prefetchRootLayout() {
     const locale = cookieBag.get('i18next')?.value as 'en' | 'fr'
     const store = getServerStore();
     const activeTab = cookieBag.get('activeTab')?.value as 'my-infos' | 'my-books' | 'my-wishlist' | 'my-abandoned-books'
+    const headersList = headers();
+    const bookId = headersList.get('bookId') || '';
+
+    if (bookId) {
+        await store.dispatch(getOneBookById(parseInt(bookId)))
+    }
 
     if (activeTab) {
         store.dispatch(myProfileTabState(activeTab))
@@ -35,5 +39,4 @@ export async function prefetchRootLayout() {
     store.dispatch(setLanguage(locale));
 
     return JSON.parse(JSON.stringify(store.getState()));
-
 }

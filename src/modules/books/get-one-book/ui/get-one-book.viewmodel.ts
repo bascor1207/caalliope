@@ -1,5 +1,7 @@
-import type { RootState } from '@/modules/app/core/store/create-store';
 import type { BooksModel } from '@/modules/books/model/books.model';
+
+import { RootState, useAppSelector } from '@/modules/app/core/store/create-store';
+import { selectCurrentBook, selectRequestStatus } from '@/modules/books/get-one-book/core/get-book.selectors';
 
 export const gettingBook = {
     pending: 'pending',
@@ -23,10 +25,9 @@ type BooksGettingFulfilled = {
 
 type Response = | BooksGettingPending | BooksGettingRejected | BooksGettingFulfilled;
 
-export const getOneBookViewmodel = () => (state: RootState): Response => {
-    const selectedBookState = state.selectedBook.getBook;
-
-    const { requestStatus, selectedBook } = selectedBookState;
+export const getOneBookViewmodel = () => (): Response => {
+    const selectedBook = useAppSelector(selectCurrentBook);
+    const requestStatus = useAppSelector(selectRequestStatus);
 
     if (requestStatus === 'pending') {
         return { type: gettingBook.pending }

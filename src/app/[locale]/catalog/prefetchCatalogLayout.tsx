@@ -1,5 +1,4 @@
 'use server';
-
 import type { ReactNode } from 'react';
 
 import { getServerStore } from '@/modules/app/core/store/server-store';
@@ -10,7 +9,7 @@ import { BooksCatalog } from '@/modules/books/usecases/get-catalog/ui/components
 import { NoResults } from '@/modules/books/usecases/get-catalog/ui/components/no-results';
 import { getBooksViewModel } from '@/modules/books/usecases/get-catalog/ui/get-books/get-books.viewmodel';
 
-export const prefetchCatalogLayout = async ({ searchParams }: {searchParams?: { [key: string]: string | undefined }}) => {
+export const prefetchCatalogLayout = async ({ searchParams }: {searchParams?: { [key: string]: string | undefined } }) => {
     const store = getServerStore();
     const subject = searchParams?.subject || '';
     const type = searchParams?.type as 'author' | 'name' || '';

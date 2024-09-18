@@ -34,7 +34,7 @@ export const useHeader = () => {
         },
         {
             href: '#',
-            onPress: () => dispatch(logoutUserUsecase()),
+            onPress: () => dispatch(logoutUserUsecase()).then(() => router.push(`/${locale}/`)),
             label: 'Logout',
             type: 'button'
         },
