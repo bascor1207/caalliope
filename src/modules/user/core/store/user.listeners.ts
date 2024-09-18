@@ -3,6 +3,7 @@ import type { UsersModel } from '@/modules/user/core/model/users.model';
 
 import { startAppListening } from '@/modules/app/core/store/create-app-listener';
 import { authUser } from '@/modules/auth/usecases/auth.user'
+import { registerUser } from '@/modules/auth/usecases/register.user';
 import { createBookUsecase } from '@/modules/books/usecases/create-book/core/create-book.usecase';
 import { createEditionUsecase } from '@/modules/books/usecases/create-edition/core/create-edition.usecase';
 import { updateBookUsecase } from '@/modules/books/usecases/update-book/core/update-book.usecase';
@@ -28,6 +29,12 @@ const actionsToListen = [
     updateBookStatusUsecase.rejected.type
 ];
 
+const authActionsToListen = [
+    authUser.rejected.type,
+    registerUser.fulfilled.type,
+    registerUser.rejected.type
+]
+
 
 export const registerOnAuthChangeForUserListener = () => {
    startAppListening({
@@ -35,6 +42,15 @@ export const registerOnAuthChangeForUserListener = () => {
         effect: async (action, { dispatch }) => {
             const { id } = action.payload as {id: string};
             dispatch(getUserUsecase({ id }))
+        }
+    })
+}
+
+export const registerOnSignInOrSignUpForUserListener = () => {
+    startAppListening({
+        predicate: (action) => authActionsToListen.includes(action.type),
+        effect: async (action, { dispatch }) => {
+           dispatch(informUser({ message: 'Signed in', type: 'success', status: 'displayed' }))
         }
     })
 }

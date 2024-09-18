@@ -38,6 +38,18 @@ export namespace UsersModel {
         url: string;
     }
 
+    export type UserBookFromBack = {
+        status: 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned';
+        book: {
+            id: number;
+            title: string;
+            type: string;
+            cover: {
+                filename: string
+            };
+        }
+    }
+
     export type BaseUserBook<T extends 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned' | '' = ''> = {
         id: number;
         title: string;

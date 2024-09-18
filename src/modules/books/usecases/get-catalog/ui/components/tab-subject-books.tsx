@@ -16,11 +16,11 @@ export const TabSubjectBooks: FC<PropsWithChildren<TabBooksProps>> = ({
 }) => {
   const SUBJECTS_TAB = [
     { id: 0, label: 'Tout', value: '' },
-    { id: 1, label: 'Fantasie', value: 'fantasy' },
-    { id: 2, label: 'Policier', value: 'crime' },
-    { id: 3, label: 'Fantastique', value: 'fantastic' },
-    { id: 4, label: 'Romance', value: 'romance' },
-    { id: 5, label: 'Science-fiction', value: 'sf' },
+    { id: 1, label: 'Computers', value: 'computers' },
+    { id: 2, label: 'Education', value: 'education' },
+    { id: 3, label: 'Computer programmers', value: 'computer programmers' },
+    { id: 4, label: 'Language Arts & Disciplines', value: 'language arts & disciplines' },
+    { id: 5, label: 'Prolog', value: 'prolog' },
     { id: 6, label: 'Epouvante', value: 'horror' },
     { id: 7, label: 'Biographie', value: 'biography' },
     { id: 8, label: 'Développement personnel', value: 'developpement' },

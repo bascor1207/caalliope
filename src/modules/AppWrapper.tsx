@@ -8,8 +8,6 @@ import type { ReactNode } from 'react';
 
 import { clientApp } from '@/modules/main.client';
 
-
-
 export const AppWrapper = ({ children, initialState, locale }: { children: ReactNode, initialState: RootState, locale: string }) => {
     const store = useMemo(() => clientApp(initialState).store, [initialState]);
     const fullLocale = `${locale}-${locale.toUpperCase()}`

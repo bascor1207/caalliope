@@ -31,8 +31,11 @@ import { I18nTranslationProvider } from '@/modules/app/infra/i18n-translation.pr
 import { registerOnDetailsModalDisplayedForBookListener } from '@/modules/books/get-one-book/core/get-book.listeners';
 import { registerOnBookStatusChangeToRefreshAdminView } from '@/modules/books/usecases/get-catalog/core/store/get-books.listeners';
 import {
-  registerOnAuthChangeForUserListener, registerOnUserActionToInformHim,
-  registerOnUpdatedBookStatusErrorForUserListener, registerOnUpdatedBookStatusForUserListener
+    registerOnAuthChangeForUserListener,
+    registerOnUserActionToInformHim,
+    registerOnUpdatedBookStatusErrorForUserListener,
+    registerOnUpdatedBookStatusForUserListener,
+    registerOnSignInOrSignUpForUserListener
 } from '@/modules/user/core/store/user.listeners';
 
 import { FakeCookiesProvider } from '@/modules/app/infra/fake-cookies.provider';
@@ -78,6 +81,7 @@ export const createStore = (
     reducer: rootReducer,
     middleware(getDefaultMiddleware) {
         registerOnAuthChangeForUserListener();
+        registerOnSignInOrSignUpForUserListener();
         registerOnUserActionToInformHim();
         registerOnUpdatedBookStatusErrorForUserListener();
         registerOnUpdatedBookStatusForUserListener();

@@ -9,6 +9,11 @@ export const selectCurrentBook = createSelector(
     (bookState) => bookState.selectedBook
 );
 
+export const selectRequestStatus = createSelector(
+    [selectBookState],
+    (bookState) => bookState.requestStatus
+);
+
 export const selectBookDetailsModalState = createSelector(
     [selectBookState],
     (bookState) => bookState.bookDetailsModal

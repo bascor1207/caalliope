@@ -33,7 +33,7 @@ const config = {
     defaultExtendTheme: 'light',
     themes: {
       light: {
-        colors: { default: '#F6F6F6', secondary: '#7C0149' },
+        colors: { default: '#F6F6F6', primary: '#f8e9ff', secondary: '#7C0149' },
       },
     }
   })],

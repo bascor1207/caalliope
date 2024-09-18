@@ -21,17 +21,4 @@ const cookiesInterceptor = async (req: any) => {
     return req
 }
 
-axiosInstance.interceptors.request.use(cookiesInterceptor)
-
-axiosInstance.interceptors.response.use(
-    (response) => response,
-    (error) => {
-        if (error.response?.status === 401) {
-            window.location.href = '/login'
-        }
-        if (error.response?.status === 403) {
-            window.location.href = '/forbidden'
-        }
-        return Promise.reject(error)
-    }
-)
+axiosInstance.interceptors.request.use(cookiesInterceptor);

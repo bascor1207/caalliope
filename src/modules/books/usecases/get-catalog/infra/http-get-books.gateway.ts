@@ -22,9 +22,14 @@ export class HttpGetBooksGateway implements ConnectorToGetBooks {
         return this.createReturnPayload(data.data);
     }
 
-    async getBooksByGenre(value: string): Promise<BooksModel.BookForCatalog[]> {
-        const { data } = await axiosInstance.get(`/genre/${value}`);
-        return this.createReturnPayload(data.data);
+    async getBooksByGenre(value: string): Promise<BooksModel.BookForCatalog[] | void> {
+        try {
+            const { data } = await axiosInstance.get(`/book/genre/${value}`);
+            return this.createReturnPayload(data.data);
+        } catch (error) {
+            console.log(error);
+            CustomErrorWrapper.throwError({ message: 'Error getting books', type: 'error' });
+        }
     }
 
     async getBooksByName(value: string): Promise<BooksModel.BookForCatalog[]> {
@@ -37,7 +42,7 @@ export class HttpGetBooksGateway implements ConnectorToGetBooks {
         return data?.map((data) => {
             return {
                 id: data.id || 0,
-                image: `${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/covers/${data.cover?.filename}` || ''
+                image: data.cover.filename ? `${data.cover?.filename}` : ''
             }
         }) || [];
     }

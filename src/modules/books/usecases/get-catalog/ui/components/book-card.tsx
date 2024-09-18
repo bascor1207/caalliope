@@ -1,6 +1,5 @@
 'use client'
 import { Image } from '@nextui-org/react';
-import { useRouter } from 'next/navigation';
 
 import type { BooksModel } from '@/modules/books/model/books.model';
 import type { FC } from 'react';
@@ -23,16 +22,15 @@ type BookCardProps = Props | PropsForCatalog;
 
 export const BookCard: FC<BookCardProps> = ({ book, cover }) => {
     const locale = useAppSelector(selectLocale);
-    const router = useRouter();
 
     const getOneBookAndRedirect = () => {
-        router.push(`/${locale}/catalog/${book.id}`);
+        window.location.href = `/${locale}/catalog/${book.id}`;
     };
 
     if (cover) {
         return (
             <CustomCard
-                className='max-w-full'
+                className='max-w-full w-full'
                 onClick={getOneBookAndRedirect}
                 content={() => (
                     <Image
