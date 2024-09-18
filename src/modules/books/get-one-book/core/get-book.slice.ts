@@ -6,7 +6,7 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { getOneBookById } from '@/modules/books/get-one-book/usecase/get-one-book-by-id.usecase';
 import { updateBookStatusUsecase } from '@/modules/user/usecases/admin/update-book-status.usecase';
 
-type InitialState = {
+type InitialState = object & {
     requestStatus: 'pending' | 'rejected' | 'fulfilled' | '',
     selectedBook: BooksModel.Book
     bookDetailsModal: 'displayed' | 'hidden'
@@ -26,10 +26,6 @@ export const getBookSlice = createSlice({
         }
     },
     extraReducers(builder) {
-        builder.addCase(getOneBookById.pending, (state) => {
-            state.requestStatus = 'pending';
-        });
-
         builder.addCase(getOneBookById.fulfilled, (state, action) => {
             state.selectedBook = action.payload as BooksModel.Book;
             state.requestStatus = 'fulfilled';

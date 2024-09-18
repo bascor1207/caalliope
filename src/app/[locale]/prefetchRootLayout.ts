@@ -26,18 +26,8 @@ export async function prefetchRootLayout() {
     }
 
     if (token) {
-        try {
-            const { payload } = await jwtVerify(token, new TextEncoder().encode('azerty'));
-            await store.dispatch(getUserUsecase({ id: payload.sub as string }));
-        } catch (error) {
-            try {
-                const response = await store.dispatch(refreshTokenForUser(token))
-                const { id } = response.payload as AuthModel.RefreshedToken;
-                await store.dispatch(getUserUsecase({ id }));
-            } catch (refreshError) {
-                console.error('Erreur lors de la tentative de refresh token:', refreshError);
-            }
-        }
+        const { payload } = await jwtVerify(token, new TextEncoder().encode('azerty'));
+        await store.dispatch(getUserUsecase({ id: payload.sub as string }));
     }
 
     await store.dispatch(getPopularBooksUseCase());

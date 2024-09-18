@@ -12,7 +12,7 @@ export const updateBookStatusUsecase = createAppAsyncThunk(
             if (error instanceof CustomErrorWrapper) {
                 return rejectWithValue(error.payload);
             }
-            return rejectWithValue({ message: 'Unknown error' });
+            return rejectWithValue({ message: 'Unknown error', type: 'Error' });
         }
     },
 );

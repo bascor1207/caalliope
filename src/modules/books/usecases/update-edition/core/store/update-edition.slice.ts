@@ -3,7 +3,7 @@ import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import { updateEditionUsecase } from '@/modules/books/usecases/update-edition/core/update-edition.usecase';
 
 
-type InitialState = {
+type InitialState = object & {
     success: boolean;
     error: boolean;
     formStatus: 'hidden' | 'displayed';

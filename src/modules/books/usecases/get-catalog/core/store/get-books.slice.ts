@@ -7,7 +7,7 @@ import { getBooksUseCase } from '@/modules/books/usecases/get-catalog/core/get-b
 
 
 
-type InitialState = {
+type InitialState = object & {
     books: BooksModel.BookForCatalog[];
 };
 

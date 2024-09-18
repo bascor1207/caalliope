@@ -5,7 +5,7 @@ import type { BooksModel } from '@/modules/books/model/books.model';
 import { getPopularBooksUseCase } from '@/modules/books/usecases/get-popular-books/core/get-popular-books.usecase';
 
 
-type InitialState = {
+type InitialState = object & {
     mostPopularBooks: BooksModel.Book[];
 };
 

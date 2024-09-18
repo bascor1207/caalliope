@@ -8,7 +8,7 @@ import { editProfileUsecase } from '@/modules/user/usecases/edit-profile/core/ed
 import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
 import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';
 
-type InitialState = {
+type InitialState = object & {
     activeUser: UsersModel.User
     activeProfileTab: 'admin' | 'my-infos' | 'my-books' | 'my-readings' | 'my-wishlist' | 'my-abandoned-books';
     informativeToast: {status: 'displayed' | 'hidden', message: string, type: 'success' | 'error' | 'noTyped'};
@@ -72,7 +72,9 @@ export const userSlice = createSlice({
         });
 
         builder.addCase(editProfileUsecase.fulfilled, (state, action) => {
-            state.activeUser = action.payload;
+            if (action.payload) {
+                state.activeUser = action.payload;
+            }
         });
     }
 });

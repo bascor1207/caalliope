@@ -32,6 +32,7 @@ export const useMyAccountPage = () => {
     const classNames=
         { tab: 'text-custom-dark-purple', cursor: 'cursor-pointer' };
 
+
     const systemCookiesProvider = useRef(new HttpCookiesProvider())
 
     return { onChange, dispatch, activeProfileTab, items, classNames, isUserAdmin: user.roles?.includes('admin') }

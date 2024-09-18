@@ -21,12 +21,15 @@ import type {
   ThunkDispatch,
   MiddlewareAPI,
   ListenerMiddlewareInstance
+, Dispatch
 } from '@reduxjs/toolkit';
 import type { TypedUseSelectorHook } from 'react-redux';
 
 import { listenerMiddleware } from '@/modules/app/core/store/create-app-listener';
 import { rootReducer } from '@/modules/app/core/store/root-reducer';
 import { I18nTranslationProvider } from '@/modules/app/infra/i18n-translation.provider';
+import { registerOnDetailsModalDisplayedForBookListener } from '@/modules/books/get-one-book/core/get-book.listeners';
+import { registerOnBookStatusChangeToRefreshAdminView } from '@/modules/books/usecases/get-catalog/core/store/get-books.listeners';
 import {
   registerOnAuthChangeForUserListener, registerOnUserActionToInformHim,
   registerOnUpdatedBookStatusErrorForUserListener, registerOnUpdatedBookStatusForUserListener
@@ -71,13 +74,15 @@ export const createStore = (
   preloadedState?: Partial<RootState>,
 ) => {
 
-  return configureStore({
+  const store = configureStore({
     reducer: rootReducer,
     middleware(getDefaultMiddleware) {
         registerOnAuthChangeForUserListener();
         registerOnUserActionToInformHim();
         registerOnUpdatedBookStatusErrorForUserListener();
         registerOnUpdatedBookStatusForUserListener();
+        registerOnDetailsModalDisplayedForBookListener();
+        registerOnBookStatusChangeToRefreshAdminView();
       return getDefaultMiddleware({
         thunk: {
           extraArgument: dependencies,
@@ -86,6 +91,9 @@ export const createStore = (
     },
     preloadedState,
   });
+
+    (store.dispatch as AppDispatch) = store.dispatch;
+  return store;
 };
 
 export const createTestStore = (
@@ -106,7 +114,7 @@ export const createTestStore = (
     cookiesAdapter = new FakeCookiesProvider()
   }: Partial<Dependencies> = {},
   preloadedState?: DeepPartial<ReturnType<typeof rootReducer>>,
-) => {
+): AppStore => {
   return createStore({
     getBooksAdapter, getPopularBooksAdapter, getLastReleaseBooksAdapter, getOneBookAdapter,
     createBookAdapter, createEditionAdapter, editProfileAdapter,
@@ -138,10 +146,12 @@ const createDependencies = (
 
 
 type DeepPartial<T> = {
-  [K in keyof T]?: T[K] extends any ? DeepPartial<T[K]> : T[K]
+  [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K]
 }
 type AppStoreWithGetActions = ReturnType<typeof createStore>;
-export type AppStore = Omit<AppStoreWithGetActions, 'getActions'>;
+export type AppStore = Omit<AppStoreWithGetActions, 'getActions' | 'dispatch'> & {
+    dispatch: AppDispatch & Dispatch<UnknownAction>;
+};
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppDispatch = ThunkDispatch<RootState, Dependencies, UnknownAction>;
 export type AppListenerMiddlewareInstance = ListenerMiddlewareInstance<MiddlewareAPI<AppDispatch, RootState>>;

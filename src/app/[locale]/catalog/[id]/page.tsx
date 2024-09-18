@@ -18,10 +18,10 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     };
 }
 
-export default async function BookPage() {
+export default async function BookPage({ params }: { params: { id: string }}) {
     const store = getServerStore();
 
-    await store.dispatch(getOneBookById(parseInt('197')))
+    await store.dispatch(getOneBookById(parseInt(params.id)))
 
     return (
         <BookInfoPage />
