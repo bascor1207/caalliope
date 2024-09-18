@@ -13,7 +13,6 @@ export class HttpGetOneBookGateway implements ConnectorToGetOneBook {
             const { data } = await axiosInstance.get(`/book/${id}`)
             return this.createReturnPayload(data.data);
         } catch (error) {
-            console.log(error, error);
             if (axios.isAxiosError(error)) {
                 CustomErrorWrapper.throwError({ message: error.message, type: 'error' });
             }

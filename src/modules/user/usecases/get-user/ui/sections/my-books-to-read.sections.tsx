@@ -1,13 +1,19 @@
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+
+import type { AppDispatch } from '@/modules/app/core/store/create-store';
 
 import { useAppSelector } from '@/modules/app/core/store/create-store';
 import { CustomCard } from '@/modules/app/ui/component-level/custom.card';
+import { bookDetailsModal } from '@/modules/books/get-one-book/core/get-book.slice';
 import { selectActiveUser } from '@/modules/user/core/store/user.selectors';
 import { UserBookCard } from '@/modules/user/usecases/get-user/ui/components/user-book.card';
+
 
 export const MyBooksToReadSections = () => {
     const { t } = useTranslation()
     const activeUser = useAppSelector(selectActiveUser);
+    const dispatch = useDispatch<AppDispatch>();
 
     const content = () => {
         return (
@@ -21,7 +27,7 @@ export const MyBooksToReadSections = () => {
                 )}
                 {activeUser.myBooksToRead.map((book) => (
                     <div key={book.id}>
-                        <UserBookCard book={book}/>
+                        <UserBookCard onClick={() => dispatch(bookDetailsModal({ status: 'displayed', bookId: book.id }))} key={book.id} book={book}/>
                     </div>
                 ))}
             </div>
