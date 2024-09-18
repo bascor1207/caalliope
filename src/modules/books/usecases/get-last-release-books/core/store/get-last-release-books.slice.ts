@@ -5,7 +5,7 @@ import type { BooksModel } from '@/modules/books/model/books.model';
 import { getBooksLastReleaseUseCase } from '@/modules/books/usecases/get-last-release-books/core/get-last-release-books.usecase';
 
 
-type InitialState = {
+type InitialState = object & {
     lastReleaseBooks: BooksModel.Book[];
 };
 

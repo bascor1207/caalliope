@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { updateBookUsecase } from '@/modules/books/usecases/update-book/core/update-book.usecase';
 
-type InitialState = {
+type InitialState = object & {
     success: boolean;
     error: boolean;
 }

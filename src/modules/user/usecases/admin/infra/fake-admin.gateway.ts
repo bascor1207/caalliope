@@ -13,7 +13,7 @@ export class FakeAdminGateway implements ConnectorToAdminGateway {
         this.setUpBooks();
     }
 
-    async updateBookStatus({ status }: { status: 'rejected' | 'accepted' }): Promise<UsersModel.UpdateBookStatusResponse> {
+    async updateBookStatus({ status }: { status: 'refused' | 'accepted' }): Promise<UsersModel.UpdateBookStatusResponse> {
         return new Promise((resolve) => {
             if (!this.bookId) {
                 CustomErrorWrapper.throwError({ message: 'The book has no ID to update', type: 'error' });

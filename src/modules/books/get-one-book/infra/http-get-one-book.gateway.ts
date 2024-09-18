@@ -27,7 +27,7 @@ export class HttpGetOneBookGateway implements ConnectorToGetOneBook {
                 label: subject.genre || 'No subject provided'
             })) || [],
             dateOfPublication: new Date(data.publicationDate).toISOString().split('T')[0] || 'Publication date not available',
-            image: `${process.env.BACKEND_URL}/uploads/covers/${data.cover.filename}` || '',
+            image: `${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/covers/${data.cover.filename}` || '',
             editions: data.publishing?.map((edition) => ({
                 id: edition.id,
                 label: edition.label || 'No edition provided',
@@ -35,7 +35,7 @@ export class HttpGetOneBookGateway implements ConnectorToGetOneBook {
                 numberOfPages: edition.numberOfPages || 1,
                 dateOfPublication: new Date(edition.publicationDate).toISOString().split('T')[0] || 'Publication date not available'
             })) || [],
-            rating: data.rating || 0,
+            rating: data.rating || undefined,
             summary: data.summary || 'No summary available',
             reviews: data.comment?.map((review) => ({
                 id: review.id,

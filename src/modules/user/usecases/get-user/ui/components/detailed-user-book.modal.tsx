@@ -69,7 +69,7 @@ export const DetailedUserBookModal = () => {
                 }
                 modalFooter={
                     <>
-                        <Button onPress={() => dispatch(updateBookStatusUsecase({ status: 'rejected', bookId: selectedBook.id, userRole: 'admin' }))}>Refuser</Button>
+                        <Button onPress={() => dispatch(updateBookStatusUsecase({ status: 'refused', bookId: selectedBook.id, userRole: 'admin' }))}>Refuser</Button>
                         <Button onPress={() => dispatch(updateBookStatusUsecase({ status: 'accepted', bookId: selectedBook.id, userRole: 'admin' }))}>Accepter</Button>
                     </>
                 }

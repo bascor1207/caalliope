@@ -2,12 +2,19 @@ import type { BooksModel } from '@/modules/books/model/books.model';
 import type { ConnectorToGetBooks } from '@/modules/books/usecases/get-catalog/core/connector-to.get-books';
 
 import { axiosInstance } from '@/modules/app/core/axios-instance';
+import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
+
 
 export class HttpGetBooksGateway implements ConnectorToGetBooks {
 
-    async getBooks(): Promise<BooksModel.BookForCatalog[]> {
-        const { data } = await axiosInstance.get('/book');
-        return this.createReturnPayload(data.data);
+    async getBooks(): Promise<BooksModel.BookForCatalog[] | void> {
+        try {
+            const { data } = await axiosInstance.get('/book');
+            return this.createReturnPayload(data.data);
+        } catch (error) {
+            console.log(error);
+            CustomErrorWrapper.throwError({ message: 'Error getting books', type: 'error' });
+        }
     }
 
     async getBooksByAuthor(value: string): Promise<BooksModel.BookForCatalog[]> {

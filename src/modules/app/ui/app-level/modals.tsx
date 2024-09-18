@@ -41,7 +41,9 @@ export const Modals = () => {
                 <AuthModal />
             )}
 
-            <CustomToast />
+            {typeof window !== 'undefined' && (
+                <CustomToast />
+            )}
 
             {contactFormStatus === 'displayed' && (
                 <ContactForm formType='modal' />

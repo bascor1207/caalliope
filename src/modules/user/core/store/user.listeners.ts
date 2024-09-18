@@ -24,6 +24,8 @@ const actionsToListen = [
     getUserUsecase.rejected.type,
     editProfileUsecase.fulfilled.type,
     editProfileUsecase.rejected.type,
+    updateBookStatusUsecase.fulfilled.type,
+    updateBookStatusUsecase.rejected.type
 ];
 
 

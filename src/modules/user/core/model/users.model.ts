@@ -73,7 +73,7 @@ export namespace UsersModel {
         image: string;
         editions: Edition[];
         summary?: string;
-        status: 'waiting' | 'rejected' | 'accepted';
+        status: 'waiting' | 'refused' | 'accepted';
     }
 
     type Author = {
@@ -95,6 +95,16 @@ export namespace UsersModel {
         dateOfPublication: string;
     };
 
-    export type UpdateBookStatusPayload = {  status: 'rejected' | 'accepted', bookId: number, userRole: 'admin' | 'user' | Array<'admin' | 'user'>  }
+    export type UpdateBookStatusPayload = {  status: 'refused' | 'accepted', bookId: number, userRole: 'admin' | 'user' | Array<'admin' | 'user'> }
     export type UpdateBookStatusResponse = {  message: string, type: 'success' | 'error' }
+
+    export type ProfileBookFromBack = {
+        id: number;
+        title: string;
+        status: string;
+        cover: {
+            id: number;
+            filename: string;
+        };
+    }
 }

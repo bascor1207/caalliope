@@ -55,7 +55,7 @@ function givenUser(role: 'admin' | 'user' | Array<'admin' | 'user'>) {
    fakeAdminGateway.userRole = role;
 }
 
-async function updateBookStatus(status: 'rejected' | 'accepted') {
+async function updateBookStatus(status: 'refused' | 'accepted') {
    await store.dispatch(updateBookStatusUsecase({ status, bookId: fakeAdminGateway.bookId, userRole: fakeAdminGateway.userRole }));
 }
 

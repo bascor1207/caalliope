@@ -24,6 +24,7 @@ import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
 
 // import { FakeAuthGateway } from '@/modules/auth/infra/fake-auth.gateway';
 // import { FakeGetOneBookGateway } from '@/modules/books/get-one-book/infra/fake-get-one-book.gateway';
+import { HttpAdminGateway } from '@/modules/user/usecases/admin/infra/http-admin.gateway';
 import { HttpEditProfileGateway } from '@/modules/user/usecases/edit-profile/infra/http-edit-profile.gateway';
 
 import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infra/fake-create-book.gateway';
@@ -35,7 +36,7 @@ import { FakeUpdateBookGateway } from '@/modules/books/usecases/update-book/infr
 import { FakeUpdateEditionGateway } from '@/modules/books/usecases/update-edition/infra/fake-update-edition.gateway';
 // import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
 import { FakeAdminGateway } from '@/modules/user/usecases/admin/infra/fake-admin.gateway';
-import { FakeEditProfileGateway } from '@/modules/user/usecases/edit-profile/infra/fake-edit-profile.gateway';
+// import { FakeEditProfileGateway } from '@/modules/user/usecases/edit-profile/infra/fake-edit-profile.gateway';
 
 // const book = BookFactory.create();
 
@@ -47,6 +48,8 @@ export class App {
         this.dependencies = this.setupDependencies();
         this.store = createStore(this.dependencies, initialState);
         initLocale(this.store.getState().app.language)
+        this.dependencies = { ...this.dependencies, translationAdapter: new I18nTranslationProvider() }
+        this.store = createStore(this.dependencies, initialState);
     }
 
     setupDependencies(): Dependencies {
@@ -54,6 +57,7 @@ export class App {
         // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
         const authAdapter = new HttpAuthGateway();
         const userAdapter = new HttpUserGateway();
+        const adminAdapter = new HttpAdminGateway();
         // const getBooksAdapter = new HttpGetBooksGateway();
         const getOneBookAdapter = new HttpGetOneBookGateway();
         const donateAdapter = new HttpDonateGateway();
@@ -68,9 +72,9 @@ export class App {
         //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
         // const authAdapter = new FakeAuthGateway();
         // const userAdapter = new FakeUserGateway();
-        const adminAdapter = new FakeAdminGateway();
-        adminAdapter.bookId = 1;
-        adminAdapter.userRole = 'admin';
+        // const adminAdapter = new FakeAdminGateway();
+        // adminAdapter.bookId = 1;
+        // adminAdapter.userRole = 'admin';
         // const getOneBookAdapter = new FakeGetOneBookGateway();
         // getOneBookAdapter.returnedResponse = book;
         const getBooksAdapter = new FakeGetBooksGateway(1000);

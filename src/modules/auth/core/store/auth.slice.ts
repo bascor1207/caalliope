@@ -7,7 +7,7 @@ import { registerUser } from '@/modules/auth/usecases/register.user';
 import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
 import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';
 
-type InitialState = {
+type InitialState = object & {
     authModalVisible: boolean;
     loggedUser: boolean;
     error: boolean;
