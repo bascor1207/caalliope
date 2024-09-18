@@ -98,4 +98,13 @@ export class HttpUserGateway implements ConnectorToUserGateway {
             CustomErrorWrapper.throwError({ message: 'Error while adding book to user library, please contact an admin', type: 'error' })
         }
     }
+
+    async updateUserBookStatus({ userId, bookId, status }: { userId: string; bookId: number; status: 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned'; }): Promise<void> {
+        try {
+            const { data } = await axiosInstance.put('/user-book', { userId: parseInt(userId), bookId: bookId, status });
+            return data;
+        } catch (error) {
+            CustomErrorWrapper.throwError({ message: 'Error while updating book status, please contact an admin', type: 'error' })
+        }
+    }
 }
