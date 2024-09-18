@@ -4,7 +4,7 @@ import type { CookiesInterface } from '@/modules/app/core/cookies.interface';
 
 export class HttpCookiesProvider implements CookiesInterface {
     destroyCookies(cookieName: string): void {
-        destroyCookie(null, cookieName)
+        destroyCookie(null, cookieName, { path: '/' })
     }
 
     setCookie(cookieName: string, cookieValue: string): void {
