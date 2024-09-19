@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
 import type { AppDispatch } from '@/modules/app/core/store/create-store';
@@ -17,16 +18,17 @@ export const useMyAccountPage = () => {
         systemCookiesProvider.current.setCookie('activeTab', key);
         dispatch(myProfileTabState(key as 'my-infos' | 'my-books' | 'my-wishlist' | 'my-abandoned-books'));
     }
+    const { t } = useTranslation()
 
     const dispatch = useDispatch<AppDispatch>()
     const activeProfileTab = useAppSelector(selectActiveProfileTab)
     const items = [
-        user.roles?.includes('admin') && { id: 'admin', label: 'Admin panel', value: 'admin' },
-        { id: 'my-infos', label: 'My informations', value: 'my-infos' },
-        { id: 'my-books', label: 'My books to read', value: 'my-books' },
-        { id: 'my-readings', label: 'My readings', value: 'my-readings' },
-        { id: 'my-wishlist', label: 'My wishlist', value: 'my-wishlist' },
-        { id: 'my-abandoned-books', label: 'My abandoned books', value: 'my-abandoned-books' }
+        user.roles?.includes('admin') && { id: 'admin', label: t('account.adminPanel'), value: 'admin' },
+        { id: 'my-infos', label: t('account.myInfos'), value: 'my-infos' },
+        { id: 'my-books', label: t('account.myBooksToRead'), value: 'my-books' },
+        { id: 'my-readings', label: t('account.myReadings'), value: 'my-readings' },
+        { id: 'my-wishlist', label: t('account.myWishlist'), value: 'my-wishlist' },
+        { id: 'my-abandoned-books', label: t('account.myAbandonedBooks'), value: 'my-abandoned-books' }
     ].filter(Boolean) as { id: string; label: string; value: string }[];
 
     const classNames=

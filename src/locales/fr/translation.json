@@ -64,8 +64,6 @@
     "account": {
         "addAvatar": "Ajouter un avatar",
         "home": "Accueil",
-        "myInfos": "Mes informations",
-        "myReadings": "Mes lectures",
         "pal": "Ma pile à lire",
         "wish": "Ma liste de souhait",
         "abandoned": "Mes livres abandonnés",
@@ -75,7 +73,19 @@
         "pages": "pages",
         "avatar": "Changer d'avatar",
         "username": "Pseudo",
-        "newPassword": "Nouveau mot de passe"
+        "newPassword": "Nouveau mot de passe",
+        "myInfos": "Mes informations",
+        "myBooksToRead": "Ma pile à lire",
+        "myReadings": "Mes lectures en cours",
+        "myWishlist": "Ma liste de souhaits",
+        "myAbandonedBooks": "Mes livres abandonnés",
+        "adminPanel": "Panneau administrateur",
+        "noBooksToRead": "Aucun livre dans votre pile à lire.",
+        "noReadings": "Aucune lecture en cours.",
+        "noWishlistBooks": "Aucun livre dans votre liste de souhaits.",
+        "noAbandonedBooks": "Aucun livre abandonné.",
+        "adminBooksValidation": "Validation des livres",
+        "noWaitingBooks": "Aucun livre en attente de validation."
     },
     "donate": {
         "successTitle": "Paiement réussi !",
@@ -128,5 +138,8 @@
         "firstName": "Prénom",
         "lastName": "Nom",
         "birthDate": "Date de naissance"
+    },
+    "defaultValues": {
+        "noLanguageProvided": "Pas de langue fournie"
     }
 }

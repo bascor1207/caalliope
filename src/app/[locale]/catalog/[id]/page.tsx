@@ -9,9 +9,10 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
     await store.dispatch(getOneBookById(parseInt(id)));
 
     const bookDetails = store.getState().selectedBook.getBook.selectedBook;
+    const fullAuthorName = bookDetails.author?.fullname || `${bookDetails.author?.firstname} ${bookDetails.author?.lastname}`;
 
     return {
-        title: `Livre - ${bookDetails.title} de ${bookDetails.author.firstname} ${bookDetails.author.lastname}`,
+        title: `Livre - ${bookDetails.title} de ${fullAuthorName}`,
         description: `Découvrez le livre ${bookDetails.title} de ${bookDetails.author} sur Caalliope.`,
         icons: '/favico.png',
         metadataBase: new URL('https://caalliope.vercel.app'),

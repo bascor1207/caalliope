@@ -1,6 +1,6 @@
 'use client'
 import {
- Card as NextUICard, CardBody, CardFooter, CardHeader 
+    Card as NextUICard, CardBody, CardFooter, CardHeader, Divider
 } from '@nextui-org/react';
 import { twMerge } from 'tailwind-merge';
 
@@ -32,12 +32,13 @@ type CustomCardProps = {
     cover?: boolean
     className?: string;
     isPressable?: boolean
+    divider?: boolean;
 }
 
 export const CustomCard: FC<CustomCardProps> = (
     {
         title, content, footer, description,
-        onClick, cover = false, className = '', isPressable = true,
+        onClick, cover = false, className = '', isPressable = true, divider = false
     }
 ) => {
     return cover ? (
@@ -72,6 +73,12 @@ export const CustomCard: FC<CustomCardProps> = (
                         )}
                     </>
                 </CardHeader>
+            )}
+
+            {divider && (
+                <div className='w-full px-4 my-4'>
+                    <Divider className='bg-custom-dark-purple' />
+                </div>
             )}
 
             <CardBody className='overflow-visible pt-4'>

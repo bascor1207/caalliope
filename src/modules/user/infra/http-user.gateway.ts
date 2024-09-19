@@ -1,11 +1,14 @@
 import type { ConnectorToUserGateway } from '@/modules/user/core/connector-to-user.gateway';
 import type { UsersModel } from '@/modules/user/core/model/users.model';
+import type { TFunction } from 'i18next';
 
 import { axiosInstance } from '@/modules/app/core/axios-instance';
 import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
 import { UserFactory } from '@/modules/user/core/model/user.factory';
 
 export class HttpUserGateway implements ConnectorToUserGateway {
+    constructor(private readonly translate: TFunction<any, any>) {}
+
     async getUser({ id }: { id: string }): Promise<UsersModel.User | void> {
         try {
             const { data } = await axiosInstance.get(`/user/${id}`);

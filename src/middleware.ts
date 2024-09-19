@@ -1,6 +1,11 @@
+import acceptLanguage from 'accept-language'
 import { NextResponse } from 'next/server';
 
 import type { NextRequest } from 'next/server';
+
+const languages = ['en', 'fr'];
+
+acceptLanguage.languages(languages)
 
 export function middleware(request: NextRequest) {
     const url = request.nextUrl.clone();
