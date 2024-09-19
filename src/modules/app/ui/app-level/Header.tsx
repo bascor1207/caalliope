@@ -28,26 +28,20 @@ export const Header = () => {
                 <>
                     <Select
                         className='bg-custom-grey w-1/4'
-                        labelPlacement='inside'
                         size='sm'
                         radius='sm'
                         aria-label={presenter.t('navbar.changeLanguage')}
+                        defaultSelectedKeys={[presenter.locale as string]}
                         onChange={presenter.changeLanguage()}
+                        items={presenter.languages}
                     >
-                        {presenter.languages.map((language) => {
-                            const shortKeyForSVG = language === 'English' ? 'gb' : 'fr';
-                            const shortKeyForTrad = language === 'English' ? 'en' : 'fr';
-                            return (
-                                <SelectItem
-                                    key={language}
-                                    startContent={
-                                        <Avatar alt={presenter.t(`navbar.${language}`)} className='w-4 h-4' src={`https://flagcdn.com/${shortKeyForSVG}.svg`} />
-                                    }
-                                >
-                                    {presenter.t(`navbar.${shortKeyForTrad}`)}
-                                </SelectItem>
-                            )
-                        })}
+                        {(language) => (
+                            <SelectItem
+                                key={language.shortKeyForTrad}
+                                startContent={<Avatar alt={presenter.t(`navbar.${language.shortKeyForTrad}`)} className='w-4 h-4' src={`https://flagcdn.com/${language.shortKeyForSVG}.svg`} />}
+                            >
+                                {presenter.t(`navbar.${language.shortKeyForTrad}`)}
+                            </SelectItem>)}
                     </Select>
                     <Button
                         radius='md'

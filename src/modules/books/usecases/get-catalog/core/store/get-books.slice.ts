@@ -14,10 +14,12 @@ type InitialState = object & {
 type GetBooksSliceType = InitialState & {
     pendingRequest: boolean;
     rejectedRequest: boolean;
+    activeSubjectTab: string;
 };
 
 export const initialState: GetBooksSliceType = {
     books: [],
+    activeSubjectTab: '',
     pendingRequest: false,
     rejectedRequest: false,
 };
@@ -25,7 +27,11 @@ export const initialState: GetBooksSliceType = {
 export const getBooksSlice = createSlice( {
     name: 'getBooks',
     initialState,
-    reducers: {},
+    reducers: {
+        setActiveSubjectTab: (state, action) => {
+            state.activeSubjectTab = action.payload;
+        }
+    },
     extraReducers : (builder)=> {
         builder.addCase(getBooksUseCase.pending, (state) => {
             state.pendingRequest = true;
@@ -61,3 +67,5 @@ export const getBooksSlice = createSlice( {
         })
     }
 });
+
+export const { setActiveSubjectTab } = getBooksSlice.actions;

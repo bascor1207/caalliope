@@ -12,10 +12,29 @@ export namespace UsersModel {
         z.object({
         username: usernameSchema.default(userInformations.username ?? ''),
         email: emailSchema.default(userInformations.email ?? ''),
-        password: passwordSchema
+        password: passwordSchema,
+        avatar: avatarSchema.optional()
+    });
+    export type EditProfileForm = z.infer<ReturnType<typeof editProfileFormSchema>>;
+
+    const MAX_UPLOAD_SIZE = 20000000000000;
+    const ACCEPTED_FILE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+
+    const avatarSchema = z
+        .instanceof(File)
+        .optional()
+        .refine((file) => !file || file.size <= MAX_UPLOAD_SIZE, {
+            message: i18n.t('form.errors.fileTooLarge'),
+        })
+        .refine((file) => !file || ACCEPTED_FILE_TYPES.includes(file.type), {
+            message: i18n.t('form.errors.fileTypeInvalid'),
+        });
+
+    export const editAvatarFormSchema = z.object({
+        avatar: avatarSchema,
     });
 
-    export type EditProfileForm = z.infer<ReturnType<typeof editProfileFormSchema>>;
+    export type EditAvatarForm = z.infer<typeof editAvatarFormSchema>;
 
     export type User = {
         id: string;

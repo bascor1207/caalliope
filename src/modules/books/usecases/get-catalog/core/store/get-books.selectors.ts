@@ -18,3 +18,8 @@ export const selectRejectedRequest = createSelector(
     [selectGetBooksState],
     (getBooksState) => getBooksState.rejectedRequest
 );
+
+export const selectActiveSubjectTab = createSelector(
+    [selectGetBooksState],
+    (getBooksState) => getBooksState.activeSubjectTab
+);

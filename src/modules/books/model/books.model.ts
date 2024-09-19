@@ -28,9 +28,8 @@ export namespace BooksModel {
   id: number;
   title: string;
   author: AuthorFromBack;
-  type: string;
   genre: GenreFromBack[];
-  publicationDate: string;
+  publicationDate: string | Date;
   cover: { filename: string };
   publishing: EditionFromBack[];
   rating?: number;
@@ -43,16 +42,17 @@ export namespace BooksModel {
   genre: string;
  }
 
- type EditionFromBack = Omit<Edition, 'dateOfPublication'> & { publicationDate: string }
+ type EditionFromBack = Omit<Edition, 'dateOfPublication'> & { publicationDate: string, format: { type: string } }
 
  type ReviewFromBack = Omit<Review, 'comment' | 'date'> & { content: string; createdAt: string }
 
- type AuthorFromBack = Pick<Author, 'id' | 'birthDate' | 'email' | 'image'> & { lastName: string; firstName: string }
+ type AuthorFromBack = Pick<Author, 'id' | 'birthDate' | 'email' | 'image'> & { lastName: string; firstName: string, fullName: string; }
 
  export type Author = {
   id?: number;
   lastname: string;
   firstname: string;
+  fullname: string;
   image: string;
   email: string;
   birthDate: string;

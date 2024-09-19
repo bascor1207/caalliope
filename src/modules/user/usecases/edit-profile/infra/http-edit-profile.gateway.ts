@@ -7,7 +7,10 @@ import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
 export class HttpEditProfileGateway implements ConnectorToEditProfileGateway {
     async  editProfile({ userId, payload }: {userId: number, payload: UsersModel.EditProfileForm}): Promise<UsersModel.User | void> {
         try {
-            console.log(payload)
+            if (payload instanceof FormData) {
+                const { data } = await axiosInstance.post('/avatar/upload/userAvatar', payload);
+                return data.data;
+            }
             const { data } = await axiosInstance.patch(`/user/${userId}`, payload);
             return data.data;
         } catch (error) {

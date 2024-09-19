@@ -27,8 +27,8 @@ export const getBookSlice = createSlice({
             state.bookDetailsModal = action.payload.status as 'displayed' | 'hidden';
         },
 
-        emptySelectedBook: (state) => {
-            state.selectedBook = {} as BooksModel.Book;
+        updateBookRating: (state, action: PayloadAction<{ rating: number }>) => {
+            state.selectedBook.rating = action.payload.rating;
         }
     },
     extraReducers(builder) {
@@ -58,4 +58,4 @@ export const getBookSlice = createSlice({
     }
 })
 
-export const { bookDetailsModal, emptySelectedBook } = getBookSlice.actions;
+export const { bookDetailsModal, updateBookRating } = getBookSlice.actions;

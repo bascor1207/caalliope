@@ -1,7 +1,6 @@
 import {
  Button, Select, SelectItem, Card, CardBody
 } from '@nextui-org/react';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
@@ -10,34 +9,34 @@ import type { BooksModel } from '@/modules/books/model/books.model';
 import type { FC } from 'react';
 
 import { useAppSelector } from '@/modules/app/core/store/create-store';
+import { toggleAuthModal } from '@/modules/auth/core/store/auth.slice';
 import { createEditionForm } from '@/modules/books/usecases/create-edition/core/store/create-edition.slice';
 import { selectActiveUser } from '@/modules/user/core/store/user.selectors';
+import { informUser } from '@/modules/user/core/store/user.slice';
 import { addBookToUserLibraryUseCase } from '@/modules/user/usecases/add-book-in-user-list/add-book-to-user-library.usecase';
-
 
 type Props = {
     book: BooksModel.Book;
 }
 
 export const EditionSection: FC<Props> = ({ book }) => {
-    const [selectedStatus, setSelectedStatus] = useState<'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned' | undefined>(undefined);
     const { t } = useTranslation('');
     const dispatch = useDispatch<AppDispatch>();
     const activeUser = useAppSelector(selectActiveUser);
 
-    const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedStatus(event.target.value as 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned');
-    };
-
-    const handleClick = () => {
-        if (selectedStatus) {
-            dispatch(addBookToUserLibraryUseCase({ userId: activeUser.id, bookId: book.id, status: selectedStatus }));
-        } else {
-            console.log('Aucun statut sélectionné');
+    const handleClick = (key: string) => {
+        if (key) {
+            dispatch(addBookToUserLibraryUseCase({ userId: activeUser.id, bookId: book.id, status: key as 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned' }));
+            return;
         }
+        dispatch(informUser({ message: 'Aucun statut sélectionné', type: 'error', status: 'displayed' }));
     };
 
     const toggle = () => {
+        if (Object.keys(activeUser).length === 0) {
+            dispatch(toggleAuthModal({ type: 'signIn', visible: true }));
+            return;
+        }
         dispatch(createEditionForm('displayed'))
     };
 
@@ -54,18 +53,15 @@ export const EditionSection: FC<Props> = ({ book }) => {
                                 <Select
                                     placeholder={t('selectOption')}
                                     className='text-black bg-red"'
-                                    onChange={handleSelectChange}
+                                    onChange={(e) => handleClick(e.target.value)}
                                 >
                                     <SelectItem key='notOwned' value='notOwned'>{t('notOwned')}</SelectItem>
                                     <SelectItem key='reading' value='reading'>{t('inProgress')}</SelectItem>
                                     <SelectItem key='toRead' value='toRead'>{t('toRead')}</SelectItem>
                                     <SelectItem key='read' value='read'>{t('read')}</SelectItem>
                                     <SelectItem key='wishlist' value='wishlist'>{t('whislist')}</SelectItem>
-                                    <SelectItem key='giveUp' value='abandoned'>{t('giveUp')}</SelectItem>
+                                    <SelectItem key='abandoned' value='abandoned'>{t('giveUp')}</SelectItem>
                                 </Select>
-                                <Button onClick={handleClick} className='ml-4 bg-[#D9D9D9] hover:bg-[#f8e9ff] text-black'>
-                                    {t('valid')}
-                                </Button>
                             </div>
                         </CardBody>
                     </Card>

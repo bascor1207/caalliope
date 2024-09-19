@@ -2,10 +2,13 @@
 import { Tab, Tabs } from '@nextui-org/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
+import { useDispatch } from 'react-redux';
 
+import type { AppDispatch } from '@/modules/app/core/store/create-store';
 import type { FC, PropsWithChildren } from 'react';
 
 import { CustomSpinner } from '@/modules/app/ui/app-level/custom.spinner';
+import { setActiveSubjectTab } from '@/modules/books/usecases/get-catalog/core/store/get-books.slice';
 
 type TabBooksProps = {
   disabled: boolean;

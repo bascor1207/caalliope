@@ -8,10 +8,13 @@ import { selectAuthModalVisible } from '@/modules/auth/core/store/auth.selectors
 import { selectBookDetailsModalState } from '@/modules/books/get-one-book/core/get-book.selectors';
 import { selectCreateEditionForm } from '@/modules/books/usecases/create-edition/core/store/create-edition.selectors';
 import { selectUpdateEditionForm } from '@/modules/books/usecases/update-edition/core/store/update-edition.selectors';
-import { selectContactFormState,
+import {
+    selectContactFormState, selectEditAvatarFormState,
     selectEditProfileFormState,
-    selectInformativeSpinner } from '@/modules/user/core/store/user.selectors';
+    selectInformativeSpinner
+} from '@/modules/user/core/store/user.selectors';
 import { ContactForm } from '@/modules/user/usecases/contact-us/ui/forms/contact-form';
+import EditAvatarForm from '@/modules/user/usecases/edit-profile/ui/forms/edit-avatar.form';
 import { EditProfileForm } from '@/modules/user/usecases/edit-profile/ui/forms/edit-profile.form';
 import { DetailedUserBookModal } from '@/modules/user/usecases/get-user/ui/components/detailed-user-book.modal';
 
@@ -30,6 +33,7 @@ export const Modals = () => {
     const isLoading = useAppSelector(selectInformativeSpinner);
     const contactFormStatus = useAppSelector(selectContactFormState);
     const editProfileFormStatus = useAppSelector(selectEditProfileFormState);
+    const editAvatarFormStatus = useAppSelector(selectEditAvatarFormState);
     const authModalVisible = useAppSelector(selectAuthModalVisible);
     const booksDetailsModalStatus = useAppSelector(selectBookDetailsModalState);
     const updateEditionFormStatus = useAppSelector(selectUpdateEditionForm);
@@ -55,6 +59,10 @@ export const Modals = () => {
 
             {editProfileFormStatus === 'displayed' && (
                 <EditProfileForm />
+            )}
+
+            {editAvatarFormStatus === 'displayed' && (
+                <EditAvatarForm />
             )}
 
 

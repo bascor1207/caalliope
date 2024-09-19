@@ -35,7 +35,7 @@ import {
     registerOnUserActionToInformHim,
     registerOnUpdatedBookStatusErrorForUserListener,
     registerOnUpdatedBookStatusForUserListener,
-    registerOnSignInOrSignUpForUserListener
+    registerOnSignInOrSignUpForUserListener, registerOnUpdateBookStatusChangeToGetUserListener
 } from '@/modules/user/core/store/user.listeners';
 
 import { FakeCookiesProvider } from '@/modules/app/infra/fake-cookies.provider';
@@ -87,6 +87,7 @@ export const createStore = (
         registerOnUpdatedBookStatusForUserListener();
         registerOnDetailsModalDisplayedForBookListener();
         registerOnBookStatusChangeToRefreshAdminView();
+        registerOnUpdateBookStatusChangeToGetUserListener();
       return getDefaultMiddleware({
         thunk: {
           extraArgument: dependencies,

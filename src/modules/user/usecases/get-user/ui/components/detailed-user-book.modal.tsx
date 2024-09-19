@@ -1,6 +1,5 @@
-import {
- Button, Image, Select, SelectItem
-} from '@nextui-org/react';
+import { Button, Select, SelectItem } from '@nextui-org/react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
 import type { AppDispatch } from '@/modules/app/core/store/create-store';
@@ -19,6 +18,8 @@ export const DetailedUserBookModal = () => {
     const activeTab = useAppSelector(selectActiveProfileTab);
     const activeUser = useAppSelector(selectActiveUser);
     const dispatch = useDispatch<AppDispatch>();
+    const { t } = useTranslation();
+
 
     const getFinalBook = () => {
         const selectedBookWithStatus = { ...selectedBook, status: '' };
@@ -48,8 +49,6 @@ export const DetailedUserBookModal = () => {
 
     const finalBook = getFinalBook();
 
-    const booksPossibleStatuses = ['read', 'toRead', 'wishlist', 'abandoned', 'refused', 'accepted'];
-
     return (
         Object.keys(finalBook).length > 0 && (
             <CustomModal
@@ -58,45 +57,54 @@ export const DetailedUserBookModal = () => {
                 hideModal={() => dispatch(bookDetailsModal({ status: 'hidden' }))}
                 modalContent={
                     <div className='p-6 max-w-5xl mx-auto h-full'>
-                        <div className='grid grid-cols-1 md:grid-cols-[1fr_2fr] gap-8 items-start h-full'>
-                            <div className='h-full'>
-                                <Image
-                                    src={finalBook.image}
-                                    alt='Book cover'
-                                    removeWrapper
-                                    radius='none'
-                                    className='w-full h-full object-cover'
-                                />
-                            </div>
-                            <div className='h-full flex flex-col justify-center'>
-                                <h2 className='text-2xl font-bold mb-2'>{finalBook.title}</h2>
-                                <p className='text-gray-600 text-sm mb-4'>
-                                    by {finalBook.author?.firstname} {finalBook.author?.lastname}
+                        <div className='flex flex-col md:flex-row gap-8 h-full'>
+                            <div className='flex-1 flex flex-col justify-center'>
+                                <p className='text-gray-600 text-lg mb-4'>
+                                    {finalBook.author?.fullname ? (
+                                        <span className='font-semibold text-gray-800'>
+                            by {finalBook.author.fullname}
+                        </span>
+                                    ) : (
+                                        <span className='font-semibold text-gray-800'>
+                            by {finalBook.author?.firstname} {finalBook.author?.lastname}
+                        </span>
+                                    )}
                                 </p>
+
                                 <p className='text-gray-700 mb-4'>
-                                    <span className='font-semibold'>Type:</span> {finalBook.type}
+                                    <span className='font-semibold text-lg text-gray-900'>Type: </span>
+                                    <span className='text-gray-800'>{finalBook.type}</span>
                                 </p>
+
                                 <p className='text-gray-700 mb-4'>
-                                    <span className='font-semibold'>Published:</span> {finalBook.dateOfPublication}
+                                    <span className='font-semibold text-lg text-gray-900'>Published: </span>
+                                    <span className='text-gray-800'>{finalBook.dateOfPublication}</span>
                                 </p>
-                                <div className='mb-4'>
-                                    <span className='font-semibold text-gray-700'>Subjects:</span>
-                                    <ul className='list-disc list-inside ml-4 mt-2'>
-                                        {finalBook.subjects?.map((subject, index) => (
-                                            <li key={index} className='text-gray-600 text-sm'>
-                                                {subject.label}
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
+
+                                {finalBook.subjects && (
+                                    <div className='mb-4'>
+                                        <span className='font-semibold text-lg text-gray-900'>Subjects:</span>
+                                        <ul className='list-disc list-inside ml-4 mt-2'>
+                                            {finalBook.subjects.map((subject, index) => (
+                                                <li key={index} className='text-gray-600 text-sm'>
+                                                    <span className='font-medium text-gray-700'>{subject.label}</span>
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+
                                 {finalBook.summary && (
                                     <p className='text-gray-700 mb-4'>
-                                        <span className='font-semibold'>Summary:</span> {finalBook.summary}
+                                        <span className='font-semibold text-lg text-gray-900'>Summary:</span>
+                                        <span className='text-gray-800'>{finalBook.summary}</span>
                                     </p>
                                 )}
+
                                 {finalBook.rating && (
                                     <p className='text-gray-700'>
-                                        <span className='font-semibold'>Rating:</span> {finalBook.rating} / 5
+                                        <span className='font-semibold text-lg text-gray-900'>Rating:</span>
+                                        <span className='text-yellow-500 font-bold'>{finalBook.rating} / 5</span>
                                     </p>
                                 )}
                             </div>
@@ -105,27 +113,40 @@ export const DetailedUserBookModal = () => {
                 }
                 modalFooter={
                     <>
-                        {activeTab === 'admin' && (
+                        {activeTab === 'admin' ? (
                             <>
-                            <Button onPress={() => dispatch(updateBookStatusUsecase({ status: 'refused', bookId: finalBook.id, userRole: 'admin' }))}>Refuser</Button>
-                            <Button onPress={() => dispatch(updateBookStatusUsecase({ status: 'accepted', bookId: finalBook.id, userRole: 'admin' }))}>Accepter</Button>
+                                <Button onPress={() => dispatch(updateBookStatusUsecase({
+                                    status: 'refused',
+                                    bookId: finalBook.id,
+                                    userRole: 'admin'
+                                }))}>Refuser</Button>
+                                <Button onPress={() => dispatch(updateBookStatusUsecase({
+                                    status: 'accepted',
+                                    bookId: finalBook.id,
+                                    userRole: 'admin'
+                                }))}>Accepter</Button>
                             </>
-                        )}
+                        ) : (
                             <Select
-                                className='bg-custom-grey'
                                 variant='bordered'
-                                defaultSelectedKeys={[finalBook.status]}
+                                defaultSelectedKeys={finalBook.status}
                                 labelPlacement='inside'
                                 size='sm'
                                 radius='sm'
-                                onChange={(e) => dispatch(updateUserBookUsecase({ status: e.target.value as 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned', bookId: finalBook.id, userId: activeUser.id }))}
+                                onChange={(e) => dispatch(updateUserBookUsecase({
+                                    status: e.target.value as 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned',
+                                    bookId: finalBook.id,
+                                    userId: activeUser.id
+                                }))}
                             >
-                                {booksPossibleStatuses.map((status) => (
-                                    <SelectItem key={status}>
-                                        {status}
-                                    </SelectItem>
-                                ))}
-                        </Select>
+                                <SelectItem key='notOwned' value='notOwned'>{t('notOwned')}</SelectItem>
+                                <SelectItem key='reading' value='reading'>{t('inProgress')}</SelectItem>
+                                <SelectItem key='toRead' value='toRead'>{t('toRead')}</SelectItem>
+                                <SelectItem key='read' value='read'>{t('read')}</SelectItem>
+                                <SelectItem key='wishlist' value='wishlist'>{t('whislist')}</SelectItem>
+                                <SelectItem key='abandoned' value='abandoned'>{t('giveUp')}</SelectItem>
+                            </Select>
+                        )}
                     </>
                 }
             />
