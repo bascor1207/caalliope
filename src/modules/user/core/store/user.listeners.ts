@@ -12,6 +12,7 @@ import { informUser } from '@/modules/user/core/store/user.slice';
 import { updateBookStatusUsecase } from '@/modules/user/usecases/admin/update-book-status.usecase';
 import { editProfileUsecase } from '@/modules/user/usecases/edit-profile/core/edit-profile.usecase';
 import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
+import { updateUserBookUsecase } from '@/modules/user/usecases/update-user-book/update-user-book.usecase';
 
 const actionsToListen = [
     createBookUsecase.fulfilled.type,
@@ -35,12 +36,26 @@ const authActionsToListen = [
     registerUser.rejected.type
 ]
 
+const actionsThatNeedsToGetTheUser = [
+    updateBookStatusUsecase.fulfilled.type,
+    editProfileUsecase.fulfilled.type
+]
 
 export const registerOnAuthChangeForUserListener = () => {
    startAppListening({
         actionCreator: authUser.fulfilled,
         effect: async (action, { dispatch }) => {
             const { id } = action.payload as {id: string};
+            dispatch(getUserUsecase({ id }))
+        }
+    })
+}
+
+export const registerOnUpdateBookStatusChangeToGetUserListener = () => {
+    startAppListening({
+        predicate: (action) => actionsThatNeedsToGetTheUser.includes(action.type),
+        effect: async (_, { getState, dispatch }) => {
+            const id = getState().user.getUser.activeUser.id;
             dispatch(getUserUsecase({ id }))
         }
     })

@@ -12,6 +12,7 @@ import type { ZodObject, ZodType } from 'zod';
 
 import { useAppSelector } from '@/modules/app/core/store/create-store';
 import { selectCurrentBook } from '@/modules/books/get-one-book/core/get-book.selectors';
+import { selectActiveSubjectTab } from '@/modules/books/usecases/get-catalog/core/store/get-books.selectors';
 import { selectActiveUser } from '@/modules/user/core/store/user.selectors';
 
 type UseCustomFormProps<TFormValues extends FieldValues, RType = void, A = void> = {
@@ -70,16 +71,32 @@ export function useCustomForm<TFormValues extends FieldValues, RType, A>({ schem
             Object.entries(data).forEach(([key, value]) => {
                     formData.append(key, value);
             });
-            const finalFormData = { ...formData, userId: activeUser.id, bookId: selectedBook.id }
+            formData.append('userId', activeUser.id);
+            formData.append('bookId', selectedBook.id?.toString());
+            formData.append('genre', activeSubjectTab);
             if (action) {
-                dispatch(action(finalFormData));
+                dispatch(action({ payload: formData, userId: formData.get('userId') }));
             }
             reset();
             onCustomClose?.()
             return;
         }
 
-        const finalData = { payload: data, userId: activeUser.id, bookId: selectedBook.id }
+        if (data.avatar) {
+            const formData = new FormData();
+            Object.entries(data).forEach(([key, value]) => {
+                formData.append(key, value);
+            });
+            formData.append('userId', activeUser.id);
+            if (action) {
+                dispatch(action({ payload: formData }));
+            }
+            reset();
+            onCustomClose?.()
+            return;
+        }
+
+        const finalData = { payload: data, userId: activeUser.id, bookId: selectedBook.id, genre: activeSubjectTab }
 
         if (action) {
             dispatch(action(finalData));
@@ -144,6 +161,7 @@ export function useCustomForm<TFormValues extends FieldValues, RType, A>({ schem
 
     const activeUser = useAppSelector(selectActiveUser);
     const selectedBook = useAppSelector(selectCurrentBook);
+    const activeSubjectTab = useAppSelector(selectActiveSubjectTab);
 
     return {
         defaultValues: getDefaults(), isSubmittable, isRequired, handleSelectChange, handleChange,

@@ -33,3 +33,8 @@ export const selectEditProfileFormState = createSelector(
     [selectUserState],
     (userState) => userState.editProfileFormState
 )
+
+export const selectEditAvatarFormState = createSelector(
+    [selectUserState],
+    (userState) => userState.editAvatarFormState
+)

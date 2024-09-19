@@ -62,7 +62,9 @@
         "bibliography": "Bibliographie"
     },
     "account": {
+        "addAvatar": "Ajouter un avatar",
         "home": "Accueil",
+        "myInfos": "Mes informations",
         "myReadings": "Mes lectures",
         "pal": "Ma pile à lire",
         "wish": "Ma liste de souhait",
@@ -82,6 +84,7 @@
         "cancel": "Votre paiement a été annulé. Si vous avez des questions, n'hésitez pas à nous contacter."
     },
     "form": {
+        "avatar": "Avatar",
         "editing": "Modifier un livre",
         "editingAuthor": "Modifier les informations d'un auteur",
         "addEdition": "Ajouter une édition",
@@ -118,5 +121,12 @@
             "authorList": "Liste des auteurs",
             "reject": "Refuser"
         }
+    },
+    "user": {
+        "username": "Pseudo",
+        "email": "Email",
+        "firstName": "Prénom",
+        "lastName": "Nom",
+        "birthDate": "Date de naissance"
     }
 }

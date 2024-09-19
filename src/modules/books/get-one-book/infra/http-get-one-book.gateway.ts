@@ -27,17 +27,18 @@ export class HttpGetOneBookGateway implements ConnectorToGetOneBook {
             author: {
                 lastname: data.author?.lastName || 'Unknown lastname',
                 firstname: data.author?.firstName || 'Unknown firstname',
+                fullname: data.author?.fullName || 'Unknown fullname',
                 image: data.author?.image || '',
                 email: data.author?.email || 'Email not available',
                 birthDate: data.author?.birthDate ? new Date(data.author?.birthDate).toString() : 'Birthdate not available',
             },
-            type: data.type || 'Type not provided',
+            type: data.publishing[0].format.type || 'Type not provided',
             subjects: data.genre?.map((subject) => ({
                 id: subject.id,
                 label: subject.genre || 'No subject provided'
             })) || [],
-            dateOfPublication: data.publicationDate ||'Publication date not available',
-            image: data.cover.filename ? `${data.cover?.filename}` : '',
+            dateOfPublication: new Date(data.publicationDate).toISOString().split('T')[0] || 'No publication date available' ,
+            image: data.cover.filename && data.cover.filename.includes('http') ? `${data.cover?.filename}` : `${process.env.NEXT_PUBLIC_COVERS_URL}/${data.cover?.filename}`,
             editions: data.publishing?.map((edition) => ({
                 id: edition.id,
                 label: edition.label || 'No edition provided',

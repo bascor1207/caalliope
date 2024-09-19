@@ -1,4 +1,6 @@
-import { useParams, useRouter, useSelectedLayoutSegments } from 'next/navigation';
+import {
+ useParams, usePathname, useRouter, useSelectedLayoutSegments
+} from 'next/navigation';
 import { useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
@@ -21,6 +23,8 @@ const ACCOUNT_PATHS = {
 export const useHeader = () => {
     const dispatch = useDispatch<AppDispatch>();
     const locale = useParams()?.locale;
+    const pathname = usePathname();
+
     const LINKS_ITEMS = [
         {
             label: 'Profile',
@@ -34,7 +38,7 @@ export const useHeader = () => {
         },
         {
             href: '#',
-            onPress: () => dispatch(logoutUserUsecase()).then(() => router.push(`/${locale}/`)),
+            onPress: () => dispatch(logoutUserUsecase()).then(() => pathname.includes('my-account') ? router.push(`/${locale}/`) : null),
             label: 'Logout',
             type: 'button'
         },
@@ -43,10 +47,16 @@ export const useHeader = () => {
     const { t } = useTranslation();
     const urlSegments = useSelectedLayoutSegments();
 
-    const languages = ['English', 'French'];
+    const languages = () => (
+        locale === 'en' ? (
+            [{ label: 'English', shortKeyForTrad: 'en', shortKeyForSVG: 'gb' }, { label: 'French', shortKeyForTrad: 'fr', shortKeyForSVG: 'fr' }]
+        ) : (
+            [{ label: 'Français', shortKeyForTrad: 'fr', shortKeyForSVG: 'fr' }, { label: 'English', shortKeyForTrad: 'en', shortKeyForSVG: 'gb' }]
+        )
+    )
 
     const changeLanguage = () => async (e: ChangeEvent<HTMLSelectElement>) => {
-        const selectedLanguage = e.target.value === 'English' ? 'en' : 'fr'
+        const selectedLanguage = e.target.value === 'en' ? 'en' : 'fr'
         cookiesProvider.current.setCookie('i18next', selectedLanguage);
 
         router.push(`/${selectedLanguage}/${urlSegments.join('/')}`);
@@ -55,5 +65,5 @@ export const useHeader = () => {
     const loggedUser = useAppSelector(selectLoggedUser)
     const cookiesProvider =  useRef(new HttpCookiesProvider());
 
-    return { linkItems: LINKS_ITEMS, router, dispatch, languages, changeLanguage, t, loggedUser, locale };
+    return { linkItems: LINKS_ITEMS, router, dispatch, languages: languages(), changeLanguage, t, loggedUser, locale };
 }

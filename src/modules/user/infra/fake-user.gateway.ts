@@ -1,5 +1,7 @@
+import { undefined } from 'zod';
+
 import type { ConnectorToUserGateway } from '@/modules/user/core/connector-to-user.gateway';
-import type { UsersModel } from '@/modules/user/core/model/users.model';
+import type  { UsersModel } from '@/modules/user/core/model/users.model';
 
 import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
 import { UserFactory } from '@/modules/user/core/model/user.factory';
@@ -74,5 +76,9 @@ export class FakeUserGateway implements ConnectorToUserGateway {
           resolve();
         });
       }
+
+    async updateUserBookStatus(): Promise<void> {
+        return;
+    }
 }
 

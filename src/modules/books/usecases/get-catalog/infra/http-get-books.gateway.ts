@@ -42,7 +42,7 @@ export class HttpGetBooksGateway implements ConnectorToGetBooks {
         return data?.map((data) => {
             return {
                 id: data.id || 0,
-                image: data.cover.filename ? `${data.cover?.filename}` : ''
+                image: data.cover.filename && data.cover.filename.includes('http') ? `${data.cover?.filename}` : `${process.env.NEXT_PUBLIC_COVERS_URL}/${data.cover?.filename}`,
             }
         }) || [];
     }

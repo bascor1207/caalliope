@@ -10,7 +10,6 @@ export class HttpUserGateway implements ConnectorToUserGateway {
         try {
             const { data } = await axiosInstance.get(`/user/${id}`);
             const userData = data.data;
-            console.log(userData);
             return UserFactory.create({
                 id: userData.id,
                 username: userData.username || 'No username given, please update your profile',
@@ -72,7 +71,7 @@ export class HttpUserGateway implements ConnectorToUserGateway {
                         : null
                 )
                     .filter((book: UsersModel.InProgressBook) => book !== null) || [],
-                avatar: userData.avatar ? `${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/avatars/${userData.avatar}` : '',
+                avatar: userData.avatar ? `${process.env.NEXT_PUBLIC_AVATARS_URL}/${userData.avatar.filename}` : '',
                 email: userData.email || 'No email given, please update your profile',
                 roles: [userData.role].flat() || [],
                 waitingForValidationBooks: userData.bookWaiting?.map((book: UsersModel.ProfileBookFromBack) => (
