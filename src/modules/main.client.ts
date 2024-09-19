@@ -1,10 +1,10 @@
 import type { AppStore, Dependencies, RootState } from '@/modules/app/core/store/create-store';
 
 
-import { initLocale } from '@/i18n';
+import i18n, { initLocale } from '@/i18n';
 import { createStore } from '@/modules/app/core/store/create-store';
+
 // import { BookFactory } from '@/modules/books/model/books.factory';
-import { I18nTranslationProvider } from '@/modules/app/infra/i18n-translation.provider';
 import { catalog } from '@/modules/catalog';
 
 // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
@@ -30,6 +30,7 @@ import { FakeGetLastReleaseBooksGateway } from '@/modules/books/usecases/get-las
 import { FakeGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/fake-get-popular-books.gateway';
 import { FakeUpdateBookGateway } from '@/modules/books/usecases/update-book/infra/fake-update-book.gateway';
 import { FakeUpdateEditionGateway } from '@/modules/books/usecases/update-edition/infra/fake-update-edition.gateway';
+
 // import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
 // import { FakeAdminGateway } from '@/modules/user/usecases/admin/infra/fake-admin.gateway';
 // import { FakeEditProfileGateway } from '@/modules/user/usecases/edit-profile/infra/fake-edit-profile.gateway';
@@ -48,15 +49,15 @@ export class App {
 
     setupDependencies(): Dependencies {
 
+
         // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
         const authAdapter = new HttpAuthGateway();
-        const userAdapter = new HttpUserGateway();
+        const userAdapter = new HttpUserGateway(i18n.t);
         const adminAdapter = new HttpAdminGateway();
-        const getOneBookAdapter = new HttpGetOneBookGateway();
+        const getOneBookAdapter = new HttpGetOneBookGateway(i18n.t);
         const donateAdapter = new HttpDonateGateway();
-        const getBooksAdapter = new HttpGetBooksGateway();
+        const getBooksAdapter = new HttpGetBooksGateway(i18n.t);
         const cookiesAdapter = new HttpCookiesProvider();
-        const translationAdapter = new I18nTranslationProvider();
         const createBookAdapter = new HttpCreateBookGateway();
         const editProfileAdapter = new HttpEditProfileGateway();
 
@@ -98,8 +99,7 @@ export class App {
             createBookAdapter,
             createEditionAdapter,
             updateEditionAdapter,
-            updateBookAdapter,
-            translationAdapter
+            updateBookAdapter
         };
     }
 }

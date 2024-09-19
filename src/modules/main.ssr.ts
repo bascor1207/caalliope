@@ -1,6 +1,8 @@
 import type { AppStore, Dependencies, RootState } from '@/modules/app/core/store/create-store';
 
+import { translateServerSide } from '@/app/i18n/server';
 import { createStore } from '@/modules/app/core/store/create-store';
+
 // import { BookFactory } from '@/modules/books/model/books.factory';
 import { catalog } from '@/modules/catalog';
 
@@ -33,23 +35,27 @@ import { FakeAdminGateway } from '@/modules/user/usecases/admin/infra/fake-admin
 // const book = BookFactory.create();
 
 export class SSRApp {
-    public dependencies: Partial<Dependencies>;
-    public store: AppStore;
+    public dependencies!: Partial<Dependencies>;
+    public store!: AppStore;
 
     constructor(initialState?: RootState) {
-        this.dependencies = this.setupDependencies();
+        this.initializeStore(initialState);
+    }
+
+    private async initializeStore(initialState?: RootState) {
+        this.dependencies = await this.setupDependencies();
         this.store = createStore(this.dependencies, initialState);
     }
 
-    setupDependencies(): Partial<Dependencies> {
-
+    async setupDependencies(): Promise<Partial<Dependencies>> {
+        const { t } = await translateServerSide();
 
         // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
         const authAdapter = new HttpAuthGateway();
-        const userAdapter = new HttpUserGateway();
+        const userAdapter = new HttpUserGateway(t);
         // const getBooksAdapter = new HttpGetBooksGateway();
-        const getOneBookAdapter = new HttpGetOneBookGateway();
-        const getBooksAdapter = new HttpGetBooksGateway();
+        const getOneBookAdapter = new HttpGetOneBookGateway(t);
+        const getBooksAdapter = new HttpGetBooksGateway(t);
         // const getOneBookAdapter = new HttpGetOneBookGateway();
         const cookiesAdapter = new HttpCookiesProvider();
         const donateAdapter = new HttpDonateGateway();

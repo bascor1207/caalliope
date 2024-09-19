@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit';
 import { useSelector } from 'react-redux';
 
 import type { CookiesInterface } from '@/modules/app/core/cookies.interface';
-import type { TranslationInterface } from '@/modules/app/core/translation.interface';
 import type { ConnectorToAuthGateway } from '@/modules/auth/core/connector-to-auth.gateway';
 import type { ConnectorToGetOneBook } from '@/modules/books/get-one-book/core/connector-to.get-one-book';
 import type { ConnectorToCreateBookGateway } from '@/modules/books/usecases/create-book/core/connector-to-create-book.gateway';
@@ -27,7 +26,6 @@ import type { TypedUseSelectorHook } from 'react-redux';
 
 import { listenerMiddleware } from '@/modules/app/core/store/create-app-listener';
 import { rootReducer } from '@/modules/app/core/store/root-reducer';
-import { I18nTranslationProvider } from '@/modules/app/infra/i18n-translation.provider';
 import { registerOnDetailsModalDisplayedForBookListener } from '@/modules/books/get-one-book/core/get-book.listeners';
 import { registerOnBookStatusChangeToRefreshAdminView } from '@/modules/books/usecases/get-catalog/core/store/get-books.listeners';
 import {
@@ -35,7 +33,9 @@ import {
     registerOnUserActionToInformHim,
     registerOnUpdatedBookStatusErrorForUserListener,
     registerOnUpdatedBookStatusForUserListener,
-    registerOnSignInOrSignUpForUserListener, registerOnUpdateBookStatusChangeToGetUserListener
+    registerOnSignInOrSignUpForUserListener,
+    registerOnUpdateBookStatusChangeToGetUserListener,
+    registerOnUserActionThatNeedsToHideSpinner, registerOnUserActionThatNeedsToDisplaySpinner
 } from '@/modules/user/core/store/user.listeners';
 
 import { FakeCookiesProvider } from '@/modules/app/infra/fake-cookies.provider';
@@ -69,7 +69,6 @@ export type Dependencies = {
     editProfileAdapter: ConnectorToEditProfileGateway;
     donateAdapter: ConnectorToDonateGateway;
     cookiesAdapter: CookiesInterface;
-    translationAdapter: TranslationInterface;
 };
 
 export const createStore = (
@@ -88,6 +87,8 @@ export const createStore = (
         registerOnDetailsModalDisplayedForBookListener();
         registerOnBookStatusChangeToRefreshAdminView();
         registerOnUpdateBookStatusChangeToGetUserListener();
+        registerOnUserActionThatNeedsToHideSpinner();
+        registerOnUserActionThatNeedsToDisplaySpinner();
       return getDefaultMiddleware({
         thunk: {
           extraArgument: dependencies,

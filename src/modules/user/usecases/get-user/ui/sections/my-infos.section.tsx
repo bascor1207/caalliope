@@ -59,7 +59,9 @@ export const MyInfosSection = () => {
     };
 
     return (
-        <CustomCard title={t('account.myInfos')} content={content} className='w-full cursor-default min-h-full bg-white'
-                    isPressable={false}/>
+        <CustomCard
+            title={t('account.myInfos')} content={content} className='w-full cursor-default min-h-full bg-white'
+            isPressable={false} divider
+        />
     )
 }

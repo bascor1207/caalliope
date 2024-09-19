@@ -8,10 +8,11 @@ import { createBookUsecase } from '@/modules/books/usecases/create-book/core/cre
 import { createEditionUsecase } from '@/modules/books/usecases/create-edition/core/create-edition.usecase';
 import { updateBookUsecase } from '@/modules/books/usecases/update-book/core/update-book.usecase';
 import { updateEditionUsecase } from '@/modules/books/usecases/update-edition/core/update-edition.usecase';
-import { informUser } from '@/modules/user/core/store/user.slice';
+import { informUser, showUserHeShouldWait } from '@/modules/user/core/store/user.slice';
 import { updateBookStatusUsecase } from '@/modules/user/usecases/admin/update-book-status.usecase';
 import { editProfileUsecase } from '@/modules/user/usecases/edit-profile/core/edit-profile.usecase';
 import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
+import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';
 import { updateUserBookUsecase } from '@/modules/user/usecases/update-user-book/update-user-book.usecase';
 
 const actionsToListen = [
@@ -34,12 +35,27 @@ const authActionsToListen = [
     authUser.rejected.type,
     registerUser.fulfilled.type,
     registerUser.rejected.type
-]
+];
 
 const actionsThatNeedsToGetTheUser = [
     updateBookStatusUsecase.fulfilled.type,
     editProfileUsecase.fulfilled.type
-]
+];
+
+const actionsThatNeedsToDisplaySpinner = [
+    logoutUserUsecase.pending.type,
+    editProfileUsecase.pending.type,
+    updateBookStatusUsecase.pending.type
+];
+
+const actionsThatNeedsToHideSpinner = [
+    logoutUserUsecase.fulfilled.type,
+    logoutUserUsecase.rejected.type,
+    editProfileUsecase.fulfilled.type,
+    editProfileUsecase.rejected.type,
+    updateBookStatusUsecase.fulfilled.type,
+    updateBookStatusUsecase.rejected.type
+];
 
 export const registerOnAuthChangeForUserListener = () => {
    startAppListening({
@@ -57,6 +73,24 @@ export const registerOnUpdateBookStatusChangeToGetUserListener = () => {
         effect: async (_, { getState, dispatch }) => {
             const id = getState().user.getUser.activeUser.id;
             dispatch(getUserUsecase({ id }))
+        }
+    })
+}
+
+export const registerOnUserActionThatNeedsToDisplaySpinner = () => {
+    startAppListening({
+        predicate: (action) => actionsThatNeedsToDisplaySpinner.includes(action.type),
+        effect: async (action, { dispatch }) => {
+            dispatch(showUserHeShouldWait(true))
+        }
+    })
+}
+
+export const registerOnUserActionThatNeedsToHideSpinner = () => {
+    startAppListening({
+        predicate: (action) => actionsThatNeedsToHideSpinner.includes(action.type),
+        effect: async (action, { dispatch }) => {
+            dispatch(showUserHeShouldWait(false))
         }
     })
 }
