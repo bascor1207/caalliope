@@ -1,4 +1,4 @@
-import { cookies, headers } from 'next/headers';
+import { cookies } from 'next/headers';
 import React from 'react';
 
 import type { Metadata } from 'next';

@@ -7,6 +7,7 @@ import {
     NavbarBrand
 } from '@nextui-org/react';
 import React, { useState } from 'react';
+import { useMediaQuery } from 'react-responsive';
 import { twMerge } from 'tailwind-merge';
 
 import { useAppSelector } from '@/modules/app/core/store/create-store';
@@ -50,6 +51,8 @@ export const CustomNavBar: React.FC<CustomNavBarProps> = ({
         }
     };
 
+    const isMobile = useMediaQuery({ maxWidth: 768 });
+
     return (
         <Navbar
             isMenuOpen={isMenuOpen}
@@ -57,13 +60,14 @@ export const CustomNavBar: React.FC<CustomNavBarProps> = ({
             className={twMerge('z-10 px-8 py-4 bg-custom-purple shadow-md')}
             classNames={{ wrapper: 'max-w-full' }}
             shouldHideOnScroll
-            onClick={() => setIsMenuOpen(false)}
+            // onClick={() => setIsMenuOpen(false)}
             disableAnimation={true}
         >
             <NavbarContent justify='start'>
-                {renderMenuToggle && showMenu && loggedUser && (
+                {renderMenuToggle && showMenu && (loggedUser || isMobile) && (
                     <NavbarMenuToggle
                         onMouseEnter={() => setIsMenuOpen(true)}
+                        onPress={() => setIsMenuOpen(!isMenuOpenState)}
                         className='ml-4'
                         icon={renderMenuToggle()}
                     />
@@ -84,7 +88,7 @@ export const CustomNavBar: React.FC<CustomNavBarProps> = ({
                 {renderRightContent && renderRightContent()}
             </NavbarContent>
 
-            {showMenu && loggedUser && (
+            {showMenu && (loggedUser || isMobile) && (
                 <NavbarMenu
                     className='md:w-1/4 w-full min-h-svh bg-opacity-50 bg-custom-grey text-custom-dark-purple z-50'
                     onMouseLeave={() => setIsMenuOpen(false)}

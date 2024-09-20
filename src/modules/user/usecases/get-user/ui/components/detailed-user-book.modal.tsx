@@ -49,6 +49,33 @@ export const DetailedUserBookModal = () => {
 
     const finalBook = getFinalBook();
 
+    const bookStatuses = [
+        { value: 'notOwned', label: t('notOwned') },
+        { value: 'reading', label: t('inProgress') },
+        { value: 'toRead', label: t('toRead') },
+        { value: 'read', label: t('read') },
+        { value: 'wishlist', label: t('wishlist') },
+        { value: 'abandoned', label: t('giveUp') }
+    ];
+
+    const getDefaultKey = () => {
+        if (finalBook.status === 'wishlist') {
+            return 'wishlist';
+        }
+        if (finalBook.status === 'abandoned') {
+            return 'abandoned';
+        }
+        if (finalBook.status === 'reading') {
+            return 'reading';
+        }
+        if (finalBook.status === 'read') {
+            return 'read';
+        }
+        return 'toRead';
+    };
+
+    const defaultKey = getDefaultKey();
+
     return (
         Object.keys(finalBook).length > 0 && (
             <CustomModal
@@ -129,7 +156,7 @@ export const DetailedUserBookModal = () => {
                         ) : (
                             <Select
                                 variant='bordered'
-                                defaultSelectedKeys={finalBook.status}
+                                defaultSelectedKeys={[defaultKey]}
                                 labelPlacement='inside'
                                 size='sm'
                                 radius='sm'
@@ -138,13 +165,11 @@ export const DetailedUserBookModal = () => {
                                     bookId: finalBook.id,
                                     userId: activeUser.id
                                 }))}
+                                items={bookStatuses}
                             >
-                                <SelectItem key='notOwned' value='notOwned'>{t('notOwned')}</SelectItem>
-                                <SelectItem key='reading' value='reading'>{t('inProgress')}</SelectItem>
-                                <SelectItem key='toRead' value='toRead'>{t('toRead')}</SelectItem>
-                                <SelectItem key='read' value='read'>{t('read')}</SelectItem>
-                                <SelectItem key='wishlist' value='wishlist'>{t('whislist')}</SelectItem>
-                                <SelectItem key='abandoned' value='abandoned'>{t('giveUp')}</SelectItem>
+                                {(bookStatus) => (
+                                    <SelectItem key={bookStatus.value} value={bookStatus.value}>{bookStatus.label}</SelectItem>
+                                )}
                             </Select>
                         )}
                     </>

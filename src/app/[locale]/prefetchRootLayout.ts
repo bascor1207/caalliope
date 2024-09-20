@@ -21,6 +21,8 @@ export async function prefetchRootLayout() {
     const headersList = headers();
     const bookId = headersList.get('bookId') || '';
 
+    store.dispatch(setLanguage({ lang: locale }));
+
     if (bookId) {
         await store.dispatch(getOneBookById(parseInt(bookId)))
     }
@@ -36,7 +38,6 @@ export async function prefetchRootLayout() {
 
     await store.dispatch(getPopularBooksUseCase());
     await store.dispatch(getBooksLastReleaseUseCase());
-    store.dispatch(setLanguage(locale));
 
     return JSON.parse(JSON.stringify(store.getState()));
 }

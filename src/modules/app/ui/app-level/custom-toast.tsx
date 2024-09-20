@@ -16,13 +16,13 @@ export const CustomToast = () => {
     useEffect(() => {
         if (toast.status === 'displayed') {
             const timer = setTimeout(() =>
-                dispatch(informUser({ status: 'hidden', type: 'noTyped', message: '' }))
+                    dispatch(informUser({ status: 'hidden', type: 'noTyped', message: '' }))
                 , 5000);
             return () => clearTimeout(timer);
         }
     }, [toast]);
 
-    const baseClasses = 'fixed bottom-5 right-5 p-4 rounded-xl shadow-lg flex items-center space-x-3 transition-all duration-300 ease-in-out';
+    const baseClasses = 'fixed bottom-5 left-1/2 transform -translate-x-1/2 p-4 rounded-xl shadow-lg flex items-center space-x-3 transition-all duration-300 ease-in-out';
 
     const toastClasses = twMerge(
         baseClasses,

@@ -15,22 +15,27 @@ export default function MyAccountPage() {
     return (
         <>
             <div className='flex items-center justify-center my-4'>
-                <Tabs
-                    aria-label='Dynamic tabs' items={presenter.items} classNames={presenter.classNames}
-                    selectedKey={presenter.activeProfileTab}
-                    onSelectionChange={(key) => { presenter.onChange(key.toString()) }}
-                >
-                    {(item) => (
-                        <Tab key={item.value} title={item.label}/>
-                    )}
-                </Tabs>
+                <div className='w-full overflow-x-auto'>
+                    <Tabs
+                        aria-label='Dynamic tabs' items={presenter.items} classNames={presenter.classNames}
+                        selectedKey={presenter.activeProfileTab}
+                        className='flex whitespace-nowrap no-scrollbar'
+                        onSelectionChange={(key) => {
+                            presenter.onChange(key.toString())
+                        }}
+                    >
+                        {(item) => (
+                            <Tab key={item.value} title={item.label}/>
+                        )}
+                    </Tabs>
+                </div>
             </div>
             {presenter.isUserAdmin && presenter.activeProfileTab === 'admin' && <AdminSection/>}
             {presenter.activeProfileTab === 'my-infos' && <MyInfosSection/>}
-            {presenter.activeProfileTab === 'my-books' && <MyBooksToReadSections />}
-            {presenter.activeProfileTab === 'my-readings' && <MyReadingsSection />}
-            {presenter.activeProfileTab === 'my-abandoned-books' && <MyAbandonedBooksSection />}
-            {presenter.activeProfileTab === 'my-wishlist' && <MyWishlistSection />}
+            {presenter.activeProfileTab === 'my-books' && <MyBooksToReadSections/>}
+            {presenter.activeProfileTab === 'my-readings' && <MyReadingsSection/>}
+            {presenter.activeProfileTab === 'my-abandoned-books' && <MyAbandonedBooksSection/>}
+            {presenter.activeProfileTab === 'my-wishlist' && <MyWishlistSection/>}
         </>
     )
 }

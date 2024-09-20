@@ -4,10 +4,10 @@ export const logoutUserUsecase = createAppAsyncThunk(
     'user/logout_user',
     async (pathname: string, { getState ,extra: { cookiesAdapter } }) => {
         const locale = getState().app.language;
+        cookiesAdapter.destroyCookies('token');
         if (pathname.includes('my-account')) {
             window.location.href = `/${locale}`
         }
-        cookiesAdapter.destroyCookies('token');
         return;
     }
 )

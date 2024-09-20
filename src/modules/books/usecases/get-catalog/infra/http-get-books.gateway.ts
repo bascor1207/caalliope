@@ -5,11 +5,9 @@ import type { TFunction } from 'i18next';
 import { axiosInstance } from '@/modules/app/core/axios-instance';
 import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
 
-
 export class HttpGetBooksGateway implements ConnectorToGetBooks {
 
     constructor(private readonly translate: TFunction<any, any>) {}
-
 
     async getBooks(): Promise<BooksModel.BookForCatalog[] | void> {
         try {
@@ -17,7 +15,7 @@ export class HttpGetBooksGateway implements ConnectorToGetBooks {
             return this.createReturnPayload(data.data);
         } catch (error) {
             console.log(error);
-            CustomErrorWrapper.throwError({ message: 'Error getting books', type: 'error' });
+            CustomErrorWrapper.throwError({ message: this.translate('error.gettingBooks'), type: 'error' });
         }
     }
 
@@ -32,7 +30,7 @@ export class HttpGetBooksGateway implements ConnectorToGetBooks {
             return this.createReturnPayload(data.data);
         } catch (error) {
             console.log(error);
-            CustomErrorWrapper.throwError({ message: 'Error getting books', type: 'error' });
+            CustomErrorWrapper.throwError({ message: this.translate('error.gettingBooksByGenre'), type: 'error' });
         }
     }
 
@@ -47,7 +45,7 @@ export class HttpGetBooksGateway implements ConnectorToGetBooks {
             return {
                 id: data.id || 0,
                 image: data.cover.filename && data.cover.filename.includes('http') ? `${data.cover?.filename}` : `${process.env.NEXT_PUBLIC_COVERS_URL}/${data.cover?.filename}`,
-            }
+            };
         }) || [];
     }
 }

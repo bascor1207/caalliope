@@ -1,8 +1,8 @@
-import { Chip, Image } from '@nextui-org/react';
-import React, { useState } from 'react';
+import { Image } from '@nextui-org/react';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
-import type { AppDispatch } from '@/modules/app/core/store/create-store';
 import type { BooksModel } from '@/modules/books/model/books.model';
 
 import { CustomCard } from '@/modules/app/ui/component-level/custom.card';
@@ -11,21 +11,22 @@ import { informUser } from '@/modules/user/core/store/user.slice';
 
 type Props = {
     book: BooksModel.Book;
-}
+};
 
 const useGenerateStars = (rating?: number) => {
     const totalStars = 5;
     const [hoveredStar, setHoveredStar] = useState<number | null>(null);
-    const dispatch = useDispatch<AppDispatch>();
+    const dispatch = useDispatch();
+    const { t } = useTranslation();
 
     const displayedStars = hoveredStar !== null ? hoveredStar + 1 : rating || 0;
 
     const handleStarClick = (index: number) => {
-        dispatch(updateBookRating({ rating : index + 1 }));
+        dispatch(updateBookRating({ rating: index + 1 }));
         dispatch(informUser({
             type: 'success',
-            message: `Merci pour votre avis ! ${index + 1} étoiles sur 5`,
-            status: 'displayed'
+            message: t('rating.stars', { count: index + 1 }),
+            status: 'displayed',
         }));
     };
 
@@ -38,8 +39,8 @@ const useGenerateStars = (rating?: number) => {
                     onMouseLeave={() => setHoveredStar(null)}
                     onClick={() => handleStarClick(index)}
                 >
-                    ★
-                </span>
+          ★
+        </span>
             ))}
             {Array.from({ length: totalStars - displayedStars }, (_, index) => (
                 <span
@@ -48,52 +49,63 @@ const useGenerateStars = (rating?: number) => {
                     onMouseLeave={() => setHoveredStar(null)}
                     onClick={() => handleStarClick(displayedStars + index)}
                 >
-                    ☆
-                </span>
+          ☆
+        </span>
             ))}
         </>
     );
 };
 
 export const BookInfoCard: React.FC<Props> = ({ book }) => {
+    const { t } = useTranslation();
     const stars = useGenerateStars(book.rating);
+
+    const content = () => {
+        return (
+            <div className={'p-6 space-y-6 flex flex-col xl:flex-row items-center'}>
+                <Image
+                    src={book.image}
+                    alt={t('book.details')}
+                    className='w-32 h-48 object-cover rounded-lg'
+                    width={150}
+                    height={225}
+                />
+
+                <div className='mt-4 xl:mt-0 xl:ml-6 flex flex-col'>
+                    <h2 className='font-semibold text-xl text-custom-dark-purple'>
+                        {book.title} - {book.author.firstname} {book.author.lastname}
+                    </h2>
+
+                    <div className='flex items-center gap-2 mt-2'>
+                        {stars}
+                        <span>{book.rating}/5</span>
+                    </div>
+
+                    <p className='text-gray-600 mt-4'>{t('book.summary')}: {book.summary}</p>
+
+                    <div className='flex gap-2 mt-4 flex-wrap'>
+                        <span className='font-semibold'>{t('book.subjects')}:</span>
+                        {book.subjects.map((subject) => (
+                            <span
+                                key={subject.id}
+                                className='bg-custom-grey text-custom-dark-purple px-2 py-1 rounded-md'
+                            >
+                {subject.label}
+              </span>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        );
+    };
+
     return (
-          <CustomCard
-              isPressable={false}
-              title={`${book.title} - ${book.author.firstname} ${book.author.lastname}`}
-              content={() => (
-                      <div className='mb-4 grid grid-cols-[auto_1fr] gap-5'>
-                          <div>
-                              <Image
-                                  src={book.image}
-                                  alt='book cover'
-                                  className='w-full h-auto max-w-[400px] max-h-[600px] object-cover'
-                                  loading='eager'
-                                  removeWrapper
-                                  width={400} height={600}
-                              />
-                          </div>
-
-                      <div className='flex flex-col gap-4 justify-center'>
-                          {/* Note et étoiles */}
-                          <div className='flex items-center gap-2'>
-                              {stars}
-                              <span>{book.rating}/5</span>
-                          </div>
-
-                          <p className='text-sm mb-4'>
-                              {book.summary}
-                          </p>
-
-                          <div className='flex gap-2 flex-wrap'>
-                              {book.subjects.map((subject) => (
-                                  <Chip className='text-custom-dark-purple bg-white' variant='shadow' radius='lg' key={subject.id}>{subject.label}</Chip>
-                              ))}
-                          </div>
-                      </div>
-                  </div>
-              )}
-              className='text-black'
-          />
-  );
+        <CustomCard
+            title={t('book.details')}
+            content={content}
+            className='w-full bg-white min-h-full cursor-default'
+            isPressable={false}
+            divider
+        />
+    );
 };

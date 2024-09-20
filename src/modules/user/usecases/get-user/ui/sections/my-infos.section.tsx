@@ -37,7 +37,7 @@ export const MyInfosSection = () => {
                             <Button onPress={() => dispatch(editAvatar('displayed'))} className='bg-transparent text-custom-dark-purple font-semibold p-0 mr-4 rounded-md hover:bg-custom-purple transition duration-300'>
                                 {t('account.avatar')}
                             </Button>
-                            <Image src={`${activeUser.avatar}`} alt={activeUser.username} width={42} height={42} />
+                            <Image src={`${activeUser.avatar}`} alt={activeUser.username} width={42} height={42} className='rounded-full' />
                         </div>
                     ): (
                         <Button onPress={() => dispatch(editAvatar('displayed'))} className='bg-transparent text-custom-dark-purple font-semibold py-2 rounded-md hover:bg-custom-purple transition duration-300'>
