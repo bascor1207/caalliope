@@ -1,6 +1,5 @@
 import { createAppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
 
-
 export const addBookToUserLibraryUseCase = createAppAsyncThunk(
   'user/add_book_to_library',
   async ( data: AddBookToUserLibraryPayload, { extra: { userAdapter } }) => {

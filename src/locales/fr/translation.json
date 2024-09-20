@@ -6,19 +6,19 @@
     "inProgress": "En cours",
     "finish": "Terminés",
     "giveUp": "Abandonné",
-    "toRead": "A lire",
+    "toRead": "À lire",
     "read": "Lu",
-    "whislist": "A acheter",
+    "wishlist": "À acheter",
     "notOwned": "Non possédé",
     "delete": "Supprimer",
-    "state": "Status",
+    "state": "Statut",
     "addABook": "Ajouter un livre",
     "add": "Ajouter",
     "edit": "Modifier",
     "saga": "Saga",
     "oneShot": "One shot",
     "yes": "Oui",
-    "no": "No",
+    "no": "Non",
     "lastname": "Nom :",
     "firstname": "Prénom :",
     "email": "Email :",
@@ -33,7 +33,7 @@
     },
     "footer": {
         "donation": "Faire un don",
-        "contact": "Nous Contacter"
+        "contact": "Nous contacter"
     },
     "home": {
         "lastRelease": "Les dernières sorties",
@@ -49,7 +49,7 @@
     },
     "library": {
         "tag": "Tag",
-        "publishing": "Edition",
+        "publishing": "Édition",
         "review": "Critique",
         "addReview": "Ajouter une critique",
         "addPublishing": "Ajouter une édition",
@@ -65,9 +65,9 @@
         "addAvatar": "Ajouter un avatar",
         "home": "Accueil",
         "pal": "Ma pile à lire",
-        "wish": "Ma liste de souhait",
+        "wish": "Ma liste de souhaits",
         "abandoned": "Mes livres abandonnés",
-        "recommendation": "Recommendation de livre",
+        "recommendation": "Recommandation de livre",
         "editing": "Modifier mes informations",
         "refresh": "Actualiser",
         "pages": "pages",
@@ -102,9 +102,9 @@
         "title": "Titre",
         "author": "Auteur",
         "releaseDate": "Date de sortie",
-        "editor": "Editeur",
+        "editor": "Éditeur",
         "translator": "Traducteurs",
-        "numberOfPages": "Nombre de page",
+        "numberOfPages": "Nombre de pages",
         "format": "Format",
         "book": "Livre",
         "ebook": "E-book",
@@ -113,7 +113,7 @@
         "cover": "Couverture",
         "noFile": "Aucun fichier",
         "birthDate": "Date de naissance",
-        "deathDate": "Date de décés",
+        "deathDate": "Date de décès",
         "nationality": "Nationalité",
         "image": "Image",
         "choiceFile": "Choisir un fichier",
@@ -123,7 +123,7 @@
         "email": "Email",
         "password": "Mot de passe",
         "admin": {
-            "recentAdd": "Ajout réçent",
+            "recentAdd": "Ajout récent",
             "addAnAuthor": "Ajouter un auteur",
             "editBook": "Modifier un livre",
             "editPublishing": "Modifier une édition",
@@ -139,7 +139,28 @@
         "lastName": "Nom",
         "birthDate": "Date de naissance"
     },
+    "book": {
+        "details": "Détails du livre",
+        "summary": "Résumé",
+        "subjects": "Sujets",
+        "cover": "Couverture du livre"
+    },
+    "rating": {
+        "stars": "{{count}} étoiles sur 5"
+    },
     "defaultValues": {
-        "noLanguageProvided": "Pas de langue fournie"
+        "noLanguageProvided": "Pas de langue fournie",
+        "noUsernameProvided": "Pseudo non fourni, veuillez mettre à jour votre profil",
+        "noFirstNameProvided": "Prénom non fourni, veuillez mettre à jour votre profil",
+        "noLastNameProvided": "Nom de famille non fourni, veuillez mettre à jour votre profil",
+        "noEmailProvided": "Email non fourni, veuillez mettre à jour votre profil"
+    },
+    "error": {
+        "gettingData": "Erreur lors de la récupération des données, veuillez contacter un administrateur.",
+        "addingBook": "Erreur lors de l'ajout du livre à la bibliothèque, veuillez contacter un administrateur.",
+        "updatingStatus": "Erreur lors de la mise à jour du statut du livre, veuillez contacter un administrateur.",
+        "gettingBooks": "Erreur lors de la récupération des livres.",
+        "gettingBooksByGenre": "Erreur lors de la récupération des livres par genre.",
+        "gettingBooksByAuthor": "Erreur lors de la récupération des livres par auteur."
     }
 }

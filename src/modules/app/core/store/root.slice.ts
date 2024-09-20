@@ -14,8 +14,8 @@ export const rootSlice = createSlice({
     name: 'root',
     initialState,
     reducers: {
-        setLanguage: (state, action: PayloadAction<'en' | 'fr'>) => {
-            state.language = action.payload ?? 'fr';
+        setLanguage: (state, action: PayloadAction<{ lang: 'en' | 'fr', refresh?: boolean }>) => {
+            state.language = action.payload.lang ?? 'fr';
         },
     },
 });

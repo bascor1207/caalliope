@@ -1,13 +1,15 @@
 import {
  useParams, usePathname, useRouter, useSelectedLayoutSegments
 } from 'next/navigation';
-import { useRef } from 'react';
+import { useRef, useTransition } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
 import type { AppDispatch } from '@/modules/app/core/store/create-store';
 import type { ChangeEvent } from 'react';
 
+import { translateServerSide } from '@/app/i18n/server';
+import i18n from '@/i18n';
 import { useAppSelector } from '@/modules/app/core/store/create-store';
 import { selectLoggedUser } from '@/modules/auth/core/store/auth.selectors';
 import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';
@@ -57,13 +59,24 @@ export const useHeader = () => {
 
     const changeLanguage = () => async (e: ChangeEvent<HTMLSelectElement>) => {
         const selectedLanguage = e.target.value === 'en' ? 'en' : 'fr'
+        await i18n.changeLanguage(selectedLanguage);
+        await translateServerSide(selectedLanguage);
         cookiesProvider.current.setCookie('i18next', selectedLanguage);
 
         router.push(`/${selectedLanguage}/${urlSegments.join('/')}`);
     };
 
+    const [isLoading, startTransition] = useTransition();
+
+    const handleRouteChange = (url?: string) => {
+        startTransition(() => url ?
+           router.push(url) :
+           router.push(`/${locale}/catalog`)
+        );
+    }
+
     const loggedUser = useAppSelector(selectLoggedUser)
     const cookiesProvider =  useRef(new HttpCookiesProvider());
 
-    return { linkItems: LINKS_ITEMS, router, dispatch, languages: languages(), changeLanguage, t, loggedUser, locale };
+    return { linkItems: LINKS_ITEMS, router, dispatch, languages: languages(), changeLanguage, t, loggedUser, locale, handleRouteChange, isLoading };
 }

@@ -43,12 +43,12 @@ export const EditionSection: FC<Props> = ({ book }) => {
     };
 
     const dateToString = (dateOfPublication: string) => {
-       return new Date(dateOfPublication).toLocaleDateString(`${locale}-${locale.toUpperCase()}`, { year: 'numeric', month: 'long', day: 'numeric' });
+        return new Date(dateOfPublication).toLocaleDateString(`${locale}-${locale.toUpperCase()}`, { year: 'numeric', month: 'long', day: 'numeric' });
     };
 
     return (
         <div className='space-y-8'>
-            <div className='flex items-start justify-between mb-8'>
+            <div className='flex flex-col items-start justify-between mb-8'>
                 <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 flex-grow'>
                     {book.editions.map((publisher) => (
                         <Card key={publisher.id} className='bg-white shadow-md rounded-lg max-w-md'>
@@ -78,7 +78,7 @@ export const EditionSection: FC<Props> = ({ book }) => {
                                         <SelectItem key='reading' value='reading'>{t('inProgress')}</SelectItem>
                                         <SelectItem key='toRead' value='toRead'>{t('toRead')}</SelectItem>
                                         <SelectItem key='read' value='read'>{t('read')}</SelectItem>
-                                        <SelectItem key='wishlist' value='wishlist'>{t('whislist')}</SelectItem>
+                                        <SelectItem key='wishlist' value='wishlist'>{t('wishlist')}</SelectItem>
                                         <SelectItem key='abandoned' value='abandoned'>{t('giveUp')}</SelectItem>
                                     </Select>
                                 </div>
@@ -87,8 +87,8 @@ export const EditionSection: FC<Props> = ({ book }) => {
                     ))}
                 </div>
 
-                <div className='ml-6'>
-                    <Button onPress={toggle} className='bg-purple-600 text-white py-2 px-6 rounded-md hover:bg-purple-700 transition duration-300'>
+                <div className='ml-6 mt-4 mt-0'>
+                    <Button onPress={toggle} className='bg-transparent text-black py-2 px-6 rounded-md hover:bg-custom-purple transition duration-300'>
                         {t('library.addPublishing')}
                     </Button>
                 </div>

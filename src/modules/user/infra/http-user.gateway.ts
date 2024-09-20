@@ -15,11 +15,11 @@ export class HttpUserGateway implements ConnectorToUserGateway {
             const userData = data.data;
             return UserFactory.create({
                 id: userData.id,
-                username: userData.username || 'No username given, please update your profile',
-                firstName: userData.firstName || 'No firstname given, please update your profile',
-                lastName: userData.lastName || 'No lastname given, please update your profile',
+                username: userData.username || this.translate('defaultValues.noUsernameProvided'),
+                firstName: userData.firstName || this.translate('defaultValues.noFirstNameProvided'),
+                lastName: userData.lastName || this.translate('defaultValues.noLastNameProvided'),
                 password: userData.password,
-                myAbandonedBooks: userData.userBook?.map((book:UsersModel.UserBookFromBack) =>
+                myAbandonedBooks: userData.userBook?.map((book: UsersModel.UserBookFromBack) =>
                     book.status === 'abandoned'
                         ? {
                             id: book.book.id,
@@ -47,7 +47,7 @@ export class HttpUserGateway implements ConnectorToUserGateway {
                             id: book.book.id,
                             title: book.book.title,
                             image: book.book.cover ? `${book.book.cover.filename}` : '',
-                            status: book.status,
+                            status: book.status
                         }
                         : null
                 )
@@ -75,7 +75,7 @@ export class HttpUserGateway implements ConnectorToUserGateway {
                 )
                     .filter((book: UsersModel.InProgressBook) => book !== null) || [],
                 avatar: userData.avatar ? `${process.env.NEXT_PUBLIC_AVATARS_URL}/${userData.avatar.filename}` : '',
-                email: userData.email || 'No email given, please update your profile',
+                email: userData.email || this.translate('defaultValues.noEmailProvided'),
                 roles: [userData.role].flat() || [],
                 waitingForValidationBooks: userData.bookWaiting?.map((book: UsersModel.ProfileBookFromBack) => (
                     {
@@ -85,19 +85,19 @@ export class HttpUserGateway implements ConnectorToUserGateway {
                         status: book.status
                     }
                 )) || []
-            })|| {};
+            }) || {};
         } catch (error) {
             console.log(error);
-            CustomErrorWrapper.throwError({ message: 'Error while getting your data, please contact an admin', type: 'error' })
+            CustomErrorWrapper.throwError({ message: this.translate('error.gettingData'), type: 'error' });
         }
     }
 
     async addBookToUserLibrary({ userId, bookId, status }: { userId: string; bookId: number; status: 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned'; }): Promise<void> {
-       try {
+        try {
             const { data } = await axiosInstance.post('/user-book', { userId: parseInt(userId), bookId: bookId, status });
             return data;
         } catch (error) {
-            CustomErrorWrapper.throwError({ message: 'Error while adding book to user library, please contact an admin', type: 'error' })
+            CustomErrorWrapper.throwError({ message: this.translate('error.addingBook'), type: 'error' });
         }
     }
 
@@ -106,7 +106,7 @@ export class HttpUserGateway implements ConnectorToUserGateway {
             const { data } = await axiosInstance.put('/user-book', { userId: parseInt(userId), bookId: bookId, status });
             return data;
         } catch (error) {
-            CustomErrorWrapper.throwError({ message: 'Error while updating book status, please contact an admin', type: 'error' })
+            CustomErrorWrapper.throwError({ message: this.translate('error.updatingStatus'), type: 'error' });
         }
     }
 }

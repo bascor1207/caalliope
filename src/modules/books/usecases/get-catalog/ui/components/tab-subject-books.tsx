@@ -1,22 +1,17 @@
-'use client';
 import { Tab, Tabs } from '@nextui-org/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
-import { useDispatch } from 'react-redux';
 
-import type { AppDispatch } from '@/modules/app/core/store/create-store';
 import type { FC, PropsWithChildren } from 'react';
 
 import { CustomSpinner } from '@/modules/app/ui/app-level/custom.spinner';
-import { setActiveSubjectTab } from '@/modules/books/usecases/get-catalog/core/store/get-books.slice';
+
 
 type TabBooksProps = {
-  disabled: boolean;
-};
+  disabled?: boolean;
+}
 
-export const TabSubjectBooks: FC<PropsWithChildren<TabBooksProps>> = ({
-     disabled
-}) => {
+export const TabSubjectBooks: FC<PropsWithChildren<TabBooksProps>> = ({ disabled }) => {
   const SUBJECTS_TAB = [
     { id: 0, label: 'Tout', value: '' },
     { id: 1, label: 'Computers', value: 'computers' },
@@ -33,6 +28,7 @@ export const TabSubjectBooks: FC<PropsWithChildren<TabBooksProps>> = ({
     { id: 12, label: 'Mystère', value: 'mystery' },
     { id: 13, label: 'Science', value: 'science' },
   ];
+
   const searchParams = useSearchParams();
   const router = useRouter();
   const [isLoading, startTransition] = useTransition();
@@ -46,21 +42,29 @@ export const TabSubjectBooks: FC<PropsWithChildren<TabBooksProps>> = ({
     })
   };
 
-  const classNames=
-      { tab: 'text-custom-dark-purple', cursor: 'cursor-pointer' }
+  const classNames = {
+    tab: 'text-custom-dark-purple', cursor: 'cursor-pointer'
+  };
 
   return (
       <>
         {isLoading && <CustomSpinner />}
         <div className='flex items-center justify-center my-4'>
-          <Tabs
-              aria-label='Dynamic tabs' items={SUBJECTS_TAB} classNames={classNames} onSelectionChange={(e) => handleTabChange(e.toString())}
-              isDisabled={disabled} defaultSelectedKey={selectedKey?.value || ''}
-          >
-            {(item) => (
-                <Tab key={item.value} title={item.label} />
-            )}
-          </Tabs>
+          <div className='w-full overflow-x-auto'>
+            <Tabs
+                aria-label='Dynamic tabs'
+                items={SUBJECTS_TAB}
+                classNames={classNames}
+                className='flex whitespace-nowrap no-scrollbar'
+                onSelectionChange={(e) => handleTabChange(e.toString())}
+                isDisabled={disabled}
+                defaultSelectedKey={selectedKey?.value || ''}
+            >
+              {(item) => (
+                  <Tab key={item.value} title={item.label} />
+              )}
+            </Tabs>
+          </div>
         </div>
       </>
   );
