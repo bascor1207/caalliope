@@ -58,24 +58,6 @@ export const DetailedUserBookModal = () => {
         { value: 'abandoned', label: t('giveUp') }
     ];
 
-    const getDefaultKey = () => {
-        if (finalBook.status === 'wishlist') {
-            return 'wishlist';
-        }
-        if (finalBook.status === 'abandoned') {
-            return 'abandoned';
-        }
-        if (finalBook.status === 'reading') {
-            return 'reading';
-        }
-        if (finalBook.status === 'read') {
-            return 'read';
-        }
-        return 'toRead';
-    };
-
-    const defaultKey = getDefaultKey();
-
     return (
         Object.keys(finalBook).length > 0 && (
             <CustomModal
@@ -156,7 +138,7 @@ export const DetailedUserBookModal = () => {
                         ) : (
                             <Select
                                 variant='bordered'
-                                defaultSelectedKeys={[defaultKey]}
+                                placeholder={t('selectBookStatus')}
                                 labelPlacement='inside'
                                 size='sm'
                                 radius='sm'
