@@ -129,7 +129,8 @@
             "editPublishing": "Modifier une édition",
             "bookList": "Liste des livres",
             "authorList": "Liste des auteurs",
-            "reject": "Refuser"
+            "reject": "Refuser",
+            "accept": "Accepter"
         }
     },
     "user": {
@@ -143,7 +144,11 @@
         "details": "Détails du livre",
         "summary": "Résumé",
         "subjects": "Sujets",
-        "cover": "Couverture du livre"
+        "cover": "Couverture du livre",
+        "author": "Auteur",
+        "type": "Type",
+        "published": "Publié",
+        "rating": "Note"
     },
     "rating": {
         "stars": "{{count}} étoiles sur 5"
