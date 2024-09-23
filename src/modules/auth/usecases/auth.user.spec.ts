@@ -34,10 +34,10 @@ function givenNoUserConnected() {
 
 async function authenticateUser(payload?: AuthModel.AuthUserPayload) {
     if (payload) {
-        await store.dispatch(authUser({ ...payload }))
+        await store.dispatch(authUser({ payload }))
         return
     }
-    await store.dispatch(authUser({ email: '', password: '' }))
+    await store.dispatch(authUser({ payload: { email: '', password: '' } }))
 }
 
 function itShouldBeAUserThen() {

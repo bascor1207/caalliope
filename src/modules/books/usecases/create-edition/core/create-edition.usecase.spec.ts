@@ -27,7 +27,7 @@ const fakeCreateEditionGateway = new FakeCreateEditionGateway();
 const store = createTestStore({ createEditionAdapter: fakeCreateEditionGateway })
 
 async function whenRegisteringEditionData(payload: BooksModel.AddBookEditionForm) {
-    await store.dispatch(createEditionUsecase(payload));
+    await store.dispatch(createEditionUsecase({ payload }));
 }
 
 function thenThereShouldBeASuccessfulToast() {
@@ -38,7 +38,8 @@ function thenThereShouldBeASuccessfulToast() {
             activeProfileTab: 'my-infos',
             activeUser: {},
             contactFormState: 'hidden',
-            editProfileFormState: 'hidden'
+            editProfileFormState: 'hidden',
+            editAvatarFormState: 'hidden'
         },
         actions: { createEdition: { success: true, error: false, formStatus: 'hidden' } } }
     });
@@ -54,7 +55,8 @@ function thenThereShouldBeAnErrorToast() {
                 activeProfileTab: 'my-infos',
                 activeUser: {},
                 contactFormState: 'hidden',
-                editProfileFormState: 'hidden'
+                editProfileFormState: 'hidden',
+                editAvatarFormState: 'hidden'
             },
             actions: { createEdition: { success: false, error: true, formStatus: 'hidden' } }
         }

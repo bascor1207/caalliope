@@ -68,6 +68,7 @@ function thenTheAdminShouldSeeAnInformativeToast() {
                 activeUser: {},
                 contactFormState: 'hidden',
                 editProfileFormState: 'hidden',
+                editAvatarFormState: 'hidden',
                 informativeSpinner: false,
                 informativeToast: { status: 'displayed', message: 'Book status updated', type: 'success' }
             }
@@ -85,6 +86,7 @@ function thenTheUserShouldSeeAnInformativeToast(message: string) {
                 activeUser: {},
                 contactFormState: 'hidden',
                 editProfileFormState: 'hidden',
+                editAvatarFormState: 'hidden',
                 informativeSpinner: false,
                 informativeToast: { status: 'displayed', message, type: 'error' }
             }

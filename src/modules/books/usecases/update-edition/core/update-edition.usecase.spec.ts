@@ -51,7 +51,8 @@ function thenThereShouldBeAVisualIndicator() {
                 activeProfileTab: 'my-infos',
                 activeUser: {},
                 editProfileFormState: 'hidden',
-                contactFormState: 'hidden'
+                contactFormState: 'hidden',
+                editAvatarFormState: 'hidden'
             },
             actions: {
                 updateEdition: { success: true, error: false, formStatus: 'hidden' },
@@ -71,7 +72,8 @@ function thenThereShouldBeAnErrorToast() {
                 activeProfileTab: 'my-infos',
                 activeUser: {},
                 editProfileFormState: 'hidden',
-                contactFormState: 'hidden'
+                contactFormState: 'hidden',
+                editAvatarFormState: 'hidden'
             },
             actions: {
                 updateEdition: { success: false, error: true, formStatus: 'hidden' }

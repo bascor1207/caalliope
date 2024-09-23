@@ -50,7 +50,8 @@ function thenThereShouldBeAVisualIndicator() {
                 activeProfileTab: 'my-infos',
                 activeUser: {},
                 contactFormState: 'hidden',
-                editProfileFormState: 'hidden'
+                editProfileFormState: 'hidden',
+                editAvatarFormState: 'hidden'
             },
             actions: {
                 updateBook: { success: true, error: false }
@@ -69,9 +70,9 @@ function thenThereShouldBeAnErrorToast() {
                 activeProfileTab: 'my-infos',
                 activeUser: {},
                 contactFormState: 'hidden',
-                editProfileFormState: 'hidden'
-
-},
+                editProfileFormState: 'hidden',
+                editAvatarFormState: 'hidden'
+            },
             actions: { updateBook: { success: false, error: true } }
         }
     });
