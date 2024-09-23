@@ -25,7 +25,7 @@ export const DonateForm: FC = () => {
     }
 
     try {
-      const url = await httpDonateGateway.createCheckoutSession(amount, email)
+      const url = await httpDonateGateway.createCheckoutSession(amount * 100, email)
 
       window.location.href = url
     } catch (error) {

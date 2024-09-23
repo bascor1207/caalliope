@@ -1,5 +1,3 @@
-import { undefined } from 'zod';
-
 import type  { BooksModel } from '@/modules/books/model/books.model';
 import type { ConnectorToUpdateBookGateway } from '@/modules/books/usecases/update-book/core/connector-to-update-book.gateway';
 
