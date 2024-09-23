@@ -25,7 +25,7 @@ export const prefetchCatalogLayout = async ({ searchParams }: {searchParams?: { 
     }
     if (type && search) {
         if (search.includes('+')) search.replace('+', ' ')
-        await store.dispatch(getBooksByUsecase({ type, value: search }));
+        await store.dispatch(getBooksByUsecase({ type: 'name', value: search }));
     }
 
     const viewmodel = getBooksViewModel()(store.getState())

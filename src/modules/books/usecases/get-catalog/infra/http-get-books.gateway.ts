@@ -34,10 +34,14 @@ export class HttpGetBooksGateway implements ConnectorToGetBooks {
         }
     }
 
-    async getBooksByName(value: string): Promise<BooksModel.BookForCatalog[]> {
-        //TODO CREATE BY NAME METHOD IN BACK
-        const { data } = await axiosInstance.get(`/genre/${value}`);
-        return this.createReturnPayload(data.data);
+    async getBooksByName(value: string): Promise<BooksModel.BookForCatalog[] | void> {
+        try {
+            const { data } = await axiosInstance.get(`/book/search/by?q=${value}`);
+            return this.createReturnPayload(data.data);
+        } catch (error) {
+            console.log(error);
+            CustomErrorWrapper.throwError({ message: this.translate('error.gettingBooksByName'), type: 'error' });
+        }
     }
 
     private createReturnPayload(data: BooksModel.GetBooksReturn[]): BooksModel.BookForCatalog[] {
