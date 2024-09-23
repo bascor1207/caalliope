@@ -2,7 +2,7 @@ import type { AppStore, Dependencies, RootState } from '@/modules/app/core/store
 
 import { translateServerSide } from '@/app/i18n/server';
 import { createStore } from '@/modules/app/core/store/create-store';
-import { carouselPopular, carouselLastRelease } from '@/modules/catalog';
+import { carouselLastRelease } from '@/modules/catalog';
 
 // import { BookFactory } from '@/modules/books/model/books.factory';
 
@@ -27,7 +27,7 @@ import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
 // import { FakeGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/fake-get-books.gateway';
 // import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infra/fake-create-book.gateway';
 import { FakeGetLastReleaseBooksGateway } from '@/modules/books/usecases/get-last-release-books/infra/fake-get-last-release-books.gateway';
-import { FakeGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/fake-get-popular-books.gateway';
+// import { FakeGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/fake-get-popular-books.gateway';
 import { FakeUpdateBookGateway } from '@/modules/books/usecases/update-book/infra/fake-update-book.gateway';
 import { FakeUpdateEditionGateway } from '@/modules/books/usecases/update-edition/infra/fake-update-edition.gateway';
 // import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
