@@ -39,7 +39,7 @@ export const MyBooksToReadSections = () => {
 
     return (
         <CustomCard
-            title={t('account.myAbandonedBooks')}
+            title={t('account.myBooksToRead')}
             content={content}
             className='w-full bg-white shadow-lg rounded-xl p-6 cursor-default min-h-full'
             isPressable={false}

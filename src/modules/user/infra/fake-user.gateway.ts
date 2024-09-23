@@ -1,5 +1,3 @@
-import { undefined } from 'zod';
-
 import type { ConnectorToUserGateway } from '@/modules/user/core/connector-to-user.gateway';
 import type  { UsersModel } from '@/modules/user/core/model/users.model';
 
@@ -79,6 +77,10 @@ export class FakeUserGateway implements ConnectorToUserGateway {
 
     async updateUserBookStatus(): Promise<void> {
         return;
+    }
+
+    addReview(): Promise<void> {
+        return Promise.resolve(undefined);
     }
 }
 

@@ -7,7 +7,7 @@ import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
 
 export class HttpGetBooksGateway implements ConnectorToGetBooks {
 
-    constructor(private readonly translate: TFunction<any, any>) {}
+    constructor(private readonly translate: TFunction<never, never>) {}
 
     async getBooks(): Promise<BooksModel.BookForCatalog[] | void> {
         try {

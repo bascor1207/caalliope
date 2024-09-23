@@ -9,7 +9,7 @@ import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
 
 export class HttpGetOneBookGateway implements ConnectorToGetOneBook {
 
-    constructor(private readonly translate: TFunction<any, any>) {}
+    constructor(private readonly translate: TFunction<never, never>) {}
 
     async getOneBookById(id: number): Promise<BooksModel.Book | void> {
         try {

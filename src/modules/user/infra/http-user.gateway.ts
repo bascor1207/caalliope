@@ -7,7 +7,7 @@ import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
 import { UserFactory } from '@/modules/user/core/model/user.factory';
 
 export class HttpUserGateway implements ConnectorToUserGateway {
-    constructor(private readonly translate: TFunction<any, any>) {}
+    constructor(private readonly translate: TFunction<never, never>) {}
 
     async getUser({ id }: { id: string }): Promise<UsersModel.User | void> {
         try {
@@ -84,6 +84,16 @@ export class HttpUserGateway implements ConnectorToUserGateway {
                         image: `${process.env.NEXT_PUBLIC_BACKEND_URL}/uploads/covers/${book.cover.filename}`,
                         status: book.status
                     }
+                )) || [],
+                waitingForValidationComments: userData.commentsWaiting?.map((comment: UsersModel.ProfileCommentFromBack) => (
+                    {
+                        userId: comment.user.id,
+                        username: comment.user.username,
+                        bookId: comment.book.id,
+                        bookTitle: comment.book.title,
+                        status: comment.status,
+                        text: comment.content
+                    }
                 )) || []
             }) || {};
         } catch (error) {
@@ -101,12 +111,24 @@ export class HttpUserGateway implements ConnectorToUserGateway {
         }
     }
 
-    async updateUserBookStatus({ userId, bookId, status }: { userId: string; bookId: number; status: 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned'; }): Promise<void> {
+    async updateUserBookStatus({ userId, bookId, status }: { userId: string; bookId: number; status: 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned'; }): Promise<UsersModel.UpdateBookStatusResponse | void> {
         try {
-            const { data } = await axiosInstance.put('/user-book', { userId: parseInt(userId), bookId: bookId, status });
-            return data;
+            await axiosInstance.put('/user-book', { userId: parseInt(userId), bookId: bookId, status });
+            return {
+                message: this.translate('success.bookStatusUpdated'),
+                type: 'success'
+            };
         } catch (error) {
             CustomErrorWrapper.throwError({ message: this.translate('error.updatingStatus'), type: 'error' });
+        }
+    }
+
+    async addReview({ userId, bookId, payload }: { userId: number; bookId: number; payload: { review: string }; }): Promise<void> {
+        try {
+            const { data } = await axiosInstance.post('/comment', { userId, bookId, content: payload.review });
+            return data;
+        } catch (error) {
+            CustomErrorWrapper.throwError({ message: this.translate('error.addingReview'), type: 'error' });
         }
     }
 }

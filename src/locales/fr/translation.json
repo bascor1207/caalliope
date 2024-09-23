@@ -62,6 +62,15 @@
         "bibliography": "Bibliographie"
     },
     "account": {
+        "selectBookStatus": "Sélectionnez un statut",
+        "commentFrom": "Commentaire de",
+        "onBook": "Sur le livre",
+        "statusWaiting": "En attente de validation",
+        "statusValidated": "Validé",
+        "adminCommentsValidation": "Validation des commentaires",
+        "noWaitingComments": "Aucun commentaire en attente de validation.",
+        "refuseCommentValidation": "Refuser",
+        "acceptCommentValidation": "Accepter",
         "addAvatar": "Ajouter un avatar",
         "home": "Accueil",
         "pal": "Ma pile à lire",
@@ -167,5 +176,12 @@
         "gettingBooks": "Erreur lors de la récupération des livres.",
         "gettingBooksByGenre": "Erreur lors de la récupération des livres par genre.",
         "gettingBooksByAuthor": "Erreur lors de la récupération des livres par auteur."
+    },
+    "success": {
+        "bookStatusUpdated": "Statut du livre mis à jour avec succès."
+    },
+    "buttons": {
+        "show": "Afficher",
+        "hide": "Cacher"
     }
 }

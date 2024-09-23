@@ -51,6 +51,7 @@ export namespace UsersModel {
         roles: Array<'user' | 'admin'>;
         password: string;
         waitingForValidationBooks?: BaseUserBook[];
+        waitingForValidationComments?: ReviewsToValidate[]
     }
 
     export type Avatar = {
@@ -128,6 +129,8 @@ export namespace UsersModel {
 
     export type UpdateBookStatusPayload = {  status: 'refused' | 'accepted', bookId: number, userRole: 'admin' | 'user' | Array<'admin' | 'user'> }
     export type UpdateBookStatusResponse = {  message: string, type: 'success' | 'error' }
+    export type SendCommentValidationPayload = {  commentId: number, status: 'refused' | 'accepted' }
+    export type SendCommentValidationResponse = {  message: string, type: 'success' | 'error' }
 
     export type ProfileBookFromBack = {
         id: number;
@@ -137,5 +140,28 @@ export namespace UsersModel {
             id: number;
             filename: string;
         };
+    }
+
+    export type ProfileCommentFromBack = {
+        user: {
+            id: number;
+            username: string;
+        };
+        book: {
+            id: number;
+            title: string;
+        }
+        content: string;
+        status: string;
+    }
+
+    type ReviewsToValidate = {
+        id: number;
+        userId: number;
+        username: string;
+        bookId: number;
+        bookTitle: string;
+        text: string;
+        status: string;
     }
 }

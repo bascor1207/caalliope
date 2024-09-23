@@ -1,8 +1,10 @@
-import type { UsersModel } from '@/modules/user/core/model/users.model';
+import type  { UsersModel } from '@/modules/user/core/model/users.model';
 import type { ConnectorToAdminGateway } from '@/modules/user/usecases/admin/core/connector-to-admin.gateway';
+
 
 import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
 import { UserFactory } from '@/modules/user/core/model/user.factory';
+
 
 export class FakeAdminGateway implements ConnectorToAdminGateway {
     bookId!: number;
@@ -38,5 +40,9 @@ export class FakeAdminGateway implements ConnectorToAdminGateway {
     private setUpBooks() {
         const books = [UserFactory.createAdminBook(), UserFactory.createAdminBook({ id: 3 }), UserFactory.createAdminBook({ id: 2 }) ];
         this.books = new Map(books.map((book) => [book.id, book]));
+    }
+
+    sendCommentValidation(): Promise<UsersModel.SendCommentValidationResponse | void> {
+        return Promise.resolve();
     }
 }
