@@ -202,5 +202,16 @@
     "buttons": {
         "show": "Afficher",
         "hide": "Cacher"
+    },
+    "notFound": {
+        "title": "404 - Page non trouvée",
+        "description": "La page que vous cherchez n'existe pas ou a été déplacée.",
+        "backHome": "Retour à l'accueil"
+    },
+    "errorPage": {
+        "title": "Oups! Une erreur s'est produite",
+        "description": "Désolé, une erreur est survenue. Veuillez réessayer plus tard.",
+        "backHome": "Retour à l'accueil",
+        "contactUs": "Nous contacter"
     }
 }
