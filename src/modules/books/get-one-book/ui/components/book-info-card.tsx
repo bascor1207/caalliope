@@ -67,7 +67,7 @@ export const BookInfoCard: React.FC<Props> = ({ book }) => {
                     removeWrapper
                     src={book.image}
                     alt={t('book.details')}
-                    className='object-cover rounded-lg w-full h-full'
+                    className='object-cover rounded-lg w-full h-full max-h-[250px] max-w-[200px]'
                 />
 
                 <div className='mt-4 xl:mt-0 xl:ml-6 flex flex-col'>
