@@ -12,6 +12,7 @@ import { HttpAuthGateway } from '@/modules/auth/infra/http-auth.gateway';
 import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-get-one-book.gateway';
 import { HttpCreateBookGateway } from '@/modules/books/usecases/create-book/infra/http-create-book.gateway';
 import { HttpGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/http-get-books.gateway';
+import { HttpUpdateBookGateway } from '@/modules/books/usecases/update-book/infra/http-update-book.gateway';
 import { HttpDonateGateway } from '@/modules/donate/infra/http-donate.gateway';
 import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
 import { HttpAdminGateway } from '@/modules/user/usecases/admin/infra/http-admin.gateway';
@@ -59,6 +60,7 @@ export class App {
         const cookiesAdapter = new HttpCookiesProvider();
         const createBookAdapter = new HttpCreateBookGateway();
         const editProfileAdapter = new HttpEditProfileGateway();
+        const updateBookAdapter = new HttpUpdateBookGateway(i18n.t);
 
 
         //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
@@ -73,7 +75,7 @@ export class App {
         // getBooksAdapter.returnedResponse = catalog;
         // const createBookAdapter = new FakeCreateBookGateway();
         const createEditionAdapter = new FakeCreateEditionGateway();
-        const updateBookAdapter = new FakeUpdateBookGateway();
+        // const updateBookAdapter = new FakeUpdateBookGateway();
         const updateEditionAdapter = new FakeUpdateEditionGateway();
 
         const getPopularBooksAdapter = new FakeGetPopularBooksGateway();

@@ -3,31 +3,27 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 
+import type { AppDispatch } from '@/modules/app/core/store/create-store';
 import type { BooksModel } from '@/modules/books/model/books.model';
 
 import { CustomCard } from '@/modules/app/ui/component-level/custom.card';
 import { updateBookRating } from '@/modules/books/get-one-book/core/get-book.slice';
-import { informUser } from '@/modules/user/core/store/user.slice';
+import { updateBookUsecase } from '@/modules/books/usecases/update-book/core/update-book.usecase';
+import { updateBookRatingUsecase } from '@/modules/books/usecases/update-book/update-book-rating.usecase';
 
 type Props = {
     book: BooksModel.Book;
 };
 
-const useGenerateStars = (rating?: number) => {
+const useGenerateStars = (bookId: number, rating?: number) => {
     const totalStars = 5;
     const [hoveredStar, setHoveredStar] = useState<number | null>(null);
-    const dispatch = useDispatch();
-    const { t } = useTranslation();
+    const dispatch = useDispatch<AppDispatch>();
 
     const displayedStars = hoveredStar !== null ? hoveredStar + 1 : rating || 0;
 
     const handleStarClick = (index: number) => {
-        dispatch(updateBookRating({ rating: index + 1 }));
-        dispatch(informUser({
-            type: 'success',
-            message: t('rating.stars', { count: index + 1 }),
-            status: 'displayed',
-        }));
+        dispatch(updateBookRatingUsecase({ payload: { rating: index + 1, bookId } }));
     };
 
     return (
@@ -58,7 +54,7 @@ const useGenerateStars = (rating?: number) => {
 
 export const BookInfoCard: React.FC<Props> = ({ book }) => {
     const { t } = useTranslation();
-    const stars = useGenerateStars(book.rating);
+    const stars = useGenerateStars(book.id, book.rating);
 
     const content = () => {
         return (

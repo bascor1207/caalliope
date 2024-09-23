@@ -184,7 +184,6 @@
         "noSubjectProvided": "Sujet non fourni",
         "noPublicationDateAvailable": "Date de publication non disponible",
         "noEditionProvided": "Édition non fournie",
-        "noLanguageProvided": "Langue non fournie",
         "noDateProvided": "Date non fournie",
         "unknownError": "Erreur inconnue"
     },
@@ -197,7 +196,8 @@
         "gettingBooksByAuthor": "Erreur lors de la récupération des livres par auteur."
     },
     "success": {
-        "bookStatusUpdated": "Statut du livre mis à jour avec succès."
+        "bookStatusUpdated": "Statut du livre mis à jour avec succès.",
+        "bookAdded": "Livre ajouté avec succès à {{status}}."
     },
     "buttons": {
         "show": "Afficher",

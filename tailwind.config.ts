@@ -25,7 +25,10 @@ const config = {
         'custom-purple': '#f8e9ff',
         'custom-grey': '#F6F6F6',
         'custom-dark-purple': '#7C0149'
-      }
+      },
+      fontSize: {
+        'input': '16px'
+      },
     },
   },
   plugins: [nextui({

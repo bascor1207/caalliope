@@ -7,8 +7,10 @@ import { registerUser } from '@/modules/auth/usecases/register.user';
 import { createBookUsecase } from '@/modules/books/usecases/create-book/core/create-book.usecase';
 import { createEditionUsecase } from '@/modules/books/usecases/create-edition/core/create-edition.usecase';
 import { updateBookUsecase } from '@/modules/books/usecases/update-book/core/update-book.usecase';
+import { updateBookRatingUsecase } from '@/modules/books/usecases/update-book/update-book-rating.usecase';
 import { updateEditionUsecase } from '@/modules/books/usecases/update-edition/core/update-edition.usecase';
 import { informUser, showUserHeShouldWait } from '@/modules/user/core/store/user.slice';
+import { addBookToUserLibraryUseCase } from '@/modules/user/usecases/add-book-in-user-list/add-book-to-user-library.usecase';
 import { sendCommentValidationUsecase } from '@/modules/user/usecases/admin/infra/send-comment-validation.usecase';
 import { updateBookStatusUsecase } from '@/modules/user/usecases/admin/update-book-status.usecase';
 import { editProfileUsecase } from '@/modules/user/usecases/edit-profile/core/edit-profile.usecase';
@@ -33,7 +35,11 @@ const actionsToListen = [
     sendCommentValidationUsecase.fulfilled.type,
     sendCommentValidationUsecase.rejected.type,
     updateUserBookUsecase.fulfilled.type,
-    updateUserBookUsecase.rejected.type
+    updateUserBookUsecase.rejected.type,
+    addBookToUserLibraryUseCase.fulfilled.type,
+    addBookToUserLibraryUseCase.rejected.type,
+    updateBookRatingUsecase.fulfilled.type,
+    updateBookRatingUsecase.rejected.type
 ];
 
 const authActionsToListen = [
