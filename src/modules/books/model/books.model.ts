@@ -169,6 +169,7 @@ export namespace BooksModel {
   nbPage: nbPageSchema,
   language: languageSchema,
   format: formatSchema,
+  rating: z.number().min(1, { message: i18n.t('form.errors.minValue', { count: 1 }) }).max(5, { message: i18n.t('form.errors.maxValue', { count: 5 }) }).optional(),
  });
 
  export type AddBookEditionForm = z.infer<typeof addBookEditionFormSchema>;

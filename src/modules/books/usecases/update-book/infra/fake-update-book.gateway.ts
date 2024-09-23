@@ -1,8 +1,12 @@
-import type { BooksModel } from '@/modules/books/model/books.model';
+import { undefined } from 'zod';
+
+import type  { BooksModel } from '@/modules/books/model/books.model';
 import type { ConnectorToUpdateBookGateway } from '@/modules/books/usecases/update-book/core/connector-to-update-book.gateway';
+
 
 import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
 import { BookFactory } from '@/modules/books/model/books.factory';
+
 
 export class FakeUpdateBookGateway implements ConnectorToUpdateBookGateway {
     books!: BooksModel.Book[];
@@ -38,5 +42,11 @@ export class FakeUpdateBookGateway implements ConnectorToUpdateBookGateway {
             type: 'error'
         };
         this.books = [BookFactory.create(), BookFactory.create({ id: 2 })]
+    }
+
+    updateBookRating(): Promise<BooksModel.InformUser & {bookId: number} | void> {
+        return new Promise((resolve) => {
+            resolve();
+        });
     }
 }

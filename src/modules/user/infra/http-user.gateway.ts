@@ -102,10 +102,13 @@ export class HttpUserGateway implements ConnectorToUserGateway {
         }
     }
 
-    async addBookToUserLibrary({ userId, bookId, status }: { userId: string; bookId: number; status: 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned'; }): Promise<void> {
+    async addBookToUserLibrary({ userId, bookId, status }: { userId: string; bookId: number; status: 'toRead' | 'reading' | 'read' | 'wishlist' | 'abandoned'; }): Promise<UsersModel.UpdateBookStatusResponse | void> {
         try {
-            const { data } = await axiosInstance.post('/user-book', { userId: parseInt(userId), bookId: bookId, status });
-            return data;
+            await axiosInstance.post('/user-book', { userId: parseInt(userId), bookId: bookId, status });
+            return {
+                message: this.translate('success.bookAdded', { status: this.translate(status) }),
+                type: 'success'
+            }
         } catch (error) {
             CustomErrorWrapper.throwError({ message: this.translate('error.addingBook'), type: 'error' });
         }

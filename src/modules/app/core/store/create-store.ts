@@ -27,7 +27,7 @@ import type { TypedUseSelectorHook } from 'react-redux';
 import { listenerMiddleware } from '@/modules/app/core/store/create-app-listener';
 import { rootReducer } from '@/modules/app/core/store/root-reducer';
 import { registerOnDetailsModalDisplayedForBookListener,
-    registerOnLanguageChangeForBookListener } from '@/modules/books/get-one-book/core/get-book.listeners';
+    registerOnLanguageChangeForBookListener, registerOnUpdateBookRatingForBookListener } from '@/modules/books/get-one-book/core/get-book.listeners';
 import { registerOnBookStatusChangeToRefreshAdminView } from '@/modules/books/usecases/get-catalog/core/store/get-books.listeners';
 import {
     registerOnAuthChangeForUserListener,
@@ -91,6 +91,7 @@ export const createStore = (
         registerOnUserActionThatNeedsToHideSpinner();
         registerOnUserActionThatNeedsToDisplaySpinner();
         registerOnLanguageChangeForBookListener();
+        registerOnUpdateBookRatingForBookListener();
       return getDefaultMiddleware({
         thunk: {
           extraArgument: dependencies,
