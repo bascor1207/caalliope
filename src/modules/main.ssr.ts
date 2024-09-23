@@ -2,9 +2,9 @@ import type { AppStore, Dependencies, RootState } from '@/modules/app/core/store
 
 import { translateServerSide } from '@/app/i18n/server';
 import { createStore } from '@/modules/app/core/store/create-store';
+import { carouselPopular, carouselLastRelease } from '@/modules/catalog';
 
 // import { BookFactory } from '@/modules/books/model/books.factory';
-import { carouselPopular, carouselLastRelease } from '@/modules/catalog';
 
 // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
 import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';

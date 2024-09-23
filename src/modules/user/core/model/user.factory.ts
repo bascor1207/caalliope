@@ -19,6 +19,7 @@ export class UserFactory {
             email: 'john.doe@doe.john.com',
             roles: [],
             waitingForValidationBooks: [],
+            waitingForValidationComments: [],
             ...data
         })
     }

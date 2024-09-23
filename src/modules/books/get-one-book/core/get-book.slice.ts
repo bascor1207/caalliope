@@ -4,8 +4,6 @@ import type { BooksModel } from '@/modules/books/model/books.model';
 import type { PayloadAction } from '@reduxjs/toolkit';
 
 import { getOneBookById } from '@/modules/books/get-one-book/usecase/get-one-book-by-id.usecase';
-import { getBooksByUsecase } from '@/modules/books/usecases/get-catalog/core/get-books-by.usecase';
-import { getBooksUseCase } from '@/modules/books/usecases/get-catalog/core/get-books.usecase';
 import { updateBookStatusUsecase } from '@/modules/user/usecases/admin/update-book-status.usecase';
 
 type InitialState = object & {

@@ -138,7 +138,7 @@ export const DetailedUserBookModal = () => {
                         ) : (
                             <Select
                                 variant='bordered'
-                                placeholder={t('selectBookStatus')}
+                                placeholder={t('account.selectBookStatus')}
                                 labelPlacement='inside'
                                 size='sm'
                                 radius='sm'

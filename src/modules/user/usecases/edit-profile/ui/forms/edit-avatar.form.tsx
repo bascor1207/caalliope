@@ -9,7 +9,7 @@ import { useAppSelector } from '@/modules/app/core/store/create-store';
 import { CustomForm } from '@/modules/app/ui/component-level/custom.form';
 import { UsersModel } from '@/modules/user/core/model/users.model';
 import { selectEditAvatarFormState } from '@/modules/user/core/store/user.selectors';
-import { editAvatar, editProfile } from '@/modules/user/core/store/user.slice';
+import { editAvatar } from '@/modules/user/core/store/user.slice';
 import { editProfileUsecase } from '@/modules/user/usecases/edit-profile/core/edit-profile.usecase';
 
 export const EditProfileForm: FC = () => {

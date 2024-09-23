@@ -1,6 +1,6 @@
 import type { BooksModel } from '@/modules/books/model/books.model';
 
-import { RootState, useAppSelector } from '@/modules/app/core/store/create-store';
+import { useAppSelector } from '@/modules/app/core/store/create-store';
 import { selectCurrentBook, selectRequestStatus } from '@/modules/books/get-one-book/core/get-book.selectors';
 
 export const gettingBook = {

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import type { UsersModel } from '@/modules/user/core/model/users.model';
+import type  { UsersModel } from '@/modules/user/core/model/users.model';
 import type { ConnectorToAdminGateway } from '@/modules/user/usecases/admin/core/connector-to-admin.gateway';
 
 import { axiosInstance } from '@/modules/app/core/axios-instance';
@@ -19,6 +19,19 @@ export class HttpAdminGateway implements ConnectorToAdminGateway {
                 CustomErrorWrapper.throwError({ message: error.response?.data.message || error.message, type: 'error' });
             } else {
                 CustomErrorWrapper.throwError({ message: 'Unknown error occurred', type: 'error' });
+            }
+        }
+    }
+
+    async sendCommentValidation(payload: UsersModel.SendCommentValidationPayload): Promise<UsersModel.SendCommentValidationResponse | void> {
+        try {
+            const { data } = await axiosInstance.post('/comment/updateStatus', payload);
+            return { message: data.message, type: 'success' };
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                CustomErrorWrapper.throwError({ message: error.response?.data.message || error.message, type: 'error' });
+            } else {
+                CustomErrorWrapper.throwError({ message: 'Erreur inconnue', type: 'error' });
             }
         }
     }

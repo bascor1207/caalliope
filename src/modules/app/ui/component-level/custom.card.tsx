@@ -81,12 +81,12 @@ export const CustomCard: FC<CustomCardProps> = (
                 </div>
             )}
 
-            <CardBody className='overflow-visible pt-4'>
+            <CardBody className={twMerge('flex-col items-start p-0 m-0', footer ? 'pb-4' : 'pb-0')}>
                 {content()}
             </CardBody>
 
             {footer && (
-                <CardFooter className='flex flex-col gap-2 bg-white pt-4 min-h-[124px] rounded-b-xl'>
+                <CardFooter className='flex flex-col gap-2 bg-white pt-4 rounded-b-xl'>
                     {footer()}
                 </CardFooter>
             )}

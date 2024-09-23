@@ -5,7 +5,6 @@ import i18n, { initLocale } from '@/i18n';
 import { createStore } from '@/modules/app/core/store/create-store';
 
 // import { BookFactory } from '@/modules/books/model/books.factory';
-import { catalog } from '@/modules/catalog';
 
 // TODO UNCOMMENT THIS WHEN WANTING BACK WITH FRONT
 import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
@@ -78,9 +77,9 @@ export class App {
         const updateEditionAdapter = new FakeUpdateEditionGateway();
 
         const getPopularBooksAdapter = new FakeGetPopularBooksGateway();
-        getPopularBooksAdapter.returnedResponse = catalog;
+        // getPopularBooksAdapter.returnedResponse = catalog;
         const getLastReleaseBooksAdapter = new FakeGetLastReleaseBooksGateway();
-        getLastReleaseBooksAdapter.returnedResponse = catalog;
+        // getLastReleaseBooksAdapter.returnedResponse = catalog;
 
         // const editProfileAdapter = new FakeEditProfileGateway();
 

@@ -9,6 +9,7 @@ import { createEditionUsecase } from '@/modules/books/usecases/create-edition/co
 import { updateBookUsecase } from '@/modules/books/usecases/update-book/core/update-book.usecase';
 import { updateEditionUsecase } from '@/modules/books/usecases/update-edition/core/update-edition.usecase';
 import { informUser, showUserHeShouldWait } from '@/modules/user/core/store/user.slice';
+import { sendCommentValidationUsecase } from '@/modules/user/usecases/admin/infra/send-comment-validation.usecase';
 import { updateBookStatusUsecase } from '@/modules/user/usecases/admin/update-book-status.usecase';
 import { editProfileUsecase } from '@/modules/user/usecases/edit-profile/core/edit-profile.usecase';
 import { getUserUsecase } from '@/modules/user/usecases/get-user/get-user.usecase';
@@ -28,7 +29,11 @@ const actionsToListen = [
     editProfileUsecase.fulfilled.type,
     editProfileUsecase.rejected.type,
     updateBookStatusUsecase.fulfilled.type,
-    updateBookStatusUsecase.rejected.type
+    updateBookStatusUsecase.rejected.type,
+    sendCommentValidationUsecase.fulfilled.type,
+    sendCommentValidationUsecase.rejected.type,
+    updateUserBookUsecase.fulfilled.type,
+    updateUserBookUsecase.rejected.type
 ];
 
 const authActionsToListen = [
@@ -39,13 +44,16 @@ const authActionsToListen = [
 
 const actionsThatNeedsToGetTheUser = [
     updateBookStatusUsecase.fulfilled.type,
-    editProfileUsecase.fulfilled.type
+    editProfileUsecase.fulfilled.type,
+    sendCommentValidationUsecase.fulfilled.type,
+    updateUserBookUsecase.fulfilled.type
 ];
 
 const actionsThatNeedsToDisplaySpinner = [
     logoutUserUsecase.pending.type,
     editProfileUsecase.pending.type,
-    updateBookStatusUsecase.pending.type
+    updateBookStatusUsecase.pending.type,
+    sendCommentValidationUsecase.pending.type
 ];
 
 const actionsThatNeedsToHideSpinner = [
@@ -54,7 +62,9 @@ const actionsThatNeedsToHideSpinner = [
     editProfileUsecase.fulfilled.type,
     editProfileUsecase.rejected.type,
     updateBookStatusUsecase.fulfilled.type,
-    updateBookStatusUsecase.rejected.type
+    updateBookStatusUsecase.rejected.type,
+    sendCommentValidationUsecase.fulfilled.type,
+    sendCommentValidationUsecase.rejected.type
 ];
 
 export const registerOnAuthChangeForUserListener = () => {

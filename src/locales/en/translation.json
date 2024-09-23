@@ -8,7 +8,7 @@
     "giveUp": "Abandoned",
     "toRead": "To read",
     "read": "Read",
-    "whislist": "To buy",
+    "wishlist": "Wishlist",
     "notOwned": "Not owned",
     "delete": "Delete",
     "state": "Status",
@@ -40,9 +40,9 @@
         "popular": "Popular books"
     },
     "loginPage": {
-        "title": "Please log in:",
+        "title": "Please sign in:",
         "noAccount": "No account",
-        "register": "Sign up"
+        "register": "Register"
     },
     "register": {
         "title": "Create your account"
@@ -52,21 +52,30 @@
         "publishing": "Publishing",
         "review": "Review",
         "addReview": "Add a review",
-        "addPublishing": "Add an edition",
+        "addPublishing": "Add a publishing",
         "addBook": "Add a book",
-        "search": "Search a book",
-        "notfound": "No results found for this search",
+        "search": "Search for a book",
+        "notfound": "No results for this search",
         "yourReview": "Your review"
     },
     "author": {
         "bibliography": "Bibliography"
     },
     "account": {
+        "selectBookStatus": "Select a status",
+        "commentFrom": "Comment from",
+        "onBook": "On the book",
+        "statusWaiting": "Awaiting validation",
+        "statusValidated": "Validated",
+        "adminCommentsValidation": "Comments validation",
+        "noWaitingComments": "No comments awaiting validation.",
+        "refuseCommentValidation": "Reject",
+        "acceptCommentValidation": "Accept",
         "addAvatar": "Add an avatar",
         "home": "Home",
-        "pal": "To read pile",
-        "wish": "Wishlist",
-        "abandoned": "Abandoned books",
+        "pal": "My reading list",
+        "wish": "My wishlist",
+        "abandoned": "My abandoned books",
         "recommendation": "Book recommendation",
         "editing": "Edit my information",
         "refresh": "Refresh",
@@ -75,23 +84,23 @@
         "username": "Username",
         "newPassword": "New password",
         "myInfos": "My information",
-        "myBooksToRead": "My to-read pile",
-        "myReadings": "My readings",
+        "myBooksToRead": "My reading list",
+        "myReadings": "My current readings",
         "myWishlist": "My wishlist",
         "myAbandonedBooks": "My abandoned books",
         "adminPanel": "Admin panel",
-        "noBooksToRead": "No books in your to-read pile.",
-        "noReadings": "No readings in progress.",
+        "noBooksToRead": "No books in your reading list.",
+        "noReadings": "No current readings.",
         "noWishlistBooks": "No books in your wishlist.",
         "noAbandonedBooks": "No abandoned books.",
         "adminBooksValidation": "Books validation",
-        "noWaitingBooks": "No books waiting for validation."
+        "noWaitingBooks": "No books awaiting validation."
     },
     "donate": {
         "successTitle": "Payment successful!",
-        "thanks": "Thank you for your donation! Your support is valuable and helps us continue to provide quality services.",
+        "thanks": "Thank you for your donation! Your support is invaluable and helps us to continue providing quality services.",
         "cancelTitle": "Payment canceled",
-        "cancel": "Your payment has been canceled. If you have any questions, feel free to contact us."
+        "cancel": "Your payment has been canceled. If you have any questions, please contact us."
     },
     "form": {
         "avatar": "Avatar",
@@ -102,7 +111,7 @@
         "title": "Title",
         "author": "Author",
         "releaseDate": "Release date",
-        "editor": "Publisher",
+        "editor": "Editor",
         "translator": "Translators",
         "numberOfPages": "Number of pages",
         "format": "Format",
@@ -112,7 +121,7 @@
         "language": "Language",
         "cover": "Cover",
         "noFile": "No file",
-        "birthDate": "Birth date",
+        "birthDate": "Date of birth",
         "deathDate": "Date of death",
         "nationality": "Nationality",
         "image": "Image",
@@ -129,7 +138,8 @@
             "editPublishing": "Edit a publishing",
             "bookList": "Book list",
             "authorList": "Author list",
-            "reject": "Reject"
+            "reject": "Reject",
+            "accept": "Accept"
         }
     },
     "user": {
@@ -137,9 +147,41 @@
         "email": "Email",
         "firstName": "First name",
         "lastName": "Last name",
-        "birthDate": "Birth date"
+        "birthDate": "Date of birth"
+    },
+    "book": {
+        "details": "Book details",
+        "summary": "Summary",
+        "subjects": "Subjects",
+        "cover": "Book cover",
+        "author": "Author",
+        "type": "Type",
+        "published": "Published",
+        "rating": "Rating"
+    },
+    "rating": {
+        "stars": "{{count}} stars out of 5"
     },
     "defaultValues": {
-        "noLanguageProvided": "No language provided"
+        "noLanguageProvided": "No language provided",
+        "noUsernameProvided": "No username provided, please update your profile",
+        "noFirstNameProvided": "No first name provided, please update your profile",
+        "noLastNameProvided": "No last name provided, please update your profile",
+        "noEmailProvided": "No email provided, please update your profile"
+    },
+    "error": {
+        "gettingData": "Error retrieving data, please contact an administrator.",
+        "addingBook": "Error adding book to library, please contact an administrator.",
+        "updatingStatus": "Error updating book status, please contact an administrator.",
+        "gettingBooks": "Error retrieving books.",
+        "gettingBooksByGenre": "Error retrieving books by genre.",
+        "gettingBooksByAuthor": "Error retrieving books by author."
+    },
+    "success": {
+        "bookStatusUpdated": "Book status successfully updated."
+    },
+    "buttons": {
+        "show": "Show",
+        "hide": "Hide"
     }
 }
