@@ -19,7 +19,7 @@ export function middleware(request: NextRequest) {
 
     const supportedLanguages = ['en', 'fr'];
     if (!supportedLanguages.some((lang) => url.pathname.startsWith(`/${lang}`))) {
-        url.pathname = `/${language}${url.pathname}`;
+        url.pathname = `/${language}/${url.pathname}`;
         return NextResponse.redirect(url, { headers });
     }
 
@@ -63,6 +63,6 @@ export const config = {
         { source: '/:locale(fr|en)?/my-account' },
         { source: '/:locale(fr|en)?/auth' },
         { source: '/:locale(fr|en)?/catalog/:path*' },
-        { source: '/' }
+        { source: '/' },
     ]
 };

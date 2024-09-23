@@ -7,8 +7,6 @@ import type { AppDispatch } from '@/modules/app/core/store/create-store';
 import type { BooksModel } from '@/modules/books/model/books.model';
 
 import { CustomCard } from '@/modules/app/ui/component-level/custom.card';
-import { updateBookRating } from '@/modules/books/get-one-book/core/get-book.slice';
-import { updateBookUsecase } from '@/modules/books/usecases/update-book/core/update-book.usecase';
 import { updateBookRatingUsecase } from '@/modules/books/usecases/update-book/update-book-rating.usecase';
 
 type Props = {
