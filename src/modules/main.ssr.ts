@@ -13,6 +13,7 @@ import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-g
 import { HttpCreateBookGateway } from '@/modules/books/usecases/create-book/infra/http-create-book.gateway';
 import { HttpCreateEditionGateway } from '@/modules/books/usecases/create-edition/infra/http-create-edition.gateway';
 import { HttpGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/http-get-books.gateway';
+import { HttpGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/http-get-popular-books.gateway';
 import { HttpDonateGateway } from '@/modules/donate/infra/http-donate.gateway';
 import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
 
@@ -61,6 +62,8 @@ export class SSRApp {
         const donateAdapter = new HttpDonateGateway();
         const createBookAdapter = new HttpCreateBookGateway();
         const createEditionAdapter = new HttpCreateEditionGateway();
+
+        const getPopularBooksAdapter = new HttpGetPopularBooksGateway(t);
         // const updateBookAdapter = new HttpUdapteBookGateway();
 
 
@@ -74,8 +77,8 @@ export class SSRApp {
         // getBooksAdapter.returnedResponse = catalog;
         // const createBookAdapter = new FakeCreateBookGateway();
         //
-        const getPopularBooksAdapter = new FakeGetPopularBooksGateway();
-        getPopularBooksAdapter.returnedResponse = carouselPopular;
+        // const getPopularBooksAdapter = new FakeGetPopularBooksGateway();
+        // getPopularBooksAdapter.returnedResponse = carouselPopular;
         const getLastReleaseBooksAdapter = new FakeGetLastReleaseBooksGateway();
         getLastReleaseBooksAdapter.returnedResponse = carouselLastRelease;
         //

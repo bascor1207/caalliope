@@ -28,8 +28,13 @@
         "signUp": "S'inscrire",
         "signIn": "Se connecter",
         "account": "Profil",
+        "myBooks": "Mes livres",
+        "logout": "Se déconnecter",
+        "admin": "Administration",
         "en": "Anglais",
-        "fr": "Français"
+        "fr": "Français",
+        "homePage": "Page d'accueil",
+        "menuIcon": "Icône du menu"
     },
     "footer": {
         "donation": "Faire un don",
@@ -167,7 +172,21 @@
         "noUsernameProvided": "Pseudo non fourni, veuillez mettre à jour votre profil",
         "noFirstNameProvided": "Prénom non fourni, veuillez mettre à jour votre profil",
         "noLastNameProvided": "Nom de famille non fourni, veuillez mettre à jour votre profil",
-        "noEmailProvided": "Email non fourni, veuillez mettre à jour votre profil"
+        "noEmailProvided": "Email non fourni, veuillez mettre à jour votre profil",
+        "typeNotProvided": "Type non fourni",
+        "noSummaryAvailable": "Pas de résumé disponible",
+        "unknownLastname": "Nom inconnu",
+        "unknownFirstname": "Prénom inconnu",
+        "unknownFullname": "Nom complet inconnu",
+        "emailNotAvailable": "Email non disponible",
+        "birthdateNotAvailable": "Date de naissance non disponible",
+        "unknownUsername": "Pseudo inconnu",
+        "noSubjectProvided": "Sujet non fourni",
+        "noPublicationDateAvailable": "Date de publication non disponible",
+        "noEditionProvided": "Édition non fournie",
+        "noLanguageProvided": "Langue non fournie",
+        "noDateProvided": "Date non fournie",
+        "unknownError": "Erreur inconnue"
     },
     "error": {
         "gettingData": "Erreur lors de la récupération des données, veuillez contacter un administrateur.",
