@@ -5,7 +5,7 @@ import { createAppAsyncThunk } from '@/modules/app/core/store/create-app-thunk';
 
 export const createEditionUsecase = createAppAsyncThunk(
     'books/create-edition',
-    async (payload: BooksModel.AddBookEditionForm, { rejectWithValue, extra: { createEditionAdapter } }) => {
+    async ({ payload }:{payload: BooksModel.AddBookEditionForm}, { rejectWithValue, extra: { createEditionAdapter } }) => {
         try {
             return await createEditionAdapter.create(payload)
         } catch (error) {

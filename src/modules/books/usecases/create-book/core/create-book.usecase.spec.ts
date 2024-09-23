@@ -27,7 +27,7 @@ const fakeCreateBookGateway = new FakeCreateBookGateway();
 const store = createTestStore({ createBookAdapter: fakeCreateBookGateway })
 
 async function whenRegisteringBookData(payload: BooksModel.AddBookFormSchemaType) {
-    await store.dispatch(createBookUsecase(payload));
+    await store.dispatch(createBookUsecase({ payload }));
 }
 
 function thenThereShouldBeAnSuccessfulToast() {
@@ -39,7 +39,8 @@ function thenThereShouldBeAnSuccessfulToast() {
                 activeProfileTab: 'my-infos',
                 activeUser: {},
                 contactFormState: 'hidden',
-                editProfileFormState: 'hidden'
+                editProfileFormState: 'hidden',
+                editAvatarFormState: 'hidden'
             },
             actions: {
                 createBook: { success: true, error: false }
@@ -59,7 +60,8 @@ function thenThereShouldBeAnErrorToast() {
                 activeProfileTab: 'my-infos',
                 activeUser: {},
                 contactFormState: 'hidden',
-                editProfileFormState: 'hidden'
+                editProfileFormState: 'hidden',
+                editAvatarFormState: 'hidden'
             },
             actions: {
                 createBook: { success: false, error: true }

@@ -1,3 +1,4 @@
+import type { RootState } from '@/modules/app/core/store/create-store';
 import type { BooksModel } from '@/modules/books/model/books.model';
 
 import { useAppSelector } from '@/modules/app/core/store/create-store';
@@ -25,7 +26,17 @@ type BooksGettingFulfilled = {
 
 type Response = | BooksGettingPending | BooksGettingRejected | BooksGettingFulfilled;
 
-export const getOneBookViewmodel = () => (): Response => {
+export const getOneBookViewmodel = () => (state?: RootState): Response => {
+    if (state) {
+        const selectedBookFromState = state.selectedBook.getBook.selectedBook;
+        const requestStatusFromState = state.selectedBook.getBook.requestStatus;
+        if (requestStatusFromState === 'pending') {
+            return { type: gettingBook.pending }
+        }
+
+        return { type: gettingBook.fulfilled, selectedBook: selectedBookFromState }
+    }
+
     const selectedBook = useAppSelector(selectCurrentBook);
     const requestStatus = useAppSelector(selectRequestStatus);
 

@@ -9,6 +9,7 @@ export class BookFactory {
               id: 1,
               lastname: 'Doe',
               firstname: 'John',
+                fullname: 'John Doe',
               image: '',
               email: '',
               birthDate: ''
