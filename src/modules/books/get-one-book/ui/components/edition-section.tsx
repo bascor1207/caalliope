@@ -86,12 +86,12 @@ export const EditionSection: FC<Props> = ({ book }) => {
                         </Card>
                     ))}
                 </div>
+            </div>
 
-                <div className='ml-6 mt-4 mt-0'>
-                    <Button onPress={toggle} className='bg-transparent text-black py-2 px-6 rounded-md hover:bg-custom-purple transition duration-300'>
-                        {t('library.addPublishing')}
-                    </Button>
-                </div>
+            <div className='ml-6 mt-4 mt-0 w-full flex justify-center'>
+                <Button onPress={toggle} className='bg-transparent text-black py-2 px-6 rounded-md hover:bg-custom-purple transition duration-300'>
+                    {t('library.addPublishing')}
+                </Button>
             </div>
         </div>
     );

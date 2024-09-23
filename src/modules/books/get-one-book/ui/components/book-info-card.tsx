@@ -64,11 +64,10 @@ export const BookInfoCard: React.FC<Props> = ({ book }) => {
         return (
             <div className={'p-6 space-y-6 flex flex-col xl:flex-row items-center'}>
                 <Image
+                    removeWrapper
                     src={book.image}
                     alt={t('book.details')}
-                    className='w-32 h-48 object-cover rounded-lg'
-                    width={150}
-                    height={225}
+                    className='object-cover rounded-lg w-full h-full'
                 />
 
                 <div className='mt-4 xl:mt-0 xl:ml-6 flex flex-col'>

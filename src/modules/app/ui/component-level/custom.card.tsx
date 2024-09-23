@@ -86,7 +86,7 @@ export const CustomCard: FC<CustomCardProps> = (
             </CardBody>
 
             {footer && (
-                <CardFooter className='flex flex-col gap-2 bg-white pt-4 rounded-b-xl'>
+                <CardFooter className='flex flex-col gap-2 bg-white rounded-b-xl'>
                     {footer()}
                 </CardFooter>
             )}

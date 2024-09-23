@@ -17,8 +17,9 @@ import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-us
 import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
 
 const ACCOUNT_PATHS = {
+    ADMIN_PANEL: 'activeTab=admin-panel',
     MY_INFOS: 'activeTab=my-infos',
-    MY_BOOKS: 'activeTab=my-books'
+    MY_BOOKS: 'activeTab=my-books',
 } as const
 
 
@@ -26,29 +27,33 @@ export const useHeader = () => {
     const dispatch = useDispatch<AppDispatch>();
     const locale = useParams()?.locale;
     const pathname = usePathname();
+    const { t } = useTranslation();
 
     const LINKS_ITEMS = [
         {
-            label: 'Profile',
+            label: t('navbar.admin'),
+            href: `/${locale}/admin?${ACCOUNT_PATHS.ADMIN_PANEL}`,
+            type: 'link'
+        },
+        {
+            label: t('navbar.account'),
             href: `/${locale}/my-account?${ACCOUNT_PATHS.MY_INFOS}`,
             type: 'link'
         },
         {
-            label: 'My books',
+            label: t('navbar.myBooks'),
             href: `/${locale}/my-account?${ACCOUNT_PATHS.MY_BOOKS}`,
             type: 'link'
         },
         {
             href: '#',
             onPress: () => dispatch(logoutUserUsecase(pathname)),
-            label: 'Logout',
+            label: t('navbar.logout'),
             type: 'button'
         },
     ];
     const router = useRouter();
-    const { t } = useTranslation();
     const urlSegments = useSelectedLayoutSegments();
-
     const languages = () => (
         locale === 'en' ? (
             [{ label: 'English', shortKeyForTrad: 'en', shortKeyForSVG: 'gb' }, { label: 'French', shortKeyForTrad: 'fr', shortKeyForSVG: 'fr' }]
