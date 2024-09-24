@@ -10,7 +10,7 @@ export class HttpGetLastReleaseBooksGateway implements ConnectorToLastReleaseBoo
 
     async getLastReleaseBooks(): Promise<BooksModel.Book[] | void> {
         try {
-            const { data } = await axiosInstance.get('/book/getAll/lastReleased');
+            const { data } = await axiosInstance.get('/publishing/getAll/lastReleased');
             return await this.createReturnPayload(data.data);
 
         } catch (error) {
