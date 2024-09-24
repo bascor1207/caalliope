@@ -50,7 +50,7 @@ export const BookCard: FC<BookCardProps> = ({ book, cover }) => {
 
     return (
         <CustomCard
-            className='max-w-full'
+            className='max-w-full w-full'
             onClick={getOneBookAndRedirect}
             title={book.title}
             description={book.type}
