@@ -38,6 +38,7 @@ describe('test to retrieve a range of catalog to display', () => {
 
 const fakeGetBooksAdapter = new FakeGetBooksGateway();
 const store = createTestStore({ getBooksAdapter: fakeGetBooksAdapter })
+
 const givenBooks = (books: BooksModel.Book[] ) => {
     fakeGetBooksAdapter.returnedResponse  = books;
 }

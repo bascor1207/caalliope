@@ -8,8 +8,6 @@ import { stateBuilder } from '@/modules/books/usecases/get-last-release-books/co
 import { getBooksLastReleaseViewmodel,
     gettingBooks } from '@/modules/books/usecases/get-last-release-books/ui/get-last-release-books.viewmodel';
 
-
-
 describe('test for the viewModel layer of getting books last release', () => {
     it('should handle loading when getting books last release is pending', () => {
         const initialState = stateBuilder().withPendingRequest(true).build();

@@ -10,13 +10,6 @@ export class FakeGetBooksGateway implements ConnectorToGetBooks {
         return this.createReturnPayload()
     }
 
-    getBooksBySearch(search: string): Promise<BooksModel.Book[]> {
-        return new Promise((resolve, reject) => {
-            if (!search) return reject();
-            return resolve(this.returnedResponse);
-        })
-    }
-
     getBooksByAuthor(value: string): Promise<BooksModel.Book[]> {
         return new Promise((resolve, reject) => {
             setTimeout(() => {

@@ -14,7 +14,6 @@ export class HttpGetBooksGateway implements ConnectorToGetBooks {
             const { data } = await axiosInstance.get('/book');
             return this.createReturnPayload(data.data);
         } catch (error) {
-            console.log(error);
             CustomErrorWrapper.throwError({ message: this.translate('error.gettingBooks'), type: 'error' });
         }
     }
