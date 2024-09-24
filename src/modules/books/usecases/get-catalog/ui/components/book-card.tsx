@@ -62,7 +62,7 @@ export const BookCard: FC<BookCardProps> = ({ book, cover }) => {
                         radius='none'
                         src={book.image}
                         alt='livre'
-                        className='w-3/4 h-full object-cover'
+                        className='h-full object-cover max-h-[250px]'
                     />
                 </div>
             )}
