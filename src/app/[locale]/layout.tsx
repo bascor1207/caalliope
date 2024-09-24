@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers';
 import React from 'react';
 
-import type { Metadata } from 'next';
 import type { FC, PropsWithChildren } from 'react';
 
 import { prefetchRootLayout } from '@/app/[locale]/prefetchRootLayout';
@@ -13,11 +12,14 @@ import { AppWrapper } from '@/modules/AppWrapper';
 
 import './globals.css';
 
-
-export const metadata: Metadata = {
-    title: 'Caalliope',
-    description: 'Your very first intuitive online library',
-};
+export async function generateMetadata() {
+    return {
+        title: 'Caalliope',
+        description: 'Your very first intuitive online library',
+        icons: '/favico.png',
+        metadataBase: new URL('https://caalliope.vercel.app'),
+    }
+}
 
 const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
     const language = cookies().get('i18next')?.value || 'fr';
