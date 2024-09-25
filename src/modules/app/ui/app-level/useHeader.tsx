@@ -31,7 +31,7 @@ export const useHeader = () => {
     const { t } = useTranslation();
     const activeUser = useAppSelector(selectActiveUser);
 
-    const LINKS_ITEMS = [
+    const linkItems = [
         activeUser.roles.includes('admin') &&{
             label: t('navbar.admin'),
             href: `/${locale}/admin?${ACCOUNT_PATHS.ADMIN_PANEL}`,
@@ -53,7 +53,8 @@ export const useHeader = () => {
             label: t('navbar.logout'),
             type: 'button'
         },
-    ].filter(Boolean);
+    ].filter(Boolean) as {label: string, href: string, type: 'link' | 'button', onPress?: () => void}[];
+
     const router = useRouter();
     const urlSegments = useSelectedLayoutSegments();
     const languages = () => (
@@ -85,5 +86,5 @@ export const useHeader = () => {
     const loggedUser = useAppSelector(selectLoggedUser)
     const cookiesProvider =  useRef(new HttpCookiesProvider());
 
-    return { linkItems: LINKS_ITEMS, router, dispatch, languages: languages(), changeLanguage, t, loggedUser, locale, handleRouteChange, isLoading };
+    return { linkItems, router, dispatch, languages: languages(), changeLanguage, t, loggedUser, locale, handleRouteChange, isLoading };
 }
