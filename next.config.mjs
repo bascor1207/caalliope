@@ -6,7 +6,7 @@ const nextConfig = {
         return [
             {
                 source: '/api/:slug*',
-                destination: 'http://api-caaliope-lb-148792663.eu-west-3.elb.amazonaws.com/:slug*',
+                destination: '${API_URL}/:slug*',
             },
         ];
     },
