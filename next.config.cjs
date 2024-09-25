@@ -4,7 +4,7 @@ module.exports = () => {
     const rewrites = () => {
         return [
             {
-                source: '${API_URL}/:path*',
+                source: '/api/:path*',
                 destination: `${API_URL}/:path*`
             },
         ]

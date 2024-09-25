@@ -5,7 +5,7 @@ import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
 const isServer = typeof window === 'undefined'
 
 export const axiosInstance = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
+    baseURL: '/api',
     withCredentials: true
 });
 
