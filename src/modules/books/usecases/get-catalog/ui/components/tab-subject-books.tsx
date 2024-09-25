@@ -50,7 +50,7 @@ export const TabSubjectBooks: FC<PropsWithChildren<TabBooksProps>> = ({ disabled
       <>
         {isLoading && <CustomSpinner />}
         <div className='flex items-center justify-center my-4'>
-          <div className='w-full overflow-x-auto'>
+          <div className='w-full overflow-x-auto flex items-center justify-center'>
             <Tabs
                 aria-label='Dynamic tabs'
                 items={SUBJECTS_TAB}
