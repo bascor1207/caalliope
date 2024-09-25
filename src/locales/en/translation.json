@@ -172,7 +172,8 @@
         "noUsernameProvided": "No username provided, please update your profile",
         "noFirstNameProvided": "No first name provided, please update your profile",
         "noLastNameProvided": "No last name provided, please update your profile",
-        "noEmailProvided": "No email provided, please update your profile"
+        "noEmailProvided": "No email provided, please update your profile",
+        "typeNotProvided": "Type not provided"
     },
     "error": {
         "gettingData": "Error retrieving data, please contact an administrator.",
