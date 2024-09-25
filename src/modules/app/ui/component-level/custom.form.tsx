@@ -3,6 +3,7 @@ import {
 } from '@nextui-org/react';
 import React from 'react';
 import { Controller } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
 import { useDispatch } from 'react-redux';
 import { twMerge } from 'tailwind-merge';
 
@@ -48,6 +49,7 @@ export const CustomForm = <TFormValues extends FieldValues, ReturnType, A>(
     { items, schema, action, formType, modalTitle, visibilityTrigger, onCustomClose, className }: CustomFormProps<TFormValues, ReturnType, A>
 ) => {
     const dispatch = useDispatch<AppDispatch>();
+    const { t } = useTranslation();
     const validator = useCustomForm({ schema, action, dispatch, onCustomClose });
 
     const formContent = (
@@ -61,7 +63,7 @@ export const CustomForm = <TFormValues extends FieldValues, ReturnType, A>(
                             if (item.type === 'select') {
                                 return (
                                     <Select
-                                        label={item.label}
+                                        label={t(item.label)}
                                         classNames={validator.classNames}
                                         isRequired={validator.isRequired(item.id)}
                                         {...validator.props}

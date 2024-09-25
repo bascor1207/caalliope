@@ -19,15 +19,15 @@ export const AuthModal = () => {
 
     const signInFormItems = [
         { id: 'email', name: 'email', label: 'Email', type: 'email' },
-        { id: 'password', name: 'password', label: 'Password', type: 'password' },
+        { id: 'password', name: 'password', label: 'Mot de passe', type: 'password' },
     ] satisfies Array<{id: string, name: keyof AuthModel.LoginFormSchema, label: string, type: string}>;
 
     const signUpFormItems = [
-        { id: 'lastName', name: 'lastName', label: 'Last name', type: 'text' },
-        { id: 'firstName', name: 'firstName', label: 'First name', type: 'text' },
+        { id: 'lastName', name: 'lastName', label: 'Nom', type: 'text' },
+        { id: 'firstName', name: 'firstName', label: 'Prénom', type: 'text' },
         { id: 'email', name: 'email', label: 'Email', type: 'email' },
-        { id: 'username', name: 'username', label: 'Username', type: 'text' },
-        { id: 'password', name: 'password', label: 'Password', type: 'password' },
+        { id: 'username', name: 'username', label: 'Pseudo', type: 'text' },
+        { id: 'password', name: 'password', label: 'Mot de passe', type: 'password' },
     ] satisfies Array<{id: string, name: keyof AuthModel.AuthFormSchema, label: string, type: string}>;
 
     if (authType === AuthModel.AUTH_TYPES.SIGN_IN) {

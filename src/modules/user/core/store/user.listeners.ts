@@ -11,6 +11,7 @@ import { updateBookRatingUsecase } from '@/modules/books/usecases/update-book/up
 import { updateEditionUsecase } from '@/modules/books/usecases/update-edition/core/update-edition.usecase';
 import { informUser, showUserHeShouldWait } from '@/modules/user/core/store/user.slice';
 import { addBookToUserLibraryUseCase } from '@/modules/user/usecases/add-book-in-user-list/add-book-to-user-library.usecase';
+import { addReviewUsecase } from '@/modules/user/usecases/add-review/core/add-review.usecase';
 import { sendCommentValidationUsecase } from '@/modules/user/usecases/admin/infra/send-comment-validation.usecase';
 import { updateBookStatusUsecase } from '@/modules/user/usecases/admin/update-book-status.usecase';
 import { editProfileUsecase } from '@/modules/user/usecases/edit-profile/core/edit-profile.usecase';
@@ -39,7 +40,9 @@ const actionsToListen = [
     addBookToUserLibraryUseCase.fulfilled.type,
     addBookToUserLibraryUseCase.rejected.type,
     updateBookRatingUsecase.fulfilled.type,
-    updateBookRatingUsecase.rejected.type
+    updateBookRatingUsecase.rejected.type,
+    addReviewUsecase.fulfilled.type,
+    addReviewUsecase.rejected.type
 ];
 
 const authActionsToListen = [

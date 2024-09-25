@@ -127,10 +127,13 @@ export class HttpUserGateway implements ConnectorToUserGateway {
         }
     }
 
-    async addReview({ userId, bookId, payload }: { userId: number; bookId: number; payload: { review: string }; }): Promise<void> {
+    async addReview({ userId, bookId, payload }: { userId: number; bookId: number; payload: { review: string }; }): Promise<UsersModel.UpdateBookStatusResponse | void> {
         try {
-            const { data } = await axiosInstance.post('/comment', { userId, bookId, content: payload.review });
-            return data;
+            await axiosInstance.post('/comment', { userId, bookId, content: payload.review });
+            return {
+                message: this.translate('success.bookStatusUpdated'),
+                type: 'success'
+            };
         } catch (error) {
             CustomErrorWrapper.throwError({ message: this.translate('error.addingReview'), type: 'error' });
         }
