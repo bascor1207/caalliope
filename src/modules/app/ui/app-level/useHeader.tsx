@@ -12,12 +12,13 @@ import { translateServerSide } from '@/app/i18n/server';
 import i18n from '@/i18n';
 import { useAppSelector } from '@/modules/app/core/store/create-store';
 import { selectLoggedUser } from '@/modules/auth/core/store/auth.selectors';
+import { selectActiveUser } from '@/modules/user/core/store/user.selectors';
 import { logoutUserUsecase } from '@/modules/user/usecases/logout-user/logout-user.usecase';
 
 import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
 
 const ACCOUNT_PATHS = {
-    ADMIN_PANEL: 'activeTab=admin-panel',
+    ADMIN_PANEL: 'activeTab=admin',
     MY_INFOS: 'activeTab=my-infos',
     MY_BOOKS: 'activeTab=my-books',
 } as const
@@ -28,9 +29,10 @@ export const useHeader = () => {
     const locale = useParams()?.locale;
     const pathname = usePathname();
     const { t } = useTranslation();
+    const activeUser = useAppSelector(selectActiveUser);
 
     const LINKS_ITEMS = [
-        {
+        activeUser.roles.includes('admin') &&{
             label: t('navbar.admin'),
             href: `/${locale}/admin?${ACCOUNT_PATHS.ADMIN_PANEL}`,
             type: 'link'
@@ -51,7 +53,7 @@ export const useHeader = () => {
             label: t('navbar.logout'),
             type: 'button'
         },
-    ];
+    ].filter(Boolean);
     const router = useRouter();
     const urlSegments = useSelectedLayoutSegments();
     const languages = () => (
