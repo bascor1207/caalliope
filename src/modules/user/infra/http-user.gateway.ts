@@ -76,7 +76,7 @@ export class HttpUserGateway implements ConnectorToUserGateway {
                     .filter((book: UsersModel.InProgressBook) => book !== null) || [],
                 avatar: userData.avatar ? `${process.env.NEXT_PUBLIC_AVATARS_URL}/${userData.avatar.filename}` : '',
                 email: userData.email || this.translate('defaultValues.noEmailProvided'),
-                roles: [userData.role].flat() || [],
+                roles: Array.isArray(userData.role) ? userData.role : [userData.role || ''],
                 waitingForValidationBooks: userData.bookWaiting?.map((book: UsersModel.ProfileBookFromBack) => (
                     {
                         id: book.id,
