@@ -1,8 +1,8 @@
 {
-    "login": "Username:",
+    "login": "Login:",
     "password": "Password:",
     "valid": "Validate",
-    "required": "Required fields",
+    "required": "Required field",
     "inProgress": "In progress",
     "finish": "Finished",
     "giveUp": "Abandoned",
@@ -28,9 +28,9 @@
         "signUp": "Sign up",
         "signIn": "Sign in",
         "account": "Profile",
-        "myBooks": "My Books",
+        "myBooks": "My books",
         "logout": "Logout",
-        "admin": "Admin",
+        "admin": "Administration",
         "en": "English",
         "fr": "French",
         "homePage": "Home page",
@@ -42,12 +42,12 @@
     },
     "home": {
         "lastRelease": "Latest releases",
-        "popular": "Popular books"
+        "popular": "Trending books"
     },
     "loginPage": {
-        "title": "Please sign in:",
+        "title": "Please log in:",
         "noAccount": "No account",
-        "register": "Register"
+        "register": "Sign up"
     },
     "register": {
         "title": "Create your account"
@@ -70,15 +70,15 @@
         "selectBookStatus": "Select a status",
         "commentFrom": "Comment from",
         "onBook": "On the book",
-        "statusWaiting": "Awaiting validation",
+        "statusWaiting": "Pending validation",
         "statusValidated": "Validated",
         "adminCommentsValidation": "Comments validation",
-        "noWaitingComments": "No comments awaiting validation.",
-        "refuseCommentValidation": "Reject",
+        "noWaitingComments": "No comments waiting for validation.",
+        "refuseCommentValidation": "Refuse",
         "acceptCommentValidation": "Accept",
         "addAvatar": "Add an avatar",
         "home": "Home",
-        "pal": "My reading list",
+        "pal": "My to-read pile",
         "wish": "My wishlist",
         "abandoned": "My abandoned books",
         "recommendation": "Book recommendation",
@@ -89,34 +89,34 @@
         "username": "Username",
         "newPassword": "New password",
         "myInfos": "My information",
-        "myBooksToRead": "My reading list",
+        "myBooksToRead": "My to-read pile",
         "myReadings": "My current readings",
         "myWishlist": "My wishlist",
         "myAbandonedBooks": "My abandoned books",
         "adminPanel": "Admin panel",
-        "noBooksToRead": "No books in your reading list.",
-        "noReadings": "No current readings.",
+        "noBooksToRead": "No books in your to-read pile.",
+        "noReadings": "No ongoing readings.",
         "noWishlistBooks": "No books in your wishlist.",
         "noAbandonedBooks": "No abandoned books.",
         "adminBooksValidation": "Books validation",
-        "noWaitingBooks": "No books awaiting validation."
+        "noWaitingBooks": "No books waiting for validation."
     },
     "donate": {
         "successTitle": "Payment successful!",
-        "thanks": "Thank you for your donation! Your support is invaluable and helps us to continue providing quality services.",
+        "thanks": "Thank you for your donation! Your support is precious and helps us continue providing quality services.",
         "cancelTitle": "Payment canceled",
-        "cancel": "Your payment has been canceled. If you have any questions, please contact us."
+        "cancel": "Your payment has been canceled. If you have any questions, feel free to contact us."
     },
     "form": {
         "avatar": "Avatar",
         "editing": "Edit a book",
-        "editingAuthor": "Edit author information",
+        "editingAuthor": "Edit an author's information",
         "addEdition": "Add an edition",
         "isbn": "ISBN 13",
         "title": "Title",
         "author": "Author",
         "releaseDate": "Release date",
-        "editor": "Editor",
+        "editor": "Publisher",
         "translator": "Translators",
         "numberOfPages": "Number of pages",
         "format": "Format",
@@ -126,8 +126,8 @@
         "language": "Language",
         "cover": "Cover",
         "noFile": "No file",
-        "birthDate": "Date of birth",
-        "deathDate": "Date of death",
+        "birthDate": "Birthdate",
+        "deathDate": "Death date",
         "nationality": "Nationality",
         "image": "Image",
         "choiceFile": "Choose a file",
@@ -152,7 +152,7 @@
         "email": "Email",
         "firstName": "First name",
         "lastName": "Last name",
-        "birthDate": "Date of birth"
+        "birthDate": "Birthdate"
     },
     "book": {
         "details": "Book details",
@@ -169,19 +169,31 @@
     },
     "defaultValues": {
         "noLanguageProvided": "No language provided",
-        "noUsernameProvided": "No username provided, please update your profile",
-        "noFirstNameProvided": "No first name provided, please update your profile",
-        "noLastNameProvided": "No last name provided, please update your profile",
-        "noEmailProvided": "No email provided, please update your profile",
-        "typeNotProvided": "Type not provided"
+        "noUsernameProvided": "Username not provided, please update your profile",
+        "noFirstNameProvided": "First name not provided, please update your profile",
+        "noLastNameProvided": "Last name not provided, please update your profile",
+        "noEmailProvided": "Email not provided, please update your profile",
+        "typeNotProvided": "Type not provided",
+        "noSummaryAvailable": "No summary available",
+        "unknownLastname": "Unknown last name",
+        "unknownFirstname": "Unknown first name",
+        "unknownFullname": "Unknown full name",
+        "emailNotAvailable": "Email not available",
+        "birthdateNotAvailable": "Birthdate not available",
+        "unknownUsername": "Unknown username",
+        "noSubjectProvided": "No subject provided",
+        "noPublicationDateAvailable": "Publication date not available",
+        "noEditionProvided": "No edition provided",
+        "noDateProvided": "No date provided",
+        "unknownError": "Unknown error"
     },
     "error": {
-        "gettingData": "Error retrieving data, please contact an administrator.",
-        "addingBook": "Error adding book to library, please contact an administrator.",
-        "updatingStatus": "Error updating book status, please contact an administrator.",
-        "gettingBooks": "Error retrieving books.",
-        "gettingBooksByGenre": "Error retrieving books by genre.",
-        "gettingBooksByAuthor": "Error retrieving books by author."
+        "gettingData": "Error fetching data, please contact an admin.",
+        "addingBook": "Error adding the book to the library, please contact an admin.",
+        "updatingStatus": "Error updating the book's status, please contact an admin.",
+        "gettingBooks": "Error fetching books.",
+        "gettingBooksByGenre": "Error fetching books by genre.",
+        "gettingBooksByAuthor": "Error fetching books by author."
     },
     "success": {
         "bookStatusUpdated": "Book status successfully updated.",
@@ -193,13 +205,29 @@
     },
     "notFound": {
         "title": "404 - Page not found",
-        "description": "The page you're looking for doesn't exist or has been moved.",
-        "backHome": "Back to home"
+        "description": "The page you are looking for does not exist or has been moved.",
+        "backHome": "Back to homepage"
     },
     "errorPage": {
         "title": "Oops! An error occurred",
         "description": "Sorry, an error occurred. Please try again later.",
-        "backHome": "Back to home",
+        "backHome": "Back to homepage",
         "contactUs": "Contact us"
+    },
+    "subjects": {
+        "all": "All",
+        "computers": "Computers",
+        "education": "Education",
+        "programmers": "Computer programmers",
+        "languageArts": "Language Arts & Disciplines",
+        "prolog": "Prolog",
+        "horror": "Horror",
+        "biography": "Biography",
+        "selfDevelopment": "Self-development",
+        "history": "History",
+        "theatre": "Theatre",
+        "philosophy": "Philosophy",
+        "mystery": "Mystery",
+        "science": "Science"
     }
 }

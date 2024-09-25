@@ -213,5 +213,21 @@
         "description": "Désolé, une erreur est survenue. Veuillez réessayer plus tard.",
         "backHome": "Retour à l'accueil",
         "contactUs": "Nous contacter"
+    },
+    "subjects": {
+        "all": "Tout",
+        "computers": "Informatique",
+        "education": "Éducation",
+        "programmers": "Programmeurs",
+        "languageArts": "Arts du langage & Disciplines",
+        "prolog": "Prolog",
+        "horror": "Épouvante",
+        "biography": "Biographie",
+        "selfDevelopment": "Développement personnel",
+        "history": "Historique",
+        "theatre": "Théatre",
+        "philosophy": "Philosophie",
+        "mystery": "Mystère",
+        "science": "Science"
     }
 }

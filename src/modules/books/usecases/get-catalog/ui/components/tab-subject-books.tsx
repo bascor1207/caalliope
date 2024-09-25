@@ -1,6 +1,7 @@
 import { Tab, Tabs } from '@nextui-org/react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useTransition } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import type { FC, PropsWithChildren } from 'react';
 
@@ -12,23 +13,23 @@ type TabBooksProps = {
 }
 
 export const TabSubjectBooks: FC<PropsWithChildren<TabBooksProps>> = ({ disabled }) => {
+  const { t } = useTranslation();
   const SUBJECTS_TAB = [
-    { id: 0, label: 'Tout', value: '' },
-    { id: 1, label: 'Computers', value: 'computers' },
-    { id: 2, label: 'Education', value: 'education' },
-    { id: 3, label: 'Computer programmers', value: 'computer programmers' },
-    { id: 4, label: 'Language Arts & Disciplines', value: 'language arts & disciplines' },
-    { id: 5, label: 'Prolog', value: 'prolog' },
-    { id: 6, label: 'Epouvante', value: 'horror' },
-    { id: 7, label: 'Biographie', value: 'biography' },
-    { id: 8, label: 'Développement personnel', value: 'developpement' },
-    { id: 9, label: 'Historique', value: 'history' },
-    { id: 10, label: 'Théatre', value: 'theatre' },
-    { id: 11, label: 'Philosophie', value: 'philosophy' },
-    { id: 12, label: 'Mystère', value: 'mystery' },
-    { id: 13, label: 'Science', value: 'science' },
+    { id: 0, label: t('subjects.all'), value: '' },
+    { id: 1, label: t('subjects.computers'), value: 'computers' },
+    { id: 2, label: t('subjects.education'), value: 'education' },
+    { id: 3, label: t('subjects.programmers'), value: 'computer programmers' },
+    { id: 4, label: t('subjects.languageArts'), value: 'language arts & disciplines' },
+    { id: 5, label: t('subjects.prolog'), value: 'prolog' },
+    { id: 6, label: t('subjects.horror'), value: 'horror' },
+    { id: 7, label: t('subjects.biography'), value: 'biography' },
+    { id: 8, label: t('subjects.selfDevelopment'), value: 'developpement' },
+    { id: 9, label: t('subjects.history'), value: 'history' },
+    { id: 10, label: t('subjects.theatre'), value: 'theatre' },
+    { id: 11, label: t('subjects.philosophy'), value: 'philosophy' },
+    { id: 12, label: t('subjects.mystery'), value: 'mystery' },
+    { id: 13, label: t('subjects.science'), value: 'science' },
   ];
-
   const searchParams = useSearchParams();
   const router = useRouter();
   const [isLoading, startTransition] = useTransition();
