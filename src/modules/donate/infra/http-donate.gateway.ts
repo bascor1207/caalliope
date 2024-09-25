@@ -18,7 +18,9 @@ export class HttpDonateGateway implements ConnectorToDonateGateway {
       const res = await axiosInstance.post('/stripe/create-checkout-session', {
         price: amount,
         currency: 'eur',
-        email: email
+        email: email,
+        success_url: 'https://caalliope.vercel.app/donate',
+        back_url: 'https://caalliope.vercel.app/donate',
       });
       return res.data.url;
     } catch (error) {
