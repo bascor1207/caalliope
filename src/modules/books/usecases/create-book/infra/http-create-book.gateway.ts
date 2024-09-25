@@ -1,9 +1,9 @@
 import type { BooksModel } from '@/modules/books/model/books.model';
 import type { ConnectorToCreateBookGateway } from '@/modules/books/usecases/create-book/core/connector-to-create-book.gateway';
+import type { TFunction } from 'i18next';
 
 import { axiosInstance } from '@/modules/app/core/axios-instance';
 import { CustomErrorWrapper } from '@/modules/app/core/error-wrapper';
-import type { TFunction } from 'i18next';
 
 export class HttpCreateBookGateway implements ConnectorToCreateBookGateway {
     constructor(private readonly translate: TFunction<never, never>) {}
