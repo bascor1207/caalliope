@@ -2,7 +2,7 @@
     "login": "Login:",
     "password": "Password:",
     "valid": "Validate",
-    "required": "Required field",
+    "required": "Required fields",
     "inProgress": "In progress",
     "finish": "Finished",
     "giveUp": "Abandoned",
@@ -42,10 +42,10 @@
     },
     "home": {
         "lastRelease": "Latest releases",
-        "popular": "Trending books"
+        "popular": "Popular books"
     },
     "loginPage": {
-        "title": "Please log in:",
+        "title": "Please identify yourself:",
         "noAccount": "No account",
         "register": "Sign up"
     },
@@ -59,8 +59,8 @@
         "addReview": "Add a review",
         "addPublishing": "Add a publishing",
         "addBook": "Add a book",
-        "search": "Search for a book",
-        "notfound": "No results for this search",
+        "search": "Search a book",
+        "notfound": "No result for this search",
         "yourReview": "Your review"
     },
     "author": {
@@ -70,7 +70,7 @@
         "selectBookStatus": "Select a status",
         "commentFrom": "Comment from",
         "onBook": "On the book",
-        "statusWaiting": "Pending validation",
+        "statusWaiting": "Waiting for validation",
         "statusValidated": "Validated",
         "adminCommentsValidation": "Comments validation",
         "noWaitingComments": "No comments waiting for validation.",
@@ -78,7 +78,7 @@
         "acceptCommentValidation": "Accept",
         "addAvatar": "Add an avatar",
         "home": "Home",
-        "pal": "My to-read pile",
+        "pal": "My reading pile",
         "wish": "My wishlist",
         "abandoned": "My abandoned books",
         "recommendation": "Book recommendation",
@@ -89,13 +89,13 @@
         "username": "Username",
         "newPassword": "New password",
         "myInfos": "My information",
-        "myBooksToRead": "My to-read pile",
+        "myBooksToRead": "My reading pile",
         "myReadings": "My current readings",
         "myWishlist": "My wishlist",
         "myAbandonedBooks": "My abandoned books",
         "adminPanel": "Admin panel",
-        "noBooksToRead": "No books in your to-read pile.",
-        "noReadings": "No ongoing readings.",
+        "noBooksToRead": "No books in your reading pile.",
+        "noReadings": "No current readings.",
         "noWishlistBooks": "No books in your wishlist.",
         "noAbandonedBooks": "No abandoned books.",
         "adminBooksValidation": "Books validation",
@@ -103,14 +103,14 @@
     },
     "donate": {
         "successTitle": "Payment successful!",
-        "thanks": "Thank you for your donation! Your support is precious and helps us continue providing quality services.",
+        "thanks": "Thank you for your donation! Your support is precious and helps us continue to offer quality services.",
         "cancelTitle": "Payment canceled",
-        "cancel": "Your payment has been canceled. If you have any questions, feel free to contact us."
+        "cancel": "Your payment was canceled. If you have any questions, feel free to contact us."
     },
     "form": {
         "avatar": "Avatar",
         "editing": "Edit a book",
-        "editingAuthor": "Edit an author's information",
+        "editingAuthor": "Edit author information",
         "addEdition": "Add an edition",
         "isbn": "ISBN 13",
         "title": "Title",
@@ -126,7 +126,7 @@
         "language": "Language",
         "cover": "Cover",
         "noFile": "No file",
-        "birthDate": "Birthdate",
+        "birthDate": "Birth date",
         "deathDate": "Death date",
         "nationality": "Nationality",
         "image": "Image",
@@ -152,7 +152,8 @@
         "email": "Email",
         "firstName": "First name",
         "lastName": "Last name",
-        "birthDate": "Birthdate"
+        "birthDate": "Birth date",
+        "password": "Password:"
     },
     "book": {
         "details": "Book details",
@@ -169,10 +170,10 @@
     },
     "defaultValues": {
         "noLanguageProvided": "No language provided",
-        "noUsernameProvided": "Username not provided, please update your profile",
-        "noFirstNameProvided": "First name not provided, please update your profile",
-        "noLastNameProvided": "Last name not provided, please update your profile",
-        "noEmailProvided": "Email not provided, please update your profile",
+        "noUsernameProvided": "No username provided, please update your profile",
+        "noFirstNameProvided": "No first name provided, please update your profile",
+        "noLastNameProvided": "No last name provided, please update your profile",
+        "noEmailProvided": "No email provided, please update your profile",
         "typeNotProvided": "Type not provided",
         "noSummaryAvailable": "No summary available",
         "unknownLastname": "Unknown last name",
@@ -182,18 +183,19 @@
         "birthdateNotAvailable": "Birthdate not available",
         "unknownUsername": "Unknown username",
         "noSubjectProvided": "No subject provided",
-        "noPublicationDateAvailable": "Publication date not available",
+        "noPublicationDateAvailable": "No publication date available",
         "noEditionProvided": "No edition provided",
         "noDateProvided": "No date provided",
         "unknownError": "Unknown error"
     },
     "error": {
-        "gettingData": "Error fetching data, please contact an admin.",
-        "addingBook": "Error adding the book to the library, please contact an admin.",
-        "updatingStatus": "Error updating the book's status, please contact an admin.",
+        "gettingData": "Error fetching data, please contact an administrator.",
+        "addingBook": "Error adding the book to the library, please contact an administrator.",
+        "updatingStatus": "Error updating the book's status, please contact an administrator.",
         "gettingBooks": "Error fetching books.",
         "gettingBooksByGenre": "Error fetching books by genre.",
-        "gettingBooksByAuthor": "Error fetching books by author."
+        "gettingBooksByAuthor": "Error fetching books by author.",
+        "unknown": "Unknown error"
     },
     "success": {
         "bookStatusUpdated": "Book status successfully updated.",
@@ -205,29 +207,41 @@
     },
     "notFound": {
         "title": "404 - Page not found",
-        "description": "The page you are looking for does not exist or has been moved.",
-        "backHome": "Back to homepage"
+        "description": "The page you're looking for doesn't exist or has been moved.",
+        "backHome": "Back to home"
     },
     "errorPage": {
         "title": "Oops! An error occurred",
         "description": "Sorry, an error occurred. Please try again later.",
-        "backHome": "Back to homepage",
+        "backHome": "Back to home",
         "contactUs": "Contact us"
     },
     "subjects": {
         "all": "All",
         "computers": "Computers",
         "education": "Education",
-        "programmers": "Computer programmers",
+        "programmers": "Programmers",
         "languageArts": "Language Arts & Disciplines",
         "prolog": "Prolog",
         "horror": "Horror",
         "biography": "Biography",
-        "selfDevelopment": "Self-development",
+        "selfDevelopment": "Self Development",
         "history": "History",
         "theatre": "Theatre",
         "philosophy": "Philosophy",
         "mystery": "Mystery",
         "science": "Science"
+    },
+    "searchBar": {
+        "nameAuthor": "Name, Author...",
+        "search": "Search..."
+    },
+    "admin": {
+        "refuse": "Refuse",
+        "accept": "Accept"
+    },
+    "createBook": {
+        "requestSubmitted": "The request will be submitted to an administrator",
+        "unexpectedError": "Unexpected error"
     }
 }

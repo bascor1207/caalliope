@@ -128,12 +128,12 @@ export const DetailedUserBookModal = () => {
                                     status: 'refused',
                                     bookId: finalBook.id,
                                     userRole: 'admin'
-                                }))}>Refuser</Button>
+                                }))}>{t('admin.refuse')}</Button>
                                 <Button onPress={() => dispatch(updateBookStatusUsecase({
                                     status: 'accepted',
                                     bookId: finalBook.id,
                                     userRole: 'admin'
-                                }))}>Accepter</Button>
+                                }))}>{t('admin.accept')}</Button>
                             </>
                         ) : (
                             <Select

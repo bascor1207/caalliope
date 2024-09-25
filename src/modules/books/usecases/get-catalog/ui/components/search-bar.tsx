@@ -32,9 +32,9 @@ export const SearchBar = () => {
                 classNames={classNames}
                 id='search-bar'
                 className='w-80'
-                label='Name, Author...'
+                label={t('searchBar.nameAuthor')}
                 variant='bordered'
-                placeholder='Search...'
+                placeholder={t('searchBar.search')}
                 size='sm'
                 onChange={(e) => handleTabChange(e.target.value)}
                 isClearable

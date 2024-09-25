@@ -152,7 +152,8 @@
         "email": "Email",
         "firstName": "Prénom",
         "lastName": "Nom",
-        "birthDate": "Date de naissance"
+        "birthDate": "Date de naissance",
+        "password": "Mot de passe :"
     },
     "book": {
         "details": "Détails du livre",
@@ -193,7 +194,8 @@
         "updatingStatus": "Erreur lors de la mise à jour du statut du livre, veuillez contacter un administrateur.",
         "gettingBooks": "Erreur lors de la récupération des livres.",
         "gettingBooksByGenre": "Erreur lors de la récupération des livres par genre.",
-        "gettingBooksByAuthor": "Erreur lors de la récupération des livres par auteur."
+        "gettingBooksByAuthor": "Erreur lors de la récupération des livres par auteur.",
+        "unknown": "Erreur inconnue"
     },
     "success": {
         "bookStatusUpdated": "Statut du livre mis à jour avec succès.",
@@ -229,5 +231,17 @@
         "philosophy": "Philosophie",
         "mystery": "Mystère",
         "science": "Science"
+    },
+    "searchBar": {
+        "nameAuthor": "Nom, Auteur...",
+        "search": "Rechercher..."
+    },
+    "admin": {
+        "refuse": "Refuser",
+        "accept": "Accepter"
+    },
+    "createBook": {
+        "requestSubmitted": "La requête sera soumise à un administrateur",
+        "unexpectedError": "Erreur imprévue"
     }
 }

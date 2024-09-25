@@ -18,16 +18,16 @@ export const AuthModal = () => {
     const { t } = useTranslation();
 
     const signInFormItems = [
-        { id: 'email', name: 'email', label: 'Email', type: 'email' },
-        { id: 'password', name: 'password', label: 'Mot de passe', type: 'password' },
+        { id: 'email', name: 'email', label: t('user.email'), type: 'email' },
+        { id: 'password', name: 'password', label: t('user.password'), type: 'password' },
     ] satisfies Array<{id: string, name: keyof AuthModel.LoginFormSchema, label: string, type: string}>;
 
     const signUpFormItems = [
-        { id: 'lastName', name: 'lastName', label: 'Nom', type: 'text' },
-        { id: 'firstName', name: 'firstName', label: 'Prénom', type: 'text' },
-        { id: 'email', name: 'email', label: 'Email', type: 'email' },
-        { id: 'username', name: 'username', label: 'Pseudo', type: 'text' },
-        { id: 'password', name: 'password', label: 'Mot de passe', type: 'password' },
+        { id: 'lastName', name: 'lastName', label: t('user.lastName'), type: 'text' },
+        { id: 'firstName', name: 'firstName', label: t('user.firstName'), type: 'text' },
+        { id: 'email', name: 'email', label: t('user.email'), type: 'email' },
+        { id: 'username', name: 'username', label: t('user.username'), type: 'text' },
+        { id: 'password', name: 'password', label: t('user.password'), type: 'password' },
     ] satisfies Array<{id: string, name: keyof AuthModel.AuthFormSchema, label: string, type: string}>;
 
     if (authType === AuthModel.AUTH_TYPES.SIGN_IN) {
