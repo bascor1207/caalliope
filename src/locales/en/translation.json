@@ -28,8 +28,13 @@
         "signUp": "Sign up",
         "signIn": "Sign in",
         "account": "Profile",
+        "myBooks": "My Books",
+        "logout": "Logout",
+        "admin": "Admin",
         "en": "English",
-        "fr": "French"
+        "fr": "French",
+        "homePage": "Home page",
+        "menuIcon": "Menu icon"
     },
     "footer": {
         "donation": "Make a donation",
@@ -178,10 +183,22 @@
         "gettingBooksByAuthor": "Error retrieving books by author."
     },
     "success": {
-        "bookStatusUpdated": "Book status successfully updated."
+        "bookStatusUpdated": "Book status successfully updated.",
+        "bookAdded": "Book successfully added to {{status}}."
     },
     "buttons": {
         "show": "Show",
         "hide": "Hide"
+    },
+    "notFound": {
+        "title": "404 - Page not found",
+        "description": "The page you're looking for doesn't exist or has been moved.",
+        "backHome": "Back to home"
+    },
+    "errorPage": {
+        "title": "Oops! An error occurred",
+        "description": "Sorry, an error occurred. Please try again later.",
+        "backHome": "Back to home",
+        "contactUs": "Contact us"
     }
 }
