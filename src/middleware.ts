@@ -19,6 +19,10 @@ export function middleware(request: NextRequest) {
 
     const supportedLanguages = ['en', 'fr'];
     if (!supportedLanguages.some((lang) => url.pathname.startsWith(`/${lang}`))) {
+        if (url.pathname.includes('/cancel')) {
+            url.pathname = `/${language}/donate`;
+            return NextResponse.redirect(url, { headers });
+        }
         url.pathname = `/${language}/${url.pathname}`;
         return NextResponse.redirect(url, { headers });
     }
@@ -64,5 +68,6 @@ export const config = {
         { source: '/:locale(fr|en)?/auth' },
         { source: '/:locale(fr|en)?/catalog/:path*' },
         { source: '/' },
+        { source: '/cancel' },
     ]
 };
