@@ -1,4 +1,4 @@
-import { jwtVerify } from 'jose';
+import { decodeJwt, jwtVerify } from 'jose';
 import { cookies, headers } from 'next/headers';
 
 import { setLanguage } from '@/modules/app/core/store/root.slice';
@@ -32,8 +32,8 @@ export async function prefetchRootLayout() {
     }
 
     if (token) {
-        const { payload } = await jwtVerify(token, new TextEncoder().encode('azerty'));
-        await store.dispatch(getUserUsecase({ id: payload.sub as string }));
+        const decodedToken = decodeJwt(token);
+        await store.dispatch(getUserUsecase({ id: decodedToken.sub as string }));
     }
 
     await store.dispatch(getPopularBooksUseCase());
