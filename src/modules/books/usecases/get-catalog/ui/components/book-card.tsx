@@ -1,5 +1,6 @@
 'use client'
 import { Image } from '@nextui-org/react';
+import { useTranslation } from 'react-i18next';
 
 import type { BooksModel } from '@/modules/books/model/books.model';
 import type { FC } from 'react';
@@ -22,6 +23,7 @@ type BookCardProps = Props | PropsForCatalog;
 
 export const BookCard: FC<BookCardProps> = ({ book, cover }) => {
     const locale = useAppSelector(selectLocale);
+    const { t } = useTranslation();
 
     const getOneBookAndRedirect = () => {
         window.location.href = `/${locale}/catalog/${book.id}`;
@@ -53,7 +55,7 @@ export const BookCard: FC<BookCardProps> = ({ book, cover }) => {
             className='max-w-full w-full'
             onClick={getOneBookAndRedirect}
             title={book.title}
-            description={book.type}
+            description={t(book.type)}
             content={() => (
                 <div className='flex items-center justify-center w-full h-full mt-4'>
                     <Image
