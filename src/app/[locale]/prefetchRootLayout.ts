@@ -1,4 +1,4 @@
-import { decodeJwt, jwtVerify } from 'jose';
+import { decodeJwt } from 'jose';
 import { cookies, headers } from 'next/headers';
 
 import { setLanguage } from '@/modules/app/core/store/root.slice';
