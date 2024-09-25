@@ -5,7 +5,7 @@ import { HttpCookiesProvider } from '@/modules/app/infra/http-cookies.provider';
 const isServer = typeof window === 'undefined'
 
 export const axiosInstance = axios.create({
-    baseURL: 'https://caalliope.vercel.app/api',
+    baseURL: `${process.env.NEXT_PUBLIC_DEFAULT_URL}/api`,
     withCredentials: true
 });
 
