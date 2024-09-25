@@ -19,7 +19,8 @@ export class HttpGetLastReleaseBooksGateway implements ConnectorToLastReleaseBoo
     }
 
     private async createReturnPayload(data: BooksModel.GetBooksReturn[]): Promise<BooksModel.Book[]> {
-        return data.map((book) => ({
+       const finalData = data.filter((book) => book.cover?.filename && book.cover?.filename?.startsWith('http'));
+        return finalData.map((book) => ({
             id: book.id || 0,
             title: book.title || this.translate('defaultValues.noTitleAvailable'),
             author: {
