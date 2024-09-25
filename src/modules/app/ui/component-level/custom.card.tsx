@@ -53,7 +53,7 @@ export const CustomCard: FC<CustomCardProps> = (
         ) : (
         <NextUICard
             isPressable={isPressable}
-            onPress={onClick}
+            onClick={onClick}
             className={twMerge('rounded-xl border shadow p-6 text-custom-dark-purple cursor-pointer bg-custom-purple h-full', className)}
             classNames={{
                 body: 'p-0'

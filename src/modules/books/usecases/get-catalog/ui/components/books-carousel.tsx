@@ -1,3 +1,5 @@
+import { useMediaQuery } from 'react-responsive';
+
 import type { BooksModel } from '@/modules/books/model/books.model';
 
 import {
@@ -17,6 +19,7 @@ type BooksCarouselProps = {
 export const BooksCarousel = (
     { slides, title = '' }: BooksCarouselProps
 ) => {
+    const isDesktop = useMediaQuery({ minWidth: 1024 });
     return (
         <Carousel>
             {title && (
@@ -29,8 +32,12 @@ export const BooksCarousel = (
                 </CarouselItem>
             ))}
             </CarouselContent>
-            <CarouselPrevious className='flex items-center justify-center'/>
-            <CarouselNext className='flex items-center justify-center'/>
+            {isDesktop && (
+                <>
+                    <CarouselPrevious className='flex items-center justify-center'/>
+                    <CarouselNext className='hidden flex items-center justify-center'/>
+                </>
+            )}
         </Carousel>
     );
 };
