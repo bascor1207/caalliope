@@ -32,7 +32,7 @@ export const useHeader = () => {
     const activeUser = useAppSelector(selectActiveUser);
 
     const linkItems = [
-        activeUser.roles.includes('admin') &&{
+        activeUser?.roles.includes('admin') &&{
             label: t('navbar.admin'),
             href: `/${locale}/admin?${ACCOUNT_PATHS.ADMIN_PANEL}`,
             type: 'link'
