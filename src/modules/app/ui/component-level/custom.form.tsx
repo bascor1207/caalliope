@@ -51,7 +51,7 @@ export const CustomForm = <TFormValues extends FieldValues, ReturnType, A>(
     const validator = useCustomForm({ schema, action, dispatch, onCustomClose });
 
     const formContent = (
-        <form onSubmit={validator.handleSubmit(validator.onSubmit)} className={twMerge('space-y-4 z-0', className)}>
+        <form onSubmit={validator.handleSubmit(validator.onSubmit)} className={twMerge('space-y-4 z-0 text-base', className)}>
             {items.map((item) => (
                 <div key={item.id}>
                     <Controller
