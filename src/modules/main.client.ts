@@ -60,7 +60,7 @@ export class App {
         const donateAdapter = new HttpDonateGateway();
         const getBooksAdapter = new HttpGetBooksGateway(i18n.t);
         const cookiesAdapter = new HttpCookiesProvider();
-        const createBookAdapter = new HttpCreateBookGateway();
+        const createBookAdapter = new HttpCreateBookGateway(i18n.t);
         const editProfileAdapter = new HttpEditProfileGateway();
         const updateBookAdapter = new HttpUpdateBookGateway(i18n.t);
         const getPopularBooksAdapter = new HttpGetPopularBooksGateway(i18n.t);

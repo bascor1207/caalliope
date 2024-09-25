@@ -63,7 +63,7 @@ export class SSRApp {
         // const getOneBookAdapter = new HttpGetOneBookGateway();
         const cookiesAdapter = new HttpCookiesProvider();
         const donateAdapter = new HttpDonateGateway();
-        const createBookAdapter = new HttpCreateBookGateway();
+        const createBookAdapter = new HttpCreateBookGateway(t);
         const createEditionAdapter = new HttpCreateEditionGateway();
 
         const getPopularBooksAdapter = new HttpGetPopularBooksGateway(t);
