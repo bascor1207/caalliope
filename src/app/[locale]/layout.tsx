@@ -28,28 +28,31 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
 
     return (
         <html lang={language} suppressHydrationWarning>
-        <body className='light min-h-screen flex flex-col bg-background font-sans antialiased overflow-x-hidden'>
-        <AppWrapper initialState={initialState} locale={language}>
-            <Modals/>
+        <head>
+            <meta http-equiv='Content-Security-Policy' content='upgrade-insecure-requests' />
+        </head>
+            <body className='light min-h-screen flex flex-col bg-background font-sans antialiased overflow-x-hidden'>
+            <AppWrapper initialState={initialState} locale={language}>
+                <Modals/>
 
-            {/* Layout Container */}
-            <div className='flex flex-col min-h-screen'>
-                <Header/>
+                {/* Layout Container */}
+                <div className='flex flex-col min-h-screen'>
+                    <Header/>
 
-                {/* Main content */}
-                <main className='flex-grow p-4 sm:p-6 md:p-8 lg:p-12 bg-custom-grey w-full max-w-full z-0'>
-                    {children}
-                </main>
+                    {/* Main content */}
+                    <main className='flex-grow p-4 sm:p-6 md:p-8 lg:p-12 bg-custom-grey w-full max-w-full z-0'>
+                        {children}
+                    </main>
 
-                {/* Footer */}
-                <footer className='w-full p-4 sm:p-6 md:p-8 lg:p-12 bg-custom-purple text-center'>
-                    <Footer/>
-                </footer>
-            </div>
-        </AppWrapper>
-        </body>
+                    {/* Footer */}
+                    <footer className='w-full p-4 sm:p-6 md:p-8 lg:p-12 bg-custom-purple text-center'>
+                        <Footer/>
+                    </footer>
+                </div>
+            </AppWrapper>
+            </body>
         </html>
-    );
+);
 };
 
 export default RootLayout;
