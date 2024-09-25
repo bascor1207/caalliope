@@ -28,9 +28,6 @@ const RootLayout: FC<PropsWithChildren> = async ({ children }) => {
 
     return (
         <html lang={language} suppressHydrationWarning>
-        <head>
-            <meta http-equiv='Content-Security-Policy' content='upgrade-insecure-requests' />
-        </head>
             <body className='light min-h-screen flex flex-col bg-background font-sans antialiased overflow-x-hidden'>
             <AppWrapper initialState={initialState} locale={language}>
                 <Modals/>
