@@ -17,6 +17,7 @@ import { HttpGetLastReleaseBooksGateway } from '@/modules/books/usecases/get-las
 import { HttpGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/http-get-popular-books.gateway';
 import { HttpDonateGateway } from '@/modules/donate/infra/http-donate.gateway';
 import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
+import { HttpAdminGateway } from '@/modules/user/usecases/admin/infra/http-admin.gateway';
 
 
 //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
@@ -29,10 +30,11 @@ import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
 // import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infra/fake-create-book.gateway';
 // import { FakeGetLastReleaseBooksGateway } from '@/modules/books/usecases/get-last-release-books/infra/fake-get-last-release-books.gateway';
 // import { FakeGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/fake-get-popular-books.gateway';
+
 import { FakeUpdateBookGateway } from '@/modules/books/usecases/update-book/infra/fake-update-book.gateway';
 import { FakeUpdateEditionGateway } from '@/modules/books/usecases/update-edition/infra/fake-update-edition.gateway';
 // import { FakeUserGateway } from '@/modules/user/infra/fake-user.gateway';
-import { FakeAdminGateway } from '@/modules/user/usecases/admin/infra/fake-admin.gateway';
+// import { FakeAdminGateway } from '@/modules/user/usecases/admin/infra/fake-admin.gateway';
 
 // const book = BookFactory.create();
 
@@ -65,6 +67,7 @@ export class SSRApp {
         const createEditionAdapter = new HttpCreateEditionGateway();
 
         const getPopularBooksAdapter = new HttpGetPopularBooksGateway(t);
+        const adminAdapter = new HttpAdminGateway();
         const getLastReleaseBooksAdapter = new HttpGetLastReleaseBooksGateway(t);
         // const updateBookAdapter = new HttpUdapteBookGateway();
 
@@ -72,7 +75,7 @@ export class SSRApp {
         //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
         // const authAdapter = new FakeAuthGateway();
         // const userAdapter = new FakeUserGateway();
-        const adminAdapter = new FakeAdminGateway();
+        // const adminAdapter = new FakeAdminGateway();
         // const getOneBookAdapter = new FakeGetOneBookGateway();
         // getOneBookAdapter.returnedResponse = book;
         // const getBooksAdapter = new FakeGetBooksGateway(500);

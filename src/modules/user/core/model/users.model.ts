@@ -129,7 +129,7 @@ export namespace UsersModel {
 
     export type UpdateBookStatusPayload = {  status: 'refused' | 'accepted', bookId: number, userRole: 'admin' | 'user' | Array<'admin' | 'user'> }
     export type UpdateBookStatusResponse = {  message: string, type: 'success' | 'error' }
-    export type SendCommentValidationPayload = {  commentId: number, status: 'refused' | 'accepted' }
+    export type SendCommentValidationPayload = {  commentId: number, status: 'rejected' | 'accepted' }
     export type SendCommentValidationResponse = {  message: string, type: 'success' | 'error' }
 
     export type ProfileBookFromBack = {
@@ -143,6 +143,7 @@ export namespace UsersModel {
     }
 
     export type ProfileCommentFromBack = {
+        id: number;
         user: {
             id: number;
             username: string;

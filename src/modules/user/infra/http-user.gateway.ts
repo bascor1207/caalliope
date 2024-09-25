@@ -87,6 +87,7 @@ export class HttpUserGateway implements ConnectorToUserGateway {
                 )) || [],
                 waitingForValidationComments: userData.commentsWaiting?.map((comment: UsersModel.ProfileCommentFromBack) => (
                     {
+                        id: comment.id,
                         userId: comment.user.id,
                         username: comment.user.username,
                         bookId: comment.book.id,

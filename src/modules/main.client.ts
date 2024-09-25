@@ -12,6 +12,8 @@ import { HttpAuthGateway } from '@/modules/auth/infra/http-auth.gateway';
 import { HttpGetOneBookGateway } from '@/modules/books/get-one-book/infra/http-get-one-book.gateway';
 import { HttpCreateBookGateway } from '@/modules/books/usecases/create-book/infra/http-create-book.gateway';
 import { HttpGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/http-get-books.gateway';
+import { HttpGetLastReleaseBooksGateway } from '@/modules/books/usecases/get-last-release-books/infra/http-get-last-release-books.gateway';
+import { HttpGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/http-get-popular-books.gateway';
 import { HttpUpdateBookGateway } from '@/modules/books/usecases/update-book/infra/http-update-book.gateway';
 import { HttpDonateGateway } from '@/modules/donate/infra/http-donate.gateway';
 import { HttpUserGateway } from '@/modules/user/infra/http-user.gateway';
@@ -26,8 +28,8 @@ import { HttpEditProfileGateway } from '@/modules/user/usecases/edit-profile/inf
 // import { FakeCreateBookGateway } from '@/modules/books/usecases/create-book/infra/fake-create-book.gateway';
 import { FakeCreateEditionGateway } from '@/modules/books/usecases/create-edition/infra/fake-create-edition.gateway';
 // import { FakeGetBooksGateway } from '@/modules/books/usecases/get-catalog/infra/fake-get-books.gateway';
-import { FakeGetLastReleaseBooksGateway } from '@/modules/books/usecases/get-last-release-books/infra/fake-get-last-release-books.gateway';
-import { FakeGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/fake-get-popular-books.gateway';
+// import { FakeGetLastReleaseBooksGateway } from '@/modules/books/usecases/get-last-release-books/infra/fake-get-last-release-books.gateway';
+// import { FakeGetPopularBooksGateway } from '@/modules/books/usecases/get-popular-books/infra/fake-get-popular-books.gateway';
 // import { FakeUpdateBookGateway } from '@/modules/books/usecases/update-book/infra/fake-update-book.gateway';
 import { FakeUpdateEditionGateway } from '@/modules/books/usecases/update-edition/infra/fake-update-edition.gateway';
 
@@ -61,6 +63,8 @@ export class App {
         const createBookAdapter = new HttpCreateBookGateway();
         const editProfileAdapter = new HttpEditProfileGateway();
         const updateBookAdapter = new HttpUpdateBookGateway(i18n.t);
+        const getPopularBooksAdapter = new HttpGetPopularBooksGateway(i18n.t);
+        const getLastReleaseBooksAdapter = new HttpGetLastReleaseBooksGateway(i18n.t);
 
 
         //TODO UNCOMMENT THIS WHEN WANTING ONY LOCAL
@@ -78,9 +82,9 @@ export class App {
         // const updateBookAdapter = new FakeUpdateBookGateway();
         const updateEditionAdapter = new FakeUpdateEditionGateway();
 
-        const getPopularBooksAdapter = new FakeGetPopularBooksGateway();
+        // const getPopularBooksAdapter = new FakeGetPopularBooksGateway();
         // getPopularBooksAdapter.returnedResponse = catalog;
-        const getLastReleaseBooksAdapter = new FakeGetLastReleaseBooksGateway();
+        // const getLastReleaseBooksAdapter = new FakeGetLastReleaseBooksGateway();
         // getLastReleaseBooksAdapter.returnedResponse = catalog;
 
         // const editProfileAdapter = new FakeEditProfileGateway();

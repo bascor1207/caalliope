@@ -84,7 +84,7 @@ export const AdminSection = () => {
                                             className='flex items-end p-0 m-0 space-x-2'>
                                             <Button
                                                 onPress={() => dispatch(sendCommentValidationUsecase({
-                                                    status: 'refused',
+                                                    status: 'rejected',
                                                     commentId: review.id
                                                 }))}
                                                 className='w-full'
