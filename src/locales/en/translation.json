@@ -214,7 +214,8 @@
         "title": "Oops! An error occurred",
         "description": "Sorry, an error occurred. Please try again later.",
         "backHome": "Back to home",
-        "contactUs": "Contact us"
+        "contactUs": "Contact us",
+        "aboutUs": "About us"
     },
     "subjects": {
         "all": "All",
