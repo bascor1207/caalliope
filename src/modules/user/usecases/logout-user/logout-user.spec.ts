@@ -35,7 +35,7 @@ function givenUserInStore(user: UsersModel.User){
 }
 
 async function whenLoggingOutUser(){
-    await store.dispatch(logoutUserUsecase('/'))
+    await store.dispatch(logoutUserUsecase())
 }
 
 function thenThereShouldBeNoToken(){

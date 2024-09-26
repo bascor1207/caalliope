@@ -49,7 +49,7 @@ export const useHeader = () => {
         },
         {
             href: '#',
-            onPress: () => dispatch(logoutUserUsecase(pathname)),
+            onPress: () => dispatch(logoutUserUsecase()).then(() => pathname.includes('/my-account') ? router.push(`/${locale}/`) : null),
             label: t('navbar.logout'),
             type: 'button'
         },
