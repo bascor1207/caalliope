@@ -317,15 +317,19 @@
     @keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(46,125,79,0); } 100% { box-shadow: 0 0 0 0 rgba(46,125,79,0); } }
     .hero h1 { font-size: clamp(52px, 9.5vw, 136px); line-height: .92; letter-spacing: -.045em; }
     .hero h1 .line { display: block; overflow: hidden; }
-    .hero h1 .line > span { display: inline-block; transform: translateY(110%); animation: rise 1s var(--ease) forwards; }
+    .hero h1 .line > span { display: inline-block; }
+    .js .hero h1 .line > span { transform: translateY(110%); animation: rise 1s var(--ease) forwards; }
     .hero h1 .line:nth-child(2) > span { animation-delay: .1s; }
     .hero h1 .line:nth-child(3) > span { animation-delay: .2s; }
     @keyframes rise { to { transform: translateY(0); } }
     .hero h1 .serif { font-size: 1.05em; color: var(--ink-2); }
-    .hero-sub { margin-top: 28px; max-width: 520px; font-size: 18px; color: var(--ink-2); opacity: 0; animation: fade 1s .5s var(--ease) forwards; }
+    .hero-sub { margin-top: 28px; max-width: 520px; font-size: 18px; color: var(--ink-2); }
+    .js .hero-sub { opacity: 0; animation: fade 1s .5s var(--ease) forwards; }
     @keyframes fade { to { opacity: 1; } }
-    .hero-ctas { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 12px; opacity: 0; animation: fade 1s .65s var(--ease) forwards; }
-    .hero-meta { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 28px; opacity: 0; animation: fade 1s .8s var(--ease) forwards; }
+    .hero-ctas { margin-top: 36px; display: flex; flex-wrap: wrap; gap: 12px; }
+    .js .hero-ctas { opacity: 0; animation: fade 1s .65s var(--ease) forwards; }
+    .hero-meta { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 28px; }
+    .js .hero-meta { opacity: 0; animation: fade 1s .8s var(--ease) forwards; }
     .hero-meta div strong { display: block; font-family: var(--font-display); font-size: 22px; letter-spacing: -.02em; }
     .hero-meta div span { font-size: 13px; color: var(--muted); }
 
@@ -337,8 +341,8 @@
       display: grid; place-items: center; overflow: hidden;
       transform: translate3d(var(--x,0), var(--y,0), 0) rotate(var(--r,0deg));
       transition: transform .6s var(--ease);
-      opacity: 0; animation: cardIn 1.2s var(--ease) forwards;
     }
+    .js .float-card { opacity: 0; animation: cardIn 1.2s var(--ease) forwards; }
     .float-card::before { content: ""; position: absolute; inset: 0; background: radial-gradient(120% 90% at 30% 10%, rgba(255,255,255,.55), transparent 60%); }
     .float-card svg { width: 68%; height: auto; color: var(--c); filter: drop-shadow(0 18px 24px rgba(20,20,20,.18)); position: relative; }
     .float-card .tag { position: absolute; left: 14px; bottom: 14px; background: rgba(255,255,255,.75); backdrop-filter: blur(8px); padding: 8px 12px; border-radius: 999px; font-size: 12px; font-weight: 600; display: flex; gap: 8px; align-items: center; }
@@ -535,8 +539,8 @@
     .toast.on { opacity: 1; transform: translate(-50%, 0); }
 
     /* ============ Reveal on scroll ============ */
-    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .9s var(--ease); }
-    .reveal.in { opacity: 1; transform: none; }
+    .js .reveal { opacity: 0; transform: translateY(28px); transition: opacity .8s var(--ease), transform .9s var(--ease); }
+    .js .reveal.in { opacity: 1; transform: none; }
     .reveal[data-delay="1"] { transition-delay: .1s; } .reveal[data-delay="2"] { transition-delay: .2s; } .reveal[data-delay="3"] { transition-delay: .3s; } .reveal[data-delay="4"] { transition-delay: .4s; } .reveal[data-delay="5"] { transition-delay: .5s; }
 
     /* ============ Responsive ============ */
@@ -547,8 +551,9 @@
     }
     @media (max-width: 860px) {
       .hero .container { grid-template-columns: 1fr; }
-      .hero-visual { height: 380px; order: -1; }
-      .float-card { width: 54%; }
+      .hero-visual { height: 300px; order: -1; }
+      .float-card { width: 50%; }
+      .float-card.c3 { width: 44%; top: 40%; }
       .story .container, .specs { grid-template-columns: 1fr; }
       .modal { grid-template-columns: 1fr; overflow: auto; }
       .modal-media { min-height: 300px; aspect-ratio: 4/3; }
@@ -586,6 +591,7 @@
 </head>
 
 <body>
+  <script>document.documentElement.classList.add('js')</script>
   <a class="sr-only" href="#drop">Aller au contenu principal</a>
 
   <!-- ============ Symboles SVG produits (placeholders d'images) ============ -->
@@ -709,7 +715,105 @@
             </div>
           </div>
         </div>
-        <div class="grid" id="productGrid" aria-live="polite"></div>
+        <!-- Grille pré-rendue (SEO + sans JS). Le script la régénère depuis PRODUCTS. -->
+        <div class="grid" id="productGrid" aria-live="polite">
+<article class="card reveal" data-delay="1" data-id="hoodie-origine" style="--c:#BFD3C1">
+          <div class="card-media">
+            <span class="badge ">Best-seller</span>
+            <svg role="img" aria-label="Hoodie Origine coloris Sauge (image placeholder)"><use href="#hoodie"></use></svg>
+            <div class="quick"><button class="btn btn-primary btn-sm" data-quick="hoodie-origine">Aperçu rapide</button></div>
+          </div>
+          <div class="card-body">
+            <div class="card-top">
+              <div><h3><a href="#" data-quick="hoodie-origine">Hoodie Origine</a></h3><p class="sub">Oversize · 400 g/m²</p></div>
+              <p class="price">68,00&nbsp;€</p>
+            </div>
+            <div class="swatches" role="group" aria-label="Coloris">
+              <button class="swatch" style="--sw:#BFD3C1" aria-label="Sauge" aria-pressed="true" data-swatch="sauge"></button><button class="swatch" style="--sw:#CFC4E6" aria-label="Lavande" aria-pressed="false" data-swatch="lavande"></button><button class="swatch" style="--sw:#E9D8B8" aria-label="Sable" aria-pressed="false" data-swatch="sable"></button>
+            </div>
+          </div>
+        </article>
+        <article class="card reveal" data-delay="2" data-id="tee-essentiel" style="--c:#BFD6EA">
+          <div class="card-media">
+            <span class="badge ">Nouveau</span>
+            <svg role="img" aria-label="T-shirt Essentiel coloris Ciel (image placeholder)"><use href="#tee"></use></svg>
+            <div class="quick"><button class="btn btn-primary btn-sm" data-quick="tee-essentiel">Aperçu rapide</button></div>
+          </div>
+          <div class="card-body">
+            <div class="card-top">
+              <div><h3><a href="#" data-quick="tee-essentiel">T-shirt Essentiel</a></h3><p class="sub">Boxy · 240 g/m²</p></div>
+              <p class="price">38,00&nbsp;€</p>
+            </div>
+            <div class="swatches" role="group" aria-label="Coloris">
+              <button class="swatch" style="--sw:#BFD6EA" aria-label="Ciel" aria-pressed="true" data-swatch="ciel"></button><button class="swatch" style="--sw:#E8B8A6" aria-label="Argile" aria-pressed="false" data-swatch="argile"></button><button class="swatch" style="--sw:#ECE8E1" aria-label="Craie" aria-pressed="false" data-swatch="craie"></button>
+            </div>
+          </div>
+        </article>
+        <article class="card reveal" data-delay="3" data-id="hoodie-zip" style="--c:#E9D8B8">
+          <div class="card-media">
+            <span class="badge dark">Édition limitée</span>
+            <svg role="img" aria-label="Hoodie Zip Origine coloris Sable (image placeholder)"><use href="#hoodie"></use></svg>
+            <div class="quick"><button class="btn btn-primary btn-sm" data-quick="hoodie-zip">Aperçu rapide</button></div>
+          </div>
+          <div class="card-body">
+            <div class="card-top">
+              <div><h3><a href="#" data-quick="hoodie-zip">Hoodie Zip Origine</a></h3><p class="sub">Oversize · 400 g/m²</p></div>
+              <p class="price">78,00&nbsp;€</p>
+            </div>
+            <div class="swatches" role="group" aria-label="Coloris">
+              <button class="swatch" style="--sw:#E9D8B8" aria-label="Sable" aria-pressed="true" data-swatch="sable"></button><button class="swatch" style="--sw:#BFD3C1" aria-label="Sauge" aria-pressed="false" data-swatch="sauge"></button>
+            </div>
+          </div>
+        </article>
+        <article class="card reveal" data-delay="1" data-id="tee-ls" style="--c:#ECE8E1">
+          <div class="card-media">
+            
+            <svg role="img" aria-label="T-shirt Manches longues coloris Craie (image placeholder)"><use href="#tee"></use></svg>
+            <div class="quick"><button class="btn btn-primary btn-sm" data-quick="tee-ls">Aperçu rapide</button></div>
+          </div>
+          <div class="card-body">
+            <div class="card-top">
+              <div><h3><a href="#" data-quick="tee-ls">T-shirt Manches longues</a></h3><p class="sub">Boxy · 240 g/m²</p></div>
+              <p class="price">44,00&nbsp;€</p>
+            </div>
+            <div class="swatches" role="group" aria-label="Coloris">
+              <button class="swatch" style="--sw:#ECE8E1" aria-label="Craie" aria-pressed="true" data-swatch="craie"></button><button class="swatch" style="--sw:#CFC4E6" aria-label="Lavande" aria-pressed="false" data-swatch="lavande"></button><button class="swatch" style="--sw:#BFD6EA" aria-label="Ciel" aria-pressed="false" data-swatch="ciel"></button>
+            </div>
+          </div>
+        </article>
+        <article class="card reveal" data-delay="2" data-id="pack-duo" style="--c:#BFD3C1">
+          <div class="card-media">
+            <span class="badge dark">-15 %</span>
+            <svg role="img" aria-label="Pack Duo coloris Sauge (image placeholder)"><use href="#hoodie"></use></svg>
+            <div class="quick"><button class="btn btn-primary btn-sm" data-quick="pack-duo">Aperçu rapide</button></div>
+          </div>
+          <div class="card-body">
+            <div class="card-top">
+              <div><h3><a href="#" data-quick="pack-duo">Pack Duo</a></h3><p class="sub">Hoodie + T-shirt · -15 %</p></div>
+              <p class="price"><s style="opacity:.4;font-weight:500;margin-right:6px">106,00&nbsp;€</s>90,00&nbsp;€</p>
+            </div>
+            <div class="swatches" role="group" aria-label="Coloris">
+              <button class="swatch" style="--sw:#BFD3C1" aria-label="Sauge" aria-pressed="true" data-swatch="sauge"></button><button class="swatch" style="--sw:#CFC4E6" aria-label="Lavande" aria-pressed="false" data-swatch="lavande"></button><button class="swatch" style="--sw:#E9D8B8" aria-label="Sable" aria-pressed="false" data-swatch="sable"></button>
+            </div>
+          </div>
+        </article>
+        <article class="card reveal" data-delay="3" data-id="beanie" style="--c:#BFD3C1">
+          <div class="card-media">
+            
+            <svg role="img" aria-label="Bonnet Côtelé coloris Sauge (image placeholder)"><use href="#tee"></use></svg>
+            <div class="quick"><button class="btn btn-primary btn-sm" data-quick="beanie">Aperçu rapide</button></div>
+          </div>
+          <div class="card-body">
+            <div class="card-top">
+              <div><h3><a href="#" data-quick="beanie">Bonnet Côtelé</a></h3><p class="sub">Laine mérinos</p></div>
+              <p class="price">28,00&nbsp;€</p>
+            </div>
+            <div class="swatches" role="group" aria-label="Coloris">
+              <button class="swatch" style="--sw:#BFD3C1" aria-label="Sauge" aria-pressed="true" data-swatch="sauge"></button><button class="swatch" style="--sw:#E8B8A6" aria-label="Argile" aria-pressed="false" data-swatch="argile"></button><button class="swatch" style="--sw:#ECE8E1" aria-label="Craie" aria-pressed="false" data-swatch="craie"></button>
+            </div>
+          </div>
+        </article>
+        </div>
       </div>
     </section>
 
