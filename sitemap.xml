@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>https://kodaclothing.fr/</loc>
+    <lastmod>2026-10-19</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <image:image><image:loc>https://kodaclothing.fr/og/drop-01.jpg</image:loc><image:title>KODA Drop 01</image:title></image:image>
+  </url>
+  <url><loc>https://kodaclothing.fr/produits/hoodie-origine-sauge</loc><lastmod>2026-10-19</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kodaclothing.fr/produits/hoodie-origine-lavande</loc><lastmod>2026-10-19</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kodaclothing.fr/produits/hoodie-origine-sable</loc><lastmod>2026-10-19</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kodaclothing.fr/produits/tee-essentiel-ciel</loc><lastmod>2026-10-19</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kodaclothing.fr/produits/tee-essentiel-argile</loc><lastmod>2026-10-19</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kodaclothing.fr/produits/tee-essentiel-craie</loc><lastmod>2026-10-19</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://kodaclothing.fr/livraison</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://kodaclothing.fr/cgv</loc><changefreq>yearly</changefreq><priority>0.2</priority></url>
+</urlset>
