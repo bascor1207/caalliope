@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /panier
+Disallow: /checkout
+Disallow: /compte
+
+Sitemap: https://kodaclothing.fr/sitemap.xml
