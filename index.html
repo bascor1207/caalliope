@@ -219,7 +219,7 @@
       font-size: 16px;
       line-height: 1.55;
       -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
+      overflow-x: clip;
     }
     img, svg { display: block; max-width: 100%; }
     a { color: inherit; text-decoration: none; }
@@ -529,6 +529,89 @@
     .reassure svg { width: 16px; height: 16px; flex: none; }
     .modal-desc { color: var(--ink-2); font-size: 15px; }
 
+    /* ============ Onglets filtre ============ */
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+    .tab { padding: 10px 16px; border-radius: 999px; border: 1.5px solid var(--line); font-family: var(--font-display); font-weight: 700; font-size: 13px; display: inline-flex; gap: 8px; align-items: center; transition: all .25s; }
+    .tab span { font-family: var(--font-body); font-weight: 500; font-size: 12px; color: var(--muted); }
+    .tab:hover { border-color: var(--ink); }
+    .tab[aria-selected="true"] { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+    .tab[aria-selected="true"] span { color: rgba(246,241,234,.6); }
+    .grid-empty { grid-column: 1 / -1; text-align: center; padding: 60px 20px; color: var(--muted); }
+    .card.hide { display: none; }
+    .nav a.active::after { transform: scaleX(1); transform-origin: left; }
+    .float-card { cursor: pointer; }
+
+    /* ============ Recherche ============ */
+    .search { position: fixed; top: 8vh; left: 50%; transform: translateX(-50%); margin: 0; width: min(640px, calc(100vw - 24px)); border-radius: var(--radius); background: var(--cream); display: none; overflow: hidden; max-height: 80vh; transition: opacity .3s, transform .4s var(--ease), display .4s allow-discrete, overlay .4s allow-discrete; }
+    .search[open] { display: flex; flex-direction: column; opacity: 1; transform: translateX(-50%) translateY(0); }
+    @starting-style { .search[open] { opacity: 0; transform: translateX(-50%) translateY(-12px); } }
+    .search-bar { display: flex; align-items: center; gap: 12px; padding: 16px 18px; border-bottom: 1px solid var(--line); }
+    .search-bar input { flex: 1; min-width: 0; border: 0; background: transparent; font: inherit; font-size: 18px; outline: none; }
+    .search-bar input::-webkit-search-cancel-button { display: none; }
+    .search-bar kbd { font: 11px var(--font-body); padding: 3px 7px; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); }
+    .search-results { overflow: auto; padding: 8px; }
+    .search-hit { display: grid; grid-template-columns: 52px 1fr auto; gap: 14px; align-items: center; padding: 10px; border-radius: 12px; width: 100%; text-align: left; transition: background .2s; }
+    .search-hit:hover, .search-hit:focus-visible { background: rgba(20,20,20,.06); }
+    .search-hit .thumb { width: 52px; aspect-ratio: 4/5; border-radius: 8px; background: var(--c); display: grid; place-items: center; }
+    .search-hit .thumb svg { width: 60%; color: var(--c); }
+    .search-hit b { display: block; font-size: 14px; }
+    .search-hit small { color: var(--muted); font-size: 12px; }
+    .search-hit mark { background: var(--butter); border-radius: 3px; padding: 0 2px; }
+    .search-empty { padding: 36px 18px; text-align: center; color: var(--muted); font-size: 14px; }
+    .search-tags { display: flex; gap: 8px; flex-wrap: wrap; padding: 12px 10px 14px; }
+    .search-tags button { font-size: 12px; padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); }
+    .search-tags button:hover { border-color: var(--ink); }
+
+    /* ============ Checkout ============ */
+    .checkout { position: fixed; inset: 0; margin: auto; width: min(1040px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); border-radius: var(--radius); background: var(--cream); display: none; grid-template-columns: 1.15fr .85fr; overflow: auto; transition: opacity .35s, transform .45s var(--ease), display .45s allow-discrete, overlay .45s allow-discrete; }
+    .checkout[open] { display: grid; opacity: 1; transform: none; }
+    @starting-style { .checkout[open] { opacity: 0; transform: translateY(16px) scale(.98); } }
+    .checkout-main { padding: 36px 32px; }
+    .checkout-side { padding: 36px 28px; background: var(--cream-2); border-left: 1px solid var(--line); }
+    .checkout form { display: grid; gap: 22px; margin-top: 22px; }
+    .checkout fieldset { border: 0; padding: 0; margin: 0; display: grid; gap: 12px; }
+    .checkout legend { font-family: var(--font-display); font-weight: 700; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
+    .checkout label { display: grid; gap: 6px; font-size: 13px; font-weight: 600; }
+    .checkout input:not([type=radio]) { font: inherit; padding: 12px 14px; border-radius: 10px; border: 1.5px solid var(--line); background: #fff; outline: none; transition: border-color .2s; }
+    .checkout input:not([type=radio]):focus { border-color: var(--ink); }
+    .checkout input.invalid { border-color: #C0392B; }
+    .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .pay { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .pay-opt { display: flex !important; align-items: center; gap: 10px; padding: 12px 14px; border: 1.5px solid var(--line); border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 13px; }
+    .pay-opt:has(:checked) { border-color: var(--ink); background: #fff; }
+    .pay-opt input { accent-color: var(--ink); margin: 0; }
+    .hint { font-size: 12px; color: var(--muted); }
+    .co-line { display: grid; grid-template-columns: 44px 1fr auto; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 13px; }
+    .co-line .thumb { width: 44px; aspect-ratio: 4/5; border-radius: 8px; background: var(--c); display: grid; place-items: center; }
+    .co-line .thumb svg { width: 60%; color: var(--c); }
+    .co-line small { color: var(--muted); display: block; }
+    .sum { display: flex; justify-content: space-between; font-size: 14px; padding-top: 12px; color: var(--ink-2); }
+    .sum.total { font-family: var(--font-display); font-weight: 700; font-size: 18px; color: var(--ink); border-top: 1px solid var(--line); margin-top: 12px; padding-top: 16px; }
+    .checkout-done { grid-column: 1 / -1; padding: 60px 32px; text-align: center; max-width: 520px; margin: 0 auto; }
+    .checkout-done .check { width: 72px; height: 72px; border-radius: 50%; background: var(--sage); display: grid; place-items: center; margin: 0 auto 24px; }
+    .checkout.done .checkout-main, .checkout.done .checkout-side { display: none; }
+
+    /* ============ Infos / guide des tailles ============ */
+    .info { position: fixed; inset: 0; margin: auto; width: min(720px, calc(100vw - 24px)); max-height: calc(100dvh - 24px); border-radius: var(--radius); background: var(--cream); padding: 36px 32px; display: none; overflow: auto; transition: opacity .35s, transform .45s var(--ease), display .45s allow-discrete, overlay .45s allow-discrete; }
+    .info[open] { display: block; opacity: 1; transform: none; }
+    @starting-style { .info[open] { opacity: 0; transform: translateY(16px) scale(.98); } }
+    .table { width: 100%; border-collapse: collapse; font-size: 14px; font-variant-numeric: tabular-nums; }
+    .table th, .table td { padding: 10px 8px; text-align: center; border-bottom: 1px solid var(--line); }
+    .table th { font-family: var(--font-display); font-size: 12px; letter-spacing: .06em; }
+    .table tbody th { text-align: left; font-family: var(--font-body); font-weight: 600; font-size: 13px; }
+    .info-body { color: var(--ink-2); font-size: 15px; display: grid; gap: 14px; }
+    .info-body h3 { font-size: 16px; color: var(--ink); margin-top: 8px; }
+    .info-body ul { list-style: disc; padding-left: 20px; display: grid; gap: 6px; }
+
+    @media (max-width: 860px) {
+      .checkout { grid-template-columns: 1fr; }
+      .checkout-side { border-left: 0; border-top: 1px solid var(--line); order: -1; padding: 24px; }
+      .checkout-main { padding: 24px; }
+      .pay { grid-template-columns: 1fr; }
+      .info { padding: 28px 20px; }
+      .search { top: 12px; }
+    }
+
     /* ============ Toast ============ */
     .toast {
       position: fixed; left: 50%; bottom: 24px; transform: translate(-50%, 20px); z-index: 100;
@@ -634,14 +717,14 @@
       </button>
       <a class="brand" href="/" aria-label="KODA Clothing, accueil"><span class="dot" aria-hidden="true"></span>KODA</a>
       <nav class="nav" aria-label="Navigation principale">
-        <a href="#drop">Drop 01</a>
+        <a href="#drop" data-filter="all">Drop 01</a>
         <a href="#drop" data-filter="hoodie">Hoodies</a>
         <a href="#drop" data-filter="tee">T-shirts</a>
         <a href="#histoire">Notre histoire</a>
         <a href="#faq">FAQ</a>
       </nav>
       <div class="header-actions">
-        <button class="icon-btn" aria-label="Rechercher">
+        <button class="icon-btn" aria-label="Rechercher" data-open-search>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         </button>
         <button class="icon-btn" aria-label="Ouvrir le panier" data-open-cart>
@@ -680,10 +763,10 @@
             <div><strong>4.9 ★</strong><span>sur 212 avis Drop 00</span></div>
           </div>
         </div>
-        <div class="hero-visual" id="heroVisual" aria-hidden="true">
-          <div class="float-card c1"><svg><use href="#hoodie"/></svg><div class="tag"><b>Hoodie Origine</b> Sauge · 68 €</div></div>
-          <div class="float-card c2"><svg><use href="#hoodie"/></svg><div class="tag"><b>Hoodie Origine</b> Lavande · 68 €</div></div>
-          <div class="float-card c3"><svg><use href="#tee"/></svg><div class="tag"><b>Tee Essentiel</b> Craie · 38 €</div></div>
+        <div class="hero-visual" id="heroVisual">
+          <div class="float-card c1" data-quick="hoodie-origine" data-color="sauge"><svg><use href="#hoodie"/></svg><div class="tag"><b>Hoodie Origine</b> Sauge · 68 €</div></div>
+          <div class="float-card c2" data-quick="hoodie-origine" data-color="lavande"><svg><use href="#hoodie"/></svg><div class="tag"><b>Hoodie Origine</b> Lavande · 68 €</div></div>
+          <div class="float-card c3" data-quick="tee-essentiel" data-color="craie"><svg><use href="#tee"/></svg><div class="tag"><b>Tee Essentiel</b> Craie · 38 €</div></div>
         </div>
       </div>
       <div class="scroll-hint" aria-hidden="true"><i></i>Scroll</div>
@@ -714,6 +797,12 @@
               <div class="unit"><b data-s>00</b><span>sec</span></div>
             </div>
           </div>
+        </div>
+        <div class="tabs reveal" role="tablist" aria-label="Filtrer le drop" id="tabs">
+          <button class="tab" role="tab" aria-selected="true" data-filter="all">Tout <span>6</span></button>
+          <button class="tab" role="tab" aria-selected="false" data-filter="hoodie">Hoodies <span>2</span></button>
+          <button class="tab" role="tab" aria-selected="false" data-filter="tee">T-shirts <span>2</span></button>
+          <button class="tab" role="tab" aria-selected="false" data-filter="more">Packs & accessoires <span>2</span></button>
         </div>
         <!-- Grille pré-rendue (SEO + sans JS). Le script la régénère depuis PRODUCTS. -->
         <div class="grid" id="productGrid" aria-live="polite">
@@ -914,9 +1003,9 @@
           <a class="brand" href="/"><span class="dot" aria-hidden="true"></span>KODA</a>
           <p>Hoodies et t-shirts premium, nés d'une amitié. Qualité, authenticité, respect. Fabriqué en petite série, expédié depuis la France.</p>
         </div>
-        <div><h4>Boutique</h4><ul><li><a href="#drop">Drop 01</a></li><li><a href="#drop">Hoodies</a></li><li><a href="#drop">T-shirts</a></li><li><a href="#faq">Guide des tailles</a></li></ul></div>
+        <div><h4>Boutique</h4><ul><li><a href="#drop" data-filter="all">Drop 01</a></li><li><a href="#drop" data-filter="hoodie">Hoodies</a></li><li><a href="#drop" data-filter="tee">T-shirts</a></li><li><a href="#drop" data-filter="more">Packs & accessoires</a></li><li><a href="#guide-tailles" data-open-sizes>Guide des tailles</a></li></ul></div>
         <div><h4>Marque</h4><ul><li><a href="#histoire">Notre histoire</a></li><li><a href="#faq">FAQ</a></li><li><a href="https://www.instagram.com/kodaclothingcompany/" rel="noopener" target="_blank">Instagram</a></li><li><a href="https://www.tiktok.com/@kodaclothing" rel="noopener" target="_blank">TikTok</a></li></ul></div>
-        <div><h4>Infos</h4><ul><li><a href="/livraison">Livraison & retours</a></li><li><a href="/cgv">CGV</a></li><li><a href="/confidentialite">Confidentialité</a></li><li><a href="mailto:hello@kodaclothing.fr">Contact</a></li></ul></div>
+        <div><h4>Infos</h4><ul><li><a href="#livraison" data-info="livraison">Livraison & retours</a></li><li><a href="#cgv" data-info="cgv">CGV</a></li><li><a href="#confidentialite" data-info="confidentialite">Confidentialité</a></li><li><a href="mailto:hello@kodaclothing.fr">Contact</a></li></ul></div>
       </div>
       <div class="foot-bottom">
         <span>© <span id="year">2026</span> KODA Clothing · Tous droits réservés</span>
@@ -931,7 +1020,8 @@
     <button class="icon-btn close" aria-label="Fermer le menu" data-close>
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
     </button>
-    <a href="#drop" data-close>Drop 01</a><a href="#drop" data-close>Hoodies</a><a href="#drop" data-close>T-shirts</a><a href="#histoire" data-close>Histoire</a><a href="#faq" data-close>FAQ</a>
+    <a href="#drop" data-close data-filter="all">Drop 01</a><a href="#drop" data-close data-filter="hoodie">Hoodies</a><a href="#drop" data-close data-filter="tee">T-shirts</a><a href="#histoire" data-close>Histoire</a><a href="#faq" data-close>FAQ</a>
+    <button class="btn btn-ghost btn-sm" data-close data-open-search style="justify-self:start;margin-top:20px">Rechercher une pièce</button>
   </dialog>
 
   <!-- ============ Drawer panier ============ -->
@@ -970,16 +1060,107 @@
         <div class="swatches" id="modalSwatches"></div>
       </div>
       <div>
-        <div class="opt-label">Taille <span><a href="#faq" data-close style="text-decoration:underline;text-underline-offset:3px">Guide des tailles</a></span></div>
+        <div class="opt-label">Taille <span><a href="#guide-tailles" data-open-sizes style="text-decoration:underline;text-underline-offset:3px">Guide des tailles</a></span></div>
         <div class="sizes" id="modalSizes"></div>
       </div>
       <button class="btn btn-primary" id="modalAdd">Précommander · <span id="modalAddPrice"></span></button>
       <ul class="reassure">
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 7h13v10H3zM16 10h4l1 3v4h-5"/><circle cx="7" cy="18" r="1.5"/><circle cx="18" cy="18" r="1.5"/></svg>Livraison offerte dès 80 €, expédié depuis la France</li>
-        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4"/></svg>Retours gratuits 30 jours</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 12a8 8 0 1 0 2.3-5.6M4 4v4h4"/></svg><a href="#livraison" data-info="livraison" style="text-decoration:underline;text-underline-offset:3px">Retours gratuits 30 jours</a></li>
         <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3l7 4v5c0 5-3.5 8-7 9-3.5-1-7-4-7-9V7z"/></svg>Paiement sécurisé · Apple Pay, CB, PayPal</li>
       </ul>
     </div>
+  </dialog>
+
+  <!-- ============ Recherche ============ -->
+  <dialog class="search" id="searchDialog" aria-label="Rechercher">
+    <form class="search-bar" role="search" onsubmit="return false">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="searchInput" type="search" placeholder="Hoodie, lavande, zip, pack…" autocomplete="off" aria-label="Rechercher une pièce">
+      <kbd>Esc</kbd>
+    </form>
+    <div class="search-results" id="searchResults"></div>
+  </dialog>
+
+  <!-- ============ Checkout ============ -->
+  <dialog class="checkout" id="checkoutDialog" aria-labelledby="checkout-title">
+    <button class="icon-btn modal-close" aria-label="Fermer" data-close>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <div class="checkout-main" id="checkoutMain">
+      <p class="eyebrow">Précommande · Drop 01</p>
+      <h2 id="checkout-title" style="font-size:30px;letter-spacing:-.03em;margin-top:8px">Finaliser la commande</h2>
+      <form id="checkoutForm" novalidate>
+        <fieldset>
+          <legend>Contact</legend>
+          <label>E-mail<input name="email" type="email" autocomplete="email" required placeholder="ton@email.fr"></label>
+        </fieldset>
+        <fieldset>
+          <legend>Livraison</legend>
+          <div class="row2">
+            <label>Prénom<input name="firstName" autocomplete="given-name" required></label>
+            <label>Nom<input name="lastName" autocomplete="family-name" required></label>
+          </div>
+          <label>Adresse<input name="address" autocomplete="street-address" required placeholder="12 rue de la Paix"></label>
+          <div class="row2">
+            <label>Code postal<input name="zip" autocomplete="postal-code" inputmode="numeric" pattern="[0-9]{5}" required placeholder="75002"></label>
+            <label>Ville<input name="city" autocomplete="address-level2" required></label>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Paiement</legend>
+          <div class="pay">
+            <label class="pay-opt"><input type="radio" name="pay" value="card" checked><span>Carte bancaire</span></label>
+            <label class="pay-opt"><input type="radio" name="pay" value="applepay"><span>Apple Pay</span></label>
+            <label class="pay-opt"><input type="radio" name="pay" value="paypal"><span>PayPal</span></label>
+          </div>
+          <p class="hint">POC : aucun paiement réel. Stripe Checkout sera branché à l'étape Next.js.</p>
+        </fieldset>
+        <button class="btn btn-primary" type="submit" id="payBtn">Payer <span id="payTotal"></span></button>
+        <p class="hint" style="text-align:center">En validant, tu acceptes les <a href="#cgv" data-info="cgv" style="text-decoration:underline">CGV</a>. Expédition 3-4 semaines après clôture du drop.</p>
+      </form>
+    </div>
+    <aside class="checkout-side">
+      <h3 style="font-size:16px;margin-bottom:14px">Récap</h3>
+      <div id="checkoutLines"></div>
+      <div class="sum"><span>Sous-total</span><span id="sumSub"></span></div>
+      <div class="sum"><span>Livraison</span><span id="sumShip"></span></div>
+      <div class="sum total"><span>Total TTC</span><span id="sumTotal"></span></div>
+    </aside>
+    <div class="checkout-done" id="checkoutDone" hidden>
+      <div class="check"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5L20 7"/></svg></div>
+      <p class="eyebrow">Commande confirmée</p>
+      <h2 style="font-size:34px;letter-spacing:-.03em;margin-top:8px">Merci, <span class="serif" id="doneName"></span></h2>
+      <p style="margin-top:14px;color:var(--ink-2)">Commande <b id="doneRef"></b>. Un récap part sur <b id="doneEmail"></b>. Ta pièce entre en production à la clôture du drop, tu reçois le suivi dès l'expédition.</p>
+      <button class="btn btn-primary" data-close style="margin-top:28px">Retour à la boutique</button>
+    </div>
+  </dialog>
+
+  <!-- ============ Guide des tailles ============ -->
+  <dialog class="info" id="sizesDialog" aria-labelledby="sizes-title">
+    <button class="icon-btn modal-close" aria-label="Fermer" data-close>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <p class="eyebrow">Guide des tailles</p>
+    <h2 id="sizes-title" style="font-size:30px;letter-spacing:-.03em;margin:8px 0 6px">Trouve <span class="serif">ta coupe.</span></h2>
+    <p style="color:var(--ink-2);margin-bottom:20px">Mesures du vêtement à plat, en cm. Hoodies coupe oversize : prends ta taille habituelle pour un rendu ample, une taille en dessous pour un rendu ajusté. T-shirts coupe boxy, fidèle à la taille.</p>
+    <h3 style="font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Hoodie Origine</h3>
+    <table class="table"><thead><tr><th>Taille</th><th>XS</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th></tr></thead>
+      <tbody><tr><th>Poitrine</th><td>58</td><td>61</td><td>64</td><td>67</td><td>70</td><td>73</td></tr><tr><th>Longueur</th><td>66</td><td>68</td><td>70</td><td>72</td><td>74</td><td>76</td></tr><tr><th>Manche</th><td>58</td><td>59</td><td>60</td><td>61</td><td>62</td><td>63</td></tr></tbody></table>
+    <h3 style="font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px">T-shirt Essentiel</h3>
+    <table class="table"><thead><tr><th>Taille</th><th>XS</th><th>S</th><th>M</th><th>L</th><th>XL</th><th>XXL</th></tr></thead>
+      <tbody><tr><th>Poitrine</th><td>52</td><td>55</td><td>58</td><td>61</td><td>64</td><td>67</td></tr><tr><th>Longueur</th><td>66</td><td>68</td><td>70</td><td>72</td><td>74</td><td>76</td></tr></tbody></table>
+    <p class="hint" style="margin-top:16px">Entre deux tailles ? Écris-nous sur Instagram, on te répond dans la journée.</p>
+  </dialog>
+
+  <!-- ============ Pages d'infos ============ -->
+  <dialog class="info" id="infoDialog" aria-labelledby="info-title">
+    <button class="icon-btn modal-close" aria-label="Fermer" data-close>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+    </button>
+    <p class="eyebrow" id="infoEyebrow"></p>
+    <h2 id="info-title" style="font-size:30px;letter-spacing:-.03em;margin:8px 0 18px"></h2>
+    <div class="info-body" id="infoBody"></div>
   </dialog>
 
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
@@ -1025,12 +1206,14 @@
         colors: ['sauge', 'argile', 'craie'], sizes: ['TU'], soldOut: [] },
     ];
 
-    const state = { cart: [], modal: { product: null, color: null, size: null } };
+    const state = { cart: [], filter: 'all', modal: { product: null, color: null, size: null } };
+    const ORDERS = []; // commandes in-memory (POC)
 
     const eur = n => n.toLocaleString('fr-FR', { style: 'currency', currency: 'EUR' });
     const $ = (s, r = document) => r.querySelector(s);
     const $$ = (s, r = document) => [...r.querySelectorAll(s)];
     const symbolFor = p => p.type === 'tee' ? '#tee' : p.type === 'acc' ? '#tee' : '#hoodie';
+    const matchFilter = (p, f) => f === 'all' || p.type === f || (f === 'more' && (p.type === 'pack' || p.type === 'acc'));
 
     /* ---------- Grille produits ---------- */
     function renderGrid() {
@@ -1054,8 +1237,39 @@
           </div>
         </article>`;
       }).join('');
+      applyFilter();
       observeReveal();
     }
+
+    /* ---------- Filtres (menu, onglets, footer) ---------- */
+    function applyFilter() {
+      const f = state.filter;
+      let n = 0;
+      $$('#productGrid .card').forEach(c => { const p = PRODUCTS.find(x => x.id === c.dataset.id); const ok = matchFilter(p, f); c.classList.toggle('hide', !ok); if (ok) n++; });
+      $('#productGrid .grid-empty')?.remove();
+      if (!n) $('#productGrid').insertAdjacentHTML('beforeend', '<p class="grid-empty">Rien dans cette catégorie pour ce drop.</p>');
+      $$('#tabs .tab').forEach(t => t.setAttribute('aria-selected', t.dataset.filter === f));
+      $$('.nav a[data-filter]').forEach(a => a.classList.toggle('active', a.dataset.filter === f && f !== 'all'));
+    }
+    function setFilter(f, scroll) {
+      state.filter = f; applyFilter();
+      $$('#productGrid .card:not(.hide)').forEach(c => c.classList.add('in'));
+      if (scroll) $('#drop').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    document.addEventListener('click', e => {
+      const a = e.target.closest('[data-filter]');
+      if (a) { e.preventDefault(); setFilter(a.dataset.filter, a.tagName === 'A'); }
+    });
+    $$('#tabs .tab').forEach(t => t.textContent.includes(' ') && (t.querySelector('span').textContent = PRODUCTS.filter(p => matchFilter(p, t.dataset.filter)).length));
+
+    /* ---------- Menu actif au scroll ---------- */
+    const navLinks = $$('.nav a');
+    const sectionIO = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      const id = '#' + e.target.id;
+      navLinks.forEach(a => { if (!a.dataset.filter || a.dataset.filter === 'all') a.classList.toggle('active', a.getAttribute('href') === id); });
+    }), { rootMargin: '-40% 0px -55% 0px' });
+    ['drop', 'histoire', 'faq'].forEach(id => sectionIO.observe(document.getElementById(id)));
 
     document.addEventListener('click', e => {
       const sw = e.target.closest('[data-swatch]');
@@ -1066,7 +1280,7 @@
         $('svg[role=img]', card).setAttribute('aria-label', `${PRODUCTS.find(p => p.id === card.dataset.id).name} coloris ${COLORS[sw.dataset.swatch].name}`);
       }
       const q = e.target.closest('[data-quick]');
-      if (q) { e.preventDefault(); const card = q.closest('.card'); openProduct(q.dataset.quick, card && $('.swatch[aria-pressed=true]', card)?.dataset.swatch); }
+      if (q) { e.preventDefault(); const card = q.closest('.card'); openProduct(q.dataset.quick, q.dataset.color || (card && $('.swatch[aria-pressed=true]', card)?.dataset.swatch)); }
     });
 
     /* ---------- Modale produit ---------- */
@@ -1142,7 +1356,95 @@
       if (r) { state.cart = state.cart.filter(l => l.key !== r.dataset.rm); renderCart(); }
       if (e.target === drawer) drawer.close();
     });
-    $('#checkoutBtn').addEventListener('click', () => toast('Checkout Stripe branché à l\'étape Next.js 🙂'));
+    $('#checkoutBtn').addEventListener('click', () => { drawer.close(); openCheckout(); });
+
+    /* ---------- Checkout in-memory ---------- */
+    const checkout = $('#checkoutDialog');
+    function cartTotals() {
+      const sub = state.cart.reduce((n, l) => n + l.qty * PRODUCTS.find(p => p.id === l.id).price, 0);
+      const ship = sub >= FREE_SHIPPING || sub === 0 ? 0 : 4.9;
+      return { sub, ship, total: sub + ship };
+    }
+    function openCheckout() {
+      if (!state.cart.length) return;
+      const { sub, ship, total } = cartTotals();
+      checkout.classList.remove('done'); $('#checkoutDone').hidden = true;
+      $('#checkoutLines').innerHTML = state.cart.map(l => { const p = PRODUCTS.find(p => p.id === l.id); return `
+        <div class="co-line" style="--c:${COLORS[l.color].hex}"><div class="thumb"><svg aria-hidden="true"><use href="${symbolFor(p)}"/></svg></div>
+        <div><b>${p.name}</b><small>${COLORS[l.color].name} · ${l.size} · × ${l.qty}</small></div><span>${eur(p.price * l.qty)}</span></div>`; }).join('');
+      $('#sumSub').textContent = eur(sub); $('#sumShip').textContent = ship ? eur(ship) : 'Offerte'; $('#sumTotal').textContent = eur(total); $('#payTotal').textContent = eur(total);
+      checkout.showModal(); $('#checkoutForm input[name=email]').focus();
+    }
+    $('#checkoutForm').addEventListener('submit', e => {
+      e.preventDefault();
+      const f = e.target; let ok = true;
+      $$('input:not([type=radio])', f).forEach(i => { const v = i.checkValidity(); i.classList.toggle('invalid', !v); if (!v && ok) { ok = false; i.focus(); } });
+      if (!ok) { toast('Vérifie les champs en rouge'); return; }
+      const d = Object.fromEntries(new FormData(f));
+      const ref = 'KODA-' + String(1000 + ORDERS.length + 1);
+      ORDERS.push({ ref, ...d, lines: structuredClone(state.cart), ...cartTotals(), at: new Date().toISOString() });
+      $('#doneName').textContent = d.firstName; $('#doneRef').textContent = ref; $('#doneEmail').textContent = d.email;
+      $('#checkoutDone').hidden = false; checkout.classList.add('done'); checkout.scrollTop = 0;
+      state.cart = []; renderCart(); f.reset();
+    });
+    checkout.addEventListener('click', e => { if (e.target === checkout) checkout.close(); });
+
+    /* ---------- Recherche ---------- */
+    const search = $('#searchDialog'), searchInput = $('#searchInput'), searchResults = $('#searchResults');
+    const TAGS = ['hoodie', 'lavande', 'zip', 'pack', 'bonnet', 'manches longues'];
+    function openSearch() { search.showModal(); searchInput.value = ''; renderSearch(''); setTimeout(() => searchInput.focus(), 50); }
+    function norm(s) { return s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
+    function renderSearch(q) {
+      q = q.trim();
+      if (!q) { searchResults.innerHTML = `<div class="search-tags">${TAGS.map(t => `<button type="button" data-tag="${t}">${t}</button>`).join('')}</div>`; return; }
+      const nq = norm(q);
+      const hits = PRODUCTS.flatMap(p => p.colors.filter(c => norm(`${p.name} ${p.sub} ${p.desc} ${COLORS[c].name} ${p.type}`).includes(nq)).map(c => ({ p, c }))).slice(0, 8);
+      const hl = s => s.replace(new RegExp(`(${q.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'ig'), '<mark>$1</mark>');
+      searchResults.innerHTML = hits.length ? hits.map(({ p, c }) => `
+        <button class="search-hit" data-quick="${p.id}" data-color="${c}" style="--c:${COLORS[c].hex}">
+          <div class="thumb"><svg aria-hidden="true"><use href="${symbolFor(p)}"/></svg></div>
+          <div><b>${hl(p.name)} · ${hl(COLORS[c].name)}</b><small>${hl(p.sub)}</small></div><span class="price">${eur(p.price)}</span>
+        </button>`).join('') : `<p class="search-empty">Aucune pièce pour « ${q} ». Essaie « hoodie » ou « tee ».</p>`;
+    }
+    searchInput.addEventListener('input', () => renderSearch(searchInput.value));
+    searchResults.addEventListener('click', e => {
+      const t = e.target.closest('[data-tag]'); if (t) { searchInput.value = t.dataset.tag; renderSearch(t.dataset.tag); searchInput.focus(); }
+      if (e.target.closest('[data-quick]')) search.close();
+    });
+    search.addEventListener('click', e => { if (e.target === search) search.close(); });
+    $$('[data-open-search]').forEach(b => b.addEventListener('click', openSearch));
+    document.addEventListener('keydown', e => { if ((e.key === 'k' && (e.metaKey || e.ctrlKey)) || (e.key === '/' && !/input|textarea/i.test(e.target.tagName))) { e.preventDefault(); openSearch(); } });
+
+    /* ---------- Guide des tailles & pages d'infos ---------- */
+    const INFO = {
+      livraison: { title: 'Livraison & retours', body: `
+        <h3>Livraison</h3><p>Colissimo suivi, expédié depuis notre atelier en France. Offerte dès ${eur(FREE_SHIPPING)}, sinon ${eur(4.9)}. Europe : 9,90 €.</p>
+        <p>Précommandes : production lancée à la clôture du drop, expédition 3 à 4 semaines après. Tu reçois le suivi par e-mail.</p>
+        <h3>Retours</h3><ul><li>30 jours après réception pour changer d'avis.</li><li>Article non porté, non lavé, étiquettes attachées.</li><li>Étiquette de retour offerte en France métropolitaine, remboursement sous 5 jours après réception.</li><li>Échange de taille prioritaire tant que le stock le permet.</li></ul>` },
+      cgv: { title: 'Conditions générales de vente', body: `
+        <p>Texte de démonstration pour le POC, à remplacer par les CGV rédigées pour KODA Clothing.</p>
+        <h3>1. Commande</h3><p>Toute commande vaut acceptation des prix et descriptions des produits disponibles à la vente. Les précommandes sont débitées à la commande et produites à la clôture du drop.</p>
+        <h3>2. Prix</h3><p>Prix en euros TTC. Frais de livraison indiqués avant validation.</p>
+        <h3>3. Rétractation</h3><p>14 jours légaux, étendus à 30 jours par KODA, à compter de la réception.</p>
+        <h3>4. Garanties</h3><p>Garantie légale de conformité et des vices cachés selon le Code de la consommation.</p>` },
+      confidentialite: { title: 'Confidentialité', body: `
+        <p>Texte de démonstration pour le POC.</p>
+        <h3>Données collectées</h3><p>E-mail, nom et adresse, uniquement pour traiter ta commande et t'envoyer les infos de drop si tu t'es inscrit. Aucune revente.</p>
+        <h3>Cookies</h3><p>Aucun cookie publicitaire. Mesure d'audience anonymisée uniquement.</p>
+        <h3>Tes droits</h3><p>Accès, rectification, suppression : écris à hello@kodaclothing.fr.</p>` },
+    };
+    function openInfo(key) {
+      const i = INFO[key]; if (!i) return;
+      $('#infoEyebrow').textContent = 'Infos'; $('#info-title').textContent = i.title; $('#infoBody').innerHTML = i.body;
+      $('#infoDialog').showModal(); $('#infoDialog').scrollTop = 0;
+    }
+    document.addEventListener('click', e => {
+      const i = e.target.closest('[data-info]'); if (i) { e.preventDefault(); openInfo(i.dataset.info); }
+      const s = e.target.closest('[data-open-sizes]'); if (s) { e.preventDefault(); $('#sizesDialog').showModal(); }
+    });
+    ['#infoDialog', '#sizesDialog'].forEach(id => $(id).addEventListener('click', e => { if (e.target === e.currentTarget) e.currentTarget.close(); }));
+    if (location.hash === '#guide-tailles') $('#sizesDialog').showModal();
+    if (INFO[location.hash.slice(1)]) openInfo(location.hash.slice(1));
 
     /* ---------- Dialogs génériques ---------- */
     $$('[data-open-cart]').forEach(b => b.addEventListener('click', () => { renderCart(); drawer.showModal(); }));
