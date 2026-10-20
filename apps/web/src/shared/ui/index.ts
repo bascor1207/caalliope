@@ -6,6 +6,7 @@ export { Countdown, type Remaining, splitRemaining, useRemaining } from "./count
 export { Input } from "./input";
 export { JsonLd } from "./json-ld";
 export { Label } from "./label";
+export { endNavigation, NavigationLoader, startNavigation } from "./navigation-loader";
 export { Price, useMoney } from "./price";
 export { ProductArt } from "./product-art";
 export { RadioCard, RadioGroup } from "./radio-group";

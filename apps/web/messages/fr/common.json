@@ -5,7 +5,8 @@
     "breadcrumb": "Fil d'Ariane",
     "colors": "Coloris",
     "sizes": "Taille",
-    "announcements": "Annonces"
+    "announcements": "Annonces",
+    "loading": "Chargement de la page"
   },
   "actions": {
     "close": "Fermer",

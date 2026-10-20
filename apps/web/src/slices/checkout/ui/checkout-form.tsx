@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { Link, useRouter } from "@/i18n/navigation";
 import { eventBus } from "@/shared/event-bus";
 import type { Locale } from "@/shared/kernel/locale";
-import { Button, Input, Label, ProductArt, RadioCard, RadioGroup, useMoney } from "@/shared/ui";
+import { Button, Input, Label, ProductArt, RadioCard, RadioGroup, startNavigation, useMoney } from "@/shared/ui";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { checkoutReset, selectCheckoutErrors, selectCheckoutStatus, submitOrder } from "../application/checkout.slice";
 import {
@@ -95,6 +95,7 @@ export function CheckoutForm({ lines, totals }: Props) {
     );
     if (submitOrder.fulfilled.match(result)) {
       const order = result.payload;
+      startNavigation();
       router.push({
         pathname: "/commande/confirmation",
         query: { ref: order.ref, prenom: customer.firstName, email: customer.email, total: String(order.total) },

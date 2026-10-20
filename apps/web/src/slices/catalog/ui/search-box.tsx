@@ -6,7 +6,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
 import { eventBus } from "@/shared/event-bus";
 import type { Locale } from "@/shared/kernel/locale";
-import { cn, Price, ProductArt, Skeleton } from "@/shared/ui";
+import { cn, Price, ProductArt, Skeleton, startNavigation } from "@/shared/ui";
 import { useSearchQuery } from "../application/catalog.api";
 
 const MIN = 2;
@@ -66,6 +66,7 @@ export function SearchBox({ className }: { className?: string }) {
         e.preventDefault();
         if (!value.trim()) return;
         setOpen(false);
+        startNavigation();
         router.push({ pathname: "/recherche", query: { q: value.trim() } });
       }}
     >

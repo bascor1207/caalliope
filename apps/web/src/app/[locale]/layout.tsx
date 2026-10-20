@@ -4,11 +4,12 @@ import { notFound } from "next/navigation";
 import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { Suspense } from "react";
 import { routing } from "@/i18n/routing";
 import { SITE } from "@/shared/config/site";
 import type { Locale } from "@/shared/kernel/locale";
 import { localizedAlternates, organizationJsonLd, websiteJsonLd } from "@/shared/seo/metadata";
-import { JsonLd } from "@/shared/ui";
+import { JsonLd, NavigationLoader } from "@/shared/ui";
 import { AnalyticsProvider } from "@/slices/analytics/public-ui";
 import { CartDrawer } from "@/slices/cart/public-ui";
 import { catalogRepository, listProducts } from "@/slices/catalog/public-server";
@@ -119,6 +120,10 @@ export default async function LocaleLayout({ children, params }: Props) {
             <AddedToCart />
             <Toaster />
             <AnalyticsProvider />
+            {/* useSearchParams impose un Suspense ; le loader rend null côté serveur, rien ne bouge au premier rendu. */}
+            <Suspense fallback={null}>
+              <NavigationLoader label={tc("a11y.loading")} logo={SITE.media.logo} />
+            </Suspense>
           </StoreProvider>
         </NextIntlClientProvider>
       </body>

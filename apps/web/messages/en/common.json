@@ -5,7 +5,8 @@
     "breadcrumb": "Breadcrumb",
     "colors": "Colours",
     "sizes": "Size",
-    "announcements": "Announcements"
+    "announcements": "Announcements",
+    "loading": "Loading page"
   },
   "actions": {
     "close": "Close",

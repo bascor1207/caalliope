@@ -21,6 +21,8 @@ export const SITE = {
       poster?: string;
     } | null,
     heroVideo: null as { src: string; poster?: string } | null,
+    /** Logo rond (photo de profil Instagram) : loader de navigation. Repli sur le logotype s'il manque. */
+    logo: { src: "/media/koda-logo.png", size: 96 } as { src: string; size: number } | null,
   },
 } as const;
 
