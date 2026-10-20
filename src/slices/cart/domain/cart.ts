@@ -10,6 +10,7 @@ export interface CartLine {
   colorKey: string;
   colorName: string;
   colorHex: string;
+  imageSrc?: string;
   size: string;
   unitPrice: number;
   qty: number;

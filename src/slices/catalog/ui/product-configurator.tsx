@@ -8,7 +8,7 @@ import { useState } from "react";
 import { Link, useRouter } from "@/i18n/navigation";
 import { eventBus } from "@/shared/event-bus";
 import { Button, cn, Price, ProductArt, useMoney } from "@/shared/ui";
-import { defaultSize, isSizeAvailable, type Product, pickColor } from "../domain/product";
+import { defaultSize, imageFor, isSizeAvailable, type Product, pickColor } from "../domain/product";
 
 interface Props {
   product: Product;
@@ -37,6 +37,11 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
   const color = pickColor(product, colorKey);
   const gallery = product.images.filter((i) => i.colorKey === color.key);
   const image = gallery[shot] ?? gallery[0] ?? product.images[0];
+  const firstShots = product.colors.flatMap((c) => {
+    const first = imageFor(product, c.key);
+    return first ? [first] : [];
+  });
+  const stacked = [...firstShots, ...gallery.filter((g) => !firstShots.includes(g))];
 
   const chooseColor = (key: string) => {
     setColorKey(key);
@@ -62,6 +67,7 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
       colorKey: color.key,
       colorName: color.name,
       colorHex: color.hex,
+      imageSrc: imageFor(product, color.key)?.src,
       size,
       unitPrice: product.price,
       qty: 1,
@@ -76,15 +82,22 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
           style={{ "--c": color.hex } as React.CSSProperties}
         >
           {image ? (
-            <Image
-              key={image.src}
-              src={image.src}
-              alt={image.alt}
-              fill
-              priority
-              sizes="(max-width: 768px) 100vw, 55vw"
-              className="object-cover"
-            />
+            /* Première photo de chaque coloris + vues du coloris actif, toutes montées : switch instantané. */
+            stacked.map((img) => {
+              const active = img.src === image.src;
+              return (
+                <Image
+                  key={img.src}
+                  src={img.src}
+                  alt={active ? img.alt : ""}
+                  aria-hidden={!active}
+                  fill
+                  priority={active}
+                  sizes="(max-width: 768px) 100vw, 55vw"
+                  className={cn("object-cover transition-opacity duration-300", active ? "opacity-100" : "opacity-0")}
+                />
+              );
+            })
           ) : (
             <ProductArt kind={product.type} title={t("placeholderAlt", { name: product.name, color: color.name })} />
           )}

@@ -16,6 +16,7 @@ export function bindCartToBus(bus: EventBus, dispatch: Dispatch): Unsubscribe {
             colorKey: p.colorKey,
             colorName: p.colorName,
             colorHex: p.colorHex,
+            imageSrc: p.imageSrc,
             size: p.size,
             unitPrice: p.unitPrice,
           },

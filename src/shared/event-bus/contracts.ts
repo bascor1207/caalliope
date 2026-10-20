@@ -13,6 +13,8 @@ export interface IntegrationEvents {
     colorKey: string;
     colorName: string;
     colorHex: string;
+    /** Photo du coloris, si le produit en a une. */
+    imageSrc?: string;
     size: string;
     unitPrice: number;
     qty: number;
