@@ -18,6 +18,13 @@ function entry(href: Href, extra: Partial<MetadataRoute.Sitemap[number]>): Metad
   }));
 }
 
+/**
+ * Généré depuis le catalogue en base : une fiche ajoutée, retirée ou mise hors ligne dans le back-office
+ * apparaît ou disparaît ici. Régénéré à chaque enregistrement (tag `catalog` + /api/revalidate), et au plus
+ * tard une heure après.
+ */
+export const revalidate = 3600;
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const products = await listProducts(catalogRepository, routing.defaultLocale);
   const statics: Array<[AppPathname, Partial<MetadataRoute.Sitemap[number]>]> = [
@@ -33,7 +40,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   return [
     ...statics.flatMap(([pathname, extra]) => entry(pathname as Href, extra)),
     ...products.flatMap((p) =>
-      entry({ pathname: "/produits/[slug]", params: { slug: p.slug } }, { changeFrequency: "weekly", priority: 0.9 }),
+      entry(
+        { pathname: "/produits/[slug]", params: { slug: p.slug } },
+        {
+          changeFrequency: "weekly",
+          priority: 0.9,
+          images: p.images.slice(0, 6).map((i) => i.src),
+        },
+      ),
     ),
   ];
 }
