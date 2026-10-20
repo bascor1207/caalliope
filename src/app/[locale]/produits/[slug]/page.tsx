@@ -15,12 +15,7 @@ import {
   listProducts,
   productJsonLd,
 } from "@/slices/catalog/public-server";
-import {
-  CatalogHydrator,
-  ProductCard,
-  ProductConfigurator,
-  ProductConfiguratorFromUrl,
-} from "@/slices/catalog/public-ui";
+import { ProductCard, ProductConfigurator, ProductConfiguratorFromUrl } from "@/slices/catalog/public-ui";
 
 interface Props {
   params: Promise<{ locale: Locale; slug: string }>;
@@ -80,7 +75,6 @@ export default async function ProductPage({ params }: Props) {
           { name: product.name, url },
         ])}
       />
-      <CatalogHydrator locale={locale} products={[product, ...related]} />
       <nav className="mb-7 flex flex-wrap gap-2 text-[13px] text-muted" aria-label={tc("a11y.breadcrumb")}>
         <Link href="/" className="hover:text-ink">
           {tc("labels.home")}

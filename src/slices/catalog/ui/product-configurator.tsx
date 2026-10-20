@@ -36,6 +36,8 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
   const [shot, setShot] = useState(0);
   const [zoom, setZoom] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  /** Les autres coloris ne sont montés qu'une fois la photo active affichée : LCP d'abord, préchauffage ensuite. */
+  const [warm, setWarm] = useState(false);
   const color = pickColor(product, colorKey);
   const gallery = product.images.filter((i) => i.colorKey === color.key);
   const image = gallery[shot] ?? gallery[0] ?? product.images[0];
@@ -89,22 +91,29 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
         >
           {image ? (
             <>
-              {/* Première photo de chaque coloris + vues du coloris actif, toutes montées : switch instantané. */}
-              {stacked.map((img) => {
-                const active = img.src === image.src;
-                return (
-                  <Image
-                    key={img.src}
-                    src={img.src}
-                    alt={active ? img.alt : ""}
-                    aria-hidden={!active}
-                    fill
-                    priority={active}
-                    sizes="(max-width: 768px) 100vw, 520px"
-                    className={cn("object-cover transition-opacity duration-300", active ? "opacity-100" : "opacity-0")}
-                  />
-                );
-              })}
+              {/* Première photo de chaque coloris + vues du coloris actif, montées après la photo active : switch instantané. */}
+              {stacked
+                .filter((img) => warm || img.src === image.src)
+                .map((img) => {
+                  const active = img.src === image.src;
+                  return (
+                    <Image
+                      key={img.src}
+                      src={img.src}
+                      alt={active ? img.alt : ""}
+                      aria-hidden={!active}
+                      fill
+                      priority={active}
+                      fetchPriority={active ? "high" : "low"}
+                      onLoad={active ? () => setWarm(true) : undefined}
+                      sizes="(max-width: 768px) 100vw, 520px"
+                      className={cn(
+                        "object-cover transition-opacity duration-300",
+                        active ? "opacity-100" : "opacity-0",
+                      )}
+                    />
+                  );
+                })}
               <button
                 type="button"
                 onClick={() => setZoom(true)}

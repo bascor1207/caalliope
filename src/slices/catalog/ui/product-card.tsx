@@ -13,6 +13,8 @@ export function ProductCard({ product, delay }: { product: Product; delay?: 1 | 
   const [colorKey, setColorKey] = useState(product.colors[0].key);
   const [shot, setShot] = useState(0);
   const [hover, setHover] = useState(false);
+  /** Les autres vues ne sont montées qu'une fois la photo visible chargée. */
+  const [warm, setWarm] = useState(false);
   const color = pickColor(product, colorKey);
   const href = { pathname: "/produits/[slug]", params: { slug: product.slug }, query: { coloris: color.key } } as const;
   const gallery = product.images.filter((i) => i.colorKey === color.key);
@@ -20,7 +22,7 @@ export function ProductCard({ product, delay }: { product: Product; delay?: 1 | 
   /** Au survol on montre la seconde vue ; sinon la vue choisie par les flèches. */
   const shown = gallery.length > 1 && hover && shot === 0 ? 1 : Math.min(shot, Math.max(0, gallery.length - 1));
   const current = gallery[shown] ?? imageFor(product, color.key);
-  /* Montées d'avance : première photo de chaque coloris + toutes les vues du coloris actif. */
+  /* Montées d'avance (après la photo visible) : première photo de chaque coloris + vues du coloris actif. */
   const firstShots = product.colors.flatMap((c) => {
     const first = imageFor(product, c.key);
     return first ? [first] : [];
@@ -50,20 +52,24 @@ export function ProductCard({ product, delay }: { product: Product; delay?: 1 | 
           </Badge>
         )}
         {hasImages ? (
-          stacked.map((img) => {
-            const active = img.src === current?.src;
-            return (
-              <Image
-                key={img.src}
-                src={img.src}
-                alt={active ? img.alt : ""}
-                aria-hidden={!active}
-                fill
-                sizes="(max-width: 1024px) 50vw, 33vw"
-                className={cn("object-cover transition-opacity duration-300", active ? "opacity-100" : "opacity-0")}
-              />
-            );
-          })
+          stacked
+            .filter((img) => warm || img.src === current?.src)
+            .map((img) => {
+              const active = img.src === current?.src;
+              return (
+                <Image
+                  key={img.src}
+                  src={img.src}
+                  alt={active ? img.alt : ""}
+                  aria-hidden={!active}
+                  fill
+                  fetchPriority={active ? undefined : "low"}
+                  onLoad={active ? () => setWarm(true) : undefined}
+                  sizes="(max-width: 1024px) 50vw, 33vw"
+                  className={cn("object-cover transition-opacity duration-300", active ? "opacity-100" : "opacity-0")}
+                />
+              );
+            })
         ) : (
           <ProductArt kind={product.type} title={t("imageAlt", { name: product.name, color: color.name })} />
         )}

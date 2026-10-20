@@ -11,6 +11,7 @@ import { localizedAlternates, organizationJsonLd, websiteJsonLd } from "@/shared
 import { JsonLd } from "@/shared/ui";
 import { AnalyticsProvider } from "@/slices/analytics/public-ui";
 import { CartDrawer } from "@/slices/cart/public-ui";
+import { catalogRepository, listProducts } from "@/slices/catalog/public-server";
 import { bannersRepository, listLiveBanners } from "@/slices/marketing/public-server";
 import { MarketingBar } from "@/slices/marketing/public-ui";
 import { Toaster } from "@/slices/notifications/public-ui";
@@ -86,6 +87,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   setRequestLocale(locale);
   const tc = await getTranslations("common");
   const banners = await listLiveBanners(bannersRepository, locale);
+  const products = await listProducts(catalogRepository, locale);
 
   return (
     <html
@@ -104,7 +106,7 @@ export default async function LocaleLayout({ children, params }: Props) {
       </head>
       <body>
         <NextIntlClientProvider>
-          <StoreProvider>
+          <StoreProvider catalog={{ locale, products }}>
             <a className="sr-only focus:not-sr-only" href="#contenu">
               {tc("a11y.skipToContent")}
             </a>

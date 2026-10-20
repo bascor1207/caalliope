@@ -4,7 +4,7 @@ import type { Locale } from "@/shared/kernel/locale";
 import { breadcrumbJsonLd, pathFor } from "@/shared/seo/metadata";
 import { JsonLd } from "@/shared/ui";
 import { catalogRepository, itemListJsonLd, listProducts } from "@/slices/catalog/public-server";
-import { CatalogHydrator, DropGrid, FloatingCards } from "@/slices/catalog/public-ui";
+import { DropGrid, FloatingCards } from "@/slices/catalog/public-ui";
 import { faqJsonLd } from "@/slices/home/public-server";
 import {
   BrandVideoSection,
@@ -53,7 +53,6 @@ export default async function HomePage({ params }: Props) {
         )}
       />
       <JsonLd data={faqJsonLd(locale)} />
-      <CatalogHydrator locale={locale} products={products} />
       <Hero visual={<FloatingCards cards={featured} />} />
       <ValuesMarquee />
       <Suspense fallback={<section id="drop" className="min-h-[60vh]" />}>

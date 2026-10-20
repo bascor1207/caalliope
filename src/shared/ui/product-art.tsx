@@ -1,3 +1,5 @@
+import { cn } from "./cn";
+
 interface Props {
   /** "tee" et "acc" partagent la silhouette t-shirt, le reste prend le hoodie. */
   kind: string;
@@ -15,7 +17,7 @@ export function ProductArt({ kind, color, title, className }: Props) {
   return (
     <svg
       viewBox="0 0 200 230"
-      className={className}
+      className={cn("product-art", className)}
       style={color ? { color } : undefined}
       role={title ? "img" : undefined}
       aria-label={title}
