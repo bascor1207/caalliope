@@ -24,6 +24,7 @@ export const routing = defineRouting({
     "/connexion": { fr: "/connexion", en: "/login" },
     "/inscription": { fr: "/inscription", en: "/signup" },
     "/compte": { fr: "/compte", en: "/account" },
+    "/newsletter/desinscription": { fr: "/newsletter/desinscription", en: "/newsletter/unsubscribe" },
   },
 });
 

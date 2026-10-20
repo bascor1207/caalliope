@@ -3,7 +3,7 @@ import { Skeleton } from "@/components/skeleton";
 /** Squelette du dashboard pendant la lecture du store. */
 export default function Loading() {
   return (
-    <main className="mx-auto w-[min(1360px,100%-40px)] py-10 md:py-12">
+    <main className="mx-auto w-full max-w-[1400px] px-5 py-8 md:px-9 md:py-10">
       <div className="flex items-end justify-between gap-4">
         <div className="grid gap-2">
           <Skeleton className="h-3 w-28" />

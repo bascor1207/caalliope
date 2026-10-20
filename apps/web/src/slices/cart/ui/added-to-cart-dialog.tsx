@@ -21,7 +21,7 @@ interface Props {
 }
 
 /**
- * Confirmation d'ajout + « Parfait avec ». S'ouvre à chaque `lineAdded`, remplace le toast.
+ * Confirmation d'ajout + pièces complémentaires. S'ouvre à chaque `lineAdded`, remplace le toast.
  * Succès affiché en vert, en tête, sous le titre ; les recommandations suivent.
  */
 export function AddedToCartDialog({ children }: Props) {

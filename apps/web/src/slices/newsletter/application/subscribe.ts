@@ -3,6 +3,8 @@ import { displayName, isValidEmail, normalizeEmail } from "../domain/subscriptio
 
 export interface SubscribersRepository {
   add(email: string, locale: Locale): Promise<void>;
+  /** Désinscription par jeton (lien dans chaque e-mail). `false` si le jeton est inconnu. */
+  unsubscribe(token: string): Promise<boolean>;
 }
 
 export type SubscribeResult = { ok: true; name: string } | { ok: false; code: "invalid-email" };

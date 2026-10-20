@@ -13,5 +13,6 @@ export { RadioCard, RadioGroup } from "./radio-group";
 export { Reveal } from "./reveal";
 export { Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "./sheet";
 export { ProductCardSkeleton, Skeleton } from "./skeleton";
+export { SocialIcon } from "./social-icon";
 export { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "./table";
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";

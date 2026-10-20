@@ -2,10 +2,10 @@ import { top } from "@koda/analytics";
 import Link from "next/link";
 import { DailyBars } from "@/components/bars";
 import { LiveFeed } from "@/components/live-feed";
-import { AdminNav } from "@/components/nav";
 import { Funnel, Panel, RankTable } from "@/components/panels";
 import { isPeriod, loadSummary, PERIODS, type Period } from "@/lib/analytics";
 import { kpisOf } from "@/lib/kpis";
+import { errorLabel, labelled, localeLabel, productLabel, trackLabel } from "@/lib/labels";
 
 /** Toujours calculé à la demande : les chiffres lus sont ceux du store à l'instant T. */
 export const dynamic = "force-dynamic";
@@ -26,10 +26,10 @@ export default async function Dashboard({ searchParams }: Props) {
   );
 
   return (
-    <main className="mx-auto w-[min(1360px,100%-40px)] py-10 md:py-12">
+    <main className="mx-auto w-full max-w-[1400px] px-5 py-8 md:px-9 md:py-10">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="eyebrow">KODA Clothing · Admin</p>
+          <p className="eyebrow">KODA Clothing</p>
           <h1 className="mt-2 text-[clamp(30px,4vw,44px)] font-extrabold leading-none tracking-[-0.04em]">
             Tableau de bord
           </h1>
@@ -53,18 +53,23 @@ export default async function Dashboard({ searchParams }: Props) {
               </Link>
             ))}
           </nav>
-          <AdminNav current="/" />
         </div>
       </header>
 
-      <section aria-label="Indicateurs clés" className="mt-10 grid gap-4 sm:grid-cols-2 md:gap-5 xl:grid-cols-4">
-        {kpis.map((k) => (
-          <div key={k.key} className="card">
-            <p className="eyebrow">{k.label}</p>
-            <p className="kpi-value">{k.value}</p>
-            {k.hint && <p className="mt-3 text-sm text-muted">{k.hint}</p>}
-          </div>
-        ))}
+      <section aria-label="Indicateurs clés" className="mt-10">
+        <div className="grid gap-4 sm:grid-cols-2 md:gap-5 xl:grid-cols-4">
+          {kpis.map((k) => (
+            <div key={k.key} className="card">
+              <p className="eyebrow">{k.label}</p>
+              <p className="kpi-value">{k.value}</p>
+              <p className="mt-3 text-sm text-muted">{k.hint}</p>
+            </div>
+          ))}
+        </div>
+        <p className="mt-4 text-sm text-muted">
+          Une visite = un passage sur la boutique. Les pourcentages sont des parts de visites (une même visite peut
+          ouvrir plusieurs fiches : on la compte une fois).
+        </p>
       </section>
 
       <div className="mt-8 grid gap-5 md:gap-6 lg:grid-cols-[1.4fr_1fr]">
@@ -77,18 +82,18 @@ export default async function Dashboard({ searchParams }: Props) {
       </div>
 
       <div className="mt-8 grid gap-5 md:gap-6 lg:grid-cols-2">
-        <Panel title="Entonnoir d'achat" hint="taux par rapport à l'étape précédente">
+        <Panel title="Parcours d'achat" hint="visites ayant atteint chaque étape">
           <Funnel
             steps={[
-              { label: "Sessions", value: s.sessions },
-              { label: "Fiche produit vue", value: s.funnel.productViews },
-              { label: "Ajout au panier", value: s.funnel.addToCart },
-              { label: "Checkout démarré", value: s.funnel.checkoutStarted },
-              { label: "Commande", value: s.funnel.ordersPlaced },
+              { label: "Visites", value: s.sessions },
+              { label: "Fiche produit ouverte", value: s.reached.productViews },
+              { label: "Article ajouté au panier", value: s.reached.addToCart },
+              { label: "Paiement démarré", value: s.reached.checkoutStarted },
+              { label: "Commande passée", value: s.reached.ordersPlaced },
             ]}
           />
         </Panel>
-        <Panel title="Produits" hint="vues → ajouts panier">
+        <Panel title="Produits" hint="fiches ouvertes et ajouts au panier">
           {products.length === 0 ? (
             <p className="text-[15px] text-muted">Aucune fiche vue sur la période.</p>
           ) : (
@@ -99,13 +104,13 @@ export default async function Dashboard({ searchParams }: Props) {
                     Produit
                   </th>
                   <th scope="col" className="pb-2 text-right font-medium">
-                    Vues
+                    Fiches ouvertes
                   </th>
                   <th scope="col" className="pb-2 text-right font-medium">
-                    Paniers
+                    Ajouts panier
                   </th>
                   <th scope="col" className="pb-2 text-right font-medium">
-                    Taux
+                    Ajouts / fiches
                   </th>
                 </tr>
               </thead>
@@ -114,7 +119,7 @@ export default async function Dashboard({ searchParams }: Props) {
                   .sort((a, b) => b[1] - a[1])
                   .map(([id, views, carts]) => (
                     <tr key={id} className="border-t border-line">
-                      <td className="py-3 pr-3 font-medium">{id}</td>
+                      <td className="py-3 pr-3 font-medium">{productLabel(id)}</td>
                       <td className="py-3 text-right tabular-nums">{views}</td>
                       <td className="py-3 text-right tabular-nums">{carts}</td>
                       <td className="py-3 text-right tabular-nums">
@@ -132,13 +137,18 @@ export default async function Dashboard({ searchParams }: Props) {
         <Panel title="Pages les plus vues">
           <RankTable rows={top(s.pageViews, 8)} label="Page" valueLabel="Vues" empty="Aucune page vue." />
         </Panel>
-        <Panel title="Clics mesurés" hint="data-track">
-          <RankTable rows={top(s.clicks, 8)} label="Élément" valueLabel="Clics" empty="Aucun clic mesuré." />
+        <Panel title="Clics mesurés" hint="boutons et liens suivis">
+          <RankTable
+            rows={labelled(top(s.clicks, 12), trackLabel).slice(0, 8)}
+            label="Élément"
+            valueLabel="Clics"
+            empty="Aucun clic mesuré."
+          />
         </Panel>
-        <Panel title="Frictions" hint="ce qui bloque un achat">
+        <Panel title="Frictions" hint="ce qui freine un achat">
           <h3 className="eyebrow mb-3">Erreurs au checkout</h3>
           <RankTable
-            rows={top(s.frictions.checkoutErrors, 5)}
+            rows={labelled(top(s.frictions.checkoutErrors, 8), errorLabel).slice(0, 5)}
             label="Erreur"
             valueLabel="Occurrences"
             empty="Aucune erreur."
@@ -150,8 +160,8 @@ export default async function Dashboard({ searchParams }: Props) {
             valueLabel="Fois"
             empty="Toutes les recherches ont des résultats."
           />
-          <h3 className="eyebrow mt-7 mb-3">Langues des sessions</h3>
-          <RankTable rows={top(s.locales, 3)} label="Langue" valueLabel="Sessions" empty="–" />
+          <h3 className="eyebrow mt-7 mb-3">Langues des visites</h3>
+          <RankTable rows={labelled(top(s.locales, 3), localeLabel)} label="Langue" valueLabel="Visites" empty="–" />
         </Panel>
       </div>
     </main>

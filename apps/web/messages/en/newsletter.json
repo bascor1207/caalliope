@@ -5,5 +5,9 @@
   "pending": "One moment…",
   "hint": "Zero spam. One email per drop, that's it.",
   "invalid": "Enter a valid email.",
-  "welcome": "Welcome to the list, {name} ✦"
+  "welcome": "Welcome to the list, {name} ✦",
+  "unsubscribeTitle": "Unsubscribed",
+  "unsubscribed": "Done, you won't get our emails anymore. See you in the shop.",
+  "unsubscribeInvalid": "This link is no longer valid. Write to us if you want to be removed.",
+  "backHome": "Back to the shop"
 }

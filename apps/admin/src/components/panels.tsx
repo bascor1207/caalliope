@@ -63,26 +63,38 @@ export function RankTable({
   );
 }
 
-/** Entonnoir : chaque étape avec son taux par rapport à la précédente. */
+/**
+ * Parcours d'achat : chaque étape = visites distinctes l'ayant atteinte. Deux lectures par ligne :
+ * la part des visites de départ, et la part de l'étape précédente (où l'on perd du monde).
+ */
 export function Funnel({ steps }: { steps: Array<{ label: string; value: number }> }) {
-  const max = Math.max(1, ...steps.map((s) => s.value));
+  const base = Math.max(1, steps[0]?.value ?? 0);
+  const pct = (num: number, den: number) => (den > 0 ? Math.min(100, Math.round((num / den) * 100)) : 0);
   return (
-    <ol className="grid gap-4">
+    <ol className="grid gap-5">
       {steps.map((step, i) => {
         const prev = steps[i - 1]?.value ?? 0;
-        const rate = i === 0 ? null : prev > 0 ? Math.round((step.value / prev) * 100) : 0;
+        const ofBase = pct(step.value, base);
+        const ofPrev = pct(step.value, prev);
         return (
-          <li key={step.label} className="grid grid-cols-[160px_1fr_auto] items-center gap-4 text-[15px]">
-            <span className="font-medium">{step.label}</span>
-            <span className="block h-8 overflow-hidden rounded-[10px] bg-ink/6">
+          <li key={step.label} className="grid gap-1.5 text-[15px]">
+            <div className="flex items-baseline justify-between gap-3">
+              <span className="font-medium">{step.label}</span>
+              <span className="tabular-nums">
+                <b className="font-semibold">{step.value}</b>
+                {i > 0 && (
+                  <span className="ml-2 text-sm text-muted">
+                    {" "}
+                    {ofBase} % des visites · {ofPrev} % de l'étape précédente
+                  </span>
+                )}
+              </span>
+            </div>
+            <span className="block h-7 overflow-hidden rounded-[10px] bg-ink/6">
               <span
                 className="block h-full rounded-[10px] bg-linear-to-r from-sage to-sky"
-                style={{ width: `${Math.max(2, (step.value / max) * 100)}%` }}
+                style={{ width: `${Math.max(2, (step.value / base) * 100)}%` }}
               />
-            </span>
-            <span className="w-28 text-right tabular-nums">
-              <b className="font-semibold">{step.value}</b>
-              {rate !== null && <span className="ml-2 text-sm text-muted">{rate} %</span>}
             </span>
           </li>
         );

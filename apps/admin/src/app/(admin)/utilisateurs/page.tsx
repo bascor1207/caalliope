@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { changeRole } from "@/app/actions";
-import { AdminNav } from "@/components/nav";
 import { listUsers } from "@/lib/users";
 
 export const metadata: Metadata = { title: "Utilisateurs" };
@@ -13,16 +12,15 @@ export default async function UsersPage() {
   const users = await listUsers();
   const admins = users.filter((u) => u.role === "admin").length;
   return (
-    <main className="mx-auto w-[min(1360px,100%-40px)] py-10 md:py-12">
+    <main className="mx-auto w-full max-w-[1400px] px-5 py-8 md:px-9 md:py-10">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <p className="eyebrow">KODA Clothing · Admin</p>
+          <p className="eyebrow">KODA Clothing</p>
           <h1 className="mt-2 text-[clamp(30px,4vw,44px)] leading-none tracking-[-0.03em]">Utilisateurs</h1>
           <p className="mt-3 text-[15px] text-muted">
             {users.length} comptes · {admins} admin{admins > 1 ? "s" : ""}
           </p>
         </div>
-        <AdminNav current="/utilisateurs" />
       </header>
       <section className="card mt-10 overflow-x-auto" aria-label="Comptes">
         {users.length === 0 ? (

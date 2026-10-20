@@ -23,7 +23,10 @@ export interface AnalyticsSummary {
   clicks: Record<string, number>;
   locales: Record<string, number>;
   searches: { total: number; noResult: Record<string, number> };
+  /** Nombre d'événements par étape (une session peut en produire plusieurs). */
   funnel: { productViews: number; addToCart: number; checkoutStarted: number; ordersPlaced: number };
+  /** Sessions distinctes ayant atteint chaque étape : c'est la base des taux (toujours ≤ sessions). */
+  reached: { productViews: number; addToCart: number; checkoutStarted: number; ordersPlaced: number };
   /** Frictions : ce qui bloque un achat. */
   frictions: { checkoutErrors: Record<string, number>; searchesWithoutResult: number };
   revenue: number;
@@ -64,6 +67,7 @@ export function summarize(events: AnalyticsEvent[], range?: DateRange): Analytic
     locales: {},
     searches: { total: 0, noResult: {} },
     funnel: { productViews: 0, addToCart: 0, checkoutStarted: 0, ordersPlaced: 0 },
+    reached: { productViews: 0, addToCart: 0, checkoutStarted: 0, ordersPlaced: 0 },
     frictions: { checkoutErrors: {}, searchesWithoutResult: 0 },
     revenue: 0,
     daily: [],
@@ -71,6 +75,12 @@ export function summarize(events: AnalyticsEvent[], range?: DateRange): Analytic
   const perDay = new Map<string, { pageViews: number; sessions: Set<string>; orders: number }>();
   for (const day of daysBetween(effective)) perDay.set(day, { pageViews: 0, sessions: new Set(), orders: 0 });
   const sessionLocale = new Map<string, string>();
+  const reached = {
+    productViews: new Set<string>(),
+    addToCart: new Set<string>(),
+    checkoutStarted: new Set<string>(),
+    ordersPlaced: new Set<string>(),
+  };
 
   for (const e of events) {
     const day = perDay.get(dayOf(e.at));
@@ -87,10 +97,12 @@ export function summarize(events: AnalyticsEvent[], range?: DateRange): Analytic
       case "product_view":
         bump(s.productViews, String(e.props.productId));
         s.funnel.productViews += 1;
+        reached.productViews.add(e.session);
         break;
       case "product_chosen":
         bump(s.addToCart, String(e.props.productId));
         s.funnel.addToCart += 1;
+        reached.addToCart.add(e.session);
         break;
       case "search":
         s.searches.total += 1;
@@ -101,12 +113,14 @@ export function summarize(events: AnalyticsEvent[], range?: DateRange): Analytic
         break;
       case "checkout_started":
         s.funnel.checkoutStarted += 1;
+        reached.checkoutStarted.add(e.session);
         break;
       case "checkout_failed":
         bump(s.frictions.checkoutErrors, String(e.props.code));
         break;
       case "order_placed":
         s.funnel.ordersPlaced += 1;
+        reached.ordersPlaced.add(e.session);
         s.revenue += Number(e.props.total) || 0;
         if (day) day.orders += 1;
         break;
@@ -115,6 +129,12 @@ export function summarize(events: AnalyticsEvent[], range?: DateRange): Analytic
     }
   }
   for (const locale of sessionLocale.values()) bump(s.locales, locale);
+  s.reached = {
+    productViews: reached.productViews.size,
+    addToCart: reached.addToCart.size,
+    checkoutStarted: reached.checkoutStarted.size,
+    ordersPlaced: reached.ordersPlaced.size,
+  };
   s.daily = [...perDay].map(([day, d]) => ({
     day,
     pageViews: d.pageViews,

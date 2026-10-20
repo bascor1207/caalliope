@@ -30,7 +30,7 @@ export function endNavigation() {
 
 const SHOW_AFTER_MS = 120;
 const MIN_VISIBLE_MS = 400;
-const SAFETY_MS = 10_000;
+const SAFETY_MS = 6_000;
 
 const sameDocument = (href: string) => {
   const target = new URL(href, window.location.href);
@@ -79,19 +79,33 @@ export function NavigationLoader({ label, logo }: Props) {
     endNavigation();
   }, [pathname, search]);
 
-  // Début de navigation : clic sur un lien interne, ou retour arrière.
+  // Début de navigation : clic sur un lien interne, ou retour arrière vers une autre page.
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
       if (isInternalNavigation(e)) startNavigation();
     };
-    const onPop = () => startNavigation();
+    /* popstate arrive après le changement d'URL : si seule l'ancre a bougé (/#drop → /), rien à charger. */
+    const onPop = () => {
+      const here = `${window.location.pathname}${window.location.search}`;
+      const rendered = `${pathname}${search ? `?${search}` : ""}`;
+      if (here !== rendered) startNavigation();
+    };
+    /* Page restaurée depuis le cache arrière/avant : on repart propre, sinon le voile resterait affiché. */
+    const onShow = (e: PageTransitionEvent) => {
+      if (e.persisted) {
+        endNavigation();
+        setVisible(false);
+      }
+    };
     document.addEventListener("click", onClick, { capture: true });
     window.addEventListener("popstate", onPop);
+    window.addEventListener("pageshow", onShow);
     return () => {
       document.removeEventListener("click", onClick, { capture: true });
       window.removeEventListener("popstate", onPop);
+      window.removeEventListener("pageshow", onShow);
     };
-  }, []);
+  }, [pathname, search]);
 
   // Visibilité : délai avant affichage, durée minimale, garde-fou.
   useEffect(() => {

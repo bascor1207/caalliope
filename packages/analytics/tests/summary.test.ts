@@ -28,6 +28,7 @@ describe("summarize", () => {
     );
     expect(s.sessions).toBe(2);
     expect(s.funnel).toEqual({ productViews: 1, addToCart: 1, checkoutStarted: 1, ordersPlaced: 1 });
+    expect(s.reached).toEqual({ productViews: 1, addToCart: 1, checkoutStarted: 1, ordersPlaced: 1 });
     expect(s.revenue).toBeCloseTo(69.99);
     expect(s.clicks).toEqual({ "hero.cta": 1 });
     expect(s.locales).toEqual({ fr: 2 });

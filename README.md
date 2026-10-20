@@ -128,6 +128,22 @@ Côté store, un **listener middleware** RTK traduit les actions en événements
 - À faire dans Supabase une fois : Authentication → URL Configuration → Site URL `https://kodaclothing.fr` et
   Redirect URLs `https://<domaine>/auth/callback` (boutique), puis les fournisseurs Google / Apple.
 
+## Newsletter, e-mails et réglages du back-office
+
+- **Inscrits** : `newsletter_subscribers` (statut, langue, jeton de désinscription). Page admin Newsletter : liste,
+  export CSV. Désinscription en un clic depuis chaque e-mail (`/newsletter/desinscription?token=…`).
+- **Campagnes** : `campaigns` + `campaign_deliveries` (un envoi par destinataire, reprise possible). Éditeur avec
+  prévisualisation rendue telle que Gmail, Outlook (table + VML), Apple Mail et texte brut, mode sombre, envoi de test,
+  puis envoi à tous les inscrits actifs. Gabarit HTML en tables avec styles inline (`email-template.ts`).
+- **Boîte d'envoi** : saisie dans Réglages → Boîte d'envoi (SMTP de la boîte Gmail / Workspace / OVH…, mot de passe
+  d'application chiffré AES-GCM en base avec `ADMIN_SECRET`, connexion vérifiée avant enregistrement, e-mail de test).
+  Repli sur `SMTP_*` d'environnement, puis Resend (`RESEND_API_KEY`), sinon simulation.
+- **Réglages partagés** (`site_settings`, clé → JSON) : réseaux sociaux et e-mail de contact du pied de page, lus par la
+  boutique avec un cache d'une heure (`unstable_cache`, tag `settings`) et rafraîchis immédiatement par l'admin via
+  `POST /api/revalidate` (`REVALIDATE_SECRET` identique sur les deux projets, `SHOP_URL` sur l'admin).
+- **Admin** : barre latérale repliable (desktop) ou tiroir (mobile), libellés lisibles pour les clics et produits,
+  parcours d'achat compté en visites distinctes (les taux ne dépassent jamais 100 %).
+
 ## Marketing, analytics et admin
 
 - **`marketing`** : le bandeau au-dessus du header lit des bannières (texte FR/EN, lien, fenêtre de diffusion, ordre)
