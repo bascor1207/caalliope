@@ -75,7 +75,7 @@ export default async function ProductPage({ params }: Props) {
           { name: product.name, url },
         ])}
       />
-      <nav className="mb-7 flex flex-wrap gap-2 text-[13px] text-muted" aria-label={tc("a11y.breadcrumb")}>
+      <nav className="mb-4 flex flex-wrap gap-2 text-[13px] text-muted md:mb-7" aria-label={tc("a11y.breadcrumb")}>
         <Link href="/" className="hover:text-ink">
           {tc("labels.home")}
         </Link>

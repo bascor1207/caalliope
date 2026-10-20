@@ -82,6 +82,22 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
     });
   };
 
+  const swatches = (size: string) => (
+    <div className="flex flex-wrap gap-2.5" role="group" aria-label={tc("a11y.colors")}>
+      {product.colors.map((c) => (
+        <button
+          key={c.key}
+          type="button"
+          className={cn("swatch", size)}
+          style={{ "--sw": c.hex } as React.CSSProperties}
+          aria-label={c.name}
+          aria-pressed={c.key === color.key}
+          onClick={() => chooseColor(c.key)}
+        />
+      ))}
+    </div>
+  );
+
   return (
     <div className="grid items-start gap-8 md:grid-cols-[minmax(0,460px)_minmax(0,1fr)] md:gap-12 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)]">
       <div className="grid gap-3 md:sticky md:top-[calc(var(--spacing-header)+16px)]">
@@ -116,6 +132,13 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
                     />
                   );
                 })}
+              {/* Mobile : coloris directement sur la photo qu'ils changent, pas besoin de défiler. */}
+              <div className="absolute bottom-3 left-3 z-2 grid gap-1.5 rounded-[18px] bg-white/85 px-3 py-2.5 backdrop-blur-[8px] md:hidden">
+                <span className="text-[11px] font-semibold text-ink-2">
+                  {t("color")} · {color.name}
+                </span>
+                {swatches("size-[26px]")}
+              </div>
               <button
                 type="button"
                 onClick={() => setZoom(true)}
@@ -178,23 +201,11 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
           />
         </div>
         <p className="text-[15px] leading-relaxed text-ink-2 md:text-base">{product.description}</p>
-        <div>
+        <div className="max-md:hidden">
           <div className="mb-2.5 flex justify-between text-[13px] font-semibold">
             {t("color")} <span className="font-normal text-muted">{color.name}</span>
           </div>
-          <div className="flex flex-wrap gap-2.5" role="group" aria-label={tc("a11y.colors")}>
-            {product.colors.map((c) => (
-              <button
-                key={c.key}
-                type="button"
-                className="swatch size-[30px]"
-                style={{ "--sw": c.hex } as React.CSSProperties}
-                aria-label={c.name}
-                aria-pressed={c.key === color.key}
-                onClick={() => chooseColor(c.key)}
-              />
-            ))}
-          </div>
+          {swatches("size-[30px]")}
         </div>
         <div>
           <div className="mb-2.5 flex justify-between text-[13px] font-semibold">
