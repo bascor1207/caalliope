@@ -9,7 +9,8 @@ const SHOPIFY_CDN = /^https:\/\/cdn\.shopify\.com\//;
  * l'en-tête Accept du navigateur. Aucune passe par l'optimiseur Vercel : pas de quota
  * consommé, un saut réseau de moins, et un cache CDN déjà chaud.
  *
- * Tout le reste passe par l'optimiseur Next (`/_next/image`), qui encode en AVIF / WebP.
+ * Tout le reste (fichiers de `public/`) est servi tel quel : avec un loader custom, Next désactive
+ * son optimiseur `/_next/image`, qui répondrait 404. Les assets locaux sont déjà aux bonnes dimensions.
  */
 export default function imageLoader({ src, width, quality }: ImageLoaderProps): string {
   if (SHOPIFY_CDN.test(src)) {
@@ -18,5 +19,6 @@ export default function imageLoader({ src, width, quality }: ImageLoaderProps): 
     url.searchParams.set("width", String(Math.min(width, 2048)));
     return url.toString();
   }
-  return `/_next/image?url=${encodeURIComponent(src)}&w=${width}&q=${quality ?? 75}`;
+  void quality;
+  return src;
 }
