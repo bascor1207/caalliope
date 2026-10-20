@@ -1,8 +1,35 @@
+# Dépendances et builds
 node_modules
 .next
 out
 .vercel
-.env*.local
 *.tsbuildinfo
 next-env.d.ts
+.pnpm-store
+
+# Secrets et environnement
+.env
+.env.*
+!.env.example
+
+# IDE et éditeurs
+.idea
+*.iml
+.vscode
+!.vscode/extensions.json
+.fleet
+.zed
+
+# OS
 .DS_Store
+Thumbs.db
+
+# Tests et rapports
+coverage
+test-results
+playwright-report
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
