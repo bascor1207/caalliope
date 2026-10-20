@@ -66,14 +66,14 @@ export function CartDrawer() {
                   )}
                 </div>
                 <div>
-                  <h4 className="text-sm font-semibold">
+                  <h3 className="text-sm font-semibold">
                     <Link
                       href={{ pathname: "/produits/[slug]", params: { slug: l.slug }, query: { coloris: l.colorKey } }}
                       onClick={() => dispatch(closed())}
                     >
                       {l.name}
                     </Link>
-                  </h4>
+                  </h3>
                   <p className="mt-0.5 text-xs text-muted">
                     {l.colorName} · {l.size}
                   </p>

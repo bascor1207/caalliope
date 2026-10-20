@@ -60,6 +60,7 @@ export function SearchBox({ className }: { className?: string }) {
   return (
     <form
       role="search"
+      aria-label={t("aria")}
       className={cn("relative", className)}
       onSubmit={(e) => {
         e.preventDefault();

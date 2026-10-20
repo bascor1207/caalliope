@@ -34,6 +34,7 @@ export async function SearchResults({ locale, query, hits }: Props) {
       <form
         action=""
         role="search"
+        aria-label={t("eyebrow")}
         className="mb-7 flex items-center gap-3.5 rounded-full border-[1.5px] border-line bg-white py-1.5 pr-1.5 pl-5"
       >
         <SearchIcon className="size-5 shrink-0" aria-hidden="true" />

@@ -1,9 +1,9 @@
 "use client";
 
-import { type ElementType, type ReactNode, useEffect, useRef } from "react";
+import { type ComponentPropsWithoutRef, type ElementType, type ReactNode, useEffect, useRef } from "react";
 import { cn } from "./cn";
 
-interface Props {
+interface Props extends Omit<ComponentPropsWithoutRef<"div">, "children" | "className"> {
   children: ReactNode;
   className?: string;
   delay?: 1 | 2 | 3;
@@ -11,7 +11,7 @@ interface Props {
 }
 
 /** Apparition au scroll. Sans JS, `.reveal` ne masque rien (voir `.js .reveal` dans globals.css). */
-export function Reveal({ children, className, delay, as: Tag = "div" }: Props) {
+export function Reveal({ children, className, delay, as: Tag = "div", ...rest }: Props) {
   const ref = useRef<HTMLElement>(null);
   useEffect(() => {
     const el = ref.current;
@@ -35,7 +35,7 @@ export function Reveal({ children, className, delay, as: Tag = "div" }: Props) {
     return () => io.disconnect();
   }, []);
   return (
-    <Tag ref={ref} className={cn("reveal", className)} data-delay={delay}>
+    <Tag ref={ref} className={cn("reveal", className)} data-delay={delay} {...rest}>
       {children}
     </Tag>
   );

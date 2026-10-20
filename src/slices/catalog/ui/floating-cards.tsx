@@ -36,7 +36,7 @@ export function FloatingCards({ cards }: { cards: FeaturedCard[] }) {
   const items = cards.map(({ product, colorKey }) => {
     const color = pickColor(product, colorKey);
     const image = imageFor(product, color.key);
-    return { product, color, image, label: `${product.name} ${color.name}, ${format.number(product.price, "eur")}` };
+    return { product, color, image };
   });
 
   return (
@@ -46,13 +46,12 @@ export function FloatingCards({ cards }: { cards: FeaturedCard[] }) {
         onMouseMove={onMove}
         className="relative hidden h-[clamp(420px,60vh,640px)] [perspective:1200px] md:block"
       >
-        {items.map(({ product, color, image, label }, i) => (
+        {items.map(({ product, color, image }, i) => (
           <Link
             key={`${product.id}-${color.key}`}
             className={`float-card c${i + 1}`}
             href={{ pathname: "/produits/[slug]", params: { slug: product.slug }, query: { coloris: color.key } }}
             style={{ "--c": color.hex } as React.CSSProperties}
-            aria-label={label}
           >
             {image ? (
               <Image src={image.src} alt="" fill sizes="30vw" className="object-cover" priority={i === 0} />
@@ -66,11 +65,10 @@ export function FloatingCards({ cards }: { cards: FeaturedCard[] }) {
         ))}
       </div>
       <div className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] md:hidden [&::-webkit-scrollbar]:hidden">
-        {items.map(({ product, color, image, label }, i) => (
+        {items.map(({ product, color, image }, i) => (
           <Link
             key={`${product.id}-${color.key}`}
             href={{ pathname: "/produits/[slug]", params: { slug: product.slug }, query: { coloris: color.key } }}
-            aria-label={label}
             className="relative aspect-[4/5] w-[62vw] shrink-0 snap-center overflow-hidden rounded-[18px]"
             style={{ background: color.hex }}
           >
@@ -82,6 +80,7 @@ export function FloatingCards({ cards }: { cards: FeaturedCard[] }) {
             <div className="absolute right-3 bottom-3 left-3 flex items-center justify-between gap-2 rounded-full bg-white/80 px-3 py-2 text-xs font-semibold backdrop-blur-[8px]">
               <b className="truncate font-display">{product.name}</b>
               <span className="shrink-0">{format.number(product.price, "eur")}</span>
+              <span className="sr-only">, {color.name}</span>
             </div>
           </Link>
         ))}

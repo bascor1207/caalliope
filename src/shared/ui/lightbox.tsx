@@ -102,8 +102,13 @@ export function Lightbox({ images, index, open, onOpenChange, onIndexChange, lab
                 aria-label={img.alt}
                 aria-pressed={i === index}
                 onClick={() => onIndexChange(i)}
-                className={cn("size-2 rounded-full transition-colors", i === index ? "bg-cream" : "bg-cream/35")}
-              />
+                className="grid size-6 place-items-center"
+              >
+                <span
+                  aria-hidden="true"
+                  className={cn("size-2 rounded-full transition-colors", i === index ? "bg-cream" : "bg-cream/35")}
+                />
+              </button>
             ))}
           </div>
         </Dialog.Content>

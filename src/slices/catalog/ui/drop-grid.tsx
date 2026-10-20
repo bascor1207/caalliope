@@ -3,7 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { useRouter } from "@/i18n/navigation";
-import { Tabs, TabsList, TabsTrigger } from "@/shared/ui";
+import { cn } from "@/shared/ui";
 import { useAppSelector } from "@/store/hooks";
 import { selectFilterCounts, selectProductsByFilter } from "../application/catalog.slice";
 import { CATALOG_FILTERS, type CatalogFilter, isCatalogFilter } from "../domain/product";
@@ -22,8 +22,7 @@ export function DropGrid() {
   const products = useAppSelector((s) => selectProductsByFilter(s, filter));
   const counts = useAppSelector(selectFilterCounts);
 
-  const select = (value: string) => {
-    if (!isCatalogFilter(value)) return;
+  const select = (value: CatalogFilter) => {
     router.replace({ pathname: "/", query: value === "all" ? {} : { filtre: value } }, { scroll: false });
   };
 
@@ -36,18 +35,30 @@ export function DropGrid() {
             {t("title")} <span className="serif">{t("titleSerif")}</span>
           </h2>
         </div>
-        <Tabs value={filter} onValueChange={select} className="-mx-4 mb-5 px-4 md:mx-0 md:mb-6 md:px-0">
-          <TabsList
-            aria-label={t("filterLabel")}
-            className="flex-nowrap overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
-          >
-            {CATALOG_FILTERS.map((f) => (
-              <TabsTrigger key={f} value={f} className="shrink-0">
-                {t(f)} <span>{counts[f]}</span>
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </Tabs>
+        {/* Filtres = boutons à bascule (pas des onglets : aucun panneau associé). */}
+        <div
+          role="group"
+          aria-label={t("filterLabel")}
+          className="-mx-4 mb-5 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] md:mx-0 md:mb-6 md:px-0 [&::-webkit-scrollbar]:hidden"
+        >
+          {CATALOG_FILTERS.map((f) => (
+            <button
+              key={f}
+              type="button"
+              aria-pressed={f === filter}
+              onClick={() => select(f)}
+              className={cn(
+                "inline-flex shrink-0 items-center gap-2 rounded-full border-[1.5px] border-line px-4 py-2.5 font-display text-[13px] font-bold transition-all hover:border-ink",
+                "aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-cream",
+              )}
+            >
+              {t(f)}
+              <span className={cn("font-sans text-xs font-medium", f === filter ? "text-cream/70" : "text-muted")}>
+                {counts[f]}
+              </span>
+            </button>
+          ))}
+        </div>
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-3 lg:gap-5" aria-live="polite">
           {products.length === 0 && <p className="col-span-full px-5 py-[60px] text-center text-muted">{t("empty")}</p>}
           {products.map((p, i) => (

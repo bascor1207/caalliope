@@ -25,7 +25,7 @@ export async function ValuesMarquee() {
     <span key={key} className="inline-flex items-center gap-8 md:gap-10">
       {items.map(([label, serif], i) => (
         <span key={label} className="inline-flex items-center gap-8 md:gap-10">
-          {serif ? <em className="serif text-muted">{label}</em> : label}
+          {serif ? <em className="serif text-ink-2">{label}</em> : label}
           <i className={`inline-block size-[0.7em] rounded-full ${SWATCHES[i]}`} />
         </span>
       ))}
@@ -173,7 +173,9 @@ export async function Community() {
         <Reveal
           className="-mx-4 flex snap-x gap-2.5 overflow-x-auto px-4 pb-2 [scrollbar-width:none] md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 lg:grid-cols-6 [&::-webkit-scrollbar]:hidden"
           delay={1}
+          role="region"
           aria-label={t("aria")}
+          tabIndex={0}
         >
           {posts.map(([handle, bg], i) => (
             <div

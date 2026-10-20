@@ -25,7 +25,7 @@ export function LocaleSwitcher({ className }: { className?: string }) {
           key={l}
           type="button"
           aria-pressed={l === locale}
-          aria-label={t(`locales.${l}`)}
+          aria-label={`${l.toUpperCase()} – ${t(`locales.${l}`)}`}
           onClick={() => {
             if (l === locale) return;
             // @ts-expect-error pathname + params viennent de la route courante, le typage strict des pathnames ne peut pas les relier.

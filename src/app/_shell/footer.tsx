@@ -57,7 +57,7 @@ export async function Footer() {
           </div>
           {cols.map((col) => (
             <div key={col.title}>
-              <h4 className="eyebrow mb-4 text-xs tracking-[0.16em]">{col.title}</h4>
+              <h2 className="eyebrow mb-4 text-xs tracking-[0.16em]">{col.title}</h2>
               <ul className="space-y-2.5 text-sm">
                 {col.links.map(([label, href]) => (
                   <li key={label}>
