@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { FREE_SHIPPING_FROM } from "@/shared/kernel/shipping-policy";
@@ -56,9 +57,13 @@ export function CartDrawer() {
               >
                 <div
                   className="grid aspect-[4/5] w-[72px] place-items-center overflow-hidden rounded-[10px]"
-                  style={{ background: l.colorHex }}
+                  style={{ background: l.colorHex, position: "relative" }}
                 >
-                  <ProductArt kind={l.productType} color={l.colorHex} className="w-[60%]" />
+                  {l.imageSrc ? (
+                    <Image src={l.imageSrc} alt="" fill sizes="72px" className="object-cover" />
+                  ) : (
+                    <ProductArt kind={l.productType} color={l.colorHex} className="w-[60%]" />
+                  )}
                 </div>
                 <div>
                   <h4 className="text-sm font-semibold">

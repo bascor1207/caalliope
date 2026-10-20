@@ -30,7 +30,23 @@ export function ProductCard({ product, delay }: { product: Product; delay?: 1 | 
           </Badge>
         )}
         {image ? (
-          <Image src={image.src} alt={image.alt} fill sizes="(max-width: 1024px) 50vw, 33vw" className="object-cover" />
+          /* Une photo par coloris, toutes montées : le switch de swatch est instantané (fondu). */
+          product.colors.map((c) => {
+            const shot = imageFor(product, c.key);
+            if (!shot) return null;
+            const active = c.key === color.key;
+            return (
+              <Image
+                key={c.key}
+                src={shot.src}
+                alt={active ? shot.alt : ""}
+                aria-hidden={!active}
+                fill
+                sizes="(max-width: 1024px) 50vw, 33vw"
+                className={cn("object-cover transition-opacity duration-300", active ? "opacity-100" : "opacity-0")}
+              />
+            );
+          })
         ) : (
           <ProductArt kind={product.type} title={t("imageAlt", { name: product.name, color: color.name })} />
         )}

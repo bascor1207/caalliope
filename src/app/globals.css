@@ -312,15 +312,21 @@
     transition: color 0.4s;
   }
   .swatch {
-    @apply size-[22px] rounded-full border-2 border-white transition-transform duration-200;
-    box-shadow: 0 0 0 1px var(--color-line);
+    @apply size-[22px] rounded-full transition-[transform,box-shadow] duration-200 ease-expo;
     background: var(--sw);
+    box-shadow:
+      inset 0 0 0 1px rgba(20, 20, 20, 0.08),
+      0 0 0 2px var(--color-cream);
   }
   .swatch:hover {
-    transform: scale(1.12);
+    transform: scale(1.1);
   }
   .swatch[aria-pressed="true"] {
-    box-shadow: 0 0 0 1.5px var(--color-ink);
+    transform: scale(1.1);
+    box-shadow:
+      inset 0 0 0 1px rgba(20, 20, 20, 0.08),
+      0 0 0 2px var(--color-cream),
+      0 0 0 3.5px var(--color-ink-2);
   }
 
   /* Section matière */

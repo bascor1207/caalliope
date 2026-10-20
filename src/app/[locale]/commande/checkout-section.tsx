@@ -20,6 +20,7 @@ export function CheckoutSection() {
     productType: l.productType,
     colorName: l.colorName,
     colorHex: l.colorHex,
+    imageSrc: l.imageSrc,
     unitPrice: l.unitPrice,
   }));
   return <CheckoutForm lines={view} totals={totals} />;

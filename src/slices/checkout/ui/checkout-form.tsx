@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Link, useRouter } from "@/i18n/navigation";
@@ -27,6 +28,7 @@ export interface CheckoutLineView {
   productType: string;
   colorName: string;
   colorHex: string;
+  imageSrc?: string;
   unitPrice: number;
 }
 
@@ -194,8 +196,15 @@ export function CheckoutForm({ lines, totals }: Props) {
             key={`${l.productId}-${l.colorKey}-${l.size}`}
             className="grid grid-cols-[44px_1fr_auto] items-center gap-3 border-b border-line py-2.5 text-[13px]"
           >
-            <span className="grid aspect-[4/5] w-11 place-items-center rounded-lg" style={{ background: l.colorHex }}>
-              <ProductArt kind={l.productType} color={l.colorHex} className="w-[60%]" />
+            <span
+              className="relative grid aspect-[4/5] w-11 place-items-center overflow-hidden rounded-lg"
+              style={{ background: l.colorHex }}
+            >
+              {l.imageSrc ? (
+                <Image src={l.imageSrc} alt="" fill sizes="44px" className="object-cover" />
+              ) : (
+                <ProductArt kind={l.productType} color={l.colorHex} className="w-[60%]" />
+              )}
             </span>
             <span>
               <b>{l.name}</b>

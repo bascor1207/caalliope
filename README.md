@@ -113,7 +113,8 @@ autorisé pour `next/image`.
 
 Le catalogue (`catalog.data.ts`) vient de la boutique Shopify de KODA, regroupé en trois familles déclinées par coloris :
 Pull à capuche Koda (6 coloris, 69,99 €), Pull oversized (4 coloris, 49,99 €), T-shirt Koda (5 coloris, 34,99 €).
-Prix, matières, grammages, tailles, ruptures et photos sont les leurs. Restent des hypothèses à valider : mesures du
+Prix, matières, grammages, tailles, ruptures et photos sont les leurs. Les photos sont servies par le CDN Shopify via un loader `next/image` custom (`shared/ui/image-loader.ts`) :
+redimensionnement par le CDN et WebP / AVIF négociés par le navigateur, sans consommer l'optimisation d'images Vercel. Restent des hypothèses à valider : mesures du
 guide des tailles, délais de précommande, seuil de livraison offerte, handles réseaux sociaux, textes légaux
 (`messages/`, `shared/config/site.ts`, `shared/kernel/shipping-policy.ts`).
 
