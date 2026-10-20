@@ -53,8 +53,11 @@ const toEvent = (row: Record<string, unknown>): AnalyticsEvent | null => {
 /** Store Postgres : une table append-only, lecture par période. Le schéma est créé à la première requête. */
 export function createSqlStore(exec: SqlExecutor): AnalyticsStore {
   let ready: Promise<void> | null = null;
+  /** Crée le schéma si la table manque. Si elle existe déjà (migration appliquée, rôle applicatif sans DDL), rien. */
   const ensure = () => {
     ready ??= (async () => {
+      const [row] = await exec("SELECT to_regclass('public.analytics_events') AS t", []);
+      if (row?.t) return;
       for (const statement of SCHEMA_STATEMENTS) await exec(statement, []);
     })();
     return ready;

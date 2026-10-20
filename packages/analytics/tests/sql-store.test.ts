@@ -31,6 +31,17 @@ describe("store SQL (Postgres)", () => {
     expect(october[1].at).toBe("2026-10-15T10:00:00.000Z");
   });
 
+  it("ne rejoue pas le DDL quand la table existe déjà", async () => {
+    const calls: string[] = [];
+    const again = createSqlStore(async (text, params) => {
+      calls.push(text);
+      return (await db.query(text, params)).rows as Record<string, unknown>[];
+    });
+    await again.read({ from: new Date("2026-10-01T00:00:00Z"), to: new Date("2026-10-02T00:00:00Z") });
+    expect(calls.some((c) => c.startsWith("CREATE TABLE"))).toBe(false);
+    expect(calls[0]).toContain("to_regclass");
+  });
+
   it("écrit des lots de plus de 100 événements en plusieurs requêtes", async () => {
     const many = Array.from({ length: 250 }, (_, i) => ({
       name: "click" as const,
