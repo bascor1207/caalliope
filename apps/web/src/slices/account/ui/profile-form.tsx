@@ -11,7 +11,7 @@ import { type ProfileState, updateProfileAction } from "../infrastructure/action
 export function ProfileForm({ profile, email }: { profile: ProfileInput; email: string }) {
   const t = useTranslations("account");
   /* Optimiste : le toast « Enregistré » part à l'envoi ; un échec serveur le corrige aussitôt. */
-  const [state, action, pending] = useActionState<ProfileState, FormData>(async (prev, f) => {
+  const [state, action] = useActionState<ProfileState, FormData>(async (prev, f) => {
     eventBus.publish("ui.notify", { text: t("saved"), tone: "success" });
     const r = await updateProfileAction(prev, f);
     if (r.errors || r.denied) eventBus.publish("ui.notify", { text: t("notSaved"), tone: "error" });
@@ -52,10 +52,8 @@ export function ProfileForm({ profile, email }: { profile: ProfileInput; email: 
         {err("phone")}
       </Label>
       <div className="flex items-center gap-3 sm:col-span-2">
-        <Button type="submit" disabled={pending}>
-          {pending ? t("saving") : t("save")}
-        </Button>
-        {state.ok && !pending && (
+        <Button type="submit">{t("save")}</Button>
+        {state.ok && (
           <span role="status" className="text-sm font-semibold text-success">
             {t("saved")}
           </span>

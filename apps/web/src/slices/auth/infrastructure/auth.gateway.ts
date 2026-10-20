@@ -22,6 +22,10 @@ export const supabaseAuthGateway: AuthGateway = {
     const { error } = await supabaseBrowser().auth.signInWithOAuth({ provider, options: { redirectTo } });
     return error ? { ok: false, code: authErrorCode(error.message) } : { ok: true };
   },
+  async changeEmail(email, redirectTo) {
+    const { error } = await supabaseBrowser().auth.updateUser({ email }, { emailRedirectTo: redirectTo });
+    return error ? { ok: false, code: authErrorCode(error.message) } : { ok: true };
+  },
   async signOut() {
     await supabaseBrowser().auth.signOut();
   },

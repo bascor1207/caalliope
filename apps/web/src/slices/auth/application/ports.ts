@@ -14,6 +14,8 @@ export interface AuthGateway {
   }): Promise<AuthResult>;
   signInWithProvider(provider: OAuthProvider, redirectTo: string): Promise<AuthResult>;
   signOut(): Promise<void>;
+  /** Demande un changement d'e-mail : Supabase envoie un lien de confirmation (ancienne et nouvelle adresse). */
+  changeEmail(email: string, redirectTo: string): Promise<AuthResult>;
   /** Utilisateur courant et abonnement aux changements de session. */
   currentUser(): Promise<SessionUser | null>;
   onChange(listener: () => void): () => void;

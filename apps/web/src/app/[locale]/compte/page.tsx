@@ -6,7 +6,7 @@ import type { Locale } from "@/shared/kernel/locale";
 import { accountRepository, PaymentMethods } from "@/slices/account/public-server";
 import { AddressBook, ProfileForm } from "@/slices/account/public-ui";
 import { getSessionUser } from "@/slices/auth/public-server";
-import { AccountHeader } from "@/slices/auth/public-ui";
+import { AccountHeader, EmailChangeForm } from "@/slices/auth/public-ui";
 import { ordersRepository } from "@/slices/checkout/public-server";
 import { OrderHistory } from "@/slices/checkout/public-ui";
 
@@ -67,6 +67,9 @@ export default async function AccountPage({ params }: Props) {
             profile={profile ?? { firstName: user.firstName ?? "", lastName: user.lastName ?? "", phone: "" }}
             email={user.email}
           />
+          <div className="mt-5 border-t border-line pt-5">
+            <EmailChangeForm current={user.email} />
+          </div>
         </div>
       </section>
 
