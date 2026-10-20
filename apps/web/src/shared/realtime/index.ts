@@ -1,20 +1,7 @@
-import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import type { RealtimePostgresChangesPayload } from "@supabase/supabase-js";
+import { isSupabaseConfigured, supabaseBrowser } from "@/shared/supabase/browser";
 
-let client: SupabaseClient | null = null;
-
-export const realtimeConfigured = () =>
-  Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY);
-
-const supabase = () => {
-  if (!client) {
-    client = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL ?? "",
-      process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? "",
-      { auth: { persistSession: false, autoRefreshToken: false } },
-    );
-  }
-  return client;
-};
+export const realtimeConfigured = isSupabaseConfigured;
 
 export interface RowChange<T = Record<string, unknown>> {
   eventType: "INSERT" | "UPDATE" | "DELETE";
@@ -23,25 +10,29 @@ export interface RowChange<T = Record<string, unknown>> {
 }
 
 /**
- * Écoute les changements d'une table publiée dans `supabase_realtime` (une connexion WebSocket par onglet,
- * partagée entre les abonnements). Retourne la désinscription. Sans configuration : no-op.
+ * Écoute les changements d'une table publiée dans `supabase_realtime`, sur le client Supabase partagé
+ * (une seule connexion WebSocket par onglet). Retourne la désinscription. Sans configuration : no-op.
  */
 export function subscribeToTable<T = Record<string, unknown>>(
   table: string,
   onChange: (change: RowChange<T>) => void,
 ): () => void {
   if (!realtimeConfigured()) return () => {};
-  const channel = supabase()
+  const supabase = supabaseBrowser();
+  const channel = supabase
     .channel(`table:${table}`)
-    .on("postgres_changes", { event: "*", schema: "public", table }, (payload) =>
-      onChange({
-        eventType: payload.eventType,
-        new: (payload.new ?? {}) as Partial<T>,
-        old: (payload.old ?? {}) as Partial<T>,
-      }),
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public", table },
+      (payload: RealtimePostgresChangesPayload<Record<string, unknown>>) =>
+        onChange({
+          eventType: payload.eventType,
+          new: (payload.new ?? {}) as Partial<T>,
+          old: (payload.old ?? {}) as Partial<T>,
+        }),
     )
     .subscribe();
   return () => {
-    void supabase().removeChannel(channel);
+    void supabase.removeChannel(channel);
   };
 }

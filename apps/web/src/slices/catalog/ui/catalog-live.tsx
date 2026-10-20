@@ -20,7 +20,7 @@ const SERVER_REFRESH_MS = 1500;
  * Temps réel : chaque écriture en base (fiches, réglages) incrémente `catalog_versions` ;
  * ce composant l'écoute et relance en tâche de fond la lecture du catalogue (RTK Query → store)
  * puis un rafraîchissement doux des composants serveur. Rien ne bloque, rien ne clignote.
- * En onglet caché la connexion est coupée ; au retour, une relecture rattrape ce qui a été manqué.
+ * Au retour sur l'onglet, une relecture rattrape ce qui a pu être manqué pendant une coupure.
  */
 export function CatalogLive({ locale }: { locale: Locale }) {
   const dispatch = useAppDispatch();
@@ -49,29 +49,18 @@ export function CatalogLive({ locale }: { locale: Locale }) {
       refreshServer();
     };
 
-    let unsubscribe: (() => void) | null = null;
-    const connect = () => {
-      if (unsubscribe) return;
-      unsubscribe = subscribeToTable<Version>("catalog_versions", (c) => {
-        if (c.new.id && typeof c.new.version === "number") onChange(c.new.id, Number(c.new.version));
-      });
-    };
-    const disconnect = () => {
-      unsubscribe?.();
-      unsubscribe = null;
-    };
+    /* Une seule connexion pour la vie de la page : ouvrir / fermer au gré des onglets produirait des avertissements. */
+    const unsubscribe = subscribeToTable<Version>("catalog_versions", (c) => {
+      if (c.new.id && typeof c.new.version === "number") onChange(c.new.id, Number(c.new.version));
+    });
     const onVisibility = () => {
-      if (document.visibilityState === "visible") {
-        connect();
-        /* Des changements ont pu passer pendant l'absence : une relecture, sans bloquer. */
-        refetchCatalog();
-      } else disconnect();
+      /* Au retour sur l'onglet, une relecture rattrape ce qui a pu passer pendant une coupure réseau. */
+      if (document.visibilityState === "visible") refetchCatalog();
     };
-    connect();
     document.addEventListener("visibilitychange", onVisibility);
     return () => {
       document.removeEventListener("visibilitychange", onVisibility);
-      disconnect();
+      unsubscribe();
       window.clearTimeout(timers.current.client);
       window.clearTimeout(timers.current.server);
     };
