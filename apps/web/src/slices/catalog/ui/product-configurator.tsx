@@ -201,7 +201,7 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
       <div className="grid content-start gap-5 md:gap-6">
         <div>
           <p className="eyebrow">{t("eyebrow", { sub: product.sub })}</p>
-          <h1 className="mt-2 text-[clamp(30px,7vw,56px)] tracking-[-0.04em]">{product.name}</h1>
+          <h1 className="mt-2 text-[clamp(28px,6vw,50px)] tracking-[-0.03em]">{product.name}</h1>
           <Price
             amount={product.price}
             compare={product.compare}

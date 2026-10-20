@@ -23,7 +23,7 @@ export function Recommendations({ productId, colorKey, onNavigate }: Props) {
   if (suggestions.length === 0) return null;
   return (
     <section aria-labelledby="reco-title">
-      <h3 id="reco-title" className="font-display text-lg font-extrabold tracking-[-0.02em]">
+      <h3 id="reco-title" className="font-display text-lg font-bold tracking-[-0.02em]">
         {t("title")} <span className="serif font-normal">{t("titleSerif")}</span>
       </h3>
       <ul className="mt-3 grid grid-cols-3 gap-2.5 sm:gap-3.5">

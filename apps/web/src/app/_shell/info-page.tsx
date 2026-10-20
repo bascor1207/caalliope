@@ -24,7 +24,7 @@ export function InfoPage({ locale, pathname, eyebrow, title, breadcrumb, childre
         ])}
       />
       <p className="eyebrow">{eyebrow}</p>
-      <h1 className="my-3 mb-6 text-[clamp(36px,5.5vw,64px)] tracking-[-0.04em]">{title}</h1>
+      <h1 className="my-3 mb-6 text-[clamp(32px,5vw,56px)] tracking-[-0.03em]">{title}</h1>
       <div className="grid gap-4 text-base leading-[1.65] text-ink-2 [&_h2]:mt-4 [&_h2]:text-[22px] [&_h2]:tracking-[-0.02em] [&_h2]:text-ink [&_ul]:grid [&_ul]:list-disc [&_ul]:gap-2 [&_ul]:pl-[22px] [&_b]:text-ink">
         {children}
       </div>

@@ -50,7 +50,7 @@ export async function Hero({ visual }: { visual: ReactNode }) {
             />
             {t("tag")}
           </div>
-          <h1 id="hero-title" className="text-[clamp(44px,6.2vw,96px)] leading-[0.92] tracking-[-0.045em]">
+          <h1 id="hero-title" className="text-[clamp(40px,5.6vw,84px)] leading-[0.92] tracking-[-0.03em]">
             <span className="hero-line">
               <span>{t("line1")}</span>
             </span>

@@ -44,7 +44,7 @@ export async function Footer() {
         <div className="grid gap-8 border-b border-line pb-12 sm:grid-cols-2 lg:grid-cols-[2fr_1fr_1fr_1fr]">
           <div>
             <Link
-              className="inline-flex items-center gap-2 font-display text-[26px] font-extrabold tracking-[-0.06em]"
+              className="inline-flex items-center gap-2 font-display text-[26px] font-bold tracking-[-0.06em]"
               href="/"
             >
               <span

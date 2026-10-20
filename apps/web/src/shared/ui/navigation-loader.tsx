@@ -133,7 +133,7 @@ export function NavigationLoader({ label, logo }: Props) {
             className="rounded-full object-cover animate-breathe"
           />
         ) : (
-          <span className="inline-flex items-center gap-2 font-display text-[30px] font-extrabold tracking-[-0.06em] animate-breathe">
+          <span className="inline-flex items-center gap-2 font-display text-[30px] font-bold tracking-[-0.06em] animate-breathe">
             <i aria-hidden="true" className="size-3 rounded-full bg-sage animate-pulse-dot" />
             KODA
           </span>

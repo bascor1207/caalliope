@@ -23,7 +23,7 @@ export function DropGrid() {
       <div className="container-k">
         <div className="mb-6 md:mb-11">
           <p className="eyebrow">{t("eyebrow")}</p>
-          <h2 id="drop-title" className="mt-2.5 text-[clamp(32px,5.5vw,72px)] tracking-[-0.04em]">
+          <h2 id="drop-title" className="mt-2.5 text-[clamp(30px,4.8vw,60px)] tracking-[-0.03em]">
             {t("title")} <span className="serif">{t("titleSerif")}</span>
           </h2>
         </div>

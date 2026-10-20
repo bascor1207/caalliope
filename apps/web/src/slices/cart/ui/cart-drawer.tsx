@@ -33,7 +33,7 @@ export function CartDrawer() {
     <Sheet open={isOpen} onOpenChange={(open) => dispatch(open ? opened() : closed())}>
       <SheetContent side="right" closeLabel={t("close")}>
         <div className="flex items-center justify-between border-b border-line px-[22px] py-5">
-          <SheetTitle className="font-display text-[22px] font-extrabold tracking-[-0.02em]">
+          <SheetTitle className="font-display text-[22px] font-bold tracking-[-0.02em]">
             {t("title")} {count > 0 && <span className="serif">({count})</span>}
           </SheetTitle>
           <SheetDescription className="sr-only">{t("note")}</SheetDescription>

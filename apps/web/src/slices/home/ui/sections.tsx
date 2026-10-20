@@ -53,7 +53,7 @@ export async function Story() {
       <div className="container-k grid items-center gap-9 md:grid-cols-2 md:gap-14">
         <Reveal>
           <p className="eyebrow text-cream/55">{t("eyebrow")}</p>
-          <h2 id="story-title" className="mt-3.5 text-[clamp(34px,6vw,88px)] leading-[0.95] tracking-[-0.045em]">
+          <h2 id="story-title" className="mt-3.5 text-[clamp(32px,5.2vw,72px)] leading-[1] tracking-[-0.03em]">
             {t("title1")} <span className="serif text-sage">{t("titleSerif")}</span>
             <br />
             {t("title2")}
@@ -96,7 +96,7 @@ export async function BrandVideoSection() {
           <div className="absolute inset-0 bg-linear-to-t from-ink/70 via-ink/10 to-transparent" aria-hidden="true" />
           <div className="absolute right-5 bottom-5 left-5 text-cream md:right-10 md:bottom-10 md:left-10">
             <p className="eyebrow text-cream/70">{t("eyebrow")}</p>
-            <h2 id="video-title" className="mt-2 text-[clamp(30px,5vw,64px)] leading-[0.95] tracking-[-0.04em]">
+            <h2 id="video-title" className="mt-2 text-[clamp(28px,4.4vw,56px)] leading-[1] tracking-[-0.03em]">
               {t("title")} <span className="serif">{t("titleSerif")}</span>
             </h2>
             <p className="mt-3 max-w-[460px] text-sm text-cream/80 md:text-base">{t("text")}</p>
@@ -117,14 +117,14 @@ export async function Specs() {
           <div className="spec-ring size-[60%]" />
           <div className="spec-ring size-[80%] [animation-direction:reverse] [animation-duration:9s]" />
           <div className="spec-ring size-full [animation-duration:13s]" />
-          <div className="text-center font-display text-[clamp(60px,10vw,120px)] font-extrabold leading-none tracking-[-0.06em]">
+          <div className="text-center font-display text-[clamp(60px,10vw,120px)] font-bold leading-none tracking-[-0.06em]">
             330
             <small className="serif block text-[0.25em] text-ink-2">{t("big")}</small>
           </div>
         </Reveal>
         <Reveal delay={1}>
           <p className="eyebrow">{t("eyebrow")}</p>
-          <h2 id="specs-title" className="mt-3 text-[clamp(30px,4.5vw,56px)]">
+          <h2 id="specs-title" className="mt-3 text-[clamp(28px,4vw,50px)]">
             {t("title")} <span className="serif">{t("titleSerif")}</span>
           </h2>
           <ul className="mt-6 border-t border-line md:mt-7">
@@ -160,7 +160,7 @@ export async function Community() {
         <Reveal className="mb-6 flex flex-wrap items-end justify-between gap-4 md:mb-11 md:gap-6">
           <div>
             <p className="eyebrow">{t("eyebrow")}</p>
-            <h2 id="ugc-title" className="mt-2.5 text-[clamp(32px,5.5vw,72px)] tracking-[-0.04em]">
+            <h2 id="ugc-title" className="mt-2.5 text-[clamp(30px,4.8vw,60px)] tracking-[-0.03em]">
               {t("title")} <span className="serif">{t("titleSerif")}</span>
             </h2>
           </div>
@@ -198,7 +198,7 @@ export async function Faq({ locale }: { locale: Locale }) {
       <div className="container-k">
         <Reveal className="mx-auto max-w-[820px]">
           <p className="eyebrow">{t("eyebrow")}</p>
-          <h2 id="faq-title" className="mt-3 mb-5 text-[clamp(30px,4.5vw,56px)] md:mb-7">
+          <h2 id="faq-title" className="mt-3 mb-5 text-[clamp(28px,4vw,50px)] md:mb-7">
             {t("title")} <span className="serif">{t("titleSerif")}</span>
           </h2>
           <FaqAccordion items={faqFor(locale)} />
@@ -224,7 +224,7 @@ export async function NewsletterSection({ children }: { children: ReactNode }) {
     >
       <Reveal className="container-k max-w-[760px] text-center">
         <p className="eyebrow text-ink-2">{t("eyebrow")}</p>
-        <h2 id="news-title" className="mt-3.5 text-[clamp(32px,6vw,80px)] leading-[0.95] tracking-[-0.045em]">
+        <h2 id="news-title" className="mt-3.5 text-[clamp(30px,5.2vw,64px)] leading-[1] tracking-[-0.03em]">
           {t("title")} <span className="serif">{t("titleSerif")}</span>
         </h2>
         <p className="mx-auto my-5 mb-7 max-w-[520px] text-base text-ink-2 md:mb-8 md:text-lg">{t("text")}</p>

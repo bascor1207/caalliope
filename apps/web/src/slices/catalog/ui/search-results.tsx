@@ -20,7 +20,7 @@ export async function SearchResults({ locale, query, hits }: Props) {
   return (
     <div className="mx-auto max-w-[760px]">
       <p className="eyebrow">{t("eyebrow")}</p>
-      <h1 className="mt-2.5 mb-6 text-[clamp(34px,5vw,56px)] tracking-[-0.04em]">
+      <h1 className="mt-2.5 mb-6 text-[clamp(30px,4.6vw,50px)] tracking-[-0.03em]">
         {query ? (
           <>
             {t("resultsFor")} <span className="serif">« {query} »</span>

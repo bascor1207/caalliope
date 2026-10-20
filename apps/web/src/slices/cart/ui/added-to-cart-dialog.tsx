@@ -43,7 +43,7 @@ export function AddedToCartDialog({ children }: Props) {
           <div className="flex items-start justify-between gap-4">
             <div>
               <p className="eyebrow">{t("eyebrow")}</p>
-              <Dialog.Title className="mt-1.5 font-display text-[clamp(26px,4vw,38px)] font-extrabold leading-none tracking-[-0.04em]">
+              <Dialog.Title className="mt-1.5 font-display text-[clamp(26px,4vw,38px)] font-bold leading-none tracking-[-0.04em]">
                 {t("title")} <span className="serif">{t("titleSerif")}</span>
               </Dialog.Title>
             </div>
@@ -67,7 +67,7 @@ export function AddedToCartDialog({ children }: Props) {
               )}
             </span>
             <span className="min-w-0">
-              <b className="flex items-center gap-1.5 font-display text-sm font-extrabold uppercase tracking-[0.08em]">
+              <b className="flex items-center gap-1.5 font-display text-sm font-bold uppercase tracking-[0.08em]">
                 <CheckCircle2Icon className="size-4 shrink-0" aria-hidden="true" />
                 {t("confirmed")}
               </b>

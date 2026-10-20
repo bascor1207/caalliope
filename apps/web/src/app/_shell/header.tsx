@@ -34,7 +34,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 flex h-header items-center border-b border-line bg-cream/78 backdrop-blur-[14px] backdrop-saturate-[160%]">
-      <div className="container-k grid grid-cols-[auto_1fr_auto] items-center gap-4 lg:grid-cols-[1fr_auto_1fr]">
+      <div className="container-k grid grid-cols-[1fr_auto_1fr] items-center gap-4">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <Button variant="icon" aria-label={t("openMenu")} className="lg:hidden">
@@ -54,7 +54,7 @@ export function Header() {
                 key={item.key}
                 href={item.href}
                 onClick={() => setOpen(false)}
-                className="font-display text-[clamp(40px,12vw,72px)] font-extrabold tracking-[-0.04em] py-1.5"
+                className="font-display text-[clamp(36px,10vw,60px)] font-bold tracking-[-0.03em] py-1.5"
               >
                 {t(item.key)}
               </Link>
@@ -71,7 +71,7 @@ export function Header() {
         </Sheet>
 
         <Link
-          className="justify-self-center inline-flex items-center gap-2 font-display text-[26px] font-extrabold tracking-[-0.06em] lg:justify-self-start"
+          className="justify-self-center inline-flex items-center gap-2 font-display text-[24px] font-bold tracking-[-0.05em] lg:justify-self-start"
           href="/"
           aria-label={tc("a11y.brandHome")}
         >
