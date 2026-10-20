@@ -13,7 +13,10 @@ const nextConfig: NextConfig = {
     loader: "custom",
     loaderFile: "./src/shared/ui/image-loader.ts",
     formats: ["image/avif", "image/webp"],
-    remotePatterns: [{ protocol: "https", hostname: "cdn.shopify.com" }],
+    remotePatterns: [
+      { protocol: "https", hostname: "cdn.shopify.com" },
+      { protocol: "https", hostname: "*.supabase.co" },
+    ],
   },
 };
 

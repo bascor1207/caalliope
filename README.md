@@ -144,6 +144,22 @@ Côté store, un **listener middleware** RTK traduit les actions en événements
 - **Admin** : barre latérale repliable (desktop) ou tiroir (mobile), libellés lisibles pour les clics et produits,
   parcours d'achat compté en visites distinctes (les taux ne dépassent jamais 100 %).
 
+## Back-office : catalogue, marketing, compte client
+
+- **Catalogue** (`catalog_products`, palette dans `site_settings.catalog.palette`) : fiches FR/EN, prix et prix barré,
+  badge, coloris depuis la palette, tailles, stock par taille et par coloris, photos (envoi direct navigateur →
+  Supabase Storage, bucket public `media`, liées à un coloris, réordonnables), mise en ligne, ordre d'affichage.
+  La boutique lit la base (cache 5 min, tag `catalog`, invalidé par l'admin) et retombe sur `catalog.data.ts` tant
+  que la table est vide. Bouton « Importer le catalogue de la boutique » pour démarrer (`GET /api/catalog/sources`).
+- **Marketing** : vidéo de fond du hero et bloc « Notre histoire » (vidéo du code, vidéo envoyée, ou masqué) avec
+  image d'attente ; bandeau d'annonces (FR/EN, lien, période de diffusion, ordre). Réglages `media` et `banners`,
+  lus par la slice `marketing` (tag `settings`).
+- **Compte client** (slice `account`) : informations (prénom, nom, téléphone), carnet d'adresses avec adresse par
+  défaut (table `addresses`), bloc moyens de paiement prêt pour Stripe. Le checkout est pré-rempli avec l'e-mail et
+  l'adresse par défaut du client connecté.
+- **Envois de fichiers** : `createSignedUploadUrl` côté serveur (clé service), `uploadToSignedUrl` côté navigateur :
+  rien ne transite par Vercel (limite 4,5 Mo), jusqu'à 50 Mo par fichier, 1 Go offerts.
+
 ## Marketing, analytics et admin
 
 - **`marketing`** : le bandeau au-dessus du header lit des bannières (texte FR/EN, lien, fenêtre de diffusion, ordre)

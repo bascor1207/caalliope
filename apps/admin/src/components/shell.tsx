@@ -4,10 +4,12 @@ import {
   LayoutDashboardIcon,
   LogOutIcon,
   MailIcon,
+  MegaphoneIcon,
   MenuIcon,
   PanelLeftCloseIcon,
   PanelLeftOpenIcon,
   SettingsIcon,
+  ShirtIcon,
   UsersIcon,
   XIcon,
 } from "lucide-react";
@@ -19,6 +21,8 @@ import { logout } from "@/app/actions";
 export const ADMIN_LINKS = [
   { href: "/", label: "Tableau de bord", Icon: LayoutDashboardIcon },
   { href: "/utilisateurs", label: "Utilisateurs", Icon: UsersIcon },
+  { href: "/catalogue", label: "Catalogue", Icon: ShirtIcon },
+  { href: "/marketing", label: "Marketing", Icon: MegaphoneIcon },
   { href: "/newsletter", label: "Newsletter", Icon: MailIcon },
   { href: "/parametres", label: "Réglages", Icon: SettingsIcon },
 ] as const;

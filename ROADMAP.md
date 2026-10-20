@@ -12,7 +12,13 @@ Suivi des idées et de leur état. Mis à jour à chaque lot livré.
 - Newsletter : inscrits en base, désinscription par lien, campagnes depuis l'admin avec prévisualisation par client mail.
 - Loader de navigation avec le logo, favicon, typo Outfit + Instrument Sans, modale panier, skeletons shimmer.
 
+- Back-office premium : catalogue éditable (fiches, photos, stock, palette), marketing (vidéos, bandeau), réglages (boîte d'envoi, réseaux).
+- Espace compte : informations, adresses, paiement (placeholder Stripe), commandes ; checkout pré-rempli.
+- Cartes produit : survol fluide (transform + ombre en opacité), loader de navigation robuste au retour arrière.
+
 ## En cours / à configurer par KODA
+- Admin → Catalogue → « Importer le catalogue de la boutique » (une fois le déploiement passé) : les fiches deviennent éditables.
+- Admin → Réglages → Boîte d'envoi : smtp.gmail.com / bcorre.work@gmail.com / mot de passe d'application, puis « Envoyer le test ».
 
 - Supabase → Authentication : Site URL, Redirect URLs, fournisseurs Google (gratuit) et Apple (compte développeur KODA, 99 €/an).
 - Boîte d'envoi des e-mails : à saisir dans l'admin (Réglages → Boîte d'envoi) avec un mot de passe d'application Gmail (bcorre.work@gmail.com pour l'instant, la boîte KODA ensuite). Gmail : ~500 mails/jour, Workspace : 2 000.

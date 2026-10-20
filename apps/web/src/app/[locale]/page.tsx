@@ -15,6 +15,7 @@ import {
   Story,
   ValuesMarquee,
 } from "@/slices/home/public-ui";
+import { getSiteMedia, getSocialLinks, handleOf } from "@/slices/marketing/public-server";
 import { NewsletterForm } from "@/slices/newsletter/public-ui";
 
 interface Props {
@@ -26,7 +27,11 @@ export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const tc = await getTranslations("common");
-  const products = await listProducts(catalogRepository, locale);
+  const [products, media, social] = await Promise.all([
+    listProducts(catalogRepository, locale),
+    getSiteMedia(),
+    getSocialLinks(),
+  ]);
   const byId = (id: string) => products.find((p) => p.id === id) ?? products[0];
   const featured = [
     { product: byId("pull-a-capuche-koda"), colorKey: "bleu-ciel" },
@@ -52,13 +57,13 @@ export default async function HomePage({ params }: Props) {
         )}
       />
       <JsonLd data={faqJsonLd(locale)} />
-      <Hero visual={<FloatingCards cards={featured} />} />
+      <Hero visual={<FloatingCards cards={featured} />} video={media.hero} />
       <ValuesMarquee />
       <DropGrid />
       <Story />
-      <BrandVideoSection />
+      <BrandVideoSection video={media.story} />
       <Specs />
-      <Community />
+      <Community instagram={social.instagram} handle={handleOf(social.instagram)} />
       <Faq locale={locale} />
       <NewsletterSection>
         <NewsletterForm />

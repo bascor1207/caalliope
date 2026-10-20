@@ -1,7 +1,6 @@
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
-import { SITE } from "@/shared/config/site";
 import type { Locale } from "@/shared/kernel/locale";
 import { Button, Reveal } from "@/shared/ui";
 import { faqFor } from "../content/faq";
@@ -84,9 +83,8 @@ export async function Story() {
 }
 
 /** Vidéo de marque (macro broderie) : plein cadre, texte en surimpression. Se replie si le fichier manque. */
-export async function BrandVideoSection() {
+export async function BrandVideoSection({ video }: { video: { src: string; poster?: string } | null }) {
   const t = await getTranslations("home.video");
-  const video = SITE.media.storyVideo;
   if (!video) return null;
   return (
     <section aria-labelledby="video-title" className="pt-[clamp(56px,10vw,128px)]">
@@ -144,7 +142,7 @@ export async function Specs() {
   );
 }
 
-export async function Community() {
+export async function Community({ instagram, handle }: { instagram: string; handle: string }) {
   const t = await getTranslations("home.community");
   const posts: Array<[string, string]> = [
     ["@lea.m", "bg-sage"],
@@ -165,8 +163,8 @@ export async function Community() {
             </h2>
           </div>
           <Button asChild variant="ghost" size="sm">
-            <a href={SITE.instagram} rel="noopener" target="_blank" data-track="community.follow">
-              {t("follow", { handle: SITE.instagramHandle })}
+            <a href={instagram} rel="noopener" target="_blank" data-track="community.follow">
+              {t("follow", { handle })}
             </a>
           </Button>
         </Reveal>

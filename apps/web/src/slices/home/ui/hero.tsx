@@ -2,16 +2,14 @@ import { ArrowRightIcon } from "lucide-react";
 import { getTranslations } from "next-intl/server";
 import type { ReactNode } from "react";
 import { Link } from "@/i18n/navigation";
-import { SITE } from "@/shared/config/site";
 import { Button } from "@/shared/ui";
 
 /**
  * Hero éditorial. Le visuel (cartes produits) est injecté par la page : la home ne connaît pas le catalogue.
- * Si `SITE.media.heroVideo` est renseigné, la vidéo joue en fond sous les blobs pastel.
+ * Si `video` est fournie (réglage Marketing du back-office), elle joue en fond sous les blobs pastel.
  */
-export async function Hero({ visual }: { visual: ReactNode }) {
+export async function Hero({ visual, video }: { visual: ReactNode; video: { src: string; poster?: string } | null }) {
   const t = await getTranslations("home.hero");
-  const video = SITE.media.heroVideo;
   const stats: Array<[string, string]> = [
     [t("meta1Value"), t("meta1")],
     [t("meta2Value"), t("meta2")],
