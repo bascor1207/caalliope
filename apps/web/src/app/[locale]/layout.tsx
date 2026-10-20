@@ -13,6 +13,7 @@ import { JsonLd, NavigationLoader } from "@/shared/ui";
 import { AnalyticsProvider } from "@/slices/analytics/public-ui";
 import { CartDrawer } from "@/slices/cart/public-ui";
 import { catalogRepository, listProducts } from "@/slices/catalog/public-server";
+import { CatalogLive } from "@/slices/catalog/public-ui";
 import { bannersRepository, listLiveBanners } from "@/slices/marketing/public-server";
 import { MarketingBar } from "@/slices/marketing/public-ui";
 import { Toaster } from "@/slices/notifications/public-ui";
@@ -117,6 +118,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             <AddedToCart />
             <Toaster />
             <AnalyticsProvider />
+            <CatalogLive locale={locale} />
             {/* useSearchParams impose un Suspense ; le loader rend null côté serveur, rien ne bouge au premier rendu. */}
             <Suspense fallback={null}>
               <NavigationLoader label={tc("a11y.loading")} logo={SITE.media.logo} />

@@ -9,6 +9,8 @@ import { Link, useRouter } from "@/i18n/navigation";
 import { eventBus } from "@/shared/event-bus";
 import { Button, cn, Price, ProductArt, Skeleton, useMoney } from "@/shared/ui";
 import { Lightbox } from "@/shared/ui/lightbox";
+import { useAppSelector } from "@/store/hooks";
+import { selectProducts } from "../application/catalog.slice";
 import { defaultSize, imageFor, isSizeAvailable, type Product, pickColor } from "../domain/product";
 
 interface Props {
@@ -26,7 +28,10 @@ export function ProductConfiguratorFromUrl({ product }: { product: Product }) {
  * Choix coloris + taille, galerie par coloris, visionneuse plein écran.
  * Ne connaît pas le panier : publie `catalog.product-chosen`, la slice panier décide quoi en faire.
  */
-export function ProductConfigurator({ product, initialColorKey }: Props) {
+export function ProductConfigurator({ product: initial, initialColorKey }: Props) {
+  /* Le store suit la base en temps réel : prix, stock et photos à jour sans recharger. */
+  const live = useAppSelector((state) => selectProducts(state).find((p) => p.id === initial.id));
+  const product = live ?? initial;
   const t = useTranslations("catalog.product");
   const tc = useTranslations("common");
   const money = useMoney();

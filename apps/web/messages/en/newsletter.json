@@ -9,5 +9,6 @@
   "unsubscribeTitle": "Unsubscribed",
   "unsubscribed": "Done, you won't get our emails anymore. See you in the shop.",
   "unsubscribeInvalid": "This link is no longer valid. Write to us if you want to be removed.",
-  "backHome": "Back to the shop"
+  "backHome": "Back to the shop",
+  "failed": "Couldn't subscribe right now. Try again in a moment."
 }

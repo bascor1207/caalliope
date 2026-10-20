@@ -1,4 +1,5 @@
 /** Interface publique UI de la slice catalogue : composants composables par les pages. */
+export { CatalogLive } from "./ui/catalog-live";
 export { DropGrid } from "./ui/drop-grid";
 export { type FeaturedCard, FloatingCards } from "./ui/floating-cards";
 export { ProductCard } from "./ui/product-card";

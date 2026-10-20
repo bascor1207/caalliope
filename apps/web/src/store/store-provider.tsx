@@ -4,7 +4,7 @@ import { type ReactNode, useEffect, useRef } from "react";
 import { Provider } from "react-redux";
 import { eventBus } from "@/shared/event-bus";
 import { bindCartToBus } from "@/slices/cart/public-store";
-import { type CatalogState, searchGateway } from "@/slices/catalog/public-store";
+import { type CatalogState, catalogGateway, searchGateway } from "@/slices/catalog/public-store";
 import { placeOrderGateway } from "@/slices/checkout/public-store";
 import { bindNotificationsToBus } from "@/slices/notifications/public-store";
 import { type AppStore, makeStore } from "./store";
@@ -22,7 +22,7 @@ interface Props {
 export function StoreProvider({ children, catalog }: Props) {
   const storeRef = useRef<AppStore | null>(null);
   if (!storeRef.current) {
-    storeRef.current = makeStore({ bus: eventBus, searchGateway, placeOrderGateway }, { catalog });
+    storeRef.current = makeStore({ bus: eventBus, searchGateway, catalogGateway, placeOrderGateway }, { catalog });
   }
   const store = storeRef.current;
 

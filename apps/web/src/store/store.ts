@@ -1,6 +1,6 @@
 import { combineReducers, configureStore, createListenerMiddleware } from "@reduxjs/toolkit";
 import { cartReducer, registerCartListeners } from "@/slices/cart/public-store";
-import { catalogApi, catalogReducer } from "@/slices/catalog/public-store";
+import { catalogApi, catalogReducer, registerCatalogListeners } from "@/slices/catalog/public-store";
 import { checkoutReducer, registerCheckoutListeners } from "@/slices/checkout/public-store";
 import { notificationsReducer } from "@/slices/notifications/public-store";
 import type { AppStartListening } from "./listener";
@@ -24,6 +24,7 @@ export function makeStore(deps: StoreDeps, preloadedState?: Partial<RootState>) 
   const startListening = listener.startListening as AppStartListening;
   registerCartListeners(startListening);
   registerCheckoutListeners(startListening);
+  registerCatalogListeners(startListening);
   return configureStore({
     reducer: rootReducer,
     middleware: (getDefault) =>

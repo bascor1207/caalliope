@@ -9,5 +9,6 @@
   "unsubscribeTitle": "Désinscription",
   "unsubscribed": "C'est fait, tu ne recevras plus nos e-mails. À bientôt sur la boutique.",
   "unsubscribeInvalid": "Ce lien n'est plus valide. Écris-nous si tu veux être retiré de la liste.",
-  "backHome": "Retour à la boutique"
+  "backHome": "Retour à la boutique",
+  "failed": "Inscription impossible pour le moment. Réessaie dans un instant."
 }

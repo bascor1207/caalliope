@@ -21,6 +21,10 @@ Suivi des idées et de leur état. Mis à jour à chaque lot livré.
 - Toasts partout (boutique et admin) et rendu optimiste : adresses, profil, interrupteurs (flags, rôle, fiche en ligne).
 - Téléphones formatés avec l'indicatif international (+33 6 …), stockés en E.164.
 
+- Temps réel boutique : `catalog_versions` incrémentée par trigger à chaque écriture (fiches, réglages), écoutée par les navigateurs (Supabase Realtime) → relecture RTK Query en tâche de fond + rafraîchissement doux des composants serveur. Fiche produit vivante (prix, stock, photos).
+- Newsletter : inscription optimiste, nouveau wording (« Ne rate pas le prochain drop », code 10 % conservé).
+- Vercel : builds de preview désactivés sur les deux projets.
+
 ## En cours / à configurer par KODA
 - Admin → Catalogue → « Importer le catalogue de la boutique » (une fois le déploiement passé) : les fiches deviennent éditables.
 - Admin → Réglages → Boîte d'envoi : smtp.gmail.com / bcorre.work@gmail.com / mot de passe d'application, puis « Envoyer le test ».

@@ -15,7 +15,12 @@ describe("bus ↔ store", () => {
     const placeOrderGateway: PlaceOrderGateway = {
       place: async () => ({ ok: false, errors: { cart: "network" } }),
     };
-    const store = makeStore({ bus, searchGateway: { search: async () => [] }, placeOrderGateway });
+    const store = makeStore({
+      bus,
+      searchGateway: { search: async () => [] },
+      catalogGateway: { listProducts: async () => [] },
+      placeOrderGateway,
+    });
     bindCartToBus(bus, store.dispatch);
     bindNotificationsToBus(bus, store.dispatch);
     return { bus, store };

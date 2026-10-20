@@ -1,25 +1,45 @@
 "use client";
 
 import { useLocale, useTranslations } from "next-intl";
-import { useActionState, useEffect } from "react";
+import { useActionState, useState } from "react";
 import { eventBus } from "@/shared/event-bus";
 import { Button } from "@/shared/ui";
-import { subscribeAction } from "../infrastructure/subscribe.action";
+import { displayName, isValidEmail, normalizeEmail } from "../domain/subscription";
+import { type SubscribeFormState, subscribeAction } from "../infrastructure/subscribe.action";
 
-/** Formulaire progressif (fonctionne sans JS). Après succès, publie `newsletter.subscribed` sur le bus. */
+/**
+ * Formulaire progressif (fonctionne sans JS). Rendu optimiste : dès l'envoi d'un e-mail valide, le message
+ * de bienvenue s'affiche et le toast part ; si le serveur refuse, on revient au formulaire avec l'erreur.
+ */
 export function NewsletterForm() {
   const t = useTranslations("newsletter");
   const locale = useLocale();
-  const [state, action, pending] = useActionState(subscribeAction, null);
+  const [optimistic, setOptimistic] = useState<string | null>(null);
+  const [state, action, pending] = useActionState<SubscribeFormState | null, FormData>(async (prev, formData) => {
+    const email = normalizeEmail(String(formData.get("email") ?? ""));
+    if (isValidEmail(email)) {
+      setOptimistic(displayName(email));
+      eventBus.publish("newsletter.subscribed", { email });
+    }
+    try {
+      const result = await subscribeAction(prev, formData);
+      if (!result.ok) {
+        setOptimistic(null);
+        eventBus.publish("ui.notify", { text: t("invalid"), tone: "error" });
+      }
+      return result;
+    } catch {
+      setOptimistic(null);
+      eventBus.publish("ui.notify", { text: t("failed"), tone: "error" });
+      return { ok: false, code: "invalid-email", email };
+    }
+  }, null);
 
-  useEffect(() => {
-    if (state?.ok && state.email) eventBus.publish("newsletter.subscribed", { email: state.email });
-  }, [state]);
-
-  if (state?.ok) {
+  const name = state?.ok ? state.name : optimistic;
+  if (name) {
     return (
       <p role="status" className="font-display text-xl font-bold">
-        {t("welcome", { name: state.name })}
+        {t("welcome", { name })}
       </p>
     );
   }

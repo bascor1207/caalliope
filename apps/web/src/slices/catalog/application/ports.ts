@@ -6,6 +6,13 @@ import type { SearchHit } from "../domain/search";
 export interface CatalogRepository {
   listProducts(locale: Locale): Promise<Product[]>;
   getProductBySlug(slug: string, locale: Locale): Promise<Product | null>;
+  /** Lecture sans cache, pour la relecture temps réel côté client. Par défaut : listProducts. */
+  listProductsFresh?(locale: Locale): Promise<Product[]>;
+}
+
+/** Port de lecture du catalogue côté client (RTK Query) : relecture fraîche après un changement en base. */
+export interface CatalogGateway {
+  listProducts(locale: Locale): Promise<Product[]>;
 }
 
 /** Port de recherche côté client (appelé par RTK Query). */
