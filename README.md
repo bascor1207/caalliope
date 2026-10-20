@@ -112,6 +112,22 @@ newsletter.subscribed    →  notifications
 Côté store, un **listener middleware** RTK traduit les actions en événements (store → bus) et chaque slice expose un
 `bindXToBus(bus, dispatch)` pour l'inverse (bus → store). Dans la console : `monitorEvents(window, 'koda:cart.line-added')`.
 
+## Comptes, rôles et feature flags
+
+- **Supabase Auth** : inscription et connexion par e-mail, Google et Apple (boutons affichés selon les feature flags,
+  fournisseurs à activer dans Supabase → Authentication → Providers). Session en cookies (`@supabase/ssr`), rafraîchie
+  par le proxy uniquement pour les visiteurs connectés : les pages restent statiques.
+- **`profiles`** (rôle `customer` ou `admin`, créé par trigger à l'inscription) et **`orders`** (site et commandes
+  migrées depuis Shopify, rattachées au compte par e-mail à l'inscription). RLS : un client ne voit que ses commandes.
+- **Boutique** : `/connexion`, `/inscription`, `/compte` (historique des commandes), icône compte dans le header.
+  Un admin connecté n'alimente pas les statistiques (clé locale `koda.role`).
+- **Admin** : connexion par compte Supabase avec le rôle `admin` (mot de passe maître `ADMIN_PASSWORD` en secours),
+  page Utilisateurs (rôles), page Réglages (feature flags `auth.email`, `auth.google`, `auth.apple`).
+- **`@koda/db`** : client Postgres partagé (driver `postgres`, pooler Supabase), utilisé par la boutique (commandes,
+  session) et l'admin (utilisateurs, flags).
+- À faire dans Supabase une fois : Authentication → URL Configuration → Site URL `https://kodaclothing.fr` et
+  Redirect URLs `https://<domaine>/auth/callback` (boutique), puis les fournisseurs Google / Apple.
+
 ## Marketing, analytics et admin
 
 - **`marketing`** : le bandeau au-dessus du header lit des bannières (texte FR/EN, lien, fenêtre de diffusion, ordre)

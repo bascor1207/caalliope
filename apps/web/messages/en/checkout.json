@@ -21,7 +21,7 @@
     "pocNote": "POC: no real payment. Stripe Checkout comes next.",
     "pay": "Pay {total}",
     "submitting": "Submitting…",
-    "terms": "By confirming you accept the <link>terms</link>. Ships within 48 business hours from France.",
+    "terms": "By confirming you accept the <link>terms</link>. Shipped from France.",
     "summary": "Summary",
     "subtotal": "Subtotal",
     "shippingLine": "Shipping",
@@ -45,7 +45,19 @@
     "thanks": "Thank you",
     "order": "Order <b>{ref}</b> · {total}.",
     "email": "A summary is on its way to <b>{email}</b>.",
-    "next": "Your order ships within 48 business hours; you'll get tracking as soon as it leaves.",
+    "next": "You'll get tracking by email as soon as your order ships.",
     "back": "Back to the shop"
+  },
+  "history": {
+    "empty": "No orders yet.",
+    "fromShopify": "previous store",
+    "status": {
+      "pending": "Pending",
+      "paid": "Paid",
+      "shipped": "Shipped",
+      "delivered": "Delivered",
+      "cancelled": "Cancelled",
+      "refunded": "Refunded"
+    }
   }
 }

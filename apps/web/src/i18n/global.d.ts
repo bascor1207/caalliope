@@ -1,3 +1,4 @@
+import type auth from "../../messages/fr/auth.json";
 import type cart from "../../messages/fr/cart.json";
 import type catalog from "../../messages/fr/catalog.json";
 import type checkout from "../../messages/fr/checkout.json";
@@ -27,6 +28,7 @@ declare module "next-intl" {
       newsletter: typeof newsletter;
       pages: typeof pages;
       notifications: typeof notifications;
+      auth: typeof auth;
     };
   }
 }

@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useLocale } from "next-intl";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 import { eventBus } from "@/shared/event-bus";
 import { bindAnalyticsToBus, createTracker, type Tracker } from "../application/tracker";
 import { clickTarget, isOptedOut, sessionIdFrom } from "../domain/analytics";
@@ -20,13 +20,27 @@ const safeStorage = (kind: "sessionStorage" | "localStorage") => {
  * Monte le traceur une fois par onglet : page vues à chaque navigation, faits du bus, flush à la fermeture.
  * Aucune donnée personnelle, aucun cookie : un identifiant de session en sessionStorage.
  */
+const BLOCK_EVENTS = ["koda:role-changed", "koda:analytics-opt-out", "storage"];
+const subscribeBlocked = (l: () => void) => {
+  for (const e of BLOCK_EVENTS) window.addEventListener(e, l);
+  return () => {
+    for (const e of BLOCK_EVENTS) window.removeEventListener(e, l);
+  };
+};
+
 export function AnalyticsProvider() {
   const pathname = usePathname();
   const locale = useLocale();
   const tracker = useRef<Tracker | null>(null);
+  /* Opposition ou admin connecté : réévalué dès que la session ou la préférence change. */
+  const blocked = useSyncExternalStore(
+    subscribeBlocked,
+    () => isOptedOut(safeStorage("localStorage")),
+    () => true,
+  );
 
   useEffect(() => {
-    if (isOptedOut(safeStorage("localStorage"))) return;
+    if (blocked) return;
     const t = createTracker(beaconTransport, {
       session: sessionIdFrom(safeStorage("sessionStorage"), () => crypto.randomUUID()),
       locale,
@@ -52,7 +66,7 @@ export function AnalyticsProvider() {
       t.flush();
       tracker.current = null;
     };
-  }, [locale]);
+  }, [locale, blocked]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: une page vue par navigation (pathname déclencheur).
   useEffect(() => {

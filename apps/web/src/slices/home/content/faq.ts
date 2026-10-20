@@ -10,8 +10,8 @@ const FAQ: FaqItem[] = [
   {
     q: { fr: "Quand est-ce que je reçois ma commande ?", en: "When do I receive my order?" },
     a: {
-      fr: "Expédition sous 48 h ouvrées depuis la France, livraison en 2 à 4 jours ouvrés. Tu reçois un mail avec le suivi dès que ton colis part.",
-      en: "Ships within 48 business hours from France, delivered in 2 to 4 business days. You get a tracking email as soon as your parcel leaves.",
+      fr: "Expédié depuis la France. Tu reçois un mail avec le suivi dès que ton colis part.",
+      en: "Shipped from France. You get a tracking email as soon as your parcel leaves.",
     },
   },
   {

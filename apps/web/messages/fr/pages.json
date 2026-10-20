@@ -23,9 +23,9 @@
     "headingSerif": "& retours.",
     "shippingTitle": "Livraison",
     "shipping1": "Colissimo suivi, expédié depuis notre atelier en France. Offerte dès <b>{free}</b>, sinon {fee}. Europe : 9,90 €.",
-    "shipping2": "Expédition sous 48 h ouvrées depuis la France, livraison en 2 à 4 jours ouvrés. Tu reçois le suivi par e-mail.",
+    "shipping2": "Expédié depuis la France. Tu reçois le suivi par e-mail dès le départ de ton colis.",
     "returnsTitle": "Retours",
-    "returns": "30 jours après réception pour changer d'avis.|Article non porté, non lavé, étiquettes attachées.|Étiquette de retour offerte en France métropolitaine, remboursement sous 5 jours après réception.|Échange de taille prioritaire tant que le stock le permet."
+    "returns": "30 jours après réception pour changer d'avis.|Article non porté, non lavé, étiquettes attachées.|Étiquette de retour offerte en France métropolitaine, remboursement dès réception.|Échange de taille prioritaire tant que le stock le permet."
   },
   "terms": {
     "title": "Conditions générales de vente",

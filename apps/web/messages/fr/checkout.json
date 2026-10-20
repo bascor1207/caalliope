@@ -21,7 +21,7 @@
     "pocNote": "POC : aucun paiement réel. Stripe Checkout sera branché à l'étape suivante.",
     "pay": "Payer {total}",
     "submitting": "Validation…",
-    "terms": "En validant, tu acceptes les <link>CGV</link>. Expédition sous 48 h ouvrées depuis la France.",
+    "terms": "En validant, tu acceptes les <link>CGV</link>. Expédié depuis la France.",
     "summary": "Récap",
     "subtotal": "Sous-total",
     "shippingLine": "Livraison",
@@ -45,7 +45,19 @@
     "thanks": "Merci",
     "order": "Commande <b>{ref}</b> · {total}.",
     "email": "Un récap part sur <b>{email}</b>.",
-    "next": "Ta commande part sous 48 h ouvrées, tu reçois le suivi dès l'expédition.",
+    "next": "Tu reçois le suivi par e-mail dès que ta commande part.",
     "back": "Retour à la boutique"
+  },
+  "history": {
+    "empty": "Aucune commande pour l'instant.",
+    "fromShopify": "ancienne boutique",
+    "status": {
+      "pending": "En attente",
+      "paid": "Payée",
+      "shipped": "Expédiée",
+      "delivered": "Livrée",
+      "cancelled": "Annulée",
+      "refunded": "Remboursée"
+    }
   }
 }

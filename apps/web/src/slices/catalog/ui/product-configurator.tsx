@@ -4,7 +4,7 @@ import { RotateCcwIcon, ShieldCheckIcon, TruckIcon, ZoomInIcon } from "lucide-re
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useRouter } from "@/i18n/navigation";
 import { eventBus } from "@/shared/event-bus";
 import { Button, cn, Price, ProductArt, Skeleton, useMoney } from "@/shared/ui";
@@ -36,6 +36,7 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
   const [shot, setShot] = useState(0);
   const [zoom, setZoom] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const sizesRef = useRef<HTMLDivElement>(null);
   /** Les autres coloris ne sont montés qu'une fois la photo active affichée : LCP d'abord, préchauffage ensuite. */
   const [warm, setWarm] = useState(false);
   const color = pickColor(product, colorKey);
@@ -72,6 +73,9 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
   const choose = () => {
     if (!size) {
       setError(t("chooseSize"));
+      // Mobile : la taille doit être visible et évidente avant d'ajouter.
+      sizesRef.current?.scrollIntoView({ block: "center", behavior: "smooth" });
+      sizesRef.current?.querySelector<HTMLButtonElement>("button:not(:disabled)")?.focus({ preventScroll: true });
       return;
     }
     setError(null);
@@ -208,14 +212,15 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
             className="mt-2.5 block font-display text-2xl font-bold"
           />
         </div>
-        <p className="text-[15px] leading-relaxed text-ink-2 md:text-base">{product.description}</p>
+        {/* Mobile : taille puis bouton tout de suite sous la photo, la description et le reste ensuite. */}
+        <p className="text-[15px] leading-relaxed text-ink-2 max-md:order-3 md:text-base">{product.description}</p>
         <div className="max-md:hidden">
           <div className="mb-2.5 flex justify-between text-[13px] font-semibold">
             {t("color")} <span className="font-normal text-muted">{color.name}</span>
           </div>
           {swatches("size-[30px]")}
         </div>
-        <div>
+        <div ref={sizesRef} className="max-md:order-1">
           <div className="mb-2.5 flex justify-between text-[13px] font-semibold">
             {t("size")}
             <Link
@@ -257,10 +262,14 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
             </p>
           )}
         </div>
-        <Button type="button" onClick={choose} className="max-md:sticky max-md:bottom-3 max-md:z-40 max-md:shadow-lg">
+        <Button
+          type="button"
+          onClick={choose}
+          className="max-md:order-2 max-md:sticky max-md:bottom-3 max-md:z-40 max-md:shadow-lg"
+        >
           {t("preorder", { price: money(product.price) })}
         </Button>
-        <ul className="grid gap-2 text-[13px] text-ink-2">
+        <ul className="grid gap-2 text-[13px] text-ink-2 max-md:order-4">
           <li className="flex items-center gap-2.5">
             <TruckIcon className="size-4 shrink-0" /> {t("reassure1")}
           </li>
@@ -274,7 +283,9 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
             <ShieldCheckIcon className="size-4 shrink-0" /> {t("reassure3")}
           </li>
         </ul>
-        <p className="text-xs text-muted">{t("material", { material: product.material, sku: product.sku })}</p>
+        <p className="text-xs text-muted max-md:order-5">
+          {t("material", { material: product.material, sku: product.sku })}
+        </p>
       </div>
     </div>
   );

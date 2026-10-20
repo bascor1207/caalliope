@@ -31,6 +31,21 @@ export interface Order extends Totals {
   payment: PaymentMethod;
   lines: OrderLine[];
   createdAt: string;
+  /** Compte client rattaché, s'il était connecté au moment de la commande. */
+  userId?: string | null;
+}
+
+export type OrderStatus = "pending" | "paid" | "shipped" | "delivered" | "cancelled" | "refunded";
+
+/** Vue « historique » d'une commande pour l'espace client (site et Shopify confondus). */
+export interface OrderSummary {
+  ref: string;
+  status: OrderStatus;
+  total: number;
+  currency: string;
+  placedAt: string;
+  source: "koda" | "shopify";
+  lines: Array<{ name: string; qty: number; unitPrice: number; colorKey?: string; size?: string }>;
 }
 
 export type CustomerField = keyof Customer;

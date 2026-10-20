@@ -54,9 +54,5 @@
     "cta": "Chercher",
     "empty": "Aucune pièce pour « {q} ». Essaie « hoodie » ou « tee ».",
     "tags": "hoodie|pastel|rose|navy|oversized|noir"
-  },
-  "recommendations": {
-    "title": "Ils vont",
-    "titleSerif": "ensemble."
   }
 }

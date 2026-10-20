@@ -20,6 +20,12 @@ importers:
       '@koda/analytics':
         specifier: workspace:*
         version: link:../../packages/analytics
+      '@koda/db':
+        specifier: workspace:*
+        version: link:../../packages/db
+      '@supabase/ssr':
+        specifier: ^0.8.0
+        version: 0.8.0(@supabase/supabase-js@2.118.0)
       '@supabase/supabase-js':
         specifier: ^2.58.0
         version: 2.118.0
@@ -63,6 +69,9 @@ importers:
       '@koda/analytics':
         specifier: workspace:*
         version: link:../../packages/analytics
+      '@koda/db':
+        specifier: workspace:*
+        version: link:../../packages/db
       '@reduxjs/toolkit':
         specifier: ^2.11.0
         version: 2.13.0(react-redux@9.3.0(@types/react@19.3.0)(react@19.3.1)(redux@5.0.1))(react@19.3.1)
@@ -149,6 +158,19 @@ importers:
       vitest:
         specifier: ^5.0.0
         version: 5.0.5(@types/node@22.20.5)(vite@8.3.4(@types/node@22.20.5)(jiti@2.7.0))
+
+  packages/db:
+    dependencies:
+      postgres:
+        specifier: ^3.4.7
+        version: 3.4.9
+    devDependencies:
+      '@types/node':
+        specifier: ^22.15.0
+        version: 22.20.5
+      typescript:
+        specifier: ^5.8.0
+        version: 5.9.3
 
 packages:
 

@@ -1,12 +1,11 @@
 import { top } from "@koda/analytics";
-import { LogOutIcon } from "lucide-react";
 import Link from "next/link";
 import { DailyBars } from "@/components/bars";
 import { LiveFeed } from "@/components/live-feed";
+import { AdminNav } from "@/components/nav";
 import { Funnel, Panel, RankTable } from "@/components/panels";
 import { isPeriod, loadSummary, PERIODS, type Period } from "@/lib/analytics";
 import { kpisOf } from "@/lib/kpis";
-import { logout } from "./actions";
 
 /** Toujours calculé à la demande : les chiffres lus sont ceux du store à l'instant T. */
 export const dynamic = "force-dynamic";
@@ -54,14 +53,7 @@ export default async function Dashboard({ searchParams }: Props) {
               </Link>
             ))}
           </nav>
-          <form action={logout}>
-            <button
-              type="submit"
-              className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-4 py-2.5 text-sm font-semibold hover:border-ink"
-            >
-              <LogOutIcon className="size-3.5" aria-hidden="true" /> Déconnexion
-            </button>
-          </form>
+          <AdminNav current="/" />
         </div>
       </header>
 

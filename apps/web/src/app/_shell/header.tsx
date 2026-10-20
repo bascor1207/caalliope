@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Link, usePathname } from "@/i18n/navigation";
 import { Button, Sheet, SheetClose, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/shared/ui";
+import { AccountMenu } from "@/slices/auth/public-ui";
 import { CartButton } from "@/slices/cart/public-ui";
 import { SearchBox } from "@/slices/catalog/public-ui";
 import { LocaleSwitcher } from "./locale-switcher";
@@ -100,6 +101,7 @@ export function Header() {
             </Link>
           </Button>
           <LocaleSwitcher className="hidden lg:inline-flex" />
+          <AccountMenu />
           <CartButton />
         </div>
       </div>

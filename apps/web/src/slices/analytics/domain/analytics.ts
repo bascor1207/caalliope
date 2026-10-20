@@ -31,6 +31,9 @@ export function clickTarget(element: {
 
 export const OPT_OUT_KEY = "koda.analytics";
 
-/** Opposition à la mesure d'audience (stockée localement, jamais envoyée). */
+/** Clé locale posée par la slice auth : un admin connecté n'alimente pas les statistiques. */
+export const ROLE_KEY = "koda.role";
+
+/** Opposition à la mesure d'audience (stockée localement, jamais envoyée), ou utilisateur admin connecté. */
 export const isOptedOut = (storage: Pick<Storage, "getItem"> | null): boolean =>
-  storage?.getItem(OPT_OUT_KEY) === "off";
+  storage?.getItem(OPT_OUT_KEY) === "off" || storage?.getItem(ROLE_KEY) === "admin";

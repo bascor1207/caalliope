@@ -1,0 +1,92 @@
+import type { Metadata } from "next";
+import { changeRole } from "@/app/actions";
+import { AdminNav } from "@/components/nav";
+import { listUsers } from "@/lib/users";
+
+export const metadata: Metadata = { title: "Utilisateurs" };
+export const dynamic = "force-dynamic";
+
+const fmt = (iso: string) =>
+  new Date(iso).toLocaleDateString("fr-FR", { day: "numeric", month: "short", year: "numeric" });
+
+export default async function UsersPage() {
+  const users = await listUsers();
+  const admins = users.filter((u) => u.role === "admin").length;
+  return (
+    <main className="mx-auto w-[min(1360px,100%-40px)] py-10 md:py-12">
+      <header className="flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p className="eyebrow">KODA Clothing · Admin</p>
+          <h1 className="mt-2 text-[clamp(30px,4vw,44px)] leading-none tracking-[-0.03em]">Utilisateurs</h1>
+          <p className="mt-3 text-[15px] text-muted">
+            {users.length} comptes · {admins} admin{admins > 1 ? "s" : ""}
+          </p>
+        </div>
+        <AdminNav current="/utilisateurs" />
+      </header>
+      <section className="card mt-10 overflow-x-auto" aria-label="Comptes">
+        {users.length === 0 ? (
+          <p className="text-[15px] text-muted">
+            Aucun compte pour l'instant. Les inscriptions sur la boutique apparaîtront ici.
+          </p>
+        ) : (
+          <table className="w-full text-[15px]">
+            <thead className="text-left text-sm text-muted">
+              <tr>
+                <th scope="col" className="pb-3 font-medium">
+                  Nom
+                </th>
+                <th scope="col" className="pb-3 font-medium">
+                  E-mail
+                </th>
+                <th scope="col" className="pb-3 font-medium">
+                  Inscrit le
+                </th>
+                <th scope="col" className="pb-3 text-right font-medium">
+                  Commandes
+                </th>
+                <th scope="col" className="pb-3 font-medium">
+                  Rôle
+                </th>
+                <th scope="col" className="pb-3 text-right font-medium">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((u) => (
+                <tr key={u.id} className="border-t border-line">
+                  <td className="py-3 pr-3 font-medium">
+                    {[u.first_name, u.last_name].filter(Boolean).join(" ") || "–"}
+                  </td>
+                  <td className="py-3 pr-3">{u.email}</td>
+                  <td className="py-3 pr-3 text-muted">{fmt(u.created_at)}</td>
+                  <td className="py-3 pr-3 text-right tabular-nums">{u.orders}</td>
+                  <td className="py-3 pr-3">
+                    <span
+                      className={`rounded-full px-2.5 py-1 text-xs font-semibold ${u.role === "admin" ? "bg-ink text-cream" : "bg-ink/6"}`}
+                    >
+                      {u.role === "admin" ? "admin" : "client"}
+                    </span>
+                  </td>
+                  <td className="py-3 text-right">
+                    <form action={changeRole}>
+                      <input type="hidden" name="id" value={u.id} />
+                      <input type="hidden" name="role" value={u.role === "admin" ? "customer" : "admin"} />
+                      <button
+                        type="submit"
+                        className="rounded-full border border-line bg-white px-3 py-1.5 text-xs font-semibold hover:border-ink"
+                      >
+                        {u.role === "admin" ? "Retirer admin" : "Rendre admin"}
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </section>
+    </main>
+  );
+}

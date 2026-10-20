@@ -21,6 +21,9 @@ export const routing = defineRouting({
     "/livraison": { fr: "/livraison", en: "/shipping" },
     "/cgv": { fr: "/cgv", en: "/terms" },
     "/confidentialite": { fr: "/confidentialite", en: "/privacy" },
+    "/connexion": { fr: "/connexion", en: "/login" },
+    "/inscription": { fr: "/inscription", en: "/signup" },
+    "/compte": { fr: "/compte", en: "/account" },
   },
 });
 

@@ -29,13 +29,16 @@ export async function placeOrder(input: PlaceOrderInput, deps: Deps): Promise<Pl
   }
   if (hasErrors(errors)) return { ok: false, errors };
 
-  const order = buildOrder({
-    ref: await deps.orders.nextRef(),
-    customer: input.customer,
-    payment: input.payment,
-    lines,
-    now: (deps.now ?? (() => new Date()))(),
-  });
+  const order = {
+    ...buildOrder({
+      ref: await deps.orders.nextRef(),
+      customer: input.customer,
+      payment: input.payment,
+      lines,
+      now: (deps.now ?? (() => new Date()))(),
+    }),
+    userId: input.userId ?? null,
+  };
   await deps.orders.save(order);
   return { ok: true, order };
 }

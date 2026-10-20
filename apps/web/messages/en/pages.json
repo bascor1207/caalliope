@@ -23,9 +23,9 @@
     "headingSerif": "& returns.",
     "shippingTitle": "Shipping",
     "shipping1": "Tracked Colissimo, shipped from our workshop in France. Free from <b>{free}</b>, otherwise {fee}. Europe: €9.90.",
-    "shipping2": "Ships within 48 business hours from France, delivered in 2 to 4 business days. You get tracking by email.",
+    "shipping2": "Shipped from France. You get tracking by email as soon as your parcel leaves.",
     "returnsTitle": "Returns",
-    "returns": "30 days after delivery to change your mind.|Unworn, unwashed, tags attached.|Free return label in mainland France, refund within 5 days of receipt.|Priority size exchange while stock lasts."
+    "returns": "30 days after delivery to change your mind.|Unworn, unwashed, tags attached.|Free return label in mainland France, refund once received.|Priority size exchange while stock lasts."
   },
   "terms": {
     "title": "Terms of sale",

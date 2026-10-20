@@ -54,9 +54,5 @@
     "cta": "Search",
     "empty": "No piece for “{q}”. Try “hoodie” or “tee”.",
     "tags": "hoodie|pastel|pink|navy|oversized|black"
-  },
-  "recommendations": {
-    "title": "They go",
-    "titleSerif": "together."
   }
 }

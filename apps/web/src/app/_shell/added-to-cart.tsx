@@ -1,13 +1,8 @@
 "use client";
 
 import { AddedToCartDialog } from "@/slices/cart/public-ui";
-import { Recommendations } from "@/slices/catalog/public-ui";
 
-/** Composition : la modale du panier reçoit les recommandations du catalogue sans connaître la slice. */
+/** Confirmation d'ajout au panier (sans recommandations). */
 export function AddedToCart() {
-  return (
-    <AddedToCartDialog>
-      {(added, close) => <Recommendations productId={added.productId} colorKey={added.colorKey} onNavigate={close} />}
-    </AddedToCartDialog>
-  );
+  return <AddedToCartDialog />;
 }

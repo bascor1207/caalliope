@@ -5,6 +5,7 @@ import type {
   Order,
   OrderLine,
   OrderLineInput,
+  OrderSummary,
   PaymentMethod,
   ValidationErrors,
 } from "../domain/order";
@@ -13,6 +14,8 @@ export interface OrdersRepository {
   nextRef(): Promise<string>;
   save(order: Order): Promise<void>;
   findByRef(ref: string): Promise<Order | null>;
+  /** Historique d'un client (compte rattaché ou même e-mail), du plus récent au plus ancien. */
+  listForUser(userId: string, email: string): Promise<OrderSummary[]>;
 }
 
 export type PricedLine = { ok: true; line: OrderLine } | { ok: false; code: ErrorCode };
@@ -30,6 +33,8 @@ export interface PlaceOrderInput {
   customer: Customer;
   payment: PaymentMethod;
   lines: OrderLineInput[];
+  /** Renseigné côté serveur depuis la session, jamais par le client. */
+  userId?: string | null;
 }
 
 export type PlaceOrderResult = { ok: true; order: Order } | { ok: false; errors: ValidationErrors };

@@ -1,6 +1,7 @@
 "use server";
 
 import { isLocale } from "@/shared/kernel/locale";
+import { getSessionUser } from "@/slices/auth/public-server";
 import { placeOrder } from "../application/place-order";
 import type { PlaceOrderInput, PlaceOrderResult } from "../application/ports";
 import { PAYMENT_METHODS } from "../domain/order";
@@ -11,9 +12,11 @@ export async function placeOrderAction(input: PlaceOrderInput): Promise<PlaceOrd
   if (!isLocale(input.locale) || !PAYMENT_METHODS.includes(input.payment)) {
     return { ok: false, errors: { cart: "network" } };
   }
+  const user = await getSessionUser().catch(() => null);
   const safeInput: PlaceOrderInput = {
     locale: input.locale,
     payment: input.payment,
+    userId: user?.id ?? null,
     customer: Object.fromEntries(
       (["email", "firstName", "lastName", "address", "zip", "city"] as const).map((k) => [
         k,
