@@ -64,5 +64,13 @@
     "title": "This page",
     "titleSerif": "doesn't exist.",
     "text": "Dead link, or the piece has left the drop."
+  },
+  "error": {
+    "eyebrow": "Oops",
+    "title": "Something",
+    "titleSerif": "broke.",
+    "text": "It's not you, it's us. Try again in a moment: the team has been notified.",
+    "retry": "Try again",
+    "ref": "Ref. {digest}"
   }
 }

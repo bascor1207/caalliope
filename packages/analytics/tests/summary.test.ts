@@ -32,7 +32,12 @@ describe("summarize", () => {
     expect(s.revenue).toBeCloseTo(69.99);
     expect(s.clicks).toEqual({ "hero.cta": 1 });
     expect(s.locales).toEqual({ fr: 2 });
-    expect(s.frictions).toEqual({ checkoutErrors: { "invalid-zip": 1 }, searchesWithoutResult: 1 });
+    expect(s.frictions).toEqual({
+      checkoutErrors: { "invalid-zip": 1 },
+      searchesWithoutResult: 1,
+      pageErrors: {},
+      pageErrorCount: 0,
+    });
     expect(s.daily).toEqual([
       { day: "2026-10-19", pageViews: 1, sessions: 1, orders: 0 },
       { day: "2026-10-20", pageViews: 1, sessions: 1, orders: 1 },

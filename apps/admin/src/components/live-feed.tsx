@@ -20,6 +20,7 @@ const LABELS: Record<string, string> = {
   checkout_failed: "Checkout refusé",
   order_placed: "Commande",
   newsletter_subscribed: "Inscription",
+  page_error: "Page en erreur",
 };
 
 const POLL_MS = 30_000;

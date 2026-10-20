@@ -41,19 +41,23 @@ export async function saveProductAction(id: string, _prev: CatalogState, f: Form
   if (errors.length > 0) return { errors };
   const finalId = id === "nouveau" ? slug : id;
   if (await slugTaken(slug, finalId)) return { errors: ["Ce slug est déjà utilisé par une autre fiche."] };
-  await saveCatalogProduct({
-    id: finalId,
-    slug,
-    sort: Number(str(f, "sort") || 0),
-    active: f.get("active") === "on",
-    data: {
-      ...data,
-      sku: data.sku.trim(),
-      compare: data.compare && data.compare > 0 ? data.compare : undefined,
-      badge: data.badge?.fr?.trim() ? data.badge : undefined,
-      soldOutByColor: Object.fromEntries(Object.entries(data.soldOutByColor ?? {}).filter(([, v]) => v.length > 0)),
-    },
-  });
+  try {
+    await saveCatalogProduct({
+      id: finalId,
+      slug,
+      sort: Number(str(f, "sort") || 0),
+      active: f.get("active") === "on",
+      data: {
+        ...data,
+        sku: data.sku.trim(),
+        compare: data.compare && data.compare > 0 ? data.compare : undefined,
+        badge: data.badge?.fr?.trim() ? data.badge : undefined,
+        soldOutByColor: Object.fromEntries(Object.entries(data.soldOutByColor ?? {}).filter(([, v]) => v.length > 0)),
+      },
+    });
+  } catch (e) {
+    return { errors: [`Enregistrement impossible : ${e instanceof Error ? e.message : String(e)}`] };
+  }
   const state = await refreshed("Fiche enregistrée.");
   if (id === "nouveau") redirect(`/catalogue/${finalId}`);
   revalidatePath(`/catalogue/${finalId}`);
@@ -63,6 +67,14 @@ export async function saveProductAction(id: string, _prev: CatalogState, f: Form
 export async function toggleProductAction(f: FormData): Promise<void> {
   const id = str(f, "id");
   if (id) await setProductActive(id, f.get("active") === "true");
+  await revalidateShop("catalog");
+  revalidatePath("/catalogue");
+}
+
+/** Variante appelée par l'interrupteur optimiste de la liste. */
+export async function setProductOnline(id: string, active: boolean): Promise<void> {
+  if (!id) return;
+  await setProductActive(id, active);
   await revalidateShop("catalog");
   revalidatePath("/catalogue");
 }
@@ -110,7 +122,11 @@ export async function savePaletteAction(_prev: CatalogState, f: FormData): Promi
       hex: c.hex.toUpperCase(),
     };
   }
-  await savePalette(palette);
+  try {
+    await savePalette(palette);
+  } catch (e) {
+    return { errors: [`Enregistrement impossible : ${e instanceof Error ? e.message : String(e)}`] };
+  }
   return refreshed("Palette enregistrée.");
 }
 

@@ -57,7 +57,7 @@ export default async function HomePage({ params }: Props) {
         )}
       />
       <JsonLd data={faqJsonLd(locale)} />
-      <Hero visual={<FloatingCards cards={featured} />} video={media.hero} />
+      <Hero visual={<FloatingCards cards={featured} />} video={media.hero} blobs={media.heroBlobs} />
       <ValuesMarquee />
       <DropGrid />
       <Story />

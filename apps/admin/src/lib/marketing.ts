@@ -9,6 +9,8 @@ export interface VideoMedia {
 export interface SiteMedia {
   hero?: VideoMedia | null;
   story?: VideoMedia | null;
+  /** Formes pastel animées derrière le hero (true par défaut). */
+  heroBlobs?: boolean;
 }
 
 export interface BannerSource {

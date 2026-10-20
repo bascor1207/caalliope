@@ -28,7 +28,13 @@ export interface AnalyticsSummary {
   /** Sessions distinctes ayant atteint chaque étape : c'est la base des taux (toujours ≤ sessions). */
   reached: { productViews: number; addToCart: number; checkoutStarted: number; ordersPlaced: number };
   /** Frictions : ce qui bloque un achat. */
-  frictions: { checkoutErrors: Record<string, number>; searchesWithoutResult: number };
+  frictions: {
+    checkoutErrors: Record<string, number>;
+    searchesWithoutResult: number;
+    /** Pages en erreur (hors 404), par chemin. */
+    pageErrors: Record<string, number>;
+    pageErrorCount: number;
+  };
   revenue: number;
   daily: DailyPoint[];
 }
@@ -68,7 +74,7 @@ export function summarize(events: AnalyticsEvent[], range?: DateRange): Analytic
     searches: { total: 0, noResult: {} },
     funnel: { productViews: 0, addToCart: 0, checkoutStarted: 0, ordersPlaced: 0 },
     reached: { productViews: 0, addToCart: 0, checkoutStarted: 0, ordersPlaced: 0 },
-    frictions: { checkoutErrors: {}, searchesWithoutResult: 0 },
+    frictions: { checkoutErrors: {}, searchesWithoutResult: 0, pageErrors: {}, pageErrorCount: 0 },
     revenue: 0,
     daily: [],
   };
@@ -117,6 +123,10 @@ export function summarize(events: AnalyticsEvent[], range?: DateRange): Analytic
         break;
       case "checkout_failed":
         bump(s.frictions.checkoutErrors, String(e.props.code));
+        break;
+      case "page_error":
+        bump(s.frictions.pageErrors, e.path);
+        s.frictions.pageErrorCount += 1;
         break;
       case "order_placed":
         s.funnel.ordersPlaced += 1;

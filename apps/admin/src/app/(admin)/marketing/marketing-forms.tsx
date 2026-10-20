@@ -3,6 +3,7 @@
 import { ArrowDownIcon, ArrowUpIcon, PlusIcon, Trash2Icon } from "lucide-react";
 import { useActionState, useState } from "react";
 import { MediaUpload } from "@/components/media-upload";
+import { useToastOnState } from "@/components/toaster";
 import type { BannerSource, VideoMedia } from "@/lib/marketing";
 import { type MarketingState, saveBannersAction, saveVideoBlock } from "./actions";
 
@@ -30,26 +31,46 @@ export function VideoBlockForm({
   current,
   defaultLabel,
   storage,
+  blobs = true,
 }: {
   block: "hero" | "story";
   current: VideoMedia | null | undefined;
   defaultLabel: string;
   storage: boolean;
+  /** Hero seulement : formes pastel affichées. */
+  blobs?: boolean;
 }) {
   const [state, action, pending] = useActionState(saveVideoBlock.bind(null, block), {});
-  const [mode, setMode] = useState<Mode>(current === null ? "hidden" : current ? "custom" : "default");
+  useToastOnState(state);
+  const hiddenInitially = block === "hero" ? current === null && !blobs : current === null;
+  const [mode, setMode] = useState<Mode>(hiddenInitially ? "hidden" : current ? "custom" : "default");
+  const [keepBlobs, setKeepBlobs] = useState(blobs);
   const [src, setSrc] = useState(current?.src ?? "");
   const [poster, setPoster] = useState(current?.poster ?? "");
   const modes: Array<[Mode, string]> = [
     ["default", defaultLabel],
     ["custom", "Ma vidéo"],
-    ["hidden", "Masquer le bloc"],
+    ["hidden", block === "hero" ? "Fond uni (rien derrière)" : "Masquer le bloc"],
   ];
   return (
     <form action={action} className="grid gap-5">
       <input type="hidden" name="mode" value={mode} />
       <input type="hidden" name="src" value={src} />
       <input type="hidden" name="poster" value={poster} />
+      {block === "hero" && mode !== "hidden" && (
+        <>
+          <input type="hidden" name="blobs" value={keepBlobs ? "on" : "off"} />
+          <label className="flex items-center gap-2 text-sm font-semibold">
+            <input
+              type="checkbox"
+              checked={keepBlobs}
+              onChange={(e) => setKeepBlobs(e.target.checked)}
+              className="size-4 accent-ink"
+            />
+            Afficher les formes pastel animées {mode === "custom" ? "par-dessus la vidéo" : "derrière le titre"}
+          </label>
+        </>
+      )}
       <div className="inline-flex flex-wrap rounded-full bg-ink/6 p-1 text-sm font-semibold">
         {modes.map(([m, label]) => (
           <button
@@ -129,6 +150,7 @@ export function VideoBlockForm({
 /** Bandeau défilant : messages FR/EN, lien, période, actif, ordre. */
 export function BannersForm({ initial }: { initial: BannerSource[] }) {
   const [state, action, pending] = useActionState(saveBannersAction, {});
+  useToastOnState(state);
   const [items, setItems] = useState<BannerSource[]>(initial);
   const update = (i: number, patch: Partial<BannerSource>) =>
     setItems((list) => list.map((b, k) => (k === i ? { ...b, ...patch } : b)));

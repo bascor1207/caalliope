@@ -1,6 +1,7 @@
 "use client";
 
 import { useActionState, useMemo, useState } from "react";
+import { useToastOnState } from "@/components/toaster";
 import { bodyToText, type CampaignContent, type RenderOptions, renderCampaignHtml } from "@/lib/email-template";
 import type { Campaign } from "@/lib/newsletter";
 import { type EditorState, launchCampaign, saveCampaign, sendTestCampaign } from "../../actions";
@@ -68,6 +69,9 @@ export function CampaignEditor({
     message: null,
     kind: null,
   } as EditorState);
+  useToastOnState(saveState);
+  useToastOnState(testState);
+  useToastOnState(sendState);
   const set = (k: keyof CampaignContent) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
     setContent((c) => ({ ...c, [k]: e.target.value }));
 

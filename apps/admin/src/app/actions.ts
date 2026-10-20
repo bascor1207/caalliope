@@ -79,6 +79,19 @@ export async function toggleFlag(formData: FormData) {
   revalidatePath("/parametres");
 }
 
+/** Variante appelée par l'interrupteur optimiste. */
+export async function setFlagValue(key: string, enabled: boolean): Promise<void> {
+  if (!key) return;
+  await setFlag(key, enabled);
+  revalidatePath("/parametres");
+}
+
+export async function setUserRole(id: string, role: Role): Promise<void> {
+  if (!id) return;
+  await setRole(id, role);
+  revalidatePath("/utilisateurs");
+}
+
 export async function changeRole(formData: FormData) {
   const id = String(formData.get("id") ?? "");
   const role = formData.get("role") === "admin" ? "admin" : ("customer" as Role);
@@ -106,7 +119,11 @@ export async function saveSmtp(_prev: SettingsState, f: FormData): Promise<Setti
   if (!next.host || !next.user || !next.pass) return { error: "Serveur, identifiant et mot de passe sont requis." };
   const check = await verifySmtp(next);
   if (!check.ok) return { error: `Connexion refusée par ${next.host} : ${check.error}` };
-  await setSetting(SMTP_KEY, { ...next, pass: seal(next.pass) });
+  try {
+    await setSetting(SMTP_KEY, { ...next, pass: seal(next.pass) });
+  } catch (e) {
+    return { error: `Enregistrement impossible : ${e instanceof Error ? e.message : String(e)}` };
+  }
   revalidatePath("/parametres");
   return { ok: `Boîte d'envoi enregistrée : ${next.from} via ${next.host}.` };
 }
@@ -149,7 +166,11 @@ export async function saveSocial(_prev: SettingsState, f: FormData): Promise<Set
     youtube: url(f, "youtube"),
     email: str(f, "email"),
   };
-  await setSetting(SOCIAL_KEY, next);
+  try {
+    await setSetting(SOCIAL_KEY, next);
+  } catch (e) {
+    return { error: `Enregistrement impossible : ${e instanceof Error ? e.message : String(e)}` };
+  }
   const refreshed = await revalidateShop("settings");
   revalidatePath("/parametres");
   return {

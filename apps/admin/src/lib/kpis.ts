@@ -33,7 +33,10 @@ export function kpisOf(s: AnalyticsSummary): Kpi[] {
       key: "pageViews",
       label: "Pages vues",
       value: int(pageViews),
-      hint: s.sessions ? `${(pageViews / s.sessions).toFixed(1).replace(".", ",")} pages par visite en moyenne` : "–",
+      hint: [
+        s.sessions ? `${(pageViews / s.sessions).toFixed(1).replace(".", ",")} pages par visite` : "–",
+        `${int(s.frictions.pageErrorCount)} ${plural(s.frictions.pageErrorCount, "page en erreur", "pages en erreur")}`,
+      ].join(" · "),
     },
     {
       key: "productViews",

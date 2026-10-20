@@ -160,6 +160,13 @@ export default async function Dashboard({ searchParams }: Props) {
             valueLabel="Fois"
             empty="Toutes les recherches ont des résultats."
           />
+          <h3 className="eyebrow mt-7 mb-3">Pages en erreur (hors 404)</h3>
+          <RankTable
+            rows={top(s.frictions.pageErrors, 5)}
+            label="Page"
+            valueLabel="Erreurs"
+            empty="Aucune page en erreur."
+          />
           <h3 className="eyebrow mt-7 mb-3">Langues des visites</h3>
           <RankTable rows={labelled(top(s.locales, 3), localeLabel)} label="Langue" valueLabel="Visites" empty="–" />
         </Panel>

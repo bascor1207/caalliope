@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { normalizePhone } from "@/shared/kernel/phone";
 import { getSessionUser } from "@/slices/auth/public-server";
 import {
   ADDRESS_FIELDS,
@@ -30,7 +31,11 @@ const refresh = () => revalidatePath("/[locale]/compte", "page");
 export async function updateProfileAction(_prev: ProfileState, f: FormData): Promise<ProfileState> {
   const user = await getSessionUser();
   if (!user) return { denied: true };
-  const input: ProfileInput = { firstName: str(f, "firstName"), lastName: str(f, "lastName"), phone: str(f, "phone") };
+  const input: ProfileInput = {
+    firstName: str(f, "firstName"),
+    lastName: str(f, "lastName"),
+    phone: normalizePhone(str(f, "phone")),
+  };
   const errors = validateProfile(input);
   if (Object.keys(errors).length > 0) return { errors };
   await accountRepository.updateProfile(user.id, input);
@@ -43,6 +48,7 @@ export async function saveAddressAction(_prev: AddressState, f: FormData): Promi
   if (!user) return { denied: true };
   const input = Object.fromEntries(ADDRESS_FIELDS.map((k) => [k, str(f, k)])) as unknown as AddressInput;
   if (!input.country) input.country = "FR";
+  input.phone = normalizePhone(input.phone);
   const errors = validateAddress(input);
   if (Object.keys(errors).length > 0) return { errors };
   const id = str(f, "id") || undefined;

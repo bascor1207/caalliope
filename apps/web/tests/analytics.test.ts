@@ -33,7 +33,12 @@ describe("analytics : synthèse", () => {
     expect(s.sessions).toBe(2);
     expect(s.pageViews).toEqual({ "/": 1, "/produits/pull-a-capuche-koda": 1 });
     expect(s.funnel).toEqual({ productViews: 1, addToCart: 1, checkoutStarted: 1, ordersPlaced: 1 });
-    expect(s.frictions).toEqual({ checkoutErrors: { "invalid-zip": 1 }, searchesWithoutResult: 1 });
+    expect(s.frictions).toEqual({
+      checkoutErrors: { "invalid-zip": 1 },
+      searchesWithoutResult: 1,
+      pageErrors: {},
+      pageErrorCount: 0,
+    });
     expect(s.searches.noResult).toEqual({ chaussettes: 1 });
   });
 

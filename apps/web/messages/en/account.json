@@ -50,5 +50,8 @@
     "none": "No saved card",
     "soon": "You'll be able to save a card at checkout once secure payment (Stripe, Apple Pay) is live. Cards are stored by Stripe, never by KODA.",
     "secure": "Encrypted, PCI DSS compliant payment"
-  }
+  },
+  "notSaved": "Couldn't save. Check the fields.",
+  "defaultSet": "Default address updated",
+  "removed": "Address deleted"
 }

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useFormatter } from "next-intl";
-import { type MouseEvent, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Link } from "@/i18n/navigation";
 import { ProductArt } from "@/shared/ui";
 import { imageFor, type Product, pickColor } from "../domain/product";
@@ -13,25 +13,61 @@ export interface FeaturedCard {
 }
 
 /**
- * Visuel du hero. Desktop : cartes flottantes avec parallaxe souris.
- * Mobile : rail horizontal à défilement, sous le texte, pour ne rien chevaucher.
+ * Visuel du hero. Desktop : cartes flottantes avec parallaxe souris lissée (requestAnimationFrame + interpolation,
+ * transform seul, jamais de transition relancée à chaque mouvement). Mobile : rail horizontal sous le texte.
  */
 export function FloatingCards({ cards }: { cards: FeaturedCard[] }) {
   const ref = useRef<HTMLDivElement>(null);
   const format = useFormatter();
 
-  const onMove = (e: MouseEvent<HTMLDivElement>) => {
+  useEffect(() => {
     const el = ref.current;
     if (!el || window.matchMedia("(pointer:coarse)").matches) return;
-    const r = el.getBoundingClientRect();
-    const x = (e.clientX - r.left - r.width / 2) / r.width;
-    const y = (e.clientY - r.top - r.height / 2) / r.height;
-    el.querySelectorAll<HTMLElement>(".float-card").forEach((c, i) => {
-      const k = (3 - i) * 8;
-      c.style.setProperty("--x", `${x * k}px`);
-      c.style.setProperty("--y", `${y * k}px`);
-    });
-  };
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const layers = Array.from(el.querySelectorAll<HTMLElement>(".float-card-parallax"));
+    const target = { x: 0, y: 0 };
+    const current = { x: 0, y: 0 };
+    let frame = 0;
+    let running = false;
+
+    const tick = () => {
+      current.x += (target.x - current.x) * 0.08;
+      current.y += (target.y - current.y) * 0.08;
+      layers.forEach((layer, i) => {
+        const k = (3 - i) * 10;
+        layer.style.transform = `translate3d(${(current.x * k).toFixed(2)}px, ${(current.y * k).toFixed(2)}px, 0)`;
+      });
+      const settled = Math.abs(target.x - current.x) < 0.001 && Math.abs(target.y - current.y) < 0.001;
+      if (settled) {
+        running = false;
+        return;
+      }
+      frame = requestAnimationFrame(tick);
+    };
+    const wake = () => {
+      if (running) return;
+      running = true;
+      frame = requestAnimationFrame(tick);
+    };
+    const onMove = (e: MouseEvent) => {
+      const r = el.getBoundingClientRect();
+      target.x = (e.clientX - r.left - r.width / 2) / r.width;
+      target.y = (e.clientY - r.top - r.height / 2) / r.height;
+      wake();
+    };
+    const onLeave = () => {
+      target.x = 0;
+      target.y = 0;
+      wake();
+    };
+    el.addEventListener("mousemove", onMove, { passive: true });
+    el.addEventListener("mouseleave", onLeave);
+    return () => {
+      el.removeEventListener("mousemove", onMove);
+      el.removeEventListener("mouseleave", onLeave);
+      cancelAnimationFrame(frame);
+    };
+  }, []);
 
   const items = cards.map(({ product, colorKey }) => {
     const color = pickColor(product, colorKey);
@@ -41,28 +77,28 @@ export function FloatingCards({ cards }: { cards: FeaturedCard[] }) {
 
   return (
     <>
-      <div
-        ref={ref}
-        onMouseMove={onMove}
-        className="relative hidden h-[clamp(420px,60vh,640px)] [perspective:1200px] md:block"
-      >
+      <div ref={ref} className="relative hidden h-[clamp(420px,60vh,640px)] md:block">
         {items.map(({ product, color, image }, i) => (
-          <Link
+          <div
             key={`${product.id}-${color.key}`}
             className={`float-card c${i + 1}`}
-            data-track="hero.card"
-            href={{ pathname: "/produits/[slug]", params: { slug: product.slug }, query: { coloris: color.key } }}
             style={{ "--c": color.hex } as React.CSSProperties}
           >
-            {image ? (
-              <Image src={image.src} alt="" fill sizes="30vw" className="object-cover" priority={i === 0} />
-            ) : (
-              <ProductArt kind={product.type} />
-            )}
-            <div className="absolute bottom-3.5 left-3.5 flex items-center gap-2 rounded-full bg-white/75 px-3 py-2 text-xs font-semibold backdrop-blur-[8px]">
-              <b className="font-display">{product.name}</b> {color.name} · {format.number(product.price, "eur")}
-            </div>
-          </Link>
+            <Link
+              className="float-card-parallax"
+              data-track="hero.card"
+              href={{ pathname: "/produits/[slug]", params: { slug: product.slug }, query: { coloris: color.key } }}
+            >
+              {image ? (
+                <Image src={image.src} alt="" fill sizes="30vw" className="object-cover" priority={i === 0} />
+              ) : (
+                <ProductArt kind={product.type} />
+              )}
+              <span className="absolute bottom-3.5 left-3.5 flex items-center gap-2 rounded-full bg-white/90 px-3 py-2 text-xs font-semibold">
+                <b className="font-display">{product.name}</b> {color.name} · {format.number(product.price, "eur")}
+              </span>
+            </Link>
+          </div>
         ))}
       </div>
       <div className="-mx-4 flex snap-x snap-mandatory gap-3 overflow-x-auto px-4 pb-2 [scrollbar-width:none] md:hidden [&::-webkit-scrollbar]:hidden">
@@ -79,7 +115,7 @@ export function FloatingCards({ cards }: { cards: FeaturedCard[] }) {
             ) : (
               <ProductArt kind={product.type} color={color.hex} className="absolute inset-0 m-auto w-[62%]" />
             )}
-            <div className="absolute right-3 bottom-3 left-3 flex items-center justify-between gap-2 rounded-full bg-white/80 px-3 py-2 text-xs font-semibold backdrop-blur-[8px]">
+            <div className="absolute right-3 bottom-3 left-3 flex items-center justify-between gap-2 rounded-full bg-white/90 px-3 py-2 text-xs font-semibold">
               <b className="truncate font-display">{product.name}</b>
               <span className="shrink-0">{format.number(product.price, "eur")}</span>
               <span className="sr-only">, {color.name}</span>

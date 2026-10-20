@@ -16,6 +16,11 @@ Suivi des idées et de leur état. Mis à jour à chaque lot livré.
 - Espace compte : informations, adresses, paiement (placeholder Stripe), commandes ; checkout pré-rempli.
 - Cartes produit : survol fluide (transform + ombre en opacité), loader de navigation robuste au retour arrière.
 
+- Hero : parallaxe lissée (rAF + interpolation), formes pastel pilotées depuis Marketing, entrée des cartes sans conflit.
+- Page d'erreur (header + footer + réessayer) et erreur globale ; pages en erreur comptées dans l'admin (hors 404).
+- Toasts partout (boutique et admin) et rendu optimiste : adresses, profil, interrupteurs (flags, rôle, fiche en ligne).
+- Téléphones formatés avec l'indicatif international (+33 6 …), stockés en E.164.
+
 ## En cours / à configurer par KODA
 - Admin → Catalogue → « Importer le catalogue de la boutique » (une fois le déploiement passé) : les fiches deviennent éditables.
 - Admin → Réglages → Boîte d'envoi : smtp.gmail.com / bcorre.work@gmail.com / mot de passe d'application, puis « Envoyer le test ».

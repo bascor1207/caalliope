@@ -36,7 +36,12 @@ export async function saveVideoBlock(
   const next = { ...media };
   if (value === undefined) delete next[block];
   else next[block] = value;
-  await saveMedia(next);
+  if (block === "hero") next.heroBlobs = mode === "hidden" ? false : f.get("blobs") !== "off";
+  try {
+    await saveMedia(next);
+  } catch (e) {
+    return { error: `Enregistrement impossible : ${e instanceof Error ? e.message : String(e)}` };
+  }
   return done(block === "hero" ? "Vidéo du hero enregistrée." : "Bloc vidéo enregistré.");
 }
 
@@ -58,6 +63,10 @@ export async function saveBannersAction(_prev: MarketingState, f: FormData): Pro
       active: Boolean(b.active),
       order: i + 1,
     }));
-  await saveBanners(clean);
+  try {
+    await saveBanners(clean);
+  } catch (e) {
+    return { error: `Enregistrement impossible : ${e instanceof Error ? e.message : String(e)}` };
+  }
   return done("Bandeau enregistré.");
 }

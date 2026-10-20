@@ -22,10 +22,15 @@ function ToastItem({ toast }: { toast: Toast }) {
       ? t("cartAdded", toast.params)
       : toast.kind === "order-placed"
         ? t("orderPlaced", toast.params)
-        : t("subscribed");
+        : toast.kind === "message"
+          ? toast.params.text
+          : t("subscribed");
+  const error = toast.kind === "message" && toast.tone === "error";
 
   return (
-    <div className="flex items-center gap-2.5 rounded-full bg-ink px-[18px] py-3 text-sm font-medium text-cream shadow-lg animate-in fade-in-0 slide-in-from-bottom-4 duration-400">
+    <div
+      className={`flex items-center gap-2.5 rounded-full px-[18px] py-3 text-sm font-medium shadow-lg animate-in fade-in-0 slide-in-from-bottom-4 duration-400 ${error ? "bg-danger text-white" : "bg-ink text-cream"}`}
+    >
       {message}
       {"action" in toast && toast.action === "open-cart" && (
         <button

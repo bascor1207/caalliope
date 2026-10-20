@@ -8,7 +8,15 @@ import { Button } from "@/shared/ui";
  * Hero éditorial. Le visuel (cartes produits) est injecté par la page : la home ne connaît pas le catalogue.
  * Si `video` est fournie (réglage Marketing du back-office), elle joue en fond sous les blobs pastel.
  */
-export async function Hero({ visual, video }: { visual: ReactNode; video: { src: string; poster?: string } | null }) {
+export async function Hero({
+  visual,
+  video,
+  blobs = true,
+}: {
+  visual: ReactNode;
+  video: { src: string; poster?: string } | null;
+  blobs?: boolean;
+}) {
   const t = await getTranslations("home.hero");
   const stats: Array<[string, string]> = [
     [t("meta1Value"), t("meta1")],
@@ -32,12 +40,14 @@ export async function Hero({ visual, video }: { visual: ReactNode; video: { src:
           tabIndex={-1}
         />
       )}
-      <div className="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
-        <div className="hero-blob -top-[25vmax] -left-[15vmax] size-[60vmax] bg-sage" />
-        <div className="hero-blob -right-[10vmax] -bottom-[25vmax] size-[55vmax] bg-lavender [animation-delay:-6s]" />
-        <div className="hero-blob top-[20%] right-[20%] size-[40vmax] bg-sky [animation-delay:-12s]" />
-        <div className="hero-blob bottom-[10%] left-[25%] size-[35vmax] bg-clay opacity-70 [animation-delay:-3s]" />
-      </div>
+      {blobs && (
+        <div className="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
+          <div className="hero-blob -top-[25vmax] -left-[15vmax] size-[60vmax] bg-sage" />
+          <div className="hero-blob -right-[10vmax] -bottom-[25vmax] size-[55vmax] bg-lavender [animation-delay:-6s]" />
+          <div className="hero-blob top-[20%] right-[20%] size-[40vmax] bg-sky [animation-delay:-12s]" />
+          <div className="hero-blob bottom-[10%] left-[25%] size-[35vmax] bg-clay opacity-70 [animation-delay:-3s]" />
+        </div>
+      )}
       <div className="hero-grain -z-10" aria-hidden="true" />
       <div className="container-k grid items-center gap-8 md:grid-cols-[minmax(0,1.25fr)_minmax(320px,.75fr)] md:gap-10">
         <div className="relative min-w-0">

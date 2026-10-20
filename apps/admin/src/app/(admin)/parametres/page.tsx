@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
-import { toggleFlag } from "@/app/actions";
+import { setFlagValue } from "@/app/actions";
+import { OptimisticSwitch } from "@/components/optimistic-switch";
 import { getSmtpSettings, getSocialSettings } from "@/lib/settings";
 import { listFlags } from "@/lib/users";
 import { SmtpForm, SocialForm } from "./settings-forms";
@@ -61,25 +62,12 @@ export default async function SettingsPage() {
                     <code className="rounded bg-ink/6 px-1.5 py-0.5 text-xs">{f.key}</code> · {f.description}
                   </span>
                 </div>
-                <form action={toggleFlag} className="flex items-center gap-3">
-                  <input type="hidden" name="key" value={f.key} />
-                  <input type="hidden" name="enabled" value={f.enabled ? "false" : "true"} />
-                  <span className={`text-sm font-semibold ${f.enabled ? "text-success" : "text-muted"}`}>
-                    {f.enabled ? "Activé" : "Désactivé"}
-                  </span>
-                  <button
-                    type="submit"
-                    role="switch"
-                    aria-checked={f.enabled}
-                    aria-label={`${LABELS[f.key] ?? f.key} : ${f.enabled ? "désactiver" : "activer"}`}
-                    className={`relative h-7 w-12 rounded-full transition-colors ${f.enabled ? "bg-success" : "bg-ink/20"}`}
-                  >
-                    <span
-                      aria-hidden="true"
-                      className={`absolute top-1 size-5 rounded-full bg-white transition-[left] ${f.enabled ? "left-6" : "left-1"}`}
-                    />
-                  </button>
-                </form>
+                <OptimisticSwitch
+                  checked={f.enabled}
+                  label={LABELS[f.key] ?? f.key}
+                  action={setFlagValue.bind(null, f.key)}
+                  successMessage={(on) => `${LABELS[f.key] ?? f.key} : ${on ? "activé" : "désactivé"}.`}
+                />
               </li>
             ))}
           </ul>

@@ -24,9 +24,15 @@ export default async function MarketingPage() {
           Vidéo de fond du hero
         </h2>
         <p className="mt-1 mb-6 text-sm text-muted">
-          Joue en boucle, muette, derrière le titre de l'accueil. Par défaut : aucune (formes pastel seules).
+          Fond du titre de l'accueil : formes pastel animées, ta vidéo, ou rien. Par défaut : les formes pastel.
         </p>
-        <VideoBlockForm block="hero" current={media.hero} defaultLabel="Sans vidéo (formes pastel)" storage={storage} />
+        <VideoBlockForm
+          block="hero"
+          current={media.hero}
+          defaultLabel="Formes pastel seules"
+          storage={storage}
+          blobs={media.heroBlobs ?? true}
+        />
       </section>
 
       <section className="card mt-6" aria-labelledby="story-title">

@@ -64,5 +64,13 @@
     "title": "Cette page",
     "titleSerif": "n'existe pas.",
     "text": "Le lien est mort, ou la pièce a quitté le drop."
+  },
+  "error": {
+    "eyebrow": "Oups",
+    "title": "Quelque chose",
+    "titleSerif": "a cassé.",
+    "text": "Ce n'est pas toi, c'est nous. Réessaie dans un instant : l'équipe est prévenue.",
+    "retry": "Réessayer",
+    "ref": "Réf. {digest}"
   }
 }

@@ -42,6 +42,8 @@ export interface SiteMedia {
   hero: VideoMedia | null;
   /** Bloc vidéo de marque sur l'accueil (null = section masquée). */
   story: VideoMedia | null;
+  /** Formes pastel animées derrière le hero. */
+  heroBlobs: boolean;
 }
 
 const toVideo = (v: Partial<VideoMedia> | null | undefined, fallback: VideoMedia | null): VideoMedia | null => {
@@ -53,12 +55,15 @@ const toVideo = (v: Partial<VideoMedia> | null | undefined, fallback: VideoMedia
 /** Vidéos de l'accueil, éditées dans le back-office (Marketing). Repli : fichiers de `public/media`. */
 export const getSiteMedia = unstable_cache(
   async (): Promise<SiteMedia> => {
-    const stored = await readSetting<{ hero?: Partial<VideoMedia> | null; story?: Partial<VideoMedia> | null }>(
-      "media",
-    );
+    const stored = await readSetting<{
+      hero?: Partial<VideoMedia> | null;
+      story?: Partial<VideoMedia> | null;
+      heroBlobs?: boolean;
+    }>("media");
     return {
       hero: toVideo(stored?.hero, SITE.media.heroVideo),
       story: toVideo(stored?.story, SITE.media.storyVideo),
+      heroBlobs: stored?.heroBlobs ?? true,
     };
   },
   ["site-settings-media"],

@@ -60,6 +60,7 @@ export function bindAnalyticsToBus(bus: EventBus, tracker: Tracker): Unsubscribe
     bus.subscribe("checkout.failed", (p) => tracker.track("checkout_failed", { code: p.code })),
     bus.subscribe("checkout.order-placed", (p) => tracker.track("order_placed", { total: p.total })),
     bus.subscribe("newsletter.subscribed", () => tracker.track("newsletter_subscribed")),
+    bus.subscribe("app.error-caught", (p) => tracker.track("page_error", { digest: p.digest, message: p.message })),
   ];
   return () => {
     for (const u of subs) u();

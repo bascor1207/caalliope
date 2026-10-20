@@ -50,5 +50,8 @@
     "none": "Aucune carte enregistrée",
     "soon": "Tu pourras enregistrer une carte au moment du paiement, dès l'activation du paiement sécurisé (Stripe, Apple Pay). La carte est conservée chez Stripe, jamais chez KODA.",
     "secure": "Paiement chiffré, conforme PCI DSS"
-  }
+  },
+  "notSaved": "Impossible d'enregistrer. Vérifie les champs.",
+  "defaultSet": "Adresse par défaut mise à jour",
+  "removed": "Adresse supprimée"
 }

@@ -13,6 +13,7 @@ export const EVENT_NAMES = [
   "checkout_failed",
   "order_placed",
   "newsletter_subscribed",
+  "page_error",
 ] as const;
 
 export type AnalyticsEventName = (typeof EVENT_NAMES)[number];

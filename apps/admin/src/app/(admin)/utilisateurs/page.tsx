@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { changeRole } from "@/app/actions";
+import { RoleButton } from "@/components/role-button";
 import { listUsers } from "@/lib/users";
 
 export const metadata: Metadata = { title: "Utilisateurs" };
@@ -60,24 +60,12 @@ export default async function UsersPage() {
                   <td className="py-3 pr-3">{u.email}</td>
                   <td className="py-3 pr-3 text-muted">{fmt(u.created_at)}</td>
                   <td className="py-3 pr-3 text-right tabular-nums">{u.orders}</td>
-                  <td className="py-3 pr-3">
-                    <span
-                      className={`rounded-full px-2.5 py-1 text-xs font-semibold ${u.role === "admin" ? "bg-ink text-cream" : "bg-ink/6"}`}
-                    >
-                      {u.role === "admin" ? "admin" : "client"}
-                    </span>
-                  </td>
-                  <td className="py-3 text-right">
-                    <form action={changeRole}>
-                      <input type="hidden" name="id" value={u.id} />
-                      <input type="hidden" name="role" value={u.role === "admin" ? "customer" : "admin"} />
-                      <button
-                        type="submit"
-                        className="rounded-full border border-line bg-white px-3 py-1.5 text-xs font-semibold hover:border-ink"
-                      >
-                        {u.role === "admin" ? "Retirer admin" : "Rendre admin"}
-                      </button>
-                    </form>
+                  <td className="py-3 text-right" colSpan={2}>
+                    <RoleButton
+                      id={u.id}
+                      role={u.role}
+                      name={[u.first_name, u.last_name].filter(Boolean).join(" ") || u.email}
+                    />
                   </td>
                 </tr>
               ))}

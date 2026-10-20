@@ -5,7 +5,8 @@ import type { EventBus, Unsubscribe } from "@/shared/event-bus";
 export type Toast =
   | { id: string; kind: "cart-added"; params: { name: string; color: string; size: string }; action: "open-cart" }
   | { id: string; kind: "order-placed"; params: { ref: string } }
-  | { id: string; kind: "subscribed"; params: Record<string, never> };
+  | { id: string; kind: "subscribed"; params: Record<string, never> }
+  | { id: string; kind: "message"; params: { text: string }; tone: "success" | "error" };
 
 export type NewToast = Toast extends infer T ? (T extends { id: string } ? Omit<T, "id"> : never) : never;
 
@@ -45,6 +46,9 @@ export function bindNotificationsToBus(bus: EventBus, dispatch: Dispatch): Unsub
       dispatch(toastPushed({ kind: "order-placed", params: { ref: p.ref } })),
     ),
     bus.subscribe("newsletter.subscribed", () => dispatch(toastPushed({ kind: "subscribed", params: {} }))),
+    bus.subscribe("ui.notify", (p) =>
+      dispatch(toastPushed({ kind: "message", params: { text: p.text }, tone: p.tone })),
+    ),
   ];
   return () => {
     for (const unsubscribe of subscriptions) unsubscribe();

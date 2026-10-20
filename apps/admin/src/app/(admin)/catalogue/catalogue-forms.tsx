@@ -1,14 +1,15 @@
 "use client";
 
 import { ArrowDownIcon, ArrowUpIcon, PlusIcon, Trash2Icon } from "lucide-react";
-import { useActionState, useState } from "react";
+import { useActionState, useOptimistic, useState, useTransition } from "react";
+import { notify, useToastOnState } from "@/components/toaster";
 import type { ColorSource } from "@/lib/catalog-types";
 import {
   type CatalogState,
   importCatalogAction,
   moveProductAction,
   savePaletteAction,
-  toggleProductAction,
+  setProductOnline,
 } from "./actions";
 
 const INPUT =
@@ -37,6 +38,7 @@ export function Feedback({ state }: { state: CatalogState }) {
 
 export function ImportForm() {
   const [state, action, pending] = useActionState(importCatalogAction, {});
+  useToastOnState(state);
   return (
     <form action={action}>
       <button type="submit" disabled={pending} className={BTN}>
@@ -60,24 +62,7 @@ export function ProductRowActions({
   last: boolean;
   only: "toggle" | "move";
 }) {
-  if (only === "toggle") {
-    return (
-      <form action={toggleProductAction}>
-        <input type="hidden" name="id" value={id} />
-        <input type="hidden" name="active" value={active ? "false" : "true"} />
-        <button
-          type="submit"
-          role="switch"
-          aria-checked={active}
-          aria-label={active ? "Retirer de la boutique" : "Mettre en ligne"}
-          className={`inline-flex items-center gap-2 rounded-full px-2.5 py-1 text-xs font-semibold ${active ? "bg-success/10 text-success" : "bg-ink/6 text-muted"}`}
-        >
-          <span className={`size-2 rounded-full ${active ? "bg-success" : "bg-muted"}`} aria-hidden="true" />
-          {active ? "En ligne" : "Hors ligne"}
-        </button>
-      </form>
-    );
-  }
+  if (only === "toggle") return <OnlineToggle id={id} active={active} />;
   return (
     <span className="inline-flex gap-1">
       <form action={moveProductAction}>
@@ -110,6 +95,7 @@ export function ProductRowActions({
 
 export function PaletteForm({ initial }: { initial: ColorSource[] }) {
   const [state, action, pending] = useActionState(savePaletteAction, {});
+  useToastOnState(state);
   const [colors, setColors] = useState<ColorSource[]>(initial);
   const update = (i: number, patch: Partial<ColorSource>) =>
     setColors((l) => l.map((c, k) => (k === i ? { ...c, ...patch } : c)));
@@ -182,5 +168,36 @@ export function PaletteForm({ initial }: { initial: ColorSource[] }) {
       </div>
       <Feedback state={state} />
     </form>
+  );
+}
+
+/** Statut en ligne / hors ligne : bascule à l'instant, le serveur confirme (toast) ou annule. */
+function OnlineToggle({ id, active }: { id: string; active: boolean }) {
+  const [pending, start] = useTransition();
+  const [value, setValue] = useOptimistic(active);
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={value}
+      aria-busy={pending}
+      aria-label={value ? "Retirer de la boutique" : "Mettre en ligne"}
+      onClick={() =>
+        start(async () => {
+          const next = !value;
+          setValue(next);
+          try {
+            await setProductOnline(id, next);
+            notify(next ? "Fiche en ligne sur la boutique." : "Fiche retirée de la boutique.");
+          } catch (e) {
+            notify(e instanceof Error ? e.message : "Échec.", "error");
+          }
+        })
+      }
+      className={`inline-flex items-center gap-2 rounded-full px-2.5 py-1 text-xs font-semibold transition-colors ${value ? "bg-success/10 text-success" : "bg-ink/6 text-muted"}`}
+    >
+      <span className={`size-2 rounded-full ${value ? "bg-success" : "bg-muted"}`} aria-hidden="true" />
+      {value ? "En ligne" : "Hors ligne"}
+    </button>
   );
 }

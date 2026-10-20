@@ -3,6 +3,7 @@
 import { ArrowDownIcon, ArrowUpIcon, Trash2Icon } from "lucide-react";
 import { useActionState, useState } from "react";
 import { MediaUpload } from "@/components/media-upload";
+import { useToastOnState } from "@/components/toaster";
 import {
   type CatalogProduct,
   type ColorSource,
@@ -79,6 +80,7 @@ export function ProductEditor({
 }) {
   const isNew = product.id === "nouveau";
   const [state, action, pending] = useActionState(saveProductAction.bind(null, product.id), {});
+  useToastOnState(state);
   const [data, setData] = useState<ProductData>(product.data);
   const [slug, setSlug] = useState(product.slug);
   const [slugTouched, setSlugTouched] = useState(!isNew);

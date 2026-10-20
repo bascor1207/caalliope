@@ -2,6 +2,7 @@
 
 import { useActionState } from "react";
 import { type SettingsState, saveSmtp, saveSocial, sendSmtpTest } from "@/app/actions";
+import { useToastOnState } from "@/components/toaster";
 import type { SmtpSettings, SocialSettings } from "@/lib/settings";
 
 const INPUT =
@@ -59,7 +60,9 @@ function Field({
 /** Boîte d'envoi : identifiants SMTP de la boîte KODA (ou de la boîte du prestataire en attendant). */
 export function SmtpForm({ current, hasPassword }: { current: SmtpSettings | null; hasPassword: boolean }) {
   const [state, action, pending] = useActionState(saveSmtp, {});
+  useToastOnState(state);
   const [testState, testAction, testing] = useActionState(sendSmtpTest, {});
+  useToastOnState(testState);
   return (
     <div className="grid gap-6">
       <form action={action} className="grid gap-4 sm:grid-cols-2">
@@ -119,6 +122,7 @@ export function SmtpForm({ current, hasPassword }: { current: SmtpSettings | nul
 
 export function SocialForm({ current }: { current: SocialSettings }) {
   const [state, action, pending] = useActionState(saveSocial, {});
+  useToastOnState(state);
   return (
     <form action={action} className="grid gap-4 sm:grid-cols-2">
       <Field

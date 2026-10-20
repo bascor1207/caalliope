@@ -23,6 +23,10 @@ export interface IntegrationEvents {
   "catalog.product-viewed": { productId: string; slug: string; colorKey: string };
   /** Le catalogue : une recherche a renvoyé des résultats (ou aucun). */
   "catalog.search-performed": { query: string; results: number };
+  /** Retour visuel générique (toast) demandé par une slice. */
+  "ui.notify": { text: string; tone: "success" | "error" };
+  /** Une page a planté côté rendu (error boundary). */
+  "app.error-caught": { digest: string; message: string };
   /** Le checkout : le formulaire de commande est affiché. */
   "checkout.started": { count: number; total: number };
   /** Le checkout : une soumission a été refusée (friction). */
