@@ -10,7 +10,7 @@ export default async function MarketingPage() {
   const [media, banners] = await Promise.all([getMedia(), getBanners()]);
   const storage = storageConfigured();
   return (
-    <main className="mx-auto w-full max-w-[1400px] px-5 py-8 md:px-9 md:py-10">
+    <main className="mx-auto w-full max-w-[1400px] px-5 pt-5 pb-10 md:px-9 md:pt-6 md:pb-12">
       <header>
         <p className="eyebrow">KODA Clothing</p>
         <h1 className="mt-2 text-[clamp(30px,4vw,44px)] leading-none tracking-[-0.03em]">Marketing</h1>

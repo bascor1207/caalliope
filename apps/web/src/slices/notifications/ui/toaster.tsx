@@ -1,5 +1,6 @@
 "use client";
 
+import { CheckCircle2Icon, XCircleIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { eventBus } from "@/shared/event-bus";
@@ -29,8 +30,13 @@ function ToastItem({ toast }: { toast: Toast }) {
 
   return (
     <div
-      className={`flex items-center gap-2.5 rounded-full px-[18px] py-3 text-sm font-medium shadow-lg animate-in fade-in-0 slide-in-from-bottom-4 duration-400 ${error ? "bg-danger text-white" : "bg-ink text-cream"}`}
+      className={`flex items-center gap-2.5 rounded-full px-[18px] py-3 text-sm font-medium shadow-lg animate-in fade-in-0 slide-in-from-bottom-4 duration-400 ${error ? "bg-danger text-white" : "bg-success text-white"}`}
     >
+      {error ? (
+        <XCircleIcon className="size-4 shrink-0" aria-hidden="true" />
+      ) : (
+        <CheckCircle2Icon className="size-4 shrink-0" aria-hidden="true" />
+      )}
       {message}
       {"action" in toast && toast.action === "open-cart" && (
         <button

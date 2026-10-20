@@ -23,7 +23,82 @@ export interface RenderOptions {
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 /** Corps : paragraphes séparés par une ligne vide, **gras** et liens [texte](url). */
+const P_STYLE = "margin:0 0 16px;font-size:16px;line-height:1.6;color:#3a3a3a";
+const H_STYLE =
+  "margin:24px 0 12px;font-size:22px;line-height:1.2;font-weight:600;letter-spacing:-0.02em;color:#141414";
+const LI_STYLE = "margin:0 0 8px;font-size:16px;line-height:1.6;color:#3a3a3a";
+const A_STYLE = "color:#141414;text-decoration:underline";
+
+/** Le corps vient-il de l'éditeur riche (HTML) ou de l'ancien format texte ? */
+export const isRichBody = (body: string) => /<(p|h[1-6]|ul|ol|strong|em|a|br)\b/i.test(body);
+
+/**
+ * Nettoie le HTML de l'éditeur pour un e-mail : balises autorisées seulement, attributs limités à `href`,
+ * styles inline (les clients mail ignorent les feuilles de style). Tout le reste est retiré, texte conservé.
+ */
+export function sanitizeEmailHtml(html: string): string {
+  const allowed = new Set(["p", "br", "strong", "b", "em", "i", "u", "a", "ul", "ol", "li", "h2", "h3"]);
+  return html
+    .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/<(script|style)[\s\S]*?<\/\1>/gi, "")
+    .replace(/<\/?([a-z0-9]+)([^>]*)>/gi, (whole, rawTag: string, attrs: string) => {
+      const tag = rawTag.toLowerCase();
+      const closing = whole.startsWith("</");
+      if (!allowed.has(tag)) return "";
+      if (closing) return `</${tag === "b" ? "strong" : tag === "i" ? "em" : tag}>`;
+      if (tag === "br") return "<br>";
+      if (tag === "a") {
+        const m = attrs.match(/href\s*=\s*"([^"]*)"|href\s*=\s*'([^']*)'/i);
+        const href = (m?.[1] ?? m?.[2] ?? "").trim();
+        const safe = /^(https?:\/\/|mailto:)/i.test(href) ? href : "#";
+        return `<a href="${esc(safe)}" style="${A_STYLE}">`;
+      }
+      if (tag === "p") return `<p style="${P_STYLE}">`;
+      if (tag === "h2" || tag === "h3") return `<${tag} style="${H_STYLE}">`;
+      if (tag === "li") return `<li style="${LI_STYLE}">`;
+      if (tag === "ul" || tag === "ol") return `<${tag} style="margin:0 0 16px;padding-left:22px">`;
+      if (tag === "b") return "<strong>";
+      if (tag === "i") return "<em>";
+      return `<${tag}>`;
+    });
+}
+
+/** Texte brut depuis le HTML riche : paragraphes et listes sur des lignes, liens en « texte (url) ». */
+export function richToText(html: string): string {
+  return html
+    .replace(/<a\s[^>]*href="([^"]*)"[^>]*>([\s\S]*?)<\/a>/gi, (_, href: string, text: string) => `${text} (${href})`)
+    .replace(/<li[^>]*>/gi, "• ")
+    .replace(/<\/(p|h[1-6]|li|div)>/gi, "\n")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<[^>]+>/g, "")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
+    .replace(/\n{3,}/g, "\n\n")
+    .trim();
+}
+
+/** Ancien format texte (paragraphes, **gras**, [lien](url)) converti en HTML simple pour l'éditeur riche. */
+export function legacyToHtml(body: string): string {
+  return body
+    .split(/\n\s*\n/)
+    .map((p) => p.trim())
+    .filter(Boolean)
+    .map(
+      (p) =>
+        `<p>${esc(p)
+          .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+          .replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, '<a href="$2">$1</a>')
+          .replace(/\n/g, "<br>")}</p>`,
+    )
+    .join("");
+}
+
 export function bodyToHtml(body: string): string {
+  if (isRichBody(body)) return sanitizeEmailHtml(body);
   const inline = (s: string) =>
     esc(s)
       .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
@@ -41,7 +116,9 @@ export function bodyToHtml(body: string): string {
 }
 
 export function bodyToText(c: CampaignContent, o: RenderOptions): string {
-  const body = c.body.replace(/\*\*(.+?)\*\*/g, "$1").replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, "$1 ($2)");
+  const body = isRichBody(c.body)
+    ? richToText(c.body)
+    : c.body.replace(/\*\*(.+?)\*\*/g, "$1").replace(/\[([^\]]+)\]\((https?:[^)\s]+)\)/g, "$1 ($2)");
   return [
     c.title,
     "",

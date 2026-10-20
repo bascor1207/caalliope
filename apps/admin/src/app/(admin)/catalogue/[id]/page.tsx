@@ -28,7 +28,7 @@ export default async function ProductPage({ params }: Props) {
     : await getCatalogProduct(id);
   if (!product) notFound();
   return (
-    <main className="mx-auto w-full max-w-[1400px] px-5 py-8 md:px-9 md:py-10">
+    <main className="mx-auto w-full max-w-[1400px] px-5 pt-5 pb-10 md:px-9 md:pt-6 md:pb-12">
       <header>
         <p className="eyebrow">
           <Link href="/catalogue" className="hover:underline">

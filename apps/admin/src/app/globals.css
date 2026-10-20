@@ -63,6 +63,38 @@
       background-position: -120% 0;
     }
   }
+  /* Éditeur de campagne : rendu proche de l'e-mail final. */
+  .prose-email p {
+    margin: 0 0 12px;
+  }
+  .prose-email h2,
+  .prose-email h3 {
+    margin: 18px 0 8px;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+  .prose-email ul,
+  .prose-email ol {
+    margin: 0 0 12px;
+    padding-left: 22px;
+  }
+  .prose-email ul {
+    list-style: disc;
+  }
+  .prose-email ol {
+    list-style: decimal;
+  }
+  .prose-email a {
+    text-decoration: underline;
+  }
+  .prose-email p.is-editor-empty:first-child::before {
+    content: "Écris ton message…";
+    color: var(--color-muted);
+    float: left;
+    pointer-events: none;
+    height: 0;
+  }
   /* Libellés : Instrument Sans, lisible en petit. */
   .eyebrow {
     @apply font-sans text-xs font-semibold uppercase tracking-[0.12em] text-muted;

@@ -11,7 +11,7 @@ const fmt = (iso: string) =>
 export default async function NewsletterPage() {
   const [stats, subscribers] = await Promise.all([subscriberStats(), listSubscribers()]);
   return (
-    <main className="mx-auto w-full max-w-[1400px] px-5 py-8 md:px-9 md:py-10">
+    <main className="mx-auto w-full max-w-[1400px] px-5 pt-5 pb-10 md:px-9 md:pt-6 md:pb-12">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="eyebrow">KODA Clothing</p>

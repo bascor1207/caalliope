@@ -60,7 +60,7 @@ export function Toaster() {
       {toasts.map((t) => (
         <div
           key={t.id}
-          className={`pointer-events-auto flex max-w-[560px] items-center gap-2.5 rounded-full px-[18px] py-3 text-sm font-medium shadow-[0_20px_50px_-20px_rgba(20,20,20,.45)] ${t.tone === "error" ? "bg-danger text-white" : "bg-ink text-cream"}`}
+          className={`pointer-events-auto flex max-w-[560px] items-center gap-2.5 rounded-full px-[18px] py-3 text-sm font-medium shadow-[0_20px_50px_-20px_rgba(20,20,20,.45)] ${t.tone === "error" ? "bg-danger text-white" : "bg-success text-white"}`}
         >
           {t.tone === "error" ? (
             <XCircleIcon className="size-4 shrink-0" aria-hidden="true" />

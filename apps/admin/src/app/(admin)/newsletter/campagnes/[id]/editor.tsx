@@ -1,8 +1,16 @@
 "use client";
 
 import { useActionState, useMemo, useState } from "react";
+import { RichTextEditor } from "@/components/rich-text-editor";
 import { useToastOnState } from "@/components/toaster";
-import { bodyToText, type CampaignContent, type RenderOptions, renderCampaignHtml } from "@/lib/email-template";
+import {
+  bodyToText,
+  type CampaignContent,
+  isRichBody,
+  legacyToHtml,
+  type RenderOptions,
+  renderCampaignHtml,
+} from "@/lib/email-template";
 import type { Campaign } from "@/lib/newsletter";
 import { type EditorState, launchCampaign, saveCampaign, sendTestCampaign } from "../../actions";
 
@@ -130,21 +138,16 @@ export function CampaignEditor({
             placeholder="https://…"
           />
         </label>
-        <label className="grid gap-1.5 text-sm font-semibold">
-          Texte{" "}
-          <span className="font-normal text-muted">
-            (paragraphes séparés par une ligne vide, **gras**, [lien](https://…))
-          </span>
-          <textarea
+        <div className="grid gap-1.5 text-sm font-semibold">
+          Texte
+          <RichTextEditor
             name="body"
-            value={content.body}
-            onChange={set("body")}
+            initialHtml={isRichBody(content.body) ? content.body : legacyToHtml(content.body)}
             disabled={locked}
-            rows={9}
-            className={`${input} resize-y font-sans`}
+            onChange={(html) => setContent((c) => ({ ...c, body: html }))}
           />
-        </label>
-        <div className="grid gap-4 sm:grid-cols-2">
+        </div>
+        <div className="grid gap-4">
           <label className="grid gap-1.5 text-sm font-semibold">
             Bouton
             <input

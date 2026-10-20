@@ -9,7 +9,7 @@ const contentFrom = (f: FormData): CampaignContent => ({
   subject: String(f.get("subject") ?? "").slice(0, 150),
   preheader: String(f.get("preheader") ?? "").slice(0, 200),
   title: String(f.get("title") ?? "").slice(0, 150),
-  body: String(f.get("body") ?? "").slice(0, 10_000),
+  body: String(f.get("body") ?? "").slice(0, 40_000),
   ctaLabel: String(f.get("ctaLabel") ?? "").slice(0, 60),
   ctaUrl: String(f.get("ctaUrl") ?? "").slice(0, 500),
   imageUrl: String(f.get("imageUrl") ?? "").slice(0, 500),
