@@ -1,0 +1,54 @@
+{
+  "drop": {
+    "eyebrow": "{drop} · Limited edition",
+    "title": "Six pieces.",
+    "titleSerif": "Zero compromise.",
+    "closing": "Pre-orders close in",
+    "filterLabel": "Filter the drop",
+    "all": "All",
+    "hoodie": "Hoodies",
+    "tee": "Tees",
+    "more": "Packs & accessories",
+    "empty": "Nothing in this category for this drop.",
+    "days": "days",
+    "hours": "hours",
+    "minutes": "min",
+    "seconds": "sec"
+  },
+  "card": {
+    "see": "View piece",
+    "colors": "Colours",
+    "imageAlt": "{name} in {color}",
+    "open": "{name}, {color}"
+  },
+  "product": {
+    "eyebrow": "Drop 01 · {sub}",
+    "color": "Colour",
+    "size": "Size",
+    "soldOut": "{size} sold out",
+    "chooseSize": "Pick a size",
+    "preorder": "Pre-order · {price}",
+    "reassure1": "Free shipping from €80, shipped from France",
+    "reassure2": "Free 30-day returns",
+    "reassure3": "Secure payment · Apple Pay, card, PayPal",
+    "material": "Material: {material}. Ref. {sku}.",
+    "placeholderAlt": "{name} in {color} (placeholder visual)",
+    "relatedEyebrow": "From the same drop",
+    "relatedTitle": "Goes",
+    "relatedSerif": "with it.",
+    "metaDescription": "{description} Colours: {colors}. {price}, Drop 01 pre-order, free shipping from €80.",
+    "notFound": "Product not found"
+  },
+  "search": {
+    "title": "Search for a piece",
+    "resultsTitle": "Search: {q}",
+    "eyebrow": "Search",
+    "heading": "Find",
+    "headingSerif": "your piece.",
+    "resultsFor": "Results for",
+    "placeholder": "Hoodie, lavender, zip, pack…",
+    "cta": "Search",
+    "empty": "No piece for “{q}”. Try “hoodie” or “tee”.",
+    "tags": "hoodie|lavender|zip|pack|beanie|long sleeve"
+  }
+}

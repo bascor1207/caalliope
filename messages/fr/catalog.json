@@ -1,0 +1,54 @@
+{
+  "drop": {
+    "eyebrow": "{drop} · Édition limitée",
+    "title": "Six pièces.",
+    "titleSerif": "Zéro compromis.",
+    "closing": "Clôture des précommandes",
+    "filterLabel": "Filtrer le drop",
+    "all": "Tout",
+    "hoodie": "Hoodies",
+    "tee": "T-shirts",
+    "more": "Packs & accessoires",
+    "empty": "Rien dans cette catégorie pour ce drop.",
+    "days": "jours",
+    "hours": "heures",
+    "minutes": "min",
+    "seconds": "sec"
+  },
+  "card": {
+    "see": "Voir la pièce",
+    "colors": "Coloris",
+    "imageAlt": "{name} coloris {color}",
+    "open": "{name}, {color}"
+  },
+  "product": {
+    "eyebrow": "Drop 01 · {sub}",
+    "color": "Coloris",
+    "size": "Taille",
+    "soldOut": "{size} épuisé",
+    "chooseSize": "Choisis une taille",
+    "preorder": "Précommander · {price}",
+    "reassure1": "Livraison offerte dès 80 €, expédié depuis la France",
+    "reassure2": "Retours gratuits 30 jours",
+    "reassure3": "Paiement sécurisé · Apple Pay, CB, PayPal",
+    "material": "Matière : {material}. Réf. {sku}.",
+    "placeholderAlt": "{name} coloris {color} (visuel provisoire)",
+    "relatedEyebrow": "Dans le même drop",
+    "relatedTitle": "Ça va",
+    "relatedSerif": "avec.",
+    "metaDescription": "{description} Coloris : {colors}. {price}, précommande Drop 01, livraison offerte dès 80 €.",
+    "notFound": "Produit introuvable"
+  },
+  "search": {
+    "title": "Rechercher une pièce",
+    "resultsTitle": "Recherche : {q}",
+    "eyebrow": "Recherche",
+    "heading": "Trouve",
+    "headingSerif": "ta pièce.",
+    "resultsFor": "Résultats pour",
+    "placeholder": "Hoodie, lavande, zip, pack…",
+    "cta": "Chercher",
+    "empty": "Aucune pièce pour « {q} ». Essaie « hoodie » ou « tee ».",
+    "tags": "hoodie|lavande|zip|pack|bonnet|manches longues"
+  }
+}

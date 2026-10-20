@@ -1,0 +1,15 @@
+{
+  "title": "Ton panier",
+  "close": "Fermer le panier",
+  "emptyTitle": "Ton panier est vide.",
+  "emptyText": "Le Drop 01 ne reste pas ouvert longtemps.",
+  "minus": "Retirer un",
+  "plus": "Ajouter un",
+  "remove": "Retirer",
+  "freeUnlocked": "🎉 Livraison offerte débloquée",
+  "freeRemaining": "Plus que <b>{amount}</b> pour la livraison offerte",
+  "freeFrom": "Livraison offerte dès {amount}",
+  "total": "Total",
+  "checkout": "Passer commande · précommande",
+  "note": "Débité à la commande · Expédition 3-4 semaines après clôture du drop"
+}

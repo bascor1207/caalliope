@@ -1,0 +1,23 @@
+{
+  "announce": {
+    "items": "Drop 01 en précommande|Livraison offerte dès 80 €|Expédié depuis la France|Retours gratuits 30 jours|Coton bio certifié"
+  },
+  "nav": {
+    "drop": "Drop 01",
+    "hoodies": "Hoodies",
+    "tees": "T-shirts",
+    "story": "Notre histoire",
+    "faq": "FAQ",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "search": "Rechercher",
+    "openCart": "Ouvrir le panier, {count, plural, =0 {vide} one {# article} other {# articles}}"
+  },
+  "search": {
+    "placeholder": "Rechercher  /",
+    "aria": "Rechercher une pièce",
+    "cta": "Rechercher une pièce",
+    "suggestions": "Suggestions",
+    "seeAll": "Tous les résultats pour « {q} »"
+  }
+}

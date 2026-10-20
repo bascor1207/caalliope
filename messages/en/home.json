@@ -1,0 +1,75 @@
+{
+  "hero": {
+    "tag": "{drop} — pre-orders open ·",
+    "closesIn": "closes in {days} d {hours} h",
+    "closesSoon": "closing soon",
+    "line1": "Wear what",
+    "line2": "feels like you.",
+    "line3": "Really.",
+    "sub": "Premium hoodies and tees in organic cotton, oversized fit, soft colours. Made in small batches, pre-order only. Born from a friendship, built to last.",
+    "cta": "Discover {drop}",
+    "story": "Our story",
+    "meta1": "brushed organic cotton",
+    "meta2": "made to order",
+    "meta2Value": "0 unsold",
+    "meta3": "from 212 Drop 00 reviews",
+    "scroll": "Scroll"
+  },
+  "marquee": {
+    "quality": "Quality",
+    "authenticity": "Authenticity",
+    "respect": "Respect",
+    "friendship": "Born from a friendship",
+    "cotton": "Organic cotton",
+    "smallBatch": "Small batch"
+  },
+  "story": {
+    "eyebrow": "Our story",
+    "title1": "Born from a",
+    "titleSerif": "friendship,",
+    "title2": "not a business plan.",
+    "lead": "KODA is two friends who couldn't find the perfect hoodie: heavy enough to last for years, soft enough to never take off, in colours you don't see everywhere. So we made it. No overstock, no compromise, no bullshit.",
+    "v1Title": "Quality",
+    "v1": "400 gsm organic cotton, reinforced seams, dense embroidery. A hoodie you keep, not one you replace.",
+    "v2Title": "Authenticity",
+    "v2": "No loud logo, no disposable trend. Simple pieces, worn by us first.",
+    "v3Title": "Respect",
+    "v3": "For the people who make it, the planet, and you: fair prices, made to order, free returns."
+  },
+  "specs": {
+    "eyebrow": "The fabric",
+    "title": "Heavy outside,",
+    "titleSerif": "soft inside.",
+    "big": "grams per m²",
+    "fabric": "Fabric",
+    "fabricText": "100% organic cotton fleece, 400 gsm, brushed inside. Pre-washed: no shrinking.",
+    "fit": "Fit",
+    "fitText": "Oversized drop shoulders for hoodies, boxy for tees. Length designed to sit right, not to float.",
+    "details": "Details",
+    "detailsText": "Embroidered chest logo, thick ribbing, tonal flat drawcords, woven label at the neck.",
+    "making": "Making",
+    "makingText": "Sewn by a partner workshop in Portugal, embroidered and quality-checked in France. Small batches on pre-order.",
+    "care": "Care",
+    "careText": "Wash at 30°, inside out, no tumble dryer. It ages well if you respect it."
+  },
+  "community": {
+    "eyebrow": "#KODAFAMILY",
+    "title": "Worn by",
+    "titleSerif": "you.",
+    "follow": "Follow {handle}",
+    "aria": "Community photos (placeholders)"
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "The questions",
+    "titleSerif": "we get asked.",
+    "sizeQuestion": "Not sure about your size?",
+    "sizeLink": "The size guide"
+  },
+  "newsletter": {
+    "eyebrow": "Early access",
+    "title": "24 h ahead",
+    "titleSerif": "of every drop.",
+    "text": "Drops go fast. The list gets the link 24 hours before everyone else, plus a 10% welcome code."
+  }
+}

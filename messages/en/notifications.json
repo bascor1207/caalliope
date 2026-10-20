@@ -1,0 +1,6 @@
+{
+  "cartAdded": "{name} · {color} · {size} added to cart",
+  "viewCart": "View cart",
+  "orderPlaced": "Order {ref} confirmed",
+  "subscribed": "Subscription confirmed ✦"
+}

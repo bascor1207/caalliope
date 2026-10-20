@@ -1,0 +1,31 @@
+{
+  "a11y": {
+    "skipToContent": "Aller au contenu principal",
+    "brandHome": "KODA Clothing, accueil",
+    "breadcrumb": "Fil d'Ariane",
+    "colors": "Coloris",
+    "sizes": "Taille"
+  },
+  "actions": {
+    "close": "Fermer",
+    "search": "Rechercher",
+    "seeDrop": "Voir le Drop 01",
+    "allDrop": "Tout le drop",
+    "sizeGuide": "Guide des tailles",
+    "back": "Retour à la boutique",
+    "retry": "Réessayer"
+  },
+  "labels": {
+    "home": "Accueil",
+    "drop": "Drop 01",
+    "preorder": "Précommande",
+    "language": "Langue",
+    "freeShippingFrom": "Livraison offerte dès {amount}",
+    "free": "Offerte",
+    "total": "Total"
+  },
+  "locales": {
+    "fr": "Français",
+    "en": "English"
+  }
+}

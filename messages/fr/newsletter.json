@@ -1,0 +1,9 @@
+{
+  "emailLabel": "Adresse e-mail",
+  "placeholder": "ton@email.fr",
+  "cta": "Rejoindre la liste",
+  "pending": "Un instant…",
+  "hint": "Zéro spam. Un mail par drop, c'est tout.",
+  "invalid": "Entre un e-mail valide.",
+  "welcome": "Bienvenue dans la liste, {name} ✦"
+}

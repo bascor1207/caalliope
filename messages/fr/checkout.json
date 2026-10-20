@@ -1,0 +1,51 @@
+{
+  "form": {
+    "title": "Finaliser la commande",
+    "eyebrow": "Précommande · Drop 01",
+    "emptyTitle": "Ton panier",
+    "emptySerif": "est vide.",
+    "contact": "Contact",
+    "email": "E-mail",
+    "emailPlaceholder": "ton@email.fr",
+    "shipping": "Livraison",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "address": "Adresse",
+    "addressPlaceholder": "12 rue de la Paix",
+    "zip": "Code postal",
+    "city": "Ville",
+    "payment": "Paiement",
+    "card": "Carte bancaire",
+    "applepay": "Apple Pay",
+    "paypal": "PayPal",
+    "pocNote": "POC : aucun paiement réel. Stripe Checkout sera branché à l'étape suivante.",
+    "pay": "Payer {total}",
+    "submitting": "Validation…",
+    "terms": "En validant, tu acceptes les <link>CGV</link>. Expédition 3-4 semaines après clôture du drop.",
+    "summary": "Récap",
+    "subtotal": "Sous-total",
+    "shippingLine": "Livraison",
+    "free": "Offerte",
+    "total": "Total TTC",
+    "errors": {
+      "invalid-email": "E-mail invalide",
+      "required": "Champ requis",
+      "invalid-zip": "Code postal à 5 chiffres",
+      "empty-cart": "Ton panier est vide",
+      "unknown-product": "Produit inconnu",
+      "unavailable-color": "Coloris indisponible",
+      "unavailable-size": "Taille épuisée",
+      "invalid-qty": "Quantité invalide",
+      "network": "Impossible de valider la commande, réessaie."
+    }
+  },
+  "confirmation": {
+    "title": "Commande confirmée",
+    "eyebrow": "Commande confirmée",
+    "thanks": "Merci",
+    "order": "Commande <b>{ref}</b> · {total}.",
+    "email": "Un récap part sur <b>{email}</b>.",
+    "next": "Ta pièce entre en production à la clôture du drop, tu reçois le suivi dès l'expédition.",
+    "back": "Retour à la boutique"
+  }
+}
