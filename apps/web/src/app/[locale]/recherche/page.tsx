@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import type { Locale } from "@/shared/kernel/locale";
 import { localizedAlternates } from "@/shared/seo/metadata";
 import { catalogRepository, search } from "@/slices/catalog/public-server";
-import { SearchResults } from "@/slices/catalog/public-ui";
+import { SearchResults, SearchTracker } from "@/slices/catalog/public-ui";
 
 interface Props {
   params: Promise<{ locale: Locale }>;
@@ -27,6 +27,7 @@ export default async function SearchPage({ params, searchParams }: Props) {
   const hits = await search(catalogRepository, query, locale);
   return (
     <div className="container-k pt-10 pb-[clamp(72px,10vw,128px)]">
+      <SearchTracker query={query} results={hits.length} />
       <SearchResults locale={locale} query={query} hits={hits} />
     </div>
   );

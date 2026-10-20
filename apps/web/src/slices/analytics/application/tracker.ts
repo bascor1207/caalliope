@@ -35,6 +35,7 @@ export type Tracker = ReturnType<typeof createTracker>;
 
 /** Bus → analytics : chaque fait publié par une slice devient un événement de mesure. */
 export function bindAnalyticsToBus(bus: EventBus, tracker: Tracker): Unsubscribe {
+  let lastSearch = { query: "", at: 0 };
   const subs = [
     bus.subscribe("catalog.product-viewed", (p) =>
       tracker.track("product_view", { productId: p.productId, colorKey: p.colorKey }),
@@ -47,7 +48,13 @@ export function bindAnalyticsToBus(bus: EventBus, tracker: Tracker): Unsubscribe
         unitPrice: p.unitPrice,
       }),
     ),
-    bus.subscribe("catalog.search-performed", (p) => tracker.track("search", { query: p.query, results: p.results })),
+    bus.subscribe("catalog.search-performed", (p) => {
+      /* La même requête arrive deux fois (saisie dans l'en-tête puis page de résultats) : une seule mesure. */
+      const key = p.query.toLowerCase();
+      if (lastSearch.query === key && Date.now() - lastSearch.at < 10_000) return;
+      lastSearch = { query: key, at: Date.now() };
+      tracker.track("search", { query: p.query, results: p.results });
+    }),
     bus.subscribe("cart.open-requested", () => tracker.track("cart_opened")),
     bus.subscribe("checkout.started", (p) => tracker.track("checkout_started", { count: p.count, total: p.total })),
     bus.subscribe("checkout.failed", (p) => tracker.track("checkout_failed", { code: p.code })),

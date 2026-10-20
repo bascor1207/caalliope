@@ -46,16 +46,18 @@ export function SearchBox({ className }: { className?: string }) {
   // biome-ignore lint/correctness/useExhaustiveDependencies: on referme la liste à chaque navigation.
   useEffect(() => setOpen(false), [pathname]);
 
-  const { data: hits = [], isFetching } = useSearchQuery(
-    { query: debounced, locale },
-    { skip: debounced.length < MIN },
-  );
+  const {
+    data: hits = [],
+    currentData,
+    isFetching,
+  } = useSearchQuery({ query: debounced, locale }, { skip: debounced.length < MIN });
   const showList = open && debounced.length >= MIN;
-  // biome-ignore lint/correctness/useExhaustiveDependencies: on publie une fois par requête résolue.
+  /* `currentData` n'existe que pour la requête en cours : on publie le résultat réel, jamais celui de la précédente. */
+  // biome-ignore lint/correctness/useExhaustiveDependencies: une publication par requête résolue.
   useEffect(() => {
-    if (debounced.length >= MIN && !isFetching)
-      eventBus.publish("catalog.search-performed", { query: debounced, results: hits.length });
-  }, [debounced, isFetching]);
+    if (debounced.length >= MIN && !isFetching && currentData)
+      eventBus.publish("catalog.search-performed", { query: debounced, results: currentData.length });
+  }, [debounced, isFetching, currentData]);
 
   return (
     <form

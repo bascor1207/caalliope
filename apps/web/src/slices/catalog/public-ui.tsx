@@ -6,3 +6,4 @@ export { ProductConfigurator, ProductConfiguratorFromUrl } from "./ui/product-co
 export { Recommendations } from "./ui/recommendations";
 export { SearchBox } from "./ui/search-box";
 export { SearchResults } from "./ui/search-results";
+export { SearchTracker } from "./ui/search-tracker";
