@@ -1,0 +1,54 @@
+{
+  "title": "Mon compte",
+  "nav": {
+    "info": "Informations",
+    "addresses": "Adresses",
+    "payment": "Paiement",
+    "orders": "Commandes"
+  },
+  "info": "Mes informations",
+  "addresses": "Mes adresses de livraison",
+  "paymentTitle": "Moyens de paiement",
+  "orders": "Mes commandes",
+  "firstName": "Prénom",
+  "lastName": "Nom",
+  "email": "E-mail",
+  "emailHint": "L'adresse du compte ne se change pas ici.",
+  "phone": "Téléphone",
+  "save": "Enregistrer",
+  "saving": "Enregistrement…",
+  "saved": "Enregistré",
+  "cancel": "Annuler",
+  "optional": "facultatif",
+  "noAddress": "Aucune adresse enregistrée. Ajoute-en une : elle pré-remplira ta prochaine commande.",
+  "addAddress": "Ajouter une adresse",
+  "newAddress": "Nouvelle adresse",
+  "editAddress": "Modifier l'adresse",
+  "labelPlaceholder": "Maison, bureau…",
+  "default": "Par défaut",
+  "makeDefault": "Utiliser par défaut",
+  "edit": "Modifier",
+  "remove": "Supprimer",
+  "fields": {
+    "address": "Adresse",
+    "label": "Nom de l'adresse",
+    "firstName": "Prénom",
+    "lastName": "Nom",
+    "line1": "Adresse",
+    "line2": "Complément",
+    "zip": "Code postal",
+    "city": "Ville",
+    "country": "Pays",
+    "phone": "Téléphone"
+  },
+  "errors": {
+    "required": "Champ obligatoire.",
+    "invalid-zip": "Code postal à 5 chiffres.",
+    "invalid-phone": "Numéro invalide."
+  },
+  "payment": {
+    "none": "Aucune carte enregistrée",
+    "soon": "Tu pourras enregistrer une carte au moment du paiement, dès l'activation du paiement sécurisé (Stripe, Apple Pay). La carte est conservée chez Stripe, jamais chez KODA.",
+    "secure": "Paiement chiffré, conforme PCI DSS"
+  }
+}

@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { getPathname } from "@/i18n/navigation";
 import type { Locale } from "@/shared/kernel/locale";
+import { accountRepository, PaymentMethods } from "@/slices/account/public-server";
+import { AddressBook, ProfileForm } from "@/slices/account/public-ui";
 import { getSessionUser } from "@/slices/auth/public-server";
 import { AccountHeader } from "@/slices/auth/public-ui";
 import { ordersRepository } from "@/slices/checkout/public-server";
@@ -17,22 +19,71 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: "auth" });
-  return { title: t("myAccount"), robots: { index: false, follow: false } };
+  const t = await getTranslations({ locale, namespace: "account" });
+  return { title: t("title"), robots: { index: false, follow: false } };
 }
 
-/** Espace client : identité et historique des commandes (site + Shopify). Toujours dynamique (cookies). */
+const SECTIONS = ["info", "addresses", "payment", "orders"] as const;
+
+/** Espace client : informations, adresses, paiement, commandes (site + Shopify). Toujours dynamique (cookies). */
 export default async function AccountPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const user = await getSessionUser();
   if (!user) redirect(getPathname({ locale, href: "/connexion" }));
-  const [orders, t] = await Promise.all([ordersRepository.listForUser(user.id, user.email), getTranslations("auth")]);
+  const [orders, profile, addresses, t] = await Promise.all([
+    ordersRepository.listForUser(user.id, user.email),
+    accountRepository.getProfile(user.id),
+    accountRepository.listAddresses(user.id),
+    getTranslations("account"),
+  ]);
   return (
-    <div className="container-k mx-auto max-w-[820px] pt-10 pb-[clamp(72px,10vw,128px)]">
+    <div className="container-k mx-auto max-w-[880px] pt-10 pb-[clamp(72px,10vw,128px)]">
       <AccountHeader user={user} />
-      <h2 className="mt-10 mb-4 text-2xl">{t("orders")}</h2>
-      <OrderHistory orders={orders} />
+      <nav aria-label={t("title")} className="mt-8 flex gap-2 overflow-x-auto pb-1">
+        {SECTIONS.map((s) => (
+          <a
+            key={s}
+            href={`#${s}`}
+            className="whitespace-nowrap rounded-full border border-line bg-white px-4 py-2 text-sm font-semibold hover:border-ink"
+          >
+            {t(`nav.${s}`)}
+          </a>
+        ))}
+      </nav>
+
+      <section id="info" aria-labelledby="info-title" className="mt-10 scroll-mt-28">
+        <h2 id="info-title" className="mb-4 text-2xl">
+          {t("info")}
+        </h2>
+        <div className="rounded-card border border-line bg-white p-5 md:p-6">
+          <ProfileForm
+            profile={profile ?? { firstName: user.firstName ?? "", lastName: user.lastName ?? "", phone: "" }}
+            email={user.email}
+          />
+        </div>
+      </section>
+
+      <section id="addresses" aria-labelledby="addresses-title" className="mt-12 scroll-mt-28">
+        <h2 id="addresses-title" className="mb-4 text-2xl">
+          {t("addresses")}
+        </h2>
+        <AddressBook addresses={addresses} />
+      </section>
+
+      <section id="payment" aria-labelledby="payment-title" className="mt-12 scroll-mt-28">
+        <h2 id="payment-title" className="mb-4 text-2xl">
+          {t("paymentTitle")}
+        </h2>
+        <PaymentMethods />
+      </section>
+
+      <section id="orders" aria-labelledby="orders-title" className="mt-12 scroll-mt-28">
+        <h2 id="orders-title" className="mb-4 text-2xl">
+          {t("orders")}
+        </h2>
+        <OrderHistory orders={orders} />
+      </section>
     </div>
   );
 }

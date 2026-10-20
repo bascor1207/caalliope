@@ -1,14 +1,14 @@
 "use client";
 
 import { selectCartTotals, selectLines } from "@/slices/cart/public-store";
-import { CheckoutForm, type CheckoutLineView } from "@/slices/checkout/public-ui";
+import { CheckoutForm, type CheckoutLineView, type CheckoutPrefill } from "@/slices/checkout/public-ui";
 import { useAppSelector } from "@/store/hooks";
 
 /**
  * Composition panier → checkout : la page projette les lignes du panier dans la vue
  * attendue par le checkout. Les deux slices ne s'importent jamais l'une l'autre.
  */
-export function CheckoutSection() {
+export function CheckoutSection({ prefill }: { prefill?: CheckoutPrefill }) {
   const lines = useAppSelector(selectLines);
   const totals = useAppSelector(selectCartTotals);
   const view: CheckoutLineView[] = lines.map((l) => ({
@@ -23,5 +23,5 @@ export function CheckoutSection() {
     imageSrc: l.imageSrc,
     unitPrice: l.unitPrice,
   }));
-  return <CheckoutForm lines={view} totals={totals} />;
+  return <CheckoutForm lines={view} totals={totals} prefill={prefill} />;
 }

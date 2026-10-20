@@ -1,0 +1,54 @@
+{
+  "title": "My account",
+  "nav": {
+    "info": "Details",
+    "addresses": "Addresses",
+    "payment": "Payment",
+    "orders": "Orders"
+  },
+  "info": "My details",
+  "addresses": "My shipping addresses",
+  "paymentTitle": "Payment methods",
+  "orders": "My orders",
+  "firstName": "First name",
+  "lastName": "Last name",
+  "email": "Email",
+  "emailHint": "The account email can't be changed here.",
+  "phone": "Phone",
+  "save": "Save",
+  "saving": "Saving…",
+  "saved": "Saved",
+  "cancel": "Cancel",
+  "optional": "optional",
+  "noAddress": "No saved address yet. Add one: it will prefill your next order.",
+  "addAddress": "Add an address",
+  "newAddress": "New address",
+  "editAddress": "Edit address",
+  "labelPlaceholder": "Home, office…",
+  "default": "Default",
+  "makeDefault": "Use as default",
+  "edit": "Edit",
+  "remove": "Delete",
+  "fields": {
+    "address": "Address",
+    "label": "Address name",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "line1": "Street address",
+    "line2": "Apartment, floor…",
+    "zip": "Postcode",
+    "city": "City",
+    "country": "Country",
+    "phone": "Phone"
+  },
+  "errors": {
+    "required": "Required.",
+    "invalid-zip": "5-digit postcode.",
+    "invalid-phone": "Invalid number."
+  },
+  "payment": {
+    "none": "No saved card",
+    "soon": "You'll be able to save a card at checkout once secure payment (Stripe, Apple Pay) is live. Cards are stored by Stripe, never by KODA.",
+    "secure": "Encrypted, PCI DSS compliant payment"
+  }
+}

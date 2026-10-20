@@ -33,9 +33,13 @@ export interface CheckoutLineView {
   unitPrice: number;
 }
 
+/** Valeurs initiales du formulaire (compte connecté : e-mail, adresse par défaut). */
+export type CheckoutPrefill = Partial<Customer>;
+
 interface Props {
   lines: CheckoutLineView[];
   totals: { subtotal: number; shipping: number; total: number };
+  prefill?: CheckoutPrefill;
 }
 
 const FIELDS: Array<{
@@ -51,7 +55,7 @@ const FIELDS: Array<{
   { name: "city", autoComplete: "address-level2" },
 ];
 
-export function CheckoutForm({ lines, totals }: Props) {
+export function CheckoutForm({ lines, totals, prefill = {} }: Props) {
   const t = useTranslations("checkout.form");
   const tc = useTranslations("common");
   const money = useMoney();
@@ -145,6 +149,7 @@ export function CheckoutForm({ lines, totals }: Props) {
                 type="email"
                 autoComplete="email"
                 required
+                defaultValue={prefill.email}
                 placeholder={t("emailPlaceholder")}
                 aria-invalid={!!errors.email}
               />
@@ -161,6 +166,7 @@ export function CheckoutForm({ lines, totals }: Props) {
                     name={f.name}
                     autoComplete={f.autoComplete}
                     inputMode={f.inputMode}
+                    defaultValue={prefill[f.name]}
                     placeholder={f.name === "address" ? t("addressPlaceholder") : undefined}
                     required
                     aria-invalid={!!errors[f.name]}
