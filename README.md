@@ -42,10 +42,13 @@ apparaît dans l'admin au rechargement.
 2. **Admin** : second projet, *Root Directory* `apps/admin`. Variables `DATABASE_URL` (la même), `ADMIN_PASSWORD`,
    `ADMIN_SECRET` (`openssl rand -hex 32`), et pour le direct `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY`.
    Sans mot de passe et secret, la connexion est refusée en production.
-3. **Supabase** (palier gratuit) : créer un projet, prendre la chaîne de connexion *Transaction pooler* (port 6543)
-   pour `DATABASE_URL`, l'URL du projet et la clé `service_role` (Settings → API) pour l'admin. La table est créée
-   au premier événement, avec RLS activée (invisible via l'API publique) et ajoutée à la publication Realtime.
-   Neon reste supporté : une URL `*.neon.tech` bascule automatiquement sur son driver HTTP.
+3. **Supabase** (palier gratuit). Le plus simple : dans Vercel, Storage → Create Database → Supabase, puis
+   connecter les deux projets. Vercel injecte `POSTGRES_URL` (poolée), `SUPABASE_URL` et
+   `SUPABASE_SERVICE_ROLE_KEY`, que les apps reconnaissent : rien d'autre à saisir. Sinon, créer le projet sur
+   supabase.com et poser `DATABASE_URL` (chaîne *Transaction pooler*, port 6543), `SUPABASE_URL` et la clé
+   `service_role` (Settings → API) à la main. La table est créée au premier événement, avec RLS activée (invisible
+   via l'API publique) et ajoutée à la publication Realtime. Neon reste supporté : une URL `*.neon.tech` bascule
+   automatiquement sur son driver HTTP.
 4. Les variables ne sont lues qu'au build : redéployer après les avoir posées.
 
 Vercel détecte le workspace pnpm et n'installe que ce qu'il faut pour chaque projet ; chaque app est déployée

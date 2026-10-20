@@ -42,19 +42,22 @@ export function workspaceRoot(from = process.cwd()): string {
 
 export interface StoreEnv {
   DATABASE_URL?: string;
+  /** Nom injecté par l'intégration Supabase du Marketplace Vercel (URL poolée). */
+  POSTGRES_URL?: string;
   ANALYTICS_FILE?: string;
   NODE_ENV?: string;
 }
 
 /**
  * Choix du stockage par l'environnement :
- *  - DATABASE_URL              → Postgres (Supabase, Neon…), production.
+ *  - DATABASE_URL ou POSTGRES_URL → Postgres (Supabase, Neon…), production.
  *  - ANALYTICS_FILE            → fichier JSONL explicite (tests de bout en bout).
  *  - sinon, hors production    → fichier JSONL partagé à la racine du monorepo (.data/analytics.jsonl).
  *  - sinon                     → mémoire, avec avertissement : les stats ne survivront pas au déploiement.
  */
 export function createAnalyticsStoreFromEnv(env: StoreEnv = process.env): AnalyticsStore {
-  if (env.DATABASE_URL) return createDatabaseStore(env.DATABASE_URL);
+  const databaseUrl = env.DATABASE_URL ?? env.POSTGRES_URL;
+  if (databaseUrl) return createDatabaseStore(databaseUrl);
   if (env.ANALYTICS_FILE) return createFileStore(env.ANALYTICS_FILE);
   if (env.NODE_ENV !== "production") return createFileStore(join(workspaceRoot(), ".data", "analytics.jsonl"));
   console.warn("[analytics] DATABASE_URL absent : événements gardés en mémoire uniquement.");
