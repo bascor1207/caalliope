@@ -47,7 +47,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: t("description"),
     applicationName: SITE.name,
     keywords: t("keywords").split(", "),
-    authors: [{ name: SITE.name }],
+    authors: [{ name: SITE.name }, { name: SITE.developer.name }],
+    creator: SITE.developer.name,
     alternates: localizedAlternates(locale as Locale, "/"),
     robots: {
       index: true,
