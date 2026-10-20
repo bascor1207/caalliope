@@ -28,8 +28,8 @@ export class PostgresOrdersRepository implements OrdersRepository {
     await sql`
       INSERT INTO orders (ref, user_id, email, status, currency, subtotal, shipping, total, payment, customer, lines, source, placed_at)
       VALUES (${order.ref}, ${order.userId ?? null}, ${order.customer.email}, 'paid', 'EUR', ${order.subtotal}, ${order.shipping},
-              ${order.total}, ${order.payment}, ${JSON.stringify(order.customer)}::jsonb,
-              ${JSON.stringify(order.lines)}::jsonb, 'koda', ${order.createdAt})`;
+              ${order.total}, ${order.payment}, ${sql.json(order.customer as never)},
+              ${sql.json(order.lines as never)}, 'koda', ${order.createdAt})`;
   }
 
   async findByRef(ref: string): Promise<Order | null> {

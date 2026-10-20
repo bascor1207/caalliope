@@ -8,14 +8,28 @@ import { getSql, hasDatabase } from "@koda/db";
  */
 export async function getSetting<T>(key: string): Promise<T | null> {
   if (!hasDatabase()) return null;
-  const [row] = await getSql()<{ value: T }[]>`SELECT value FROM site_settings WHERE key = ${key}`;
-  return row?.value ?? null;
+  const [row] = await getSql()<{ value: unknown }[]>`SELECT value FROM site_settings WHERE key = ${key}`;
+  return asJson<T>(row?.value);
 }
 
+/* `sql.json()` : postgres.js sérialise lui-même ; un JSON.stringify + ::jsonb stockerait une chaîne (double encodage). */
 export async function setSetting(key: string, value: unknown): Promise<void> {
-  await getSql()`INSERT INTO site_settings (key, value, updated_at) VALUES (${key}, ${JSON.stringify(value)}::jsonb, now())
+  const sql = getSql();
+  await sql`INSERT INTO site_settings (key, value, updated_at) VALUES (${key}, ${sql.json(value as never)}, now())
     ON CONFLICT (key) DO UPDATE SET value = EXCLUDED.value, updated_at = now()`;
 }
+
+/** Valeur JSON lue en base, tolérante à une ancienne ligne double-encodée. */
+export const asJson = <T>(value: unknown): T | null => {
+  if (typeof value === "string") {
+    try {
+      return JSON.parse(value) as T;
+    } catch {
+      return null;
+    }
+  }
+  return (value as T) ?? null;
+};
 
 const keyOf = () =>
   createHash("sha256")

@@ -20,7 +20,10 @@ export const SITE = {
       src: string;
       poster?: string;
     } | null,
-    heroVideo: null as { src: string; poster?: string } | null,
+    heroVideo: { src: "/media/koda-hero.mp4", poster: "/media/koda-hero.jpg" } as {
+      src: string;
+      poster?: string;
+    } | null,
     /** Logo rond (photo de profil Instagram) : loader de navigation. Repli sur le logotype s'il manque. */
     logo: { src: "/media/koda-logo.png", size: 96 } as { src: string; size: number } | null,
     /** Déclinaison carrée à fond uni pour favicon et icône iOS (générée depuis le logo). */

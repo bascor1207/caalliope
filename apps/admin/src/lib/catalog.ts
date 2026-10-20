@@ -1,6 +1,6 @@
 import { getSql, hasDatabase } from "@koda/db";
 import type { CatalogProduct, ColorSource, ProductData } from "./catalog-types";
-import { getSetting, setSetting } from "./settings";
+import { asJson, getSetting, setSetting } from "./settings";
 
 interface Row {
   id: string;
@@ -16,7 +16,7 @@ const toProduct = (r: Row): CatalogProduct => ({
   slug: r.slug,
   sort: r.sort,
   active: r.active,
-  data: r.data,
+  data: asJson<ProductData>(r.data) ?? r.data,
   updatedAt: new Date(r.updated_at).toISOString(),
 });
 
@@ -44,8 +44,9 @@ export async function slugTaken(slug: string, exceptId: string): Promise<boolean
 }
 
 export async function saveCatalogProduct(p: Omit<CatalogProduct, "updatedAt">): Promise<void> {
-  await getSql()`INSERT INTO catalog_products (id, slug, sort, active, data, updated_at)
-    VALUES (${p.id}, ${p.slug}, ${p.sort}, ${p.active}, ${JSON.stringify(p.data)}::jsonb, now())
+  const sql = getSql();
+  await sql`INSERT INTO catalog_products (id, slug, sort, active, data, updated_at)
+    VALUES (${p.id}, ${p.slug}, ${p.sort}, ${p.active}, ${sql.json(p.data as never)}, now())
     ON CONFLICT (id) DO UPDATE SET slug = EXCLUDED.slug, sort = EXCLUDED.sort, active = EXCLUDED.active, data = EXCLUDED.data, updated_at = now()`;
 }
 

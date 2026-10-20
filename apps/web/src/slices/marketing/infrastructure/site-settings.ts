@@ -5,6 +5,9 @@ import type { BannerSource } from "../domain/banner";
 import type { SocialLinks } from "../domain/social";
 import { BANNERS } from "./banners.data";
 
+/* À incrémenter quand la forme des réglages change : le cache de données Vercel survit aux déploiements. */
+const CACHE_VERSION = "v2";
+
 const DEFAULTS: SocialLinks = {
   instagram: SITE.instagram,
   tiktok: SITE.tiktok,
@@ -16,8 +19,10 @@ const DEFAULTS: SocialLinks = {
 async function readSetting<T>(key: string): Promise<T | null> {
   if (!hasDatabase()) return null;
   try {
-    const [row] = await getSql()<{ value: T }[]>`SELECT value FROM site_settings WHERE key = ${key}`;
-    return row?.value ?? null;
+    const [row] = await getSql()<{ value: unknown }[]>`SELECT value FROM site_settings WHERE key = ${key}`;
+    const v = row?.value;
+    if (typeof v === "string") return JSON.parse(v) as T;
+    return (v as T) ?? null;
   } catch {
     return null;
   }
@@ -29,7 +34,7 @@ async function readSetting<T>(key: string): Promise<T | null> {
  */
 export const getSocialLinks = unstable_cache(
   async (): Promise<SocialLinks> => ({ ...DEFAULTS, ...((await readSetting<Partial<SocialLinks>>("social")) ?? {}) }),
-  ["site-settings-social"],
+  ["site-settings-social", CACHE_VERSION],
   { tags: ["settings"], revalidate: 3600 },
 );
 
@@ -66,13 +71,13 @@ export const getSiteMedia = unstable_cache(
       heroBlobs: stored?.heroBlobs ?? true,
     };
   },
-  ["site-settings-media"],
+  ["site-settings-media", CACHE_VERSION],
   { tags: ["settings"], revalidate: 3600 },
 );
 
 /** Bannières du bandeau, éditées dans le back-office. Repli : celles du code. */
 export const getBanners = unstable_cache(
   async (): Promise<BannerSource[]> => (await readSetting<BannerSource[]>("banners")) ?? BANNERS,
-  ["site-settings-banners"],
+  ["site-settings-banners", CACHE_VERSION],
   { tags: ["settings"], revalidate: 3600 },
 );

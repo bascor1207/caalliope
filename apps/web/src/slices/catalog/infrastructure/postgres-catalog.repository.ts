@@ -26,12 +26,19 @@ const loadSources = unstable_cache(
       ]);
       const palette = { ...PALETTE, ...(settings[0]?.value ?? {}) };
       if (rows.length === 0) return { sources: PRODUCT_SOURCES, palette };
-      return { sources: rows.map((r) => ({ ...r.data, id: r.id, slug: r.slug })), palette };
+      const parse = (d: unknown) => (typeof d === "string" ? (JSON.parse(d) as Row["data"]) : (d as Row["data"]));
+      const sources = rows.flatMap((r) => {
+        const data = parse(r.data);
+        /* Une fiche incomplète (édition en cours) ne doit jamais faire tomber la boutique. */
+        if (!data?.name?.fr || !data.images || !data.colorKeys) return [];
+        return [{ ...data, id: r.id, slug: r.slug }];
+      });
+      return { sources: sources.length > 0 ? sources : PRODUCT_SOURCES, palette };
     } catch {
       return { sources: PRODUCT_SOURCES, palette: PALETTE };
     }
   },
-  ["catalog-sources"],
+  ["catalog-sources", "v2"],
   { tags: ["catalog"], revalidate: 300 },
 );
 
