@@ -4,21 +4,22 @@
     "brandHome": "KODA Clothing, home",
     "breadcrumb": "Breadcrumb",
     "colors": "Colours",
-    "sizes": "Size"
+    "sizes": "Size",
+    "announcements": "Announcements"
   },
   "actions": {
     "close": "Close",
     "search": "Search",
-    "seeDrop": "See Drop 01",
-    "allDrop": "The whole drop",
+    "seeDrop": "Discover the collection",
+    "allDrop": "Collection",
     "sizeGuide": "Size guide",
     "back": "Back to the shop",
     "retry": "Retry"
   },
   "labels": {
     "home": "Home",
-    "drop": "Drop 01",
-    "preorder": "Pre-order",
+    "drop": "Collection",
+    "preorder": "Order",
     "language": "Language",
     "freeShippingFrom": "Free shipping from {amount}",
     "free": "Free",

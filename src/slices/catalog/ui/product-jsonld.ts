@@ -21,7 +21,7 @@ export const productJsonLd = (product: Product, url: string, ogImage: string) =>
     url: absoluteUrl(url),
     priceCurrency: "EUR",
     price: product.price.toFixed(2),
-    availability: "https://schema.org/PreOrder",
+    availability: "https://schema.org/InStock",
     itemCondition: "https://schema.org/NewCondition",
     priceValidUntil: "2026-12-31",
     shippingDetails: {
@@ -44,7 +44,7 @@ export const productJsonLd = (product: Product, url: string, ogImage: string) =>
 export const itemListJsonLd = (items: Array<{ product: Product; url: string; ogImage: string }>) => ({
   "@context": "https://schema.org",
   "@type": "ItemList",
-  name: `${SITE.shortName} — ${SITE.dropName}`,
+  name: `${SITE.shortName} — ${SITE.collectionName}`,
   numberOfItems: items.length,
   itemListElement: items.map(({ product, url, ogImage }, i) => ({
     "@type": "ListItem",

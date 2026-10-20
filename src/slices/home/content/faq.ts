@@ -8,10 +8,10 @@ interface FaqItem {
 /** Source unique de la FAQ : section visible + JSON-LD FAQPage. */
 const FAQ: FaqItem[] = [
   {
-    q: { fr: "Quand est-ce que je reçois ma précommande ?", en: "When do I receive my pre-order?" },
+    q: { fr: "Quand est-ce que je reçois ma commande ?", en: "When do I receive my order?" },
     a: {
-      fr: "Les précommandes du Drop 01 sont expédiées 3 à 4 semaines après la clôture du drop. Tu reçois un mail avec le suivi dès que ton colis part de notre atelier.",
-      en: "Drop 01 pre-orders ship 3 to 4 weeks after the drop closes. You get a tracking email as soon as your parcel leaves our workshop.",
+      fr: "Expédition sous 48 h ouvrées depuis la France, livraison en 2 à 4 jours ouvrés. Tu reçois un mail avec le suivi dès que ton colis part.",
+      en: "Ships within 48 business hours from France, delivered in 2 to 4 business days. You get a tracking email as soon as your parcel leaves.",
     },
   },
   {
@@ -31,15 +31,15 @@ const FAQ: FaqItem[] = [
   {
     q: { fr: "D'où viennent vos vêtements ?", en: "Where are your clothes made?" },
     a: {
-      fr: "Coton organique et polyester recyclé certifiés. Chaque pièce est produite en petite série, uniquement sur précommande, pour éviter le surstock.",
-      en: "Certified organic cotton and recycled polyester. Every piece is made in small batches, pre-order only, to avoid overstock.",
+      fr: "Coton organique et polyester recyclé certifiés. Chaque pièce est produite en petite série pour limiter les invendus.",
+      en: "Certified organic cotton and recycled polyester. Every piece is made in small batches to limit unsold stock.",
     },
   },
   {
-    q: { fr: "Pourquoi des drops et pas une boutique permanente ?", en: "Why drops instead of a permanent shop?" },
+    q: { fr: "Pourquoi des petites séries ?", en: "Why small batches?" },
     a: {
-      fr: "Produire uniquement ce qui est commandé nous permet de garder des prix justes, zéro invendu, et de concentrer chaque drop sur quelques pièces travaillées à fond.",
-      en: "Making only what's ordered keeps prices fair, zero unsold stock, and lets each drop focus on a few pieces done properly.",
+      fr: "Produire en petite série nous permet de garder des prix justes, de limiter les invendus et de concentrer chaque collection sur quelques pièces travaillées à fond.",
+      en: "Making small batches keeps prices fair, limits unsold stock and lets each collection focus on a few pieces done properly.",
     },
   },
 ];

@@ -9,10 +9,12 @@ import { SITE } from "@/shared/config/site";
 import type { Locale } from "@/shared/kernel/locale";
 import { localizedAlternates, organizationJsonLd, websiteJsonLd } from "@/shared/seo/metadata";
 import { JsonLd } from "@/shared/ui";
+import { AnalyticsProvider } from "@/slices/analytics/public-ui";
 import { CartDrawer } from "@/slices/cart/public-ui";
+import { bannersRepository, listLiveBanners } from "@/slices/marketing/public-server";
+import { MarketingBar } from "@/slices/marketing/public-ui";
 import { Toaster } from "@/slices/notifications/public-ui";
 import { StoreProvider } from "@/store/store-provider";
-import { AnnounceBar } from "../_shell/announce-bar";
 import { Footer } from "../_shell/footer";
 import { Header } from "../_shell/header";
 import "../globals.css";
@@ -82,6 +84,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
   const tc = await getTranslations("common");
+  const banners = await listLiveBanners(bannersRepository, locale);
 
   return (
     <html
@@ -104,12 +107,13 @@ export default async function LocaleLayout({ children, params }: Props) {
             <a className="sr-only focus:not-sr-only" href="#contenu">
               {tc("a11y.skipToContent")}
             </a>
-            <AnnounceBar />
+            <MarketingBar banners={banners} label={tc("a11y.announcements")} />
             <Header />
             <main id="contenu">{children}</main>
             <Footer />
             <CartDrawer />
             <Toaster />
+            <AnalyticsProvider />
           </StoreProvider>
         </NextIntlClientProvider>
       </body>

@@ -7,9 +7,19 @@ export const SITE = {
   instagramHandle: "@kodaclothingcompany",
   facebook: "https://www.facebook.com/kodaclothing/",
   tiktok: "https://www.tiktok.com/@kodaclothing",
-  /** Clôture des précommandes du drop (placeholder). */
-  dropEnd: "2026-11-01T20:00:00+01:00",
-  dropName: "Drop 01",
+  tagline: "More than clothing",
+  collectionName: "Collection",
+  /**
+   * Médias de marque, à déposer dans public/media/ (voir public/media/README.md).
+   * `null` = la section s'affiche sans vidéo.
+   */
+  media: {
+    storyVideo: { src: "/media/koda-story.mp4", poster: "/media/koda-story.jpg" } as {
+      src: string;
+      poster?: string;
+    } | null,
+    heroVideo: null as { src: string; poster?: string } | null,
+  },
 } as const;
 
 export const absoluteUrl = (path: string) => new URL(path, SITE.url).toString();

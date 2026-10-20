@@ -19,6 +19,14 @@ export interface IntegrationEvents {
     unitPrice: number;
     qty: number;
   };
+  /** Le catalogue : une fiche produit a été affichée. */
+  "catalog.product-viewed": { productId: string; slug: string; colorKey: string };
+  /** Le catalogue : une recherche a renvoyé des résultats (ou aucun). */
+  "catalog.search-performed": { query: string; results: number };
+  /** Le checkout : le formulaire de commande est affiché. */
+  "checkout.started": { count: number; total: number };
+  /** Le checkout : une soumission a été refusée (friction). */
+  "checkout.failed": { code: string };
   /** Le panier : une ligne a été ajoutée. */
   "cart.line-added": { productId: string; name: string; colorName: string; size: string; qty: number; count: number };
   /** Quelqu'un demande l'ouverture du panier (toast, bouton...). */

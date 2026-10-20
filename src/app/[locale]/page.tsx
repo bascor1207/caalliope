@@ -6,7 +6,16 @@ import { JsonLd } from "@/shared/ui";
 import { catalogRepository, itemListJsonLd, listProducts } from "@/slices/catalog/public-server";
 import { CatalogHydrator, DropGrid, FloatingCards } from "@/slices/catalog/public-ui";
 import { faqJsonLd } from "@/slices/home/public-server";
-import { Community, Faq, Hero, NewsletterSection, Specs, Story, ValuesMarquee } from "@/slices/home/public-ui";
+import {
+  BrandVideoSection,
+  Community,
+  Faq,
+  Hero,
+  NewsletterSection,
+  Specs,
+  Story,
+  ValuesMarquee,
+} from "@/slices/home/public-ui";
 import { NewsletterForm } from "@/slices/newsletter/public-ui";
 
 interface Props {
@@ -51,6 +60,7 @@ export default async function HomePage({ params }: Props) {
         <DropGrid />
       </Suspense>
       <Story />
+      <BrandVideoSection />
       <Specs />
       <Community />
       <Faq locale={locale} />

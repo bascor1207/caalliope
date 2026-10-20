@@ -66,6 +66,14 @@ export function registerCheckoutListeners<S extends { checkout: CheckoutState },
   startListening: TypedStartListening<S, D, E>,
 ) {
   startListening({
+    actionCreator: submitOrder.rejected,
+    effect: (action, api) => {
+      for (const code of Object.values(action.payload ?? { cart: "network" })) {
+        if (code) api.extra.bus.publish("checkout.failed", { code });
+      }
+    },
+  });
+  startListening({
     actionCreator: submitOrder.fulfilled,
     effect: (action, api) => {
       const order = action.payload;

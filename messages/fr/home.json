@@ -1,20 +1,19 @@
 {
   "hero": {
-    "tag": "{drop} — précommandes ouvertes ·",
-    "closesIn": "clôture dans {days} j {hours} h",
-    "closesSoon": "clôture bientôt",
+    "tag": "Collection disponible · More than clothing",
     "line1": "Porte ce qui",
     "line2": "te ressemble.",
     "line3": "Vraiment.",
-    "sub": "Hoodies, sweats et t-shirts premium, en coton organique, coupe oversized, couleurs douces. Produits en petite série, uniquement sur précommande. Né d'une amitié, fait pour durer.",
-    "cta": "Découvrir le {drop}",
+    "sub": "Hoodies, sweats et t-shirts premium, en coton organique, coupe oversized, couleurs douces. Des pièces pensées pour durer. Né d'une amitié.",
+    "cta": "Découvrir la collection",
     "story": "Notre histoire",
     "meta1": "coton organique certifié",
-    "meta2": "production sur précommande",
-    "meta2Value": "0 invendu",
-    "meta3": "sur 212 avis Drop 00",
+    "meta2": "coloris à choisir",
+    "meta2Value": "15",
+    "meta3": "retours offerts",
     "scroll": "Scroll",
-    "meta1Value": "330 g/m²"
+    "meta1Value": "330 g/m²",
+    "meta3Value": "30 jours"
   },
   "marquee": {
     "quality": "Qualité",
@@ -49,7 +48,7 @@
     "details": "Détails",
     "detailsText": "Capuche à cordons ronds, manches montées, bords-côte aux manches et en bas, intérieur gratté, broderie Koda.",
     "making": "Fabrication",
-    "makingText": "Petites séries produites sur précommande : zéro invendu, prix justes.",
+    "makingText": "Petites séries : des pièces pensées pour durer, pas pour la tendance.",
     "care": "Entretien",
     "careText": "Lavage 30°, à l'envers, pas de sèche-linge. Il vieillit bien si tu le respectes."
   },
@@ -72,5 +71,11 @@
     "title": "24 h d'avance",
     "titleSerif": "sur chaque drop.",
     "text": "Les drops partent vite. La liste reçoit le lien 24 h avant tout le monde, et un code de bienvenue de 10 %."
+  },
+  "video": {
+    "eyebrow": "More than clothing",
+    "title": "Brodé,",
+    "titleSerif": "pas imprimé.",
+    "text": "Le logo Koda est brodé sur chaque pièce. Regarde de près."
   }
 }

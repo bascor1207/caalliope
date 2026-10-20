@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 import { Link, useRouter } from "@/i18n/navigation";
+import { eventBus } from "@/shared/event-bus";
 import type { Locale } from "@/shared/kernel/locale";
 import { Button, Input, Label, ProductArt, RadioCard, RadioGroup, useMoney } from "@/shared/ui";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -64,6 +65,11 @@ export function CheckoutForm({ lines, totals }: Props) {
   const errors = { ...serverErrors, ...localErrors };
 
   useEffect(() => () => void dispatch(checkoutReset()), [dispatch]);
+  const count = lines.reduce((n, l) => n + l.qty, 0);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: un seul fait "commande démarrée" par affichage du formulaire.
+  useEffect(() => {
+    if (count > 0) eventBus.publish("checkout.started", { count, total: totals.total });
+  }, []);
 
   const submit = async (formData: FormData) => {
     const customer = Object.fromEntries(
@@ -74,7 +80,11 @@ export function CheckoutForm({ lines, totals }: Props) {
     ) as unknown as Customer;
     const local = validateCustomer(customer);
     setLocalErrors(local);
-    if (hasErrors(local)) return;
+    if (hasErrors(local)) {
+      // Friction mesurable : un formulaire refusé avant même l'envoi.
+      for (const code of Object.values(local)) if (code) eventBus.publish("checkout.failed", { code });
+      return;
+    }
     const result = await dispatch(
       submitOrder({
         locale,

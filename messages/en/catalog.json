@@ -1,33 +1,31 @@
 {
   "drop": {
-    "eyebrow": "{drop} · Limited edition",
+    "eyebrow": "The collection",
     "title": "Three pieces.",
     "titleSerif": "Fifteen colourways.",
-    "closing": "Pre-orders close in",
     "filterLabel": "Filter the drop",
     "all": "All",
     "hoodie": "Hoodies",
     "tee": "Tees",
     "empty": "Nothing in this category for this drop.",
-    "days": "days",
-    "hours": "hours",
-    "minutes": "min",
-    "seconds": "sec",
     "sweat": "Sweatshirts"
   },
   "card": {
     "see": "View piece",
     "colors": "Colours",
     "imageAlt": "{name} in {color}",
-    "open": "{name}, {color}"
+    "open": "{name}, {color}",
+    "flip": "Other view",
+    "prev": "Previous photo",
+    "next": "Next photo"
   },
   "product": {
-    "eyebrow": "Drop 01 · {sub}",
+    "eyebrow": "{sub}",
     "color": "Colour",
     "size": "Size",
     "soldOut": "{size} sold out",
     "chooseSize": "Pick a size",
-    "preorder": "Pre-order · {price}",
+    "preorder": "Add to cart · {price}",
     "reassure1": "Free shipping from €80, shipped from France",
     "reassure2": "Free 30-day returns",
     "reassure3": "Secure payment · Apple Pay, card, PayPal",
@@ -36,9 +34,14 @@
     "relatedEyebrow": "From the same drop",
     "relatedTitle": "Goes",
     "relatedSerif": "with it.",
-    "metaDescription": "{description} Colours: {colors}. {price}, Drop 01 pre-order, free shipping from €80.",
+    "metaDescription": "{description} Colours: {colors}. {price}, free shipping from €80.",
     "notFound": "Product not found",
-    "gallery": "Gallery"
+    "gallery": "Gallery",
+    "lightbox": "Enlarge photo",
+    "lightboxClose": "Close",
+    "prev": "Previous photo",
+    "next": "Next photo",
+    "of": "{current} / {total}"
   },
   "search": {
     "title": "Search for a piece",

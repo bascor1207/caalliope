@@ -1,13 +1,14 @@
 "use client";
 
-import { RotateCcwIcon, ShieldCheckIcon, TruckIcon } from "lucide-react";
+import { RotateCcwIcon, ShieldCheckIcon, TruckIcon, ZoomInIcon } from "lucide-react";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useRouter } from "@/i18n/navigation";
 import { eventBus } from "@/shared/event-bus";
 import { Button, cn, Price, ProductArt, useMoney } from "@/shared/ui";
+import { Lightbox } from "@/shared/ui/lightbox";
 import { defaultSize, imageFor, isSizeAvailable, type Product, pickColor } from "../domain/product";
 
 interface Props {
@@ -22,8 +23,8 @@ export function ProductConfiguratorFromUrl({ product }: { product: Product }) {
 }
 
 /**
- * Choix coloris + taille, galerie par coloris. Ne connaît pas le panier : il publie
- * `catalog.product-chosen` sur le bus, la slice panier décide quoi en faire.
+ * Choix coloris + taille, galerie par coloris, visionneuse plein écran.
+ * Ne connaît pas le panier : publie `catalog.product-chosen`, la slice panier décide quoi en faire.
  */
 export function ProductConfigurator({ product, initialColorKey }: Props) {
   const t = useTranslations("catalog.product");
@@ -33,6 +34,7 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
   const [colorKey, setColorKey] = useState(initialColorKey ?? product.colors[0].key);
   const [size, setSize] = useState<string | null>(defaultSize(product));
   const [shot, setShot] = useState(0);
+  const [zoom, setZoom] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const color = pickColor(product, colorKey);
   const gallery = product.images.filter((i) => i.colorKey === color.key);
@@ -42,6 +44,10 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
     return first ? [first] : [];
   });
   const stacked = [...firstShots, ...gallery.filter((g) => !firstShots.includes(g))];
+
+  useEffect(() => {
+    eventBus.publish("catalog.product-viewed", { productId: product.id, slug: product.slug, colorKey: color.key });
+  }, [product.id, product.slug, color.key]);
 
   const chooseColor = (key: string) => {
     setColorKey(key);
@@ -75,29 +81,41 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
   };
 
   return (
-    <div className="grid items-start gap-12 md:grid-cols-[1.1fr_.9fr]">
+    <div className="grid items-start gap-8 md:grid-cols-[minmax(0,460px)_minmax(0,1fr)] md:gap-12 lg:grid-cols-[minmax(0,520px)_minmax(0,1fr)]">
       <div className="grid gap-3 md:sticky md:top-[calc(var(--spacing-header)+16px)]">
         <div
           className="pdp-media relative grid aspect-[4/5] place-items-center overflow-hidden rounded-card"
           style={{ "--c": color.hex } as React.CSSProperties}
         >
           {image ? (
-            /* Première photo de chaque coloris + vues du coloris actif, toutes montées : switch instantané. */
-            stacked.map((img) => {
-              const active = img.src === image.src;
-              return (
-                <Image
-                  key={img.src}
-                  src={img.src}
-                  alt={active ? img.alt : ""}
-                  aria-hidden={!active}
-                  fill
-                  priority={active}
-                  sizes="(max-width: 768px) 100vw, 55vw"
-                  className={cn("object-cover transition-opacity duration-300", active ? "opacity-100" : "opacity-0")}
-                />
-              );
-            })
+            <>
+              {/* Première photo de chaque coloris + vues du coloris actif, toutes montées : switch instantané. */}
+              {stacked.map((img) => {
+                const active = img.src === image.src;
+                return (
+                  <Image
+                    key={img.src}
+                    src={img.src}
+                    alt={active ? img.alt : ""}
+                    aria-hidden={!active}
+                    fill
+                    priority={active}
+                    sizes="(max-width: 768px) 100vw, 520px"
+                    className={cn("object-cover transition-opacity duration-300", active ? "opacity-100" : "opacity-0")}
+                  />
+                );
+              })}
+              <button
+                type="button"
+                onClick={() => setZoom(true)}
+                aria-label={t("lightbox")}
+                className="group/zoom absolute inset-0 cursor-zoom-in"
+              >
+                <span className="absolute right-3 bottom-3 grid size-10 place-items-center rounded-full bg-white/80 text-ink opacity-0 backdrop-blur transition-opacity group-hover/zoom:opacity-100 max-md:opacity-100">
+                  <ZoomInIcon className="size-5" />
+                </span>
+              </button>
+            </>
           ) : (
             <ProductArt kind={product.type} title={t("placeholderAlt", { name: product.name, color: color.name })} />
           )}
@@ -112,7 +130,7 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
                 aria-pressed={i === shot}
                 onClick={() => setShot(i)}
                 className={cn(
-                  "relative aspect-[4/5] w-16 overflow-hidden rounded-[10px] border-[1.5px] border-line transition-colors",
+                  "relative aspect-[4/5] w-14 overflow-hidden rounded-[10px] border-[1.5px] border-line transition-colors md:w-16",
                   i === shot && "border-ink",
                 )}
               >
@@ -121,23 +139,39 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
             ))}
           </div>
         )}
+        {gallery.length > 0 && (
+          <Lightbox
+            images={gallery.map((g) => ({ src: g.src, alt: g.alt }))}
+            index={Math.min(shot, gallery.length - 1)}
+            open={zoom}
+            onOpenChange={setZoom}
+            onIndexChange={setShot}
+            labels={{
+              close: t("lightboxClose"),
+              prev: t("prev"),
+              next: t("next"),
+              of: (current, total) => t("of", { current, total }),
+              title: `${product.name} · ${color.name}`,
+            }}
+          />
+        )}
       </div>
-      <div className="grid content-start gap-6">
+      <div className="grid content-start gap-5 md:gap-6">
         <div>
           <p className="eyebrow">{t("eyebrow", { sub: product.sub })}</p>
-          <h1 className="mt-2 text-[clamp(34px,4.5vw,56px)] tracking-[-0.04em]">{product.name}</h1>
+          <h1 className="mt-2 text-[clamp(30px,7vw,56px)] tracking-[-0.04em]">{product.name}</h1>
           <Price
             amount={product.price}
             compare={product.compare}
             className="mt-2.5 block font-display text-2xl font-bold"
           />
         </div>
-        <p className="text-base leading-relaxed text-ink-2">{product.description}</p>
+        <p className="text-[15px] leading-relaxed text-ink-2 md:text-base">{product.description}</p>
         <div>
           <div className="mb-2.5 flex justify-between text-[13px] font-semibold">
             {t("color")} <span className="font-normal text-muted">{color.name}</span>
           </div>
-          <div className="flex flex-wrap gap-2" role="group" aria-label={tc("a11y.colors")}>
+          <div className="flex flex-wrap gap-2.5" role="group" aria-label={tc("a11y.colors")}>
             {product.colors.map((c) => (
               <button
                 key={c.key}
@@ -189,7 +223,7 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
             </p>
           )}
         </div>
-        <Button type="button" onClick={choose}>
+        <Button type="button" onClick={choose} className="max-md:sticky max-md:bottom-3 max-md:z-40 max-md:shadow-lg">
           {t("preorder", { price: money(product.price) })}
         </Button>
         <ul className="grid gap-2 text-[13px] text-ink-2">
