@@ -38,14 +38,23 @@ apparaît dans l'admin au rechargement.
 
 ## Déployer sur Vercel (deux projets, zéro euro)
 
-1. **Boutique** : projet Vercel avec *Root Directory* `apps/web`. Variable `DATABASE_URL` (Neon, palier gratuit).
+1. **Boutique** : projet Vercel avec *Root Directory* `apps/web`. Variable `DATABASE_URL`.
 2. **Admin** : second projet, *Root Directory* `apps/admin`. Variables `DATABASE_URL` (la même), `ADMIN_PASSWORD`,
-   `ADMIN_SECRET` (32+ caractères aléatoires). Sans ces deux dernières, la connexion est refusée en production.
-3. Neon : créer un projet gratuit, copier la chaîne de connexion *pooled*. La table est créée automatiquement au
-   premier événement. Sans `DATABASE_URL`, la boutique garde les événements en mémoire (perdus à chaque déploiement).
+   `ADMIN_SECRET` (`openssl rand -hex 32`), et pour le direct `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY`.
+   Sans mot de passe et secret, la connexion est refusée en production.
+3. **Supabase** (palier gratuit) : créer un projet, prendre la chaîne de connexion *Transaction pooler* (port 6543)
+   pour `DATABASE_URL`, l'URL du projet et la clé `service_role` (Settings → API) pour l'admin. La table est créée
+   au premier événement, avec RLS activée (invisible via l'API publique) et ajoutée à la publication Realtime.
+   Neon reste supporté : une URL `*.neon.tech` bascule automatiquement sur son driver HTTP.
+4. Les variables ne sont lues qu'au build : redéployer après les avoir posées.
 
 Vercel détecte le workspace pnpm et n'installe que ce qu'il faut pour chaque projet ; chaque app est déployée
 indépendamment, la boutique reste 100 % statique hors `/api/track`.
+
+**Temps réel.** Le dashboard ouvre un flux Server-Sent Events sur `/api/live` (derrière la session admin) ; cette
+route s'abonne côté serveur aux insertions de `analytics_events` via Supabase Realtime avec la clé de service, et
+relaie chaque événement au navigateur, qui recalcule les chiffres (regroupés à 1,5 s) et affiche les derniers
+événements. Aucune clé Supabase n'atteint le navigateur. Sans Supabase, le dashboard se rafraîchit toutes les 30 s.
 
 ## Arborescence de la boutique (`apps/web`)
 
@@ -113,10 +122,12 @@ Côté store, un **listener middleware** RTK traduit les actions en événements
   devient obligatoire.
 - **`@koda/analytics`** : contrats (`AnalyticsEvent`), nettoyage (`sanitizeEvents`), synthèse (`summarize` : sessions,
   pages, entonnoir, revenus, clics, frictions, série journalière) et stores : mémoire, fichier JSONL (dev) et SQL
-  Postgres (Neon en production, testé sur PGlite). `createAnalyticsStoreFromEnv` choisit selon l'environnement.
+  Postgres (Supabase ou Neon en production, testé sur un Postgres embarqué PGlite). `createAnalyticsStoreFromEnv`
+  choisit selon l'environnement.
 - **`apps/admin`** : connexion par mot de passe (cookie HMAC signé, 7 jours, `proxy.ts` en garde), tableau de bord
   calculé à la demande sur 7 / 30 / 90 jours : KPI, pages vues et commandes par jour, entonnoir avec taux d'étape,
-  produits (vues → paniers), pages, clics, frictions (erreurs checkout, recherches sans résultat), langues.
+  produits (vues → paniers), pages, clics, frictions (erreurs checkout, recherches sans résultat), langues ; mis à
+  jour en direct par Supabase Realtime (voir « Temps réel » plus haut).
 - **Médias** : vidéos de marque dans `public/media/` (voir le README du dossier), référencées par `SITE.media`.
 
 ## État et données (Redux Toolkit)

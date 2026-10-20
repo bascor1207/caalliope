@@ -5,18 +5,33 @@ import type { AnalyticsStore } from "./store";
 /** Exécuteur SQL minimal (requête paramétrée → lignes), implémenté par Neon en prod et PGlite en test. */
 export type SqlExecutor = (text: string, params: unknown[]) => Promise<Record<string, unknown>[]>;
 
-export const SCHEMA_SQL = `
-CREATE TABLE IF NOT EXISTS analytics_events (
-  id bigserial PRIMARY KEY,
-  name text NOT NULL,
-  at timestamptz NOT NULL,
-  session text NOT NULL,
-  path text NOT NULL,
-  locale text NOT NULL,
-  props jsonb NOT NULL DEFAULT '{}'::jsonb
-);
-CREATE INDEX IF NOT EXISTS analytics_events_at_idx ON analytics_events (at);
-`;
+/**
+ * Schéma, idempotent. Sur Supabase : RLS activée (la table n'est pas lisible via l'API publique, seul le rôle
+ * propriétaire utilisé par les apps y accède) et table ajoutée à la publication Realtime pour le direct du dashboard.
+ * Ailleurs (Neon, PGlite), les blocs conditionnels ne font rien.
+ */
+export const SCHEMA_STATEMENTS = [
+  `CREATE TABLE IF NOT EXISTS analytics_events (
+    id bigserial PRIMARY KEY,
+    name text NOT NULL,
+    at timestamptz NOT NULL,
+    session text NOT NULL,
+    path text NOT NULL,
+    locale text NOT NULL,
+    props jsonb NOT NULL DEFAULT '{}'::jsonb
+  )`,
+  "CREATE INDEX IF NOT EXISTS analytics_events_at_idx ON analytics_events (at)",
+  "ALTER TABLE analytics_events ENABLE ROW LEVEL SECURITY",
+  `DO $$
+  BEGIN
+    IF EXISTS (SELECT 1 FROM pg_publication WHERE pubname = 'supabase_realtime')
+       AND NOT EXISTS (
+         SELECT 1 FROM pg_publication_tables WHERE pubname = 'supabase_realtime' AND tablename = 'analytics_events'
+       ) THEN
+      ALTER PUBLICATION supabase_realtime ADD TABLE analytics_events;
+    END IF;
+  END $$`,
+];
 
 const CHUNK = 100;
 const COLUMNS = ["name", "at", "session", "path", "locale", "props"] as const;
@@ -40,10 +55,7 @@ export function createSqlStore(exec: SqlExecutor): AnalyticsStore {
   let ready: Promise<void> | null = null;
   const ensure = () => {
     ready ??= (async () => {
-      for (const statement of SCHEMA_SQL.split(";")
-        .map((s) => s.trim())
-        .filter(Boolean))
-        await exec(statement, []);
+      for (const statement of SCHEMA_STATEMENTS) await exec(statement, []);
     })();
     return ready;
   };

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Événements d'usage KODA : contrats, synthèse KPI, stockage (mémoire, fichier, Postgres/Neon).",
+  "description": "Événements d'usage KODA : contrats, synthèse KPI, stockage (mémoire, fichier, Postgres : Supabase, Neon).",
   "exports": {
     ".": "./src/index.ts",
     "./node": "./src/node.ts"
@@ -13,7 +13,8 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@neondatabase/serverless": "^1.0.2"
+    "@neondatabase/serverless": "^1.0.2",
+    "postgres": "^3.4.7"
   },
   "devDependencies": {
     "@electric-sql/pglite": "^0.3.15",

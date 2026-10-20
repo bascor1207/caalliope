@@ -2,6 +2,7 @@ import { top } from "@koda/analytics";
 import { LogOutIcon } from "lucide-react";
 import Link from "next/link";
 import { DailyBars } from "@/components/bars";
+import { LiveFeed } from "@/components/live-feed";
 import { Funnel, Panel, RankTable } from "@/components/panels";
 import { isPeriod, loadSummary, PERIODS, type Period } from "@/lib/analytics";
 import { kpisOf } from "@/lib/kpis";
@@ -36,6 +37,9 @@ export default async function Dashboard({ searchParams }: Props) {
           <p className="mt-2 text-sm text-muted">
             Du {fmtDate(s.range.from)} au {fmtDate(s.range.to)} · {s.events} événements
           </p>
+          <div className="mt-2">
+            <LiveFeed />
+          </div>
         </div>
         <div className="flex items-center gap-2">
           <nav aria-label="Période" className="inline-flex rounded-full bg-ink/6 p-1 text-xs font-semibold">
