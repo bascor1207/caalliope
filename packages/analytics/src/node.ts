@@ -48,6 +48,16 @@ export interface StoreEnv {
   NODE_ENV?: string;
 }
 
+export type StoreKind = "neon" | "postgres" | "file" | "memory";
+
+/** Quel stockage `createAnalyticsStoreFromEnv` choisirait pour cet environnement (diagnostic, page de santé). */
+export function describeStoreFromEnv(env: StoreEnv = process.env): StoreKind {
+  const databaseUrl = env.DATABASE_URL ?? env.POSTGRES_URL;
+  if (databaseUrl) return /\.neon\.tech(:|\/|$)/.test(databaseUrl) ? "neon" : "postgres";
+  if (env.ANALYTICS_FILE || env.NODE_ENV !== "production") return "file";
+  return "memory";
+}
+
 /**
  * Choix du stockage par l'environnement :
  *  - DATABASE_URL ou POSTGRES_URL → Postgres (Supabase, Neon…), production.

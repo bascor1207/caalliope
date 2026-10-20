@@ -1,7 +1,7 @@
 import { type NextRequest, NextResponse } from "next/server";
 import { COOKIE, credentials, verifyToken } from "@/lib/auth";
 
-/** Tout l'admin est derrière la session, sauf la page de connexion et ses ressources. */
+/** Tout l'admin est derrière la session, sauf la page de connexion, ses ressources et la sonde /api/health. */
 export async function proxy(request: NextRequest) {
   const creds = credentials(process.env);
   const ok = creds ? await verifyToken(creds.secret, request.cookies.get(COOKIE)?.value) : false;
@@ -21,5 +21,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next|favicon.ico|icon|robots.txt).*)"],
+  matcher: ["/((?!_next|favicon.ico|icon|robots.txt|api/health).*)"],
 };
