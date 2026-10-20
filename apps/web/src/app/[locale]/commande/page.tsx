@@ -21,9 +21,17 @@ export const dynamic = "force-dynamic";
 
 /** E-mail et adresse par défaut du client connecté ; vide pour un visiteur. */
 async function prefillFor(): Promise<CheckoutPrefill> {
-  const user = await getSessionUser();
+  const user = await getSessionUser().catch((e: unknown) => {
+    console.error("[commande] session", e);
+    return null;
+  });
   if (!user) return {};
-  const address = pickDefault(await accountRepository.listAddresses(user.id));
+  const address = pickDefault(
+    await accountRepository.listAddresses(user.id).catch((e: unknown) => {
+      console.error("[commande] addresses", e);
+      return [];
+    }),
+  );
   return {
     email: user.email,
     firstName: address?.firstName ?? user.firstName ?? "",

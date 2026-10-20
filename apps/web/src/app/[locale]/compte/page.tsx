@@ -31,10 +31,16 @@ export default async function AccountPage({ params }: Props) {
   setRequestLocale(locale);
   const user = await getSessionUser();
   if (!user) redirect(getPathname({ locale, href: "/connexion" }));
+  /* Chaque bloc dégrade seul : une base indisponible ne doit pas rendre l'espace compte inaccessible. */
+  const safe = <T,>(label: string, p: Promise<T>, fallback: T) =>
+    p.catch((e: unknown) => {
+      console.error(`[compte] ${label}`, e);
+      return fallback;
+    });
   const [orders, profile, addresses, t] = await Promise.all([
-    ordersRepository.listForUser(user.id, user.email),
-    accountRepository.getProfile(user.id),
-    accountRepository.listAddresses(user.id),
+    safe("orders", ordersRepository.listForUser(user.id, user.email), []),
+    safe("profile", accountRepository.getProfile(user.id), null),
+    safe("addresses", accountRepository.listAddresses(user.id), []),
     getTranslations("account"),
   ]);
   return (
