@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Instrument_Serif, Inter, Syne } from "next/font/google";
+import { Bricolage_Grotesque, Instrument_Sans } from "next/font/google";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
@@ -22,15 +22,17 @@ import { Footer } from "../_shell/footer";
 import { Header } from "../_shell/header";
 import "../globals.css";
 
-const syne = Syne({ subsets: ["latin"], weight: ["500", "700", "800"], variable: "--font-syne", display: "swap" });
-const instrument = Instrument_Serif({
+/*
+ * Typo : Bricolage Grotesque pour les titres (grotesque à caractère, un peu bricolée, dans l'esprit du logo
+ * dessiné à la main) et Instrument Sans pour le texte (lisible, chaleureux). Pas de serif italique.
+ */
+const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display-face", display: "swap" });
+const sans = Instrument_Sans({
   subsets: ["latin"],
-  weight: "400",
   style: ["normal", "italic"],
-  variable: "--font-instrument",
+  variable: "--font-sans-face",
   display: "swap",
 });
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 
 interface Props {
   children: React.ReactNode;
@@ -94,7 +96,7 @@ export default async function LocaleLayout({ children, params }: Props) {
   return (
     <html
       lang={locale}
-      className={`${syne.variable} ${instrument.variable} ${inter.variable}`}
+      className={`${display.variable} ${sans.variable}`}
       suppressHydrationWarning
       data-scroll-behavior="smooth"
     >

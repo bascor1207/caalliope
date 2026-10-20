@@ -22,9 +22,8 @@
   --color-danger: #c0392b;
   --color-success: #256b3f; /* ≥ 4.5:1 sur fond success/10, cream et blanc */
 
-  --font-display: var(--font-syne), system-ui, sans-serif;
-  --font-serif: var(--font-instrument), Georgia, serif;
-  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-display-face), system-ui, sans-serif;
+  --font-sans: var(--font-sans-face), system-ui, -apple-system, sans-serif;
 
   --radius-card: 22px;
   --radius-sm: 12px;
@@ -131,8 +130,8 @@
   h2,
   h3,
   h4 {
-    /* Syne en 700, pas 800 : plus d'air dans les lettres, lecture moins fatigante. */
-    @apply font-display font-bold tracking-[-0.015em] leading-[1.04];
+    /* Titres en 700 : du caractère sans lourdeur. */
+    @apply font-display font-bold tracking-[-0.02em] leading-[1.04];
   }
   :focus-visible {
     @apply outline-2 outline-ink outline-offset-[3px] rounded;
@@ -144,8 +143,9 @@
 
 /* ============ Composants signature (animations, effets) ============ */
 @layer components {
+  /* Mot d'accent dans un titre : même famille, graisse légère, encre atténuée (plus de serif italique). */
   .serif {
-    @apply font-serif italic font-normal tracking-normal;
+    @apply font-display font-normal text-ink-2 tracking-[-0.01em];
   }
   /* Surtitres en Inter, plus légers que Syne en petit corps. */
   .eyebrow {
@@ -393,7 +393,7 @@
 
   /* Footer */
   .giant {
-    @apply font-display font-extrabold text-center text-transparent select-none;
+    @apply font-display font-bold text-center text-transparent select-none;
     font-size: clamp(80px, 22vw, 320px);
     letter-spacing: -0.07em;
     line-height: 0.8;

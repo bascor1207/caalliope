@@ -14,8 +14,8 @@
   --color-clay: #e8b8a6;
   --color-danger: #c0392b;
   --color-success: #256b3f; /* ≥ 4.5:1 sur fond success/10, cream et blanc */
-  --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-syne), system-ui, sans-serif;
+  --font-sans: var(--font-sans-face), system-ui, -apple-system, sans-serif;
+  --font-display: var(--font-display-face), system-ui, sans-serif;
   --radius-card: 24px;
 }
 
@@ -39,7 +39,7 @@
   .card {
     @apply rounded-card border border-line bg-white p-6 md:p-7;
   }
-  /* Chiffres clés : Inter, grands, tabulaires. Syne reste réservé aux titres. */
+  /* Chiffres clés : Instrument Sans, grands, tabulaires. Bricolage reste réservé aux titres. */
   .kpi-value {
     @apply mt-3 font-sans text-[38px] font-semibold leading-none tracking-[-0.02em] tabular-nums;
   }
@@ -63,7 +63,7 @@
       background-position: -120% 0;
     }
   }
-  /* Libellés : Inter, pas Syne, lisible en petit. */
+  /* Libellés : Instrument Sans, lisible en petit. */
   .eyebrow {
     @apply font-sans text-xs font-semibold uppercase tracking-[0.12em] text-muted;
   }

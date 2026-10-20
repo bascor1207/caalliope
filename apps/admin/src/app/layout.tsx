@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { Inter, Syne } from "next/font/google";
+import { Bricolage_Grotesque, Instrument_Sans } from "next/font/google";
 import "./globals.css";
 
-const syne = Syne({ subsets: ["latin"], weight: ["700", "800"], variable: "--font-syne", display: "swap" });
-const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display-face", display: "swap" });
+const sans = Instrument_Sans({ subsets: ["latin"], variable: "--font-sans-face", display: "swap" });
 
 export const metadata: Metadata = {
   title: { default: "KODA · Admin", template: "%s · KODA Admin" },
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="fr" className={`${syne.variable} ${inter.variable}`}>
+    <html lang="fr" className={`${display.variable} ${sans.variable}`}>
       <body>{children}</body>
     </html>
   );
