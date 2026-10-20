@@ -18,9 +18,9 @@ export async function Footer() {
       title: t("shop"),
       links: [
         [tc("labels.drop"), { pathname: "/", hash: "drop" }],
-        [t("hoodies"), { pathname: "/", query: { filtre: "hoodie" }, hash: "drop" }],
-        [t("tees"), { pathname: "/", query: { filtre: "tee" }, hash: "drop" }],
-        [t("sweats"), { pathname: "/", query: { filtre: "sweat" }, hash: "drop" }],
+        [t("hoodies"), "/hoodies"],
+        [t("sweats"), "/sweats"],
+        [t("tees"), "/t-shirts"],
         [tc("actions.sizeGuide"), "/guide-des-tailles"],
       ],
     },

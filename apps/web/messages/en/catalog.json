@@ -58,5 +58,39 @@
   "recommendations": {
     "title": "Complete",
     "titleSerif": "the look."
+  },
+  "categories": {
+    "eyebrow": "The collection",
+    "empty": "Nothing in this category right now.",
+    "hoodie": {
+      "nav": "Hoodies",
+      "title": "Premium organic cotton hoodies, oversized fit",
+      "description": "Oversized 330 gsm hoodie in certified organic cotton, embroidered logo, brushed inside, 6 pastel and neutral colours. French brand, free shipping from €80.",
+      "heading": "Hoodies",
+      "headingSerif": "built to last.",
+      "intro": "A premium hoodie made for every day: 330 gsm fleece in certified organic cotton, an oversized cut that sits just right, round drawcords, a KODA logo that is embroidered, never printed. Six colours, from sky blue to navy.",
+      "detailTitle": "Which hoodie size should I pick?",
+      "detail": "The fit is oversized: take your usual size for a roomy look, one size down for a closer fit. Model 1m75 wears S, 1m85 wears M."
+    },
+    "sweat": {
+      "nav": "Sweatshirts",
+      "title": "Oversized crew-neck sweatshirts in organic cotton",
+      "description": "Oversized crew-neck sweatshirt, 300 gsm, cotton and certified recycled polyester, drop shoulders, brushed inside, 4 colours. French brand, free shipping from €80.",
+      "heading": "Sweatshirts",
+      "headingSerif": "crew neck.",
+      "intro": "The KODA oversized sweatshirt: crew neck, drop shoulders, ribbed hem and cuffs, brushed inside for softness. A 300 gsm fleece that keeps its shape wash after wash. Unisex, four colours.",
+      "detailTitle": "Which sweatshirt size should I pick?",
+      "detail": "Roomy by design: your usual size gives the intended oversized look. Model 1m75 wears S, 1m85 wears M."
+    },
+    "tee": {
+      "nav": "Tees",
+      "title": "Premium 180 gsm tees, slightly oversized",
+      "description": "Unisex 180 gsm tee, slightly oversized fit, embroidered logo, 5 pastel colours and black. French brand, free shipping from €80.",
+      "heading": "Tees",
+      "headingSerif": "embroidered.",
+      "intro": "A thick, soft 180 gsm tee with a slightly oversized cut that shapes the silhouette without floating. KODA logo embroidered on the chest. Five colours: pastel green, sky blue, mauve, pink, black.",
+      "detailTitle": "Which tee size should I pick?",
+      "detail": "Unisex sizing, slightly oversized: go one size down from your usual size for a closer fit. Model 1m75 wears S, 1m85 wears M."
+    }
   }
 }

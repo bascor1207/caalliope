@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { routing } from "@/i18n/routing";
 import type { Locale } from "@/shared/kernel/locale";
 
-export const alt = "KODA Clothing — Drop 01";
+export const alt = "KODA Clothing — Hoodies, sweats et t-shirts premium";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -15,8 +15,8 @@ export default async function Image({ params }: { params: Promise<{ locale: Loca
   const headline = locale === "fr" ? "Porte ce qui te ressemble." : "Wear what feels like you.";
   const sub =
     locale === "fr"
-      ? "Hoodies & t-shirts premium · Drop 01 en précommande"
-      : "Premium hoodies & tees · Drop 01 on pre-order";
+      ? "Hoodies, sweats & t-shirts premium · Coton organique, brodé"
+      : "Premium hoodies, sweats & tees · Organic cotton, embroidered";
   return new ImageResponse(
     <div
       style={{

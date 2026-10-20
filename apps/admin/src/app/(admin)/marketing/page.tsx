@@ -9,6 +9,11 @@ export const dynamic = "force-dynamic";
 export default async function MarketingPage() {
   const [media, banners] = await Promise.all([getMedia(), getBanners()]);
   const storage = storageConfigured();
+  const shop = (process.env.SHOP_URL ?? "https://kodaclothing.vercel.app").replace(/\/$/, "");
+  const defaults = {
+    hero: { src: `${shop}/media/koda-hero.mp4`, poster: `${shop}/media/koda-hero.jpg` },
+    story: { src: `${shop}/media/koda-story.mp4`, poster: `${shop}/media/koda-story.jpg` },
+  };
   return (
     <main className="mx-auto w-full max-w-[1400px] px-5 pt-5 pb-10 md:px-9 md:pt-6 md:pb-12">
       <header>
@@ -24,14 +29,16 @@ export default async function MarketingPage() {
           Vidéo de fond du hero
         </h2>
         <p className="mt-1 mb-6 text-sm text-muted">
-          Fond du titre de l'accueil : formes pastel animées, ta vidéo, ou rien. Par défaut : les formes pastel.
+          Fond du titre de l'accueil : la vidéo livrée avec le code (fond.mp4) sous les formes pastel, ta propre vidéo,
+          ou un fond uni.
         </p>
         <VideoBlockForm
           block="hero"
           current={media.hero}
-          defaultLabel="Formes pastel seules"
+          defaultLabel="Vidéo du code + formes pastel"
           storage={storage}
           blobs={media.heroBlobs ?? true}
+          defaultVideo={defaults.hero}
         />
       </section>
 
@@ -43,7 +50,13 @@ export default async function MarketingPage() {
           Grand bloc plein cadre sur l'accueil, texte en surimpression. Par défaut : le fichier déposé dans le code
           (public/media/koda-story.mp4), ou masqué s'il manque.
         </p>
-        <VideoBlockForm block="story" current={media.story} defaultLabel="Vidéo du code" storage={storage} />
+        <VideoBlockForm
+          block="story"
+          current={media.story}
+          defaultLabel="Vidéo du code"
+          storage={storage}
+          defaultVideo={defaults.story}
+        />
       </section>
 
       <section className="card mt-6" aria-labelledby="banners-title">

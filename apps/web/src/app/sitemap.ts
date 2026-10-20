@@ -22,6 +22,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const products = await listProducts(catalogRepository, routing.defaultLocale);
   const statics: Array<[AppPathname, Partial<MetadataRoute.Sitemap[number]>]> = [
     ["/", { changeFrequency: "weekly", priority: 1 }],
+    ["/hoodies", { changeFrequency: "weekly", priority: 0.8 }],
+    ["/sweats", { changeFrequency: "weekly", priority: 0.8 }],
+    ["/t-shirts", { changeFrequency: "weekly", priority: 0.8 }],
     ["/guide-des-tailles", { changeFrequency: "monthly", priority: 0.5 }],
     ["/livraison", { changeFrequency: "monthly", priority: 0.4 }],
     ["/cgv", { changeFrequency: "yearly", priority: 0.2 }],

@@ -58,5 +58,39 @@
   "recommendations": {
     "title": "Complète",
     "titleSerif": "la tenue."
+  },
+  "categories": {
+    "eyebrow": "La collection",
+    "empty": "Rien dans cette catégorie pour le moment.",
+    "hoodie": {
+      "nav": "Hoodies",
+      "title": "Hoodies premium en coton organique, coupe oversized",
+      "description": "Hoodie oversized 330 g/m² en coton organique certifié, logo brodé, intérieur gratté, 6 coloris pastel et neutres. Marque française, livraison offerte dès 80 €.",
+      "heading": "Hoodies",
+      "headingSerif": "qui durent.",
+      "intro": "Un hoodie premium pensé pour être porté tous les jours : molleton 330 g/m² en coton organique certifié, coupe oversized qui tombe juste, capuche à cordons ronds, logo KODA brodé, jamais imprimé. Six coloris, du bleu ciel au navy.",
+      "detailTitle": "Quelle taille de hoodie choisir ?",
+      "detail": "La coupe est oversized : prends ta taille habituelle pour un rendu ample, une taille en dessous pour un rendu plus ajusté. Mannequin 1m75 en S, 1m85 en M."
+    },
+    "sweat": {
+      "nav": "Sweats",
+      "title": "Sweats oversized col rond en coton bio",
+      "description": "Sweat oversized col rond 300 g/m², coton et polyester recyclé certifié, épaules tombantes, intérieur gratté, 4 coloris. Marque française, livraison offerte dès 80 €.",
+      "heading": "Sweats",
+      "headingSerif": "col rond.",
+      "intro": "Le sweat oversized KODA : col rond, épaules tombantes, bords-côte à la taille et aux manches, intérieur gratté pour la douceur. Un molleton 300 g/m² qui garde sa tenue lavage après lavage. Unisexe, quatre coloris.",
+      "detailTitle": "Quelle taille de sweat choisir ?",
+      "detail": "Coupe ample par construction : ta taille habituelle donne le rendu oversized voulu. Mannequin 1m75 en S, 1m85 en M."
+    },
+    "tee": {
+      "nav": "T-shirts",
+      "title": "T-shirts premium 180 g/m², légèrement oversized",
+      "description": "T-shirt unisexe 180 g/m², coupe légèrement oversized, logo brodé, 5 coloris pastel et noir. Marque française, livraison offerte dès 80 €.",
+      "heading": "T-shirts",
+      "headingSerif": "brodés.",
+      "intro": "Un t-shirt épais et doux, 180 g/m², coupe légèrement oversized qui structure la silhouette sans flotter. Logo KODA brodé sur la poitrine. Cinq coloris : vert pastel, bleu ciel, mauve, rose, noir.",
+      "detailTitle": "Quelle taille de t-shirt choisir ?",
+      "detail": "Taille unisexe, coupe légèrement oversized : prends une taille en dessous de ta taille habituelle pour un rendu plus ajusté. Mannequin 1m75 en S, 1m85 en M."
+    }
   }
 }

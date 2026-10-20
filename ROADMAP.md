@@ -28,7 +28,11 @@ Suivi des idées et de leur état. Mis à jour à chaque lot livré.
 - Campagnes : éditeur riche (gras, italique, souligné, titres, listes, liens), HTML nettoyé et stylé inline pour les clients mail.
 - Admin : fil d'Ariane + bouton retour sur toutes les pages ; toasts verts pour les succès.
 
+- SEO : pages catégories indexables (hoodies, sweats, t-shirts, FR/EN), JSON-LD ProductGroup avec variantes et stock réel, flux Google Merchant (`/feed/google-merchant.xml`), robots.txt complet, sitemap enrichi, OG à jour.
+- Curseurs : main sur tout ce qui se clique, curseur maison « agrandir / réduire » sur la galerie produit.
+
 ## En cours / à configurer par KODA
+- Domaine final à brancher sur Vercel (puis `NEXT_PUBLIC_SITE_URL` à mettre à jour), Google Search Console (sitemap) et Merchant Center (flux).
 - Admin → Catalogue → « Importer le catalogue de la boutique » (une fois le déploiement passé) : les fiches deviennent éditables.
 - Admin → Réglages → Boîte d'envoi : smtp.gmail.com / bcorre.work@gmail.com / mot de passe d'application, puis « Envoyer le test ».
 

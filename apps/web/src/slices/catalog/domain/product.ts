@@ -39,6 +39,15 @@ export interface Product {
 }
 
 export type CatalogFilter = "all" | "hoodie" | "sweat" | "tee";
+
+/** Catégories indexables (une page par type de pièce), avec leur chemin interne. */
+export type CategoryType = "hoodie" | "sweat" | "tee";
+export const CATEGORY_PATHS: Record<CategoryType, "/hoodies" | "/sweats" | "/t-shirts"> = {
+  hoodie: "/hoodies",
+  sweat: "/sweats",
+  tee: "/t-shirts",
+};
+export const CATEGORY_TYPES = Object.keys(CATEGORY_PATHS) as CategoryType[];
 export const CATALOG_FILTERS: CatalogFilter[] = ["all", "hoodie", "sweat", "tee"];
 
 export const isCatalogFilter = (value: unknown): value is CatalogFilter =>

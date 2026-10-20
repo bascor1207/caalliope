@@ -39,9 +39,9 @@ export function Lightbox({ images, index, open, onOpenChange, onIndexChange, lab
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-90 bg-ink/95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0" />
+        <Dialog.Overlay className="cursor-shrink fixed inset-0 z-90 bg-ink/95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:fade-out-0" />
         <Dialog.Content
-          className="fixed inset-0 z-91 flex flex-col outline-none data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0"
+          className="cursor-shrink fixed inset-0 z-91 flex flex-col outline-none data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0"
           onClick={(e) => {
             if (e.target === e.currentTarget) onOpenChange(false);
           }}

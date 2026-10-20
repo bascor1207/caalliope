@@ -13,7 +13,7 @@ import {
   getProduct,
   getProductWithRelated,
   listProducts,
-  productJsonLd,
+  productGroupJsonLd,
 } from "@/slices/catalog/public-server";
 import { ProductCard, ProductConfigurator, ProductConfiguratorFromUrl } from "@/slices/catalog/public-ui";
 
@@ -67,7 +67,7 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <div className="container-k pt-10 pb-[clamp(72px,10vw,128px)]">
-      <JsonLd data={productJsonLd(product, url, `${url}/opengraph-image`)} />
+      <JsonLd data={productGroupJsonLd(product, url, `${url}/opengraph-image`)} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: tc("labels.home"), url: pathFor(locale, "/") },

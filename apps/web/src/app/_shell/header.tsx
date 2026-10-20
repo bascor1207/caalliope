@@ -17,9 +17,9 @@ type NavItem = {
 
 const NAV: NavItem[] = [
   { key: "drop", href: { pathname: "/", hash: "drop" } },
-  { key: "hoodies", href: { pathname: "/", query: { filtre: "hoodie" }, hash: "drop" } },
-  { key: "sweats", href: { pathname: "/", query: { filtre: "sweat" }, hash: "drop" } },
-  { key: "tees", href: { pathname: "/", query: { filtre: "tee" }, hash: "drop" } },
+  { key: "hoodies", href: "/hoodies" },
+  { key: "sweats", href: "/sweats" },
+  { key: "tees", href: "/t-shirts" },
   { key: "story", href: { pathname: "/", hash: "histoire" } },
   { key: "faq", href: { pathname: "/", hash: "faq" } },
 ];

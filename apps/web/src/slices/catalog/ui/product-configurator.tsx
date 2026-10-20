@@ -160,7 +160,7 @@ export function ProductConfigurator({ product: initial, initialColorKey }: Props
                 type="button"
                 onClick={() => setZoom(true)}
                 aria-label={t("lightbox")}
-                className="group/zoom absolute inset-0 cursor-zoom-in"
+                className="group/zoom absolute inset-0 cursor-expand"
               >
                 <span className="absolute right-3 bottom-3 grid size-10 place-items-center rounded-full bg-white/80 text-ink opacity-0 backdrop-blur transition-opacity group-hover/zoom:opacity-100 max-md:opacity-100">
                   <ZoomInIcon className="size-5" />

@@ -29,6 +29,29 @@
   h3 {
     font-family: var(--font-display);
   }
+
+  /* Curseurs : tout ce qui se clique montre une main ; un bouton désactivé le dit. */
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]),
+  a[href],
+  summary,
+  select:not(:disabled),
+  label:has(> input[type="checkbox"]),
+  label:has(> input[type="radio"]),
+  label:has(> input[type="file"]),
+  input[type="checkbox"],
+  input[type="radio"],
+  input[type="range"],
+  input[type="color"] {
+    cursor: pointer;
+  }
+  button:disabled,
+  [aria-disabled="true"],
+  input:disabled,
+  select:disabled,
+  textarea:disabled {
+    cursor: not-allowed;
+  }
   :focus-visible {
     outline: 2px solid var(--color-ink);
     outline-offset: 3px;

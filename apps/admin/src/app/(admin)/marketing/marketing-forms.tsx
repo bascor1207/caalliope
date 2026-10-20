@@ -32,6 +32,7 @@ export function VideoBlockForm({
   defaultLabel,
   storage,
   blobs = true,
+  defaultVideo,
 }: {
   block: "hero" | "story";
   current: VideoMedia | null | undefined;
@@ -39,6 +40,8 @@ export function VideoBlockForm({
   storage: boolean;
   /** Hero seulement : formes pastel affichées. */
   blobs?: boolean;
+  /** Vidéo livrée avec le code de la boutique (aperçu du mode par défaut). */
+  defaultVideo?: VideoMedia | null;
 }) {
   const [state, action, pending] = useActionState(saveVideoBlock.bind(null, block), {});
   useToastOnState(state);
@@ -84,6 +87,23 @@ export function VideoBlockForm({
           </button>
         ))}
       </div>
+      {mode === "default" && defaultVideo && (
+        <div className="grid gap-2">
+          <div className="aspect-video max-w-[520px] overflow-hidden rounded-[16px] bg-cream-2">
+            <video
+              src={defaultVideo.src}
+              poster={defaultVideo.poster}
+              controls
+              muted
+              playsInline
+              className="h-full w-full object-cover"
+            />
+          </div>
+          <p className="text-xs text-muted">
+            Vidéo actuelle, livrée avec la boutique. Choisis « Ma vidéo » pour la remplacer.
+          </p>
+        </div>
+      )}
       {mode === "custom" && (
         <div className="grid gap-5 md:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           <div className="grid gap-3">
