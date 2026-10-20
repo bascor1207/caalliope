@@ -2,13 +2,13 @@ import { describe, expect, it } from "vitest";
 import { addLine, countOf, emptyCart, type NewCartLine, removeLine, setQty, totalsOf } from "@/slices/cart/domain/cart";
 
 const hoodie: NewCartLine = {
-  productId: "hoodie-origine",
-  slug: "hoodie-origine",
-  name: "Hoodie Origine",
+  productId: "pull-a-capuche-koda",
+  slug: "pull-a-capuche-koda",
+  name: "Pull à capuche Koda",
   productType: "hoodie",
-  colorKey: "sauge",
-  colorName: "Sauge",
-  colorHex: "#BFD3C1",
+  colorKey: "bleu-ciel",
+  colorName: "Bleu ciel",
+  colorHex: "#BFD6EA",
   size: "M",
   unitPrice: 68,
 };

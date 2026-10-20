@@ -8,7 +8,7 @@ import { useState } from "react";
 import { Link, useRouter } from "@/i18n/navigation";
 import { eventBus } from "@/shared/event-bus";
 import { Button, cn, Price, ProductArt, useMoney } from "@/shared/ui";
-import { defaultSize, imageFor, isSizeAvailable, type Product, pickColor } from "../domain/product";
+import { defaultSize, isSizeAvailable, type Product, pickColor } from "../domain/product";
 
 interface Props {
   product: Product;
@@ -22,8 +22,8 @@ export function ProductConfiguratorFromUrl({ product }: { product: Product }) {
 }
 
 /**
- * Choix coloris + taille. Ne connaît pas le panier : il publie `catalog.product-chosen`
- * sur le bus, la slice panier décide quoi en faire.
+ * Choix coloris + taille, galerie par coloris. Ne connaît pas le panier : il publie
+ * `catalog.product-chosen` sur le bus, la slice panier décide quoi en faire.
  */
 export function ProductConfigurator({ product, initialColorKey }: Props) {
   const t = useTranslations("catalog.product");
@@ -32,12 +32,16 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
   const router = useRouter();
   const [colorKey, setColorKey] = useState(initialColorKey ?? product.colors[0].key);
   const [size, setSize] = useState<string | null>(defaultSize(product));
+  const [shot, setShot] = useState(0);
   const [error, setError] = useState<string | null>(null);
   const color = pickColor(product, colorKey);
-  const image = imageFor(product, color.key);
+  const gallery = product.images.filter((i) => i.colorKey === color.key);
+  const image = gallery[shot] ?? gallery[0] ?? product.images[0];
 
   const chooseColor = (key: string) => {
     setColorKey(key);
+    setShot(0);
+    if (size && !isSizeAvailable(product, size, key)) setSize(null);
     router.replace(
       { pathname: "/produits/[slug]", params: { slug: product.slug }, query: { coloris: key } },
       { scroll: false },
@@ -66,21 +70,43 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
 
   return (
     <div className="grid items-start gap-12 md:grid-cols-[1.1fr_.9fr]">
-      <div
-        className="pdp-media relative grid aspect-[4/5] place-items-center overflow-hidden rounded-card md:sticky md:top-[calc(var(--spacing-header)+16px)]"
-        style={{ "--c": color.hex } as React.CSSProperties}
-      >
-        {image ? (
-          <Image
-            src={image.src}
-            alt={image.alt}
-            fill
-            priority
-            sizes="(max-width: 768px) 100vw, 55vw"
-            className="object-cover"
-          />
-        ) : (
-          <ProductArt kind={product.type} title={t("placeholderAlt", { name: product.name, color: color.name })} />
+      <div className="grid gap-3 md:sticky md:top-[calc(var(--spacing-header)+16px)]">
+        <div
+          className="pdp-media relative grid aspect-[4/5] place-items-center overflow-hidden rounded-card"
+          style={{ "--c": color.hex } as React.CSSProperties}
+        >
+          {image ? (
+            <Image
+              key={image.src}
+              src={image.src}
+              alt={image.alt}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 55vw"
+              className="object-cover"
+            />
+          ) : (
+            <ProductArt kind={product.type} title={t("placeholderAlt", { name: product.name, color: color.name })} />
+          )}
+        </div>
+        {gallery.length > 1 && (
+          <div className="flex gap-2" role="group" aria-label={t("gallery")}>
+            {gallery.map((img, i) => (
+              <button
+                key={img.src}
+                type="button"
+                aria-label={img.alt}
+                aria-pressed={i === shot}
+                onClick={() => setShot(i)}
+                className={cn(
+                  "relative aspect-[4/5] w-16 overflow-hidden rounded-[10px] border-[1.5px] border-line transition-colors",
+                  i === shot && "border-ink",
+                )}
+              >
+                <Image src={img.src} alt="" fill sizes="64px" className="object-cover" />
+              </button>
+            ))}
+          </div>
         )}
       </div>
       <div className="grid content-start gap-6">
@@ -98,7 +124,7 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
           <div className="mb-2.5 flex justify-between text-[13px] font-semibold">
             {t("color")} <span className="font-normal text-muted">{color.name}</span>
           </div>
-          <div className="flex gap-2" role="group" aria-label={tc("a11y.colors")}>
+          <div className="flex flex-wrap gap-2" role="group" aria-label={tc("a11y.colors")}>
             {product.colors.map((c) => (
               <button
                 key={c.key}
@@ -121,7 +147,7 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
           </div>
           <div className="flex flex-wrap gap-2" role="group" aria-label={tc("a11y.sizes")}>
             {product.sizes.map((s) => {
-              const available = isSizeAvailable(product, s);
+              const available = isSizeAvailable(product, s, color.key);
               return (
                 <button
                   key={s}

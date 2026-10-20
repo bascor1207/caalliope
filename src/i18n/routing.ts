@@ -2,13 +2,15 @@ import { defineRouting } from "next-intl/routing";
 import { DEFAULT_LOCALE, LOCALES } from "@/shared/kernel/locale";
 
 /**
- * Routage i18n : `/` en français (sans préfixe), `/en/...` en anglais.
+ * Routage i18n : `/` en français (sans préfixe), `/en/...` en anglais, sans détection automatique.
  * Les chemins sont localisés pour le SEO ; les dossiers de `app/[locale]` portent la version française.
  */
 export const routing = defineRouting({
   locales: LOCALES,
   defaultLocale: DEFAULT_LOCALE,
   localePrefix: "as-needed",
+  /** Pas de redirection selon Accept-Language ni cookie : `/` sert toujours le français (domaine .fr, Googlebot). */
+  localeDetection: false,
   pathnames: {
     "/": "/",
     "/produits/[slug]": { fr: "/produits/[slug]", en: "/products/[slug]" },

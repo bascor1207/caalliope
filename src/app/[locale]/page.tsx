@@ -21,9 +21,9 @@ export default async function HomePage({ params }: Props) {
   const products = await listProducts(catalogRepository, locale);
   const byId = (id: string) => products.find((p) => p.id === id) ?? products[0];
   const featured = [
-    { product: byId("hoodie-origine"), colorKey: "sauge" },
-    { product: byId("hoodie-origine"), colorKey: "lavande" },
-    { product: byId("tee-essentiel"), colorKey: "craie" },
+    { product: byId("pull-a-capuche-koda"), colorKey: "bleu-ciel" },
+    { product: byId("pull-a-capuche-koda"), colorKey: "rose" },
+    { product: byId("t-shirt-koda"), colorKey: "vert-pastel" },
   ];
 
   return (

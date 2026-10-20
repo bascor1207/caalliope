@@ -6,13 +6,14 @@
     "heading": "Find",
     "headingSerif": "your fit.",
     "intro": "Garment measured flat, in cm. Hoodies are oversized: take your usual size for a loose look, one size down for a closer fit. Tees are boxy, true to size.",
-    "hoodie": "Origine hoodie",
-    "tee": "Essentiel tee",
+    "hoodie": "Koda hoodie",
+    "tee": "Koda tee",
     "size": "Size",
     "chest": "Chest",
     "length": "Length",
     "sleeve": "Sleeve",
-    "between": "Between two sizes? Message us on Instagram, we reply within the day."
+    "between": "Between two sizes? Message us on Instagram, we reply within the day.",
+    "sweat": "Oversized sweatshirt"
   },
   "shipping": {
     "title": "Shipping & returns",

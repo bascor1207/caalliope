@@ -1,6 +1,6 @@
 {
   "announce": {
-    "items": "Drop 01 en précommande|Livraison offerte dès 80 €|Expédié depuis la France|Retours gratuits 30 jours|Coton bio certifié"
+    "items": "Drop 01 en précommande|Livraison offerte dès 80 €|Expédié depuis la France|Retours gratuits 30 jours|Coton organique certifié"
   },
   "nav": {
     "drop": "Drop 01",
@@ -11,7 +11,8 @@
     "openMenu": "Ouvrir le menu",
     "closeMenu": "Fermer le menu",
     "search": "Rechercher",
-    "openCart": "Ouvrir le panier, {count, plural, =0 {vide} one {# article} other {# articles}}"
+    "openCart": "Ouvrir le panier, {count, plural, =0 {vide} one {# article} other {# articles}}",
+    "sweats": "Sweats"
   },
   "search": {
     "placeholder": "Rechercher  /",

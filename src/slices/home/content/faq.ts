@@ -31,8 +31,8 @@ const FAQ: FaqItem[] = [
   {
     q: { fr: "D'où viennent vos vêtements ?", en: "Where are your clothes made?" },
     a: {
-      fr: "Coton biologique certifié, confection chez un atelier partenaire au Portugal, broderie et contrôle qualité en France. Chaque pièce est produite en petite série, uniquement sur précommande, pour éviter le surstock.",
-      en: "Certified organic cotton, sewn by a partner workshop in Portugal, embroidered and quality-checked in France. Every piece is made in small batches, pre-order only, to avoid overstock.",
+      fr: "Coton organique et polyester recyclé certifiés. Chaque pièce est produite en petite série, uniquement sur précommande, pour éviter le surstock.",
+      en: "Certified organic cotton and recycled polyester. Every piece is made in small batches, pre-order only, to avoid overstock.",
     },
   },
   {

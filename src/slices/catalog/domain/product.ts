@@ -1,7 +1,7 @@
 /**
  * Domaine catalogue : types et règles pures. Aucune dépendance (ni React, ni Next, ni autre slice).
  */
-export type ProductType = "hoodie" | "tee" | "pack" | "acc";
+export type ProductType = "hoodie" | "sweat" | "tee" | "pack" | "acc";
 
 export interface Color {
   key: string;
@@ -31,20 +31,21 @@ export interface Product {
   material: string;
   colors: Color[];
   sizes: string[];
+  /** Tailles épuisées quel que soit le coloris. */
   soldOut: string[];
+  /** Tailles épuisées pour un coloris donné. */
+  soldOutByColor: Record<string, string[]>;
   images: ProductImage[];
 }
 
-export type CatalogFilter = "all" | "hoodie" | "tee" | "more";
-export const CATALOG_FILTERS: CatalogFilter[] = ["all", "hoodie", "tee", "more"];
+export type CatalogFilter = "all" | "hoodie" | "sweat" | "tee";
+export const CATALOG_FILTERS: CatalogFilter[] = ["all", "hoodie", "sweat", "tee"];
 
 export const isCatalogFilter = (value: unknown): value is CatalogFilter =>
   typeof value === "string" && (CATALOG_FILTERS as string[]).includes(value);
 
 export const matchesFilter = (product: Product, filter: CatalogFilter): boolean =>
-  filter === "all" ||
-  product.type === filter ||
-  (filter === "more" && (product.type === "pack" || product.type === "acc"));
+  filter === "all" || product.type === filter;
 
 export const filterProducts = (products: Product[], filter: CatalogFilter): Product[] =>
   products.filter((p) => matchesFilter(p, filter));
@@ -55,8 +56,10 @@ export const countByFilter = (products: Product[]): Record<CatalogFilter, number
     number
   >;
 
-export const isSizeAvailable = (product: Product, size: string): boolean =>
-  product.sizes.includes(size) && !product.soldOut.includes(size);
+export const isSizeAvailable = (product: Product, size: string, colorKey?: string): boolean =>
+  product.sizes.includes(size) &&
+  !product.soldOut.includes(size) &&
+  !(colorKey && product.soldOutByColor[colorKey]?.includes(size));
 
 /** Coloris demandé s'il existe, sinon le premier. */
 export const pickColor = (product: Product, wanted?: string | null): Color =>
