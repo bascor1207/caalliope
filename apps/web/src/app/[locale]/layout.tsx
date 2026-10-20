@@ -27,12 +27,7 @@ import "../globals.css";
  * dessiné à la main) et Instrument Sans pour le texte (lisible, chaleureux). Pas de serif italique.
  */
 const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display-face", display: "swap" });
-const sans = Instrument_Sans({
-  subsets: ["latin"],
-  style: ["normal", "italic"],
-  variable: "--font-sans-face",
-  display: "swap",
-});
+const sans = Instrument_Sans({ subsets: ["latin"], variable: "--font-sans-face", display: "swap" });
 
 interface Props {
   children: React.ReactNode;

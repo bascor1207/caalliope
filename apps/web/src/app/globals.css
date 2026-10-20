@@ -143,9 +143,9 @@
 
 /* ============ Composants signature (animations, effets) ============ */
 @layer components {
-  /* Mot d'accent dans un titre : même famille, graisse légère, encre atténuée (plus de serif italique). */
+  /* Mot d'accent dans un titre : même famille, graisse légère, encre atténuée. Jamais d'italique sur le site. */
   .serif {
-    @apply font-display font-normal text-ink-2 tracking-[-0.01em];
+    @apply font-display font-normal not-italic text-ink-2 tracking-[-0.01em];
   }
   /* Surtitres en Inter, plus légers que Syne en petit corps. */
   .eyebrow {

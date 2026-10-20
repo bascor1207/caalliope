@@ -25,7 +25,7 @@ export async function ValuesMarquee() {
     <span key={key} className="inline-flex items-center gap-8 md:gap-10">
       {items.map(([label, serif], i) => (
         <span key={label} className="inline-flex items-center gap-8 md:gap-10">
-          {serif ? <em className="serif text-ink-2">{label}</em> : label}
+          {serif ? <span className="serif">{label}</span> : label}
           <i className={`inline-block size-[0.7em] rounded-full ${SWATCHES[i]}`} />
         </span>
       ))}
