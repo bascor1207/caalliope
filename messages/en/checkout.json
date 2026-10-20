@@ -1,7 +1,7 @@
 {
   "form": {
     "title": "Complete your order",
-    "eyebrow": "Pre-order · Drop 01",
+    "eyebrow": "Order",
     "emptyTitle": "Your cart",
     "emptySerif": "is empty.",
     "contact": "Contact",
@@ -21,7 +21,7 @@
     "pocNote": "POC: no real payment. Stripe Checkout comes next.",
     "pay": "Pay {total}",
     "submitting": "Submitting…",
-    "terms": "By confirming you accept the <link>terms</link>. Ships 3-4 weeks after the drop closes.",
+    "terms": "By confirming you accept the <link>terms</link>. Ships within 48 business hours from France.",
     "summary": "Summary",
     "subtotal": "Subtotal",
     "shippingLine": "Shipping",
@@ -45,7 +45,7 @@
     "thanks": "Thank you",
     "order": "Order <b>{ref}</b> · {total}.",
     "email": "A summary is on its way to <b>{email}</b>.",
-    "next": "Your piece goes into production when the drop closes; you'll get tracking as soon as it ships.",
+    "next": "Your order ships within 48 business hours; you'll get tracking as soon as it leaves.",
     "back": "Back to the shop"
   }
 }

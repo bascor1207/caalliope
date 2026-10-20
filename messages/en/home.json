@@ -1,20 +1,19 @@
 {
   "hero": {
-    "tag": "{drop} — pre-orders open ·",
-    "closesIn": "closes in {days} d {hours} h",
-    "closesSoon": "closing soon",
+    "tag": "Collection available · More than clothing",
     "line1": "Wear what",
     "line2": "feels like you.",
     "line3": "Really.",
-    "sub": "Premium hoodies, sweatshirts and tees in organic cotton, oversized fit, soft colours. Made in small batches, pre-order only. Born from a friendship, built to last.",
-    "cta": "Discover {drop}",
+    "sub": "Premium hoodies, sweatshirts and tees in organic cotton, oversized fit, soft colours. Pieces made to last. Born from a friendship.",
+    "cta": "Discover the collection",
     "story": "Our story",
     "meta1": "certified organic cotton",
-    "meta2": "made to order",
-    "meta2Value": "0 unsold",
-    "meta3": "from 212 Drop 00 reviews",
+    "meta2": "colourways to pick from",
+    "meta2Value": "15",
+    "meta3": "free returns",
     "scroll": "Scroll",
-    "meta1Value": "330 gsm"
+    "meta1Value": "330 gsm",
+    "meta3Value": "30 days"
   },
   "marquee": {
     "quality": "Quality",
@@ -49,7 +48,7 @@
     "details": "Details",
     "detailsText": "Hood with round drawcords, set-in sleeves, ribbed cuffs and hem, brushed inside, Koda embroidery.",
     "making": "Making",
-    "makingText": "Small batches made on pre-order: zero unsold stock, fair prices.",
+    "makingText": "Small batches: pieces made to last, not to follow trends.",
     "care": "Care",
     "careText": "Wash at 30°, inside out, no tumble dryer. It ages well if you respect it."
   },
@@ -72,5 +71,11 @@
     "title": "24 h ahead",
     "titleSerif": "of every drop.",
     "text": "Drops go fast. The list gets the link 24 hours before everyone else, plus a 10% welcome code."
+  },
+  "video": {
+    "eyebrow": "More than clothing",
+    "title": "Embroidered,",
+    "titleSerif": "not printed.",
+    "text": "The Koda logo is embroidered on every piece. Look closely."
   }
 }

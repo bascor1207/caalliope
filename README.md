@@ -30,7 +30,7 @@ src/
     [locale]/             pages FR (sans préfixe) et EN (/en/...), chemins localisés
     _shell/               header, footer, bandeau, switch de langue, gabarit des pages infos
   slices/
-    catalog/  cart/  checkout/  newsletter/  notifications/  home/
+    catalog/  cart/  checkout/  newsletter/  notifications/  home/  marketing/  analytics/
       domain/             TypeScript pur : entités, règles, aucune librairie
       application/        cas d'usage, ports, slice RTK, listeners (store → bus), pont (bus → store)
       infrastructure/     adapters : repositories in-memory, Server Actions, gateways client
@@ -74,6 +74,17 @@ newsletter.subscribed    →  notifications
 
 Côté store, un **listener middleware** RTK traduit les actions en événements (store → bus) et chaque slice expose un
 `bindXToBus(bus, dispatch)` pour l'inverse (bus → store). Dans la console : `monitorEvents(window, 'koda:cart.line-added')`.
+
+## Espace marketing et analytics
+
+- **`marketing`** : le bandeau au-dessus du header lit des bannières (texte FR/EN, lien, fenêtre de diffusion, ordre)
+  depuis un repository, aujourd'hui in-memory (`banners.data.ts`). C'est la première brique de l'espace d'administration :
+  l'admin écrira dans ce repository, l'UI ne change pas.
+- **`analytics`** : un traceur côté client s'abonne au bus (produit vu, ajout panier, recherche sans résultat, commande
+  démarrée, formulaire refusé, commande passée, inscription) et envoie des lots anonymes à `/api/track` (sendBeacon).
+  `GET /api/analytics/summary` (jeton `ADMIN_TOKEN`) renvoie pages vues, entonnoir et frictions pour le futur dashboard.
+  Puits en mémoire pour le POC : à brancher sur KV / Postgres avant la prod.
+- **Médias** : vidéos de marque dans `public/media/` (voir le README du dossier), référencées par `SITE.media`.
 
 ## État et données (Redux Toolkit)
 

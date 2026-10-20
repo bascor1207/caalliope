@@ -2,7 +2,7 @@
   "title": "Your cart",
   "close": "Close cart",
   "emptyTitle": "Your cart is empty.",
-  "emptyText": "Drop 01 won't stay open for long.",
+  "emptyText": "The collection goes fast.",
   "minus": "Remove one",
   "plus": "Add one",
   "remove": "Remove",
@@ -10,6 +10,6 @@
   "freeRemaining": "Only <b>{amount}</b> away from free shipping",
   "freeFrom": "Free shipping from {amount}",
   "total": "Total",
-  "checkout": "Checkout · pre-order",
-  "note": "Charged at checkout · Ships 3-4 weeks after the drop closes"
+  "checkout": "Checkout",
+  "note": "Secure payment · Ships within 48 business hours"
 }

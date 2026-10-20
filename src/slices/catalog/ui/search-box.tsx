@@ -4,6 +4,7 @@ import { SearchIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useId, useRef, useState } from "react";
 import { Link, usePathname, useRouter } from "@/i18n/navigation";
+import { eventBus } from "@/shared/event-bus";
 import type { Locale } from "@/shared/kernel/locale";
 import { cn, Price, ProductArt } from "@/shared/ui";
 import { useSearchQuery } from "../application/catalog.api";
@@ -50,6 +51,11 @@ export function SearchBox({ className }: { className?: string }) {
     { skip: debounced.length < MIN },
   );
   const showList = open && debounced.length >= MIN;
+  // biome-ignore lint/correctness/useExhaustiveDependencies: on publie une fois par requête résolue.
+  useEffect(() => {
+    if (debounced.length >= MIN && !isFetching)
+      eventBus.publish("catalog.search-performed", { query: debounced, results: hits.length });
+  }, [debounced, isFetching]);
 
   return (
     <form

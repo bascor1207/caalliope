@@ -1,9 +1,6 @@
 {
-  "announce": {
-    "items": "Drop 01 en précommande|Livraison offerte dès 80 €|Expédié depuis la France|Retours gratuits 30 jours|Coton organique certifié"
-  },
   "nav": {
-    "drop": "Drop 01",
+    "drop": "Collection",
     "hoodies": "Hoodies",
     "tees": "T-shirts",
     "story": "Notre histoire",
