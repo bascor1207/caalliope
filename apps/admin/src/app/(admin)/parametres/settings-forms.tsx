@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import { type SettingsState, saveSmtp, saveSocial, sendSmtpTest } from "@/app/actions";
+import { resetAnalyticsAction, type SettingsState, saveSmtp, saveSocial, sendSmtpTest } from "@/app/actions";
 import { useToastOnState } from "@/components/toaster";
 import type { SmtpSettings, SocialSettings } from "@/lib/settings";
 
