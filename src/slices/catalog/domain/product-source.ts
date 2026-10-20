@@ -24,6 +24,7 @@ export interface ProductSource {
   colorKeys: string[];
   sizes: string[];
   soldOut: string[];
+  soldOutByColor?: Record<string, string[]>;
   images: Array<{ src: string; alt: Localized; colorKey?: string }>;
 }
 
@@ -50,6 +51,7 @@ export function resolveProduct(source: ProductSource, palette: Record<string, Co
     colors: source.colorKeys.flatMap((key) => (palette[key] ? [resolveColor(palette[key], locale)] : [])),
     sizes: source.sizes,
     soldOut: source.soldOut,
+    soldOutByColor: source.soldOutByColor ?? {},
     images: source.images.map((i) => ({ src: i.src, alt: localize(i.alt, locale), colorKey: i.colorKey })),
   };
 }

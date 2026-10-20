@@ -1,34 +1,53 @@
 import { describe, expect, it } from "vitest";
-import { countByFilter, isSizeAvailable, pickColor } from "@/slices/catalog/domain/product";
+import { countByFilter, imageFor, isSizeAvailable, pickColor } from "@/slices/catalog/domain/product";
 import { resolveProduct } from "@/slices/catalog/domain/product-source";
 import { searchProducts } from "@/slices/catalog/domain/search";
 import { PALETTE, PRODUCT_SOURCES } from "@/slices/catalog/infrastructure/catalog.data";
 
 const fr = PRODUCT_SOURCES.map((s) => resolveProduct(s, PALETTE, "fr"));
 const en = PRODUCT_SOURCES.map((s) => resolveProduct(s, PALETTE, "en"));
+const hoodie = fr.find((p) => p.id === "pull-a-capuche-koda");
+const tee = fr.find((p) => p.id === "t-shirt-koda");
+if (!hoodie || !tee) throw new Error("fixtures manquantes");
 
-describe("domaine catalogue", () => {
+describe("domaine catalogue (données KODA)", () => {
   it("résout les sources dans chaque locale", () => {
-    expect(fr[0].name).toBe("Hoodie Origine");
-    expect(en[0].name).toBe("Origine Hoodie");
-    expect(fr[0].colors.map((c) => c.name)).toEqual(["Sauge", "Lavande", "Sable"]);
-    expect(en[0].colors.map((c) => c.name)).toEqual(["Sage", "Lavender", "Sand"]);
+    expect(hoodie.name).toBe("Pull à capuche Koda");
+    expect(en.find((p) => p.id === "pull-a-capuche-koda")?.name).toBe("Koda Hoodie");
+    expect(hoodie.colors.map((c) => c.name)).toEqual(["Bleu ciel", "Rose", "Beige", "Blanc", "Navy", "Violet"]);
+    expect(en.find((p) => p.id === "pull-a-capuche-koda")?.colors[0].name).toBe("Sky blue");
   });
 
-  it("compte par filtre et gère les ruptures", () => {
-    expect(countByFilter(fr)).toEqual({ all: 6, hoodie: 2, tee: 2, more: 2 });
-    expect(isSizeAvailable(fr[0], "M")).toBe(true);
-    expect(isSizeAvailable(fr[0], "XXL")).toBe(false);
+  it("compte par filtre : trois familles, quinze coloris", () => {
+    expect(countByFilter(fr)).toEqual({ all: 3, hoodie: 1, sweat: 1, tee: 1 });
+    expect(fr.reduce((n, p) => n + p.colors.length, 0)).toBe(15);
+  });
+
+  it("chaque coloris a ses photos", () => {
+    for (const product of fr) {
+      for (const color of product.colors) {
+        expect(imageFor(product, color.key)?.colorKey).toBe(color.key);
+        expect(product.images.filter((i) => i.colorKey === color.key)).toHaveLength(2);
+      }
+    }
+  });
+
+  it("gère les ruptures par coloris", () => {
+    expect(isSizeAvailable(hoodie, "2XL", "rose")).toBe(false);
+    expect(isSizeAvailable(hoodie, "2XL", "navy")).toBe(true);
+    expect(isSizeAvailable(hoodie, "M", "rose")).toBe(true);
+    expect(isSizeAvailable(tee, "2XL")).toBe(false);
   });
 
   it("retombe sur le premier coloris si celui demandé n'existe pas", () => {
-    expect(pickColor(fr[0], "lavande").key).toBe("lavande");
-    expect(pickColor(fr[0], "rose").key).toBe("sauge");
+    expect(pickColor(hoodie, "navy").key).toBe("navy");
+    expect(pickColor(hoodie, "sauge").key).toBe("bleu-ciel");
   });
 
   it("cherche sans tenir compte des accents ni de la casse, dans la langue du catalogue", () => {
-    expect(searchProducts(fr, "LAVANDE").every((h) => h.color.key === "lavande")).toBe(true);
-    expect(searchProducts(en, "lavender").length).toBeGreaterThan(0);
+    expect(searchProducts(fr, "BLEU CIEL").every((h) => h.color.key === "bleu-ciel")).toBe(true);
+    expect(searchProducts(en, "sky blue").length).toBeGreaterThan(0);
+    expect(searchProducts(fr, "capuche")[0]?.product.id).toBe("pull-a-capuche-koda");
     expect(searchProducts(fr, "   ")).toEqual([]);
   });
 });

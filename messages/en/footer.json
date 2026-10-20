@@ -1,9 +1,8 @@
 {
-  "tagline": "Premium hoodies and tees, born from a friendship. Quality, authenticity, respect. Made in small batches, shipped from France.",
+  "tagline": "Premium hoodies, sweatshirts and tees, born from a friendship. Quality, authenticity, respect. Made in small batches, shipped from France.",
   "shop": "Shop",
   "hoodies": "Hoodies",
   "tees": "Tees",
-  "more": "Packs & accessories",
   "brand": "Brand",
   "story": "Our story",
   "faq": "FAQ",
@@ -13,5 +12,6 @@
   "privacy": "Privacy",
   "contact": "Contact",
   "rights": "© {year} KODA Clothing · All rights reserved",
-  "payment": "Secure payment · Card, Apple Pay, PayPal · Prices incl. VAT"
+  "payment": "Secure payment · Card, Apple Pay, PayPal · Prices incl. VAT",
+  "sweats": "Sweatshirts"
 }

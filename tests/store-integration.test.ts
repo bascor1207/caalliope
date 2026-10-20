@@ -24,13 +24,13 @@ describe("bus ↔ store", () => {
   it("un produit choisi dans le catalogue atterrit dans le panier et déclenche un toast", () => {
     const { bus, store } = setup();
     bus.publish("catalog.product-chosen", {
-      productId: "hoodie-origine",
-      slug: "hoodie-origine",
-      name: "Hoodie Origine",
+      productId: "pull-a-capuche-koda",
+      slug: "pull-a-capuche-koda",
+      name: "Pull à capuche Koda",
       productType: "hoodie",
-      colorKey: "sauge",
-      colorName: "Sauge",
-      colorHex: "#BFD3C1",
+      colorKey: "bleu-ciel",
+      colorName: "Bleu ciel",
+      colorHex: "#BFD6EA",
       size: "M",
       unitPrice: 68,
       qty: 1,
@@ -40,7 +40,7 @@ describe("bus ↔ store", () => {
     expect(state.cart.isOpen).toBe(true);
     expect(state.notifications.toasts[0]).toMatchObject({
       kind: "cart-added",
-      params: { name: "Hoodie Origine", color: "Sauge", size: "M" },
+      params: { name: "Pull à capuche Koda", color: "Bleu ciel", size: "M" },
     });
   });
 

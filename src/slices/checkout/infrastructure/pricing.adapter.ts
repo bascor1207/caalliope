@@ -18,7 +18,7 @@ export class CatalogPricingAdapter implements PricingCatalog {
       const product = products.find((p) => p.id === line.productId);
       if (!product) return { ok: false, code: "unknown-product" };
       if (!product.colors.some((c) => c.key === line.colorKey)) return { ok: false, code: "unavailable-color" };
-      if (!isSizeAvailable(product, line.size)) return { ok: false, code: "unavailable-size" };
+      if (!isSizeAvailable(product, line.size, line.colorKey)) return { ok: false, code: "unavailable-size" };
       return { ok: true, line: { ...line, name: product.name, unitPrice: product.price } };
     });
   }

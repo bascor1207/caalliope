@@ -85,7 +85,8 @@ Côté store, un **listener middleware** RTK traduit les actions en événements
 
 ## i18n
 
-`next-intl` avec `localePrefix: "as-needed"` : `/` en français, `/en/...` en anglais, chemins localisés
+`next-intl` avec `localePrefix: "as-needed"` et `localeDetection: false` : `/` sert toujours le français (domaine
+.fr, pas de redirection selon `Accept-Language`, ce que Google déconseille), `/en/...` en anglais, chemins localisés
 (`/produits/[slug]` ↔ `/en/products/[slug]`), `hreflang` et sitemap multilingue, catalogue traduit dans le repository.
 Les clés de traduction sont typées (`src/i18n/global.d.ts`).
 
@@ -95,7 +96,7 @@ Metadata par page et par locale, JSON-LD Organization, WebSite + SearchAction, B
 (offres PreOrder, livraison, retours), FAQPage ; images Open Graph générées par produit et par locale ; `sitemap.xml`,
 `robots.txt`, manifest. Toutes les pages produit sont statiques (SSG).
 
-## Images réelles
+## Réimporter depuis Shopify
 
 Le site actuel de KODA est sur Shopify, qui expose son catalogue sur `/products.json`. Depuis un poste qui y accède :
 
@@ -108,10 +109,13 @@ avec les URL CDN des photos, au format de la slice. Dans `catalog.data.ts`, remp
 compléter les traductions EN, les hex des couleurs inconnues, le grammage et les badges. `cdn.shopify.com` est déjà
 autorisé pour `next/image`.
 
-## Hypothèses à valider avec KODA
+## Données
 
-Prix, grammages, lieu de confection, délais de précommande, handles réseaux sociaux, textes légaux. Tout est
-centralisé dans `catalog.data.ts`, `messages/` et `shared/config/site.ts`.
+Le catalogue (`catalog.data.ts`) vient de la boutique Shopify de KODA, regroupé en trois familles déclinées par coloris :
+Pull à capuche Koda (6 coloris, 69,99 €), Pull oversized (4 coloris, 49,99 €), T-shirt Koda (5 coloris, 34,99 €).
+Prix, matières, grammages, tailles, ruptures et photos sont les leurs. Restent des hypothèses à valider : mesures du
+guide des tailles, délais de précommande, seuil de livraison offerte, handles réseaux sociaux, textes légaux
+(`messages/`, `shared/config/site.ts`, `shared/kernel/shipping-policy.ts`).
 
 ## Étapes suivantes
 

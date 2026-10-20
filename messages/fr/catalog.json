@@ -1,19 +1,19 @@
 {
   "drop": {
     "eyebrow": "{drop} · Édition limitée",
-    "title": "Six pièces.",
-    "titleSerif": "Zéro compromis.",
+    "title": "Trois pièces.",
+    "titleSerif": "Quinze coloris.",
     "closing": "Clôture des précommandes",
     "filterLabel": "Filtrer le drop",
     "all": "Tout",
     "hoodie": "Hoodies",
     "tee": "T-shirts",
-    "more": "Packs & accessoires",
     "empty": "Rien dans cette catégorie pour ce drop.",
     "days": "jours",
     "hours": "heures",
     "minutes": "min",
-    "seconds": "sec"
+    "seconds": "sec",
+    "sweat": "Sweats"
   },
   "card": {
     "see": "Voir la pièce",
@@ -37,7 +37,8 @@
     "relatedTitle": "Ça va",
     "relatedSerif": "avec.",
     "metaDescription": "{description} Coloris : {colors}. {price}, précommande Drop 01, livraison offerte dès 80 €.",
-    "notFound": "Produit introuvable"
+    "notFound": "Produit introuvable",
+    "gallery": "Galerie"
   },
   "search": {
     "title": "Rechercher une pièce",
@@ -49,6 +50,6 @@
     "placeholder": "Hoodie, lavande, zip, pack…",
     "cta": "Chercher",
     "empty": "Aucune pièce pour « {q} ». Essaie « hoodie » ou « tee ».",
-    "tags": "hoodie|lavande|zip|pack|bonnet|manches longues"
+    "tags": "hoodie|pastel|rose|navy|oversized|noir"
   }
 }

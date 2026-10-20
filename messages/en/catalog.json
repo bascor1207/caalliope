@@ -1,19 +1,19 @@
 {
   "drop": {
     "eyebrow": "{drop} · Limited edition",
-    "title": "Six pieces.",
-    "titleSerif": "Zero compromise.",
+    "title": "Three pieces.",
+    "titleSerif": "Fifteen colourways.",
     "closing": "Pre-orders close in",
     "filterLabel": "Filter the drop",
     "all": "All",
     "hoodie": "Hoodies",
     "tee": "Tees",
-    "more": "Packs & accessories",
     "empty": "Nothing in this category for this drop.",
     "days": "days",
     "hours": "hours",
     "minutes": "min",
-    "seconds": "sec"
+    "seconds": "sec",
+    "sweat": "Sweatshirts"
   },
   "card": {
     "see": "View piece",
@@ -37,7 +37,8 @@
     "relatedTitle": "Goes",
     "relatedSerif": "with it.",
     "metaDescription": "{description} Colours: {colors}. {price}, Drop 01 pre-order, free shipping from €80.",
-    "notFound": "Product not found"
+    "notFound": "Product not found",
+    "gallery": "Gallery"
   },
   "search": {
     "title": "Search for a piece",
@@ -49,6 +50,6 @@
     "placeholder": "Hoodie, lavender, zip, pack…",
     "cta": "Search",
     "empty": "No piece for “{q}”. Try “hoodie” or “tee”.",
-    "tags": "hoodie|lavender|zip|pack|beanie|long sleeve"
+    "tags": "hoodie|pastel|pink|navy|oversized|black"
   }
 }

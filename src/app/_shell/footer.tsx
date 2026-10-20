@@ -12,7 +12,7 @@ export async function Footer() {
         [tc("labels.drop"), { pathname: "/", hash: "drop" }],
         [t("hoodies"), { pathname: "/", query: { filtre: "hoodie" }, hash: "drop" }],
         [t("tees"), { pathname: "/", query: { filtre: "tee" }, hash: "drop" }],
-        [t("more"), { pathname: "/", query: { filtre: "more" }, hash: "drop" }],
+        [t("sweats"), { pathname: "/", query: { filtre: "sweat" }, hash: "drop" }],
         [tc("actions.sizeGuide"), "/guide-des-tailles"],
       ],
     },

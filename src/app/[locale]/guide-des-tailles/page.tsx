@@ -9,9 +9,31 @@ interface Props {
   params: Promise<{ locale: Locale }>;
 }
 
-const SIZES = ["XS", "S", "M", "L", "XL", "XXL"];
-const HOODIE = { chest: [58, 61, 64, 67, 70, 73], length: [66, 68, 70, 72, 74, 76], sleeve: [58, 59, 60, 61, 62, 63] };
-const TEE = { chest: [52, 55, 58, 61, 64, 67], length: [66, 68, 70, 72, 74, 76] };
+type Row = "chest" | "length" | "sleeve";
+interface Chart {
+  key: "hoodie" | "sweat" | "tee";
+  sizes: string[];
+  rows: Partial<Record<Row, number[]>>;
+}
+
+/** Mesures à plat en cm (hypothèses à valider avec KODA). */
+const CHARTS: Chart[] = [
+  {
+    key: "hoodie",
+    sizes: ["XS", "S", "M", "L", "XL", "2XL"],
+    rows: { chest: [56, 59, 62, 65, 68, 71], length: [66, 68, 70, 72, 74, 76], sleeve: [58, 59, 60, 61, 62, 63] },
+  },
+  {
+    key: "sweat",
+    sizes: ["XS", "S", "M", "L", "XL"],
+    rows: { chest: [58, 61, 64, 67, 70], length: [65, 67, 69, 71, 73], sleeve: [55, 56, 57, 58, 59] },
+  },
+  {
+    key: "tee",
+    sizes: ["XS", "S", "M", "L", "XL"],
+    rows: { chest: [52, 55, 58, 61, 64], length: [66, 68, 70, 72, 74] },
+  },
+];
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -29,34 +51,6 @@ export default async function SizeGuidePage({ params }: Props) {
   const t = await getTranslations("pages.sizeGuide");
   const tc = await getTranslations("common");
 
-  const table = (title: string, rows: Record<string, number[]>) => (
-    <>
-      <h2 className="eyebrow !mt-5 !text-sm">{title}</h2>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableHeader scope="col">{t("size")}</TableHeader>
-            {SIZES.map((s) => (
-              <TableHeader scope="col" key={s}>
-                {s}
-              </TableHeader>
-            ))}
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {Object.entries(rows).map(([key, values]) => (
-            <TableRow key={key}>
-              <TableHeader scope="row">{t(key as "chest" | "length" | "sleeve")}</TableHeader>
-              {values.map((v, i) => (
-                <TableCell key={i}>{v}</TableCell>
-              ))}
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </>
-  );
-
   return (
     <InfoPage
       locale={locale}
@@ -70,8 +64,33 @@ export default async function SizeGuidePage({ params }: Props) {
       breadcrumb={{ home: tc("labels.home"), name: tc("actions.sizeGuide") }}
     >
       <p>{t("intro")}</p>
-      {table(t("hoodie"), HOODIE)}
-      {table(t("tee"), TEE)}
+      {CHARTS.map((chart) => (
+        <div key={chart.key} className="contents">
+          <h2 className="eyebrow !mt-5 !text-sm">{t(chart.key)}</h2>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableHeader scope="col">{t("size")}</TableHeader>
+                {chart.sizes.map((s) => (
+                  <TableHeader scope="col" key={s}>
+                    {s}
+                  </TableHeader>
+                ))}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {(Object.entries(chart.rows) as Array<[Row, number[]]>).map(([row, values]) => (
+                <TableRow key={row}>
+                  <TableHeader scope="row">{t(row)}</TableHeader>
+                  {values.map((v, i) => (
+                    <TableCell key={i}>{v}</TableCell>
+                  ))}
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </div>
+      ))}
       <p className="text-xs text-muted">{t("between")}</p>
     </InfoPage>
   );

@@ -90,7 +90,7 @@ export async function Specs() {
           <div className="spec-ring size-[80%] [animation-direction:reverse] [animation-duration:9s]" />
           <div className="spec-ring size-full [animation-duration:13s]" />
           <div className="text-center font-display text-[clamp(60px,10vw,120px)] font-extrabold leading-none tracking-[-0.06em]">
-            400
+            330
             <small className="serif block text-[0.25em] text-ink-2">{t("big")}</small>
           </div>
         </Reveal>

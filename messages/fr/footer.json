@@ -1,9 +1,8 @@
 {
-  "tagline": "Hoodies et t-shirts premium, nés d'une amitié. Qualité, authenticité, respect. Fabriqué en petite série, expédié depuis la France.",
+  "tagline": "Hoodies, sweats et t-shirts premium, nés d'une amitié. Qualité, authenticité, respect. Fabriqué en petite série, expédié depuis la France.",
   "shop": "Boutique",
   "hoodies": "Hoodies",
   "tees": "T-shirts",
-  "more": "Packs & accessoires",
   "brand": "Marque",
   "story": "Notre histoire",
   "faq": "FAQ",
@@ -13,5 +12,6 @@
   "privacy": "Confidentialité",
   "contact": "Contact",
   "rights": "© {year} KODA Clothing · Tous droits réservés",
-  "payment": "Paiement sécurisé · CB, Apple Pay, PayPal · Prix TTC"
+  "payment": "Paiement sécurisé · CB, Apple Pay, PayPal · Prix TTC",
+  "sweats": "Sweats"
 }

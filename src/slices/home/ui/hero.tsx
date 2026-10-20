@@ -56,7 +56,7 @@ export async function Hero({ visual }: { visual: ReactNode }) {
           </div>
           <div className="hero-fade mt-10 flex flex-wrap gap-5 sm:gap-7" data-delay="3">
             {[
-              ["400 g/m²", t("meta1")],
+              [t("meta1Value"), t("meta1")],
               [t("meta2Value"), t("meta2")],
               ["4.9 ★", t("meta3")],
             ].map(([value, label]) => (

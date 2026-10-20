@@ -9,11 +9,15 @@ import { CartButton } from "@/slices/cart/public-ui";
 import { SearchBox } from "@/slices/catalog/public-ui";
 import { LocaleSwitcher } from "./locale-switcher";
 
-type NavItem = { key: "drop" | "hoodies" | "tees" | "story" | "faq"; href: Parameters<typeof Link>[0]["href"] };
+type NavItem = {
+  key: "drop" | "hoodies" | "sweats" | "tees" | "story" | "faq";
+  href: Parameters<typeof Link>[0]["href"];
+};
 
 const NAV: NavItem[] = [
   { key: "drop", href: { pathname: "/", hash: "drop" } },
   { key: "hoodies", href: { pathname: "/", query: { filtre: "hoodie" }, hash: "drop" } },
+  { key: "sweats", href: { pathname: "/", query: { filtre: "sweat" }, hash: "drop" } },
   { key: "tees", href: { pathname: "/", query: { filtre: "tee" }, hash: "drop" } },
   { key: "story", href: { pathname: "/", hash: "histoire" } },
   { key: "faq", href: { pathname: "/", hash: "faq" } },
