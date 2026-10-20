@@ -103,8 +103,10 @@ Le site actuel de KODA est sur Shopify, qui expose son catalogue sur `/products.
 node scripts/import-shopify.mjs https://kodaclothing.fr
 ```
 
-génère `catalog.shopify.data.ts` avec les URL CDN des photos, à fusionner dans `catalog.data.ts`
-(`cdn.shopify.com` est déjà autorisé pour `next/image`).
+génère `src/slices/catalog/infrastructure/catalog.shopify.data.ts` (`PRODUCT_SOURCES_SHOPIFY`, `PALETTE_SHOPIFY`)
+avec les URL CDN des photos, au format de la slice. Dans `catalog.data.ts`, remplacer ou fusionner les données, puis
+compléter les traductions EN, les hex des couleurs inconnues, le grammage et les badges. `cdn.shopify.com` est déjà
+autorisé pour `next/image`.
 
 ## Hypothèses à valider avec KODA
 
