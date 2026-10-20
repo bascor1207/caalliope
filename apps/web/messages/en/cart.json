@@ -1,0 +1,25 @@
+{
+  "title": "Your cart",
+  "close": "Close cart",
+  "emptyTitle": "Your cart is empty.",
+  "emptyText": "The collection goes fast.",
+  "minus": "Remove one",
+  "plus": "Add one",
+  "remove": "Remove",
+  "freeUnlocked": "🎉 Free shipping unlocked",
+  "freeRemaining": "Only <b>{amount}</b> away from free shipping",
+  "freeFrom": "Free shipping from {amount}",
+  "total": "Total",
+  "checkout": "Checkout",
+  "note": "Secure payment · Ships within 48 business hours",
+  "added": {
+    "eyebrow": "It's in your bag",
+    "title": "Perfect",
+    "titleSerif": "with.",
+    "close": "Close",
+    "confirmed": "Added to cart",
+    "details": "{color} · Size {size} · × {qty}",
+    "continue": "Keep shopping",
+    "viewCart": "View cart"
+  }
+}

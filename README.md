@@ -1,28 +1,53 @@
-# KODA Clothing — boutique Next.js 16
+# KODA Clothing — boutique et admin (monorepo)
 
 Refonte e-commerce de [kodaclothing.fr](https://kodaclothing.fr/) : Next.js 16 / React 19, vertical slices avec clean
 architecture à l'intérieur, domaine strictement pur, Redux Toolkit pour les événements utilisateur et le cache de
 données, event bus sur `window` entre slices, i18n FR / EN dès le départ, Tailwind v4 + composants shadcn.
+Site conçu et développé par GOLEM CORP. Le POC HTML d'origine est conservé dans `legacy/`.
 
-Le POC HTML d'origine est conservé dans `legacy/`.
+```
+apps/web            la boutique (kodaclothing.fr)
+apps/admin          le tableau de bord (audience, entonnoir, frictions), à héberger sur un second projet Vercel
+packages/analytics  @koda/analytics : contrats d'événements, synthèse KPI, stockage (partagé par les deux apps)
+scripts/            seed-analytics.mjs (données de démo pour le dashboard)
+```
+
+Monorepo pnpm sans outil de build supplémentaire : les packages sont consommés en source TypeScript
+(`transpilePackages`), donc partagés au build, sans aucun coût à l'exécution ni poids supplémentaire côté boutique.
 
 ## Démarrer
 
 ```bash
 pnpm install
-pnpm dev            # http://localhost:3000
-pnpm check          # biome + règles d'architecture + typecheck + tests
-pnpm build && pnpm start
+pnpm dev              # boutique  → http://localhost:3000
+pnpm dev:admin        # admin     → http://localhost:3001  (mot de passe dev : koda)
+pnpm seed:analytics   # 30 jours de visites simulées envoyées à la boutique (dashboard non vide)
+pnpm check            # biome + règles d'architecture + typecheck + tests des trois paquets
+pnpm build            # build des deux apps
 ```
 
-| Script           | Rôle                                                           |
-| ---------------- | -------------------------------------------------------------- |
-| `pnpm lint`      | Biome : lint, format, tri des imports                          |
-| `pnpm lint:arch` | Règles de dépendances entre slices et couches (voir plus bas)  |
-| `pnpm typecheck` | `tsc --noEmit`, clés de traduction typées comprises            |
-| `pnpm test`      | Vitest : domaine, cas d'usage, event bus, intégration bus/store |
+En développement, les deux apps partagent le fichier `.data/analytics.jsonl` à la racine : ce que la boutique mesure
+apparaît dans l'admin au rechargement.
 
-## Arborescence
+| Script           | Rôle                                                                  |
+| ---------------- | --------------------------------------------------------------------- |
+| `pnpm lint`      | Biome : lint, format, tri des imports (config unique à la racine)     |
+| `pnpm lint:arch` | Règles de dépendances entre slices et couches de la boutique          |
+| `pnpm typecheck` | `tsc --noEmit` dans chaque paquet, clés de traduction typées comprises |
+| `pnpm test`      | Vitest : domaine, cas d'usage, bus, store, SQL (Postgres embarqué)     |
+
+## Déployer sur Vercel (deux projets, zéro euro)
+
+1. **Boutique** : projet Vercel avec *Root Directory* `apps/web`. Variable `DATABASE_URL` (Neon, palier gratuit).
+2. **Admin** : second projet, *Root Directory* `apps/admin`. Variables `DATABASE_URL` (la même), `ADMIN_PASSWORD`,
+   `ADMIN_SECRET` (32+ caractères aléatoires). Sans ces deux dernières, la connexion est refusée en production.
+3. Neon : créer un projet gratuit, copier la chaîne de connexion *pooled*. La table est créée automatiquement au
+   premier événement. Sans `DATABASE_URL`, la boutique garde les événements en mémoire (perdus à chaque déploiement).
+
+Vercel détecte le workspace pnpm et n'installe que ce qu'il faut pour chaque projet ; chaque app est déployée
+indépendamment, la boutique reste 100 % statique hors `/api/track`.
+
+## Arborescence de la boutique (`apps/web`)
 
 ```
 src/
@@ -75,23 +100,34 @@ newsletter.subscribed    →  notifications
 Côté store, un **listener middleware** RTK traduit les actions en événements (store → bus) et chaque slice expose un
 `bindXToBus(bus, dispatch)` pour l'inverse (bus → store). Dans la console : `monitorEvents(window, 'koda:cart.line-added')`.
 
-## Espace marketing et analytics
+## Marketing, analytics et admin
 
 - **`marketing`** : le bandeau au-dessus du header lit des bannières (texte FR/EN, lien, fenêtre de diffusion, ordre)
-  depuis un repository, aujourd'hui in-memory (`banners.data.ts`). C'est la première brique de l'espace d'administration :
-  l'admin écrira dans ce repository, l'UI ne change pas.
-- **`analytics`** : un traceur côté client s'abonne au bus (produit vu, ajout panier, recherche sans résultat, commande
-  démarrée, formulaire refusé, commande passée, inscription) et envoie des lots anonymes à `/api/track` (sendBeacon).
-  `GET /api/analytics/summary` (jeton `ADMIN_TOKEN`) renvoie pages vues, entonnoir et frictions pour le futur dashboard.
-  Puits en mémoire pour le POC : à brancher sur KV / Postgres avant la prod.
+  depuis un repository, aujourd'hui in-memory (`banners.data.ts`). Prochaine brique de l'admin : éditer ce repository.
+- **`analytics`** (boutique) : un traceur côté client s'abonne au bus (fiche vue, ajout panier, recherche, checkout
+  démarré ou refusé, commande, inscription) et aux clics sur tout élément `data-track="zone.action"` (CTA du hero,
+  cartes, bannières, recommandations…), puis envoie des lots anonymes à `/api/track` (sendBeacon). Aucune donnée
+  personnelle, aucun cookie : un identifiant aléatoire en sessionStorage, pas d'IP, pas de recoupement. C'est la
+  mesure d'audience exemptée de consentement au sens de la CNIL ; la page Confidentialité l'explique et propose une
+  opposition (`AnalyticsOptOut`). Le jour où un pixel tiers (Meta, Google) est ajouté, un bandeau de consentement
+  devient obligatoire.
+- **`@koda/analytics`** : contrats (`AnalyticsEvent`), nettoyage (`sanitizeEvents`), synthèse (`summarize` : sessions,
+  pages, entonnoir, revenus, clics, frictions, série journalière) et stores : mémoire, fichier JSONL (dev) et SQL
+  Postgres (Neon en production, testé sur PGlite). `createAnalyticsStoreFromEnv` choisit selon l'environnement.
+- **`apps/admin`** : connexion par mot de passe (cookie HMAC signé, 7 jours, `proxy.ts` en garde), tableau de bord
+  calculé à la demande sur 7 / 30 / 90 jours : KPI, pages vues et commandes par jour, entonnoir avec taux d'étape,
+  produits (vues → paniers), pages, clics, frictions (erreurs checkout, recherches sans résultat), langues.
 - **Médias** : vidéos de marque dans `public/media/` (voir le README du dossier), référencées par `SITE.media`.
 
 ## État et données (Redux Toolkit)
 
-- `catalog` : cache des produits hydraté depuis le rendu serveur (`CatalogHydrator`), sélecteurs mémoïsés par filtre.
+- `catalog` : cache des produits fourni au store en état initial par le layout (aucun dispatch pendant le rendu),
+  sélecteurs mémoïsés par filtre ; le filtre de la collection vit dans l'URL sans sortir du rendu statique.
 - `catalogApi` : RTK Query pour la recherche instantanée du header, `queryFn` branchée sur une gateway injectée
   (`extra`), qui appelle une Server Action.
-- `cart`, `checkout`, `notifications` : slices dont les reducers délèguent toute règle au domaine.
+- `cart`, `checkout`, `notifications` : slices dont les reducers délèguent toute règle au domaine. À l'ajout au panier,
+  la modale « Parfait avec » (slice panier) reçoit les recommandations du catalogue par la composition root
+  (`_shell/added-to-cart.tsx`) : les deux slices ne se connaissent pas.
 - Les dépendances (bus, gateways) sont injectées dans `makeStore(deps)` : les tests d'intégration les remplacent.
 
 ## i18n
@@ -131,5 +167,7 @@ guide des tailles, délais de précommande, seuil de livraison offerte, handles 
 
 ## Étapes suivantes
 
-Stripe Checkout (hébergé) à la place de la Server Action in-memory, stockage des commandes (KV ou Postgres),
-newsletter branchée sur un fournisseur, vraies photos, tests end-to-end Playwright en CI.
+Stripe Checkout (hébergé, seuls frais : la commission par transaction) à la place de la Server Action in-memory,
+commandes relues depuis Stripe par webhook, édition du catalogue et des bannières depuis l'admin par commit via l'API
+GitHub (git comme base de données, déploiement automatique), newsletter branchée sur un fournisseur gratuit, tests
+end-to-end Playwright et audit axe en CI.

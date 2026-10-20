@@ -1,0 +1,62 @@
+{
+  "drop": {
+    "eyebrow": "The collection",
+    "title": "Three pieces.",
+    "titleSerif": "Fifteen colourways.",
+    "filterLabel": "Filter the drop",
+    "all": "All",
+    "hoodie": "Hoodies",
+    "tee": "Tees",
+    "empty": "Nothing in this category for this drop.",
+    "sweat": "Sweatshirts"
+  },
+  "card": {
+    "see": "View piece",
+    "colors": "Colours",
+    "imageAlt": "{name} in {color}",
+    "open": "{name}, {color}",
+    "flip": "Other view",
+    "prev": "Previous photo",
+    "next": "Next photo"
+  },
+  "product": {
+    "eyebrow": "{sub}",
+    "color": "Colour",
+    "size": "Size",
+    "soldOut": "{size} sold out",
+    "chooseSize": "Pick a size",
+    "preorder": "Add to cart · {price}",
+    "reassure1": "Free shipping from €80, shipped from France",
+    "reassure2": "Free 30-day returns",
+    "reassure3": "Secure payment · Apple Pay, card, PayPal",
+    "material": "Material: {material}. Ref. {sku}.",
+    "placeholderAlt": "{name} in {color} (placeholder visual)",
+    "relatedEyebrow": "From the same drop",
+    "relatedTitle": "Goes",
+    "relatedSerif": "with it.",
+    "metaDescription": "{description} Colours: {colors}. {price}, free shipping from €80.",
+    "notFound": "Product not found",
+    "gallery": "Gallery",
+    "lightbox": "Enlarge photo",
+    "lightboxClose": "Close",
+    "prev": "Previous photo",
+    "next": "Next photo",
+    "of": "{current} / {total}"
+  },
+  "search": {
+    "title": "Search for a piece",
+    "resultsTitle": "Search: {q}",
+    "eyebrow": "Search",
+    "heading": "Find",
+    "headingSerif": "your piece.",
+    "resultsFor": "Results for",
+    "placeholder": "Hoodie, lavender, zip, pack…",
+    "cta": "Search",
+    "empty": "No piece for “{q}”. Try “hoodie” or “tee”.",
+    "tags": "hoodie|pastel|pink|navy|oversized|black"
+  },
+  "recommendations": {
+    "title": "They go",
+    "titleSerif": "together."
+  }
+}

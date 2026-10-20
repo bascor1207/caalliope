@@ -1,0 +1,62 @@
+{
+  "drop": {
+    "eyebrow": "La collection",
+    "title": "Trois pièces.",
+    "titleSerif": "Quinze coloris.",
+    "filterLabel": "Filtrer le drop",
+    "all": "Tout",
+    "hoodie": "Hoodies",
+    "tee": "T-shirts",
+    "empty": "Rien dans cette catégorie pour ce drop.",
+    "sweat": "Sweats"
+  },
+  "card": {
+    "see": "Voir la pièce",
+    "colors": "Coloris",
+    "imageAlt": "{name} coloris {color}",
+    "open": "{name}, {color}",
+    "flip": "Autre vue",
+    "prev": "Photo précédente",
+    "next": "Photo suivante"
+  },
+  "product": {
+    "eyebrow": "{sub}",
+    "color": "Coloris",
+    "size": "Taille",
+    "soldOut": "{size} épuisé",
+    "chooseSize": "Choisis une taille",
+    "preorder": "Ajouter au panier · {price}",
+    "reassure1": "Livraison offerte dès 80 €, expédié depuis la France",
+    "reassure2": "Retours gratuits 30 jours",
+    "reassure3": "Paiement sécurisé · Apple Pay, CB, PayPal",
+    "material": "Matière : {material}. Réf. {sku}.",
+    "placeholderAlt": "{name} coloris {color} (visuel provisoire)",
+    "relatedEyebrow": "Dans le même drop",
+    "relatedTitle": "Ça va",
+    "relatedSerif": "avec.",
+    "metaDescription": "{description} Coloris : {colors}. {price}, livraison offerte dès 80 €.",
+    "notFound": "Produit introuvable",
+    "gallery": "Galerie",
+    "lightbox": "Agrandir la photo",
+    "lightboxClose": "Fermer",
+    "prev": "Photo précédente",
+    "next": "Photo suivante",
+    "of": "{current} / {total}"
+  },
+  "search": {
+    "title": "Rechercher une pièce",
+    "resultsTitle": "Recherche : {q}",
+    "eyebrow": "Recherche",
+    "heading": "Trouve",
+    "headingSerif": "ta pièce.",
+    "resultsFor": "Résultats pour",
+    "placeholder": "Hoodie, lavande, zip, pack…",
+    "cta": "Chercher",
+    "empty": "Aucune pièce pour « {q} ». Essaie « hoodie » ou « tee ».",
+    "tags": "hoodie|pastel|rose|navy|oversized|noir"
+  },
+  "recommendations": {
+    "title": "Ils vont",
+    "titleSerif": "ensemble."
+  }
+}

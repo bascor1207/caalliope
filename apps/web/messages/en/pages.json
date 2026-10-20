@@ -1,0 +1,68 @@
+{
+  "sizeGuide": {
+    "title": "Size guide — oversized hoodies and boxy tees",
+    "description": "Flat measurements in cm for KODA Origine hoodies and Essentiel tees. How to pick your size between oversized and boxy fits.",
+    "eyebrow": "Size guide",
+    "heading": "Find",
+    "headingSerif": "your fit.",
+    "intro": "Garment measured flat, in cm. Hoodies are oversized: take your usual size for a loose look, one size down for a closer fit. Tees are boxy, true to size.",
+    "hoodie": "Koda hoodie",
+    "tee": "Koda tee",
+    "size": "Size",
+    "chest": "Chest",
+    "length": "Length",
+    "sleeve": "Sleeve",
+    "between": "Between two sizes? Message us on Instagram, we reply within the day.",
+    "sweat": "Oversized sweatshirt"
+  },
+  "shipping": {
+    "title": "Shipping & returns",
+    "description": "Tracked Colissimo shipping from France, free from €80. Free 30-day returns. Drop 01 pre-order lead times.",
+    "eyebrow": "Info",
+    "heading": "Shipping",
+    "headingSerif": "& returns.",
+    "shippingTitle": "Shipping",
+    "shipping1": "Tracked Colissimo, shipped from our workshop in France. Free from <b>{free}</b>, otherwise {fee}. Europe: €9.90.",
+    "shipping2": "Ships within 48 business hours from France, delivered in 2 to 4 business days. You get tracking by email.",
+    "returnsTitle": "Returns",
+    "returns": "30 days after delivery to change your mind.|Unworn, unwashed, tags attached.|Free return label in mainland France, refund within 5 days of receipt.|Priority size exchange while stock lasts."
+  },
+  "terms": {
+    "title": "Terms of sale",
+    "description": "KODA Clothing terms of sale: orders, prices, shipping, withdrawal, warranties.",
+    "eyebrow": "Info",
+    "heading": "Terms",
+    "headingSerif": "of sale.",
+    "intro": "Demo text for the POC, to be replaced by KODA Clothing's actual terms.",
+    "s1": "1. Orders",
+    "s1Text": "Any order implies acceptance of the prices and descriptions of the products on sale. Payment is taken at checkout.",
+    "s2": "2. Prices",
+    "s2Text": "Prices in euros including VAT. Shipping costs shown before confirmation.",
+    "s3": "3. Withdrawal",
+    "s3Text": "14 legal days, extended to 30 days by KODA, from delivery.",
+    "s4": "4. Warranties",
+    "s4Text": "Legal warranty of conformity and against hidden defects under the French Consumer Code."
+  },
+  "privacy": {
+    "title": "Privacy",
+    "description": "KODA Clothing privacy policy: data collected, cookies, access and deletion rights.",
+    "eyebrow": "Info",
+    "heading": "Privacy,",
+    "headingSerif": "in plain words.",
+    "intro": "Demo text for the POC.",
+    "s1": "Data we collect",
+    "s1Text": "Email, name and address, only to process your order and send drop news if you signed up. Never sold.",
+    "s2": "Cookies and analytics",
+    "s2Text": "No advertising cookies, no third-party trackers. The site measures its own audience without cookies: a random identifier for the life of the tab, pages viewed and actions (add to cart, search, order), with no IP address or personal data, never cross-referenced or shared. This measurement is exempt from consent under the French CNIL audience-measurement rules. You can opt out below.",
+    "s3": "Your rights",
+    "s3Text": "Access, rectification, deletion: write to",
+    "optOut": "Do not measure my visits",
+    "optOutHint": "Stored in this browser only, effective on the next page load."
+  },
+  "notFound": {
+    "eyebrow": "Error 404",
+    "title": "This page",
+    "titleSerif": "doesn't exist.",
+    "text": "Dead link, or the piece has left the drop."
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "title": "Ton panier",
+  "close": "Fermer le panier",
+  "emptyTitle": "Ton panier est vide.",
+  "emptyText": "La collection part vite.",
+  "minus": "Retirer un",
+  "plus": "Ajouter un",
+  "remove": "Retirer",
+  "freeUnlocked": "🎉 Livraison offerte débloquée",
+  "freeRemaining": "Plus que <b>{amount}</b> pour la livraison offerte",
+  "freeFrom": "Livraison offerte dès {amount}",
+  "total": "Total",
+  "checkout": "Passer commande",
+  "note": "Paiement sécurisé · Expédition sous 48 h ouvrées",
+  "added": {
+    "eyebrow": "C'est dans le panier",
+    "title": "Parfait",
+    "titleSerif": "avec.",
+    "close": "Fermer",
+    "confirmed": "Ajouté au panier",
+    "details": "{color} · Taille {size} · × {qty}",
+    "continue": "Continuer mes achats",
+    "viewCart": "Voir le panier"
+  }
+}
