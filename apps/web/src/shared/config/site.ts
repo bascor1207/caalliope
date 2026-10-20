@@ -23,6 +23,8 @@ export const SITE = {
     heroVideo: null as { src: string; poster?: string } | null,
     /** Logo rond (photo de profil Instagram) : loader de navigation. Repli sur le logotype s'il manque. */
     logo: { src: "/media/koda-logo.png", size: 96 } as { src: string; size: number } | null,
+    /** Déclinaison carrée à fond uni pour favicon et icône iOS (générée depuis le logo). */
+    icon: { src: "/media/koda-icon.png" } as { src: string } | null,
   },
 } as const;
 
