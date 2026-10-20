@@ -311,6 +311,26 @@
     filter: drop-shadow(0 24px 30px rgba(20, 20, 20, 0.2));
     transition: color 0.4s;
   }
+  /* Skeleton : dégradé de gris qui balaie le bloc de gauche à droite (shimmer). */
+  .skeleton {
+    background: linear-gradient(
+      100deg,
+      var(--color-cream-2) 20%,
+      color-mix(in srgb, var(--color-cream-2) 70%, white) 45%,
+      color-mix(in srgb, var(--color-cream-2) 70%, white) 55%,
+      var(--color-cream-2) 80%
+    );
+    background-size: 240% 100%;
+    animation: shimmer 1.6s ease-in-out infinite;
+  }
+  @keyframes shimmer {
+    from {
+      background-position: 120% 0;
+    }
+    to {
+      background-position: -120% 0;
+    }
+  }
   .swatch {
     @apply size-[22px] rounded-full transition-[transform,box-shadow] duration-200 ease-expo;
     background: var(--sw);

@@ -3,7 +3,7 @@ import { cn } from "./cn";
 
 /** Placeholder de chargement : même gabarit que le contenu attendu, animation douce, invisible aux lecteurs d'écran. */
 export function Skeleton({ className, ...props }: ComponentProps<"div">) {
-  return <div aria-hidden="true" className={cn("animate-pulse rounded-[12px] bg-ink/8", className)} {...props} />;
+  return <div aria-hidden="true" className={cn("skeleton rounded-[12px]", className)} {...props} />;
 }
 
 /** Squelette d'une carte produit (grille, résultats, recommandations). */
