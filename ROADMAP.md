@@ -25,6 +25,9 @@ Suivi des idées et de leur état. Mis à jour à chaque lot livré.
 - Newsletter : inscription optimiste, nouveau wording (« Ne rate pas le prochain drop », code 10 % conservé).
 - Vercel : builds de preview désactivés sur les deux projets.
 
+- Campagnes : éditeur riche (gras, italique, souligné, titres, listes, liens), HTML nettoyé et stylé inline pour les clients mail.
+- Admin : fil d'Ariane + bouton retour sur toutes les pages ; toasts verts pour les succès.
+
 ## En cours / à configurer par KODA
 - Admin → Catalogue → « Importer le catalogue de la boutique » (une fois le déploiement passé) : les fiches deviennent éditables.
 - Admin → Réglages → Boîte d'envoi : smtp.gmail.com / bcorre.work@gmail.com / mot de passe d'application, puis « Envoyer le test ».
