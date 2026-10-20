@@ -3,7 +3,7 @@ import { setFlagValue } from "@/app/actions";
 import { OptimisticSwitch } from "@/components/optimistic-switch";
 import { getSmtpSettings, getSocialSettings } from "@/lib/settings";
 import { listFlags } from "@/lib/users";
-import { SmtpForm, SocialForm } from "./settings-forms";
+import { MaintenanceForm, SmtpForm, SocialForm } from "./settings-forms";
 
 export const metadata: Metadata = { title: "Réglages" };
 export const dynamic = "force-dynamic";
@@ -76,6 +76,16 @@ export default async function SettingsPage() {
           Google et Apple exigent aussi que le fournisseur soit configuré dans Supabase (Authentication → Providers). Le
           flag ne fait qu'afficher ou masquer le bouton sur la boutique.
         </p>
+      </section>
+      <section className="card mt-6 border-danger/30" aria-labelledby="maintenance-title">
+        <h2 id="maintenance-title" className="text-[19px] font-semibold tracking-[-0.02em]">
+          Maintenance
+        </h2>
+        <p className="mt-1 mb-5 text-sm text-muted">
+          Après une phase de tests : efface les événements du tableau de bord. Commandes, comptes et inscrits sont
+          conservés.
+        </p>
+        <MaintenanceForm />
       </section>
     </main>
   );

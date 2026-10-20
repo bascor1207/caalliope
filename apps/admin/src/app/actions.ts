@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { COOKIE, credentials, issueToken, SESSION_SECONDS, safeEqual } from "@/lib/auth";
 import { verifySmtp } from "@/lib/mailer";
+import { resetAnalytics } from "@/lib/maintenance";
 import {
   getSmtpSettings,
   revalidateShop,
@@ -178,4 +179,15 @@ export async function saveSocial(_prev: SettingsState, f: FormData): Promise<Set
       ? "Réseaux enregistrés, la boutique est à jour."
       : "Réseaux enregistrés. La boutique les reprendra d'ici une heure (SHOP_URL / REVALIDATE_SECRET absents pour un rafraîchissement immédiat).",
   };
+}
+
+/** Zone de maintenance : efface tous les événements d'usage (après des tests, par exemple). */
+export async function resetAnalyticsAction(_prev: SettingsState, _f: FormData): Promise<SettingsState> {
+  try {
+    const n = await resetAnalytics();
+    revalidatePath("/");
+    return { ok: `Statistiques remises à zéro (${n} événements effacés).` };
+  } catch (e) {
+    return { error: `Impossible : ${e instanceof Error ? e.message : String(e)}` };
+  }
 }

@@ -3,7 +3,14 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import type { CampaignContent } from "@/lib/email-template";
-import { createCampaign, deleteCampaign, sendCampaign, sendTest, updateCampaign } from "@/lib/newsletter";
+import {
+  createCampaign,
+  deleteCampaign,
+  deleteSubscriber,
+  sendCampaign,
+  sendTest,
+  updateCampaign,
+} from "@/lib/newsletter";
 
 const contentFrom = (f: FormData): CampaignContent => ({
   subject: String(f.get("subject") ?? "").slice(0, 150),
@@ -58,4 +65,10 @@ export async function launchCampaign(id: string, _prev: EditorState, f: FormData
 export async function removeCampaign(f: FormData) {
   await deleteCampaign(String(f.get("id") ?? ""));
   revalidatePath("/newsletter/campagnes");
+}
+
+export async function removeSubscriber(f: FormData) {
+  const id = String(f.get("id") ?? "");
+  if (id) await deleteSubscriber(id);
+  revalidatePath("/newsletter");
 }

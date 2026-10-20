@@ -72,6 +72,10 @@ export async function listSubscribers(): Promise<Subscriber[]> {
   return rows.map((r) => ({ ...r, subscribed_at: new Date(r.subscribed_at).toISOString() }));
 }
 
+export async function deleteSubscriber(id: string): Promise<void> {
+  await getSql()`DELETE FROM newsletter_subscribers WHERE id = ${id}`;
+}
+
 export async function subscriberStats(): Promise<{ total: number; active: number; last30: number }> {
   if (!hasDatabase()) return { total: 0, active: 0, last30: 0 };
   const [r] = await getSql()<{ total: number; active: number; last30: number }[]>`

@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { ConfirmSubmit } from "@/components/confirm-submit";
 import { listSubscribers, subscriberStats } from "@/lib/newsletter";
+import { removeSubscriber } from "./actions";
 
 export const metadata: Metadata = { title: "Newsletter" };
 export const dynamic = "force-dynamic";
@@ -69,6 +71,9 @@ export default async function NewsletterPage() {
                 <th scope="col" className="pb-3 font-medium">
                   Statut
                 </th>
+                <th scope="col" className="pb-3 text-right font-medium">
+                  <span className="sr-only">Action</span>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -84,6 +89,17 @@ export default async function NewsletterPage() {
                     >
                       {s.status === "subscribed" ? "actif" : "désinscrit"}
                     </span>
+                  </td>
+                  <td className="py-3 text-right">
+                    <form action={removeSubscriber}>
+                      <input type="hidden" name="id" value={s.id} />
+                      <ConfirmSubmit
+                        message={`Supprimer ${s.email} de la liste ? Définitif.`}
+                        className="rounded-full border border-line bg-white px-3 py-1.5 text-xs font-semibold text-danger hover:border-danger"
+                      >
+                        Supprimer
+                      </ConfirmSubmit>
+                    </form>
                   </td>
                 </tr>
               ))}

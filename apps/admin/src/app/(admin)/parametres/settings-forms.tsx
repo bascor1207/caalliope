@@ -160,3 +160,29 @@ export function SocialForm({ current }: { current: SocialSettings }) {
     </form>
   );
 }
+
+/** Remise à zéro des statistiques, avec confirmation. */
+export function MaintenanceForm() {
+  const [state, action, pending] = useActionState(resetAnalyticsAction, {});
+  useToastOnState(state);
+  return (
+    <form
+      action={action}
+      onSubmit={(e) => {
+        if (
+          !confirm("Effacer toutes les statistiques (pages vues, clics, parcours) ? Les commandes et comptes restent.")
+        )
+          e.preventDefault();
+      }}
+    >
+      <button
+        type="submit"
+        disabled={pending}
+        className="rounded-full border border-danger px-5 py-2.5 text-sm font-semibold text-danger hover:bg-danger/10 disabled:opacity-50"
+      >
+        {pending ? "Effacement…" : "Remettre les statistiques à zéro"}
+      </button>
+      <Feedback state={state} />
+    </form>
+  );
+}
