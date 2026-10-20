@@ -1,0 +1,51 @@
+{
+  "form": {
+    "title": "Complete your order",
+    "eyebrow": "Pre-order · Drop 01",
+    "emptyTitle": "Your cart",
+    "emptySerif": "is empty.",
+    "contact": "Contact",
+    "email": "Email",
+    "emailPlaceholder": "you@email.com",
+    "shipping": "Shipping",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "address": "Address",
+    "addressPlaceholder": "12 Peace Street",
+    "zip": "Postcode",
+    "city": "City",
+    "payment": "Payment",
+    "card": "Credit card",
+    "applepay": "Apple Pay",
+    "paypal": "PayPal",
+    "pocNote": "POC: no real payment. Stripe Checkout comes next.",
+    "pay": "Pay {total}",
+    "submitting": "Submitting…",
+    "terms": "By confirming you accept the <link>terms</link>. Ships 3-4 weeks after the drop closes.",
+    "summary": "Summary",
+    "subtotal": "Subtotal",
+    "shippingLine": "Shipping",
+    "free": "Free",
+    "total": "Total incl. VAT",
+    "errors": {
+      "invalid-email": "Invalid email",
+      "required": "Required",
+      "invalid-zip": "5-digit postcode",
+      "empty-cart": "Your cart is empty",
+      "unknown-product": "Unknown product",
+      "unavailable-color": "Colour unavailable",
+      "unavailable-size": "Size sold out",
+      "invalid-qty": "Invalid quantity",
+      "network": "Could not submit the order, please retry."
+    }
+  },
+  "confirmation": {
+    "title": "Order confirmed",
+    "eyebrow": "Order confirmed",
+    "thanks": "Thank you",
+    "order": "Order <b>{ref}</b> · {total}.",
+    "email": "A summary is on its way to <b>{email}</b>.",
+    "next": "Your piece goes into production when the drop closes; you'll get tracking as soon as it ships.",
+    "back": "Back to the shop"
+  }
+}

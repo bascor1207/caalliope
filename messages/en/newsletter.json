@@ -1,0 +1,9 @@
+{
+  "emailLabel": "Email address",
+  "placeholder": "you@email.com",
+  "cta": "Join the list",
+  "pending": "One moment…",
+  "hint": "Zero spam. One email per drop, that's it.",
+  "invalid": "Enter a valid email.",
+  "welcome": "Welcome to the list, {name} ✦"
+}

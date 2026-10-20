@@ -1,0 +1,23 @@
+{
+  "announce": {
+    "items": "Drop 01 on pre-order|Free shipping from €80|Shipped from France|Free 30-day returns|Certified organic cotton"
+  },
+  "nav": {
+    "drop": "Drop 01",
+    "hoodies": "Hoodies",
+    "tees": "Tees",
+    "story": "Our story",
+    "faq": "FAQ",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "search": "Search",
+    "openCart": "Open cart, {count, plural, =0 {empty} one {# item} other {# items}}"
+  },
+  "search": {
+    "placeholder": "Search  /",
+    "aria": "Search for a piece",
+    "cta": "Search for a piece",
+    "suggestions": "Suggestions",
+    "seeAll": "All results for “{q}”"
+  }
+}

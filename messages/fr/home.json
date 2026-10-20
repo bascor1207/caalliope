@@ -1,0 +1,75 @@
+{
+  "hero": {
+    "tag": "{drop} — précommandes ouvertes ·",
+    "closesIn": "clôture dans {days} j {hours} h",
+    "closesSoon": "clôture bientôt",
+    "line1": "Porte ce qui",
+    "line2": "te ressemble.",
+    "line3": "Vraiment.",
+    "sub": "Hoodies et t-shirts premium, en coton bio, coupe oversize, couleurs douces. Produits en petite série, uniquement sur précommande. Né d'une amitié, fait pour durer.",
+    "cta": "Découvrir le {drop}",
+    "story": "Notre histoire",
+    "meta1": "coton bio brossé",
+    "meta2": "production sur précommande",
+    "meta2Value": "0 invendu",
+    "meta3": "sur 212 avis Drop 00",
+    "scroll": "Scroll"
+  },
+  "marquee": {
+    "quality": "Qualité",
+    "authenticity": "Authenticité",
+    "respect": "Respect",
+    "friendship": "Né d'une amitié",
+    "cotton": "Coton bio",
+    "smallBatch": "Petite série"
+  },
+  "story": {
+    "eyebrow": "Notre histoire",
+    "title1": "Né d'une",
+    "titleSerif": "amitié,",
+    "title2": "pas d'un business plan.",
+    "lead": "KODA, c'est deux potes qui n'arrivaient pas à trouver le hoodie parfait : assez lourd pour tenir des années, assez doux pour ne plus le quitter, dans des couleurs qu'on ne voit pas partout. Alors on l'a fait. Sans surstock, sans compromis, sans bullshit.",
+    "v1Title": "Qualité",
+    "v1": "Coton bio 400 g/m², coutures renforcées, broderie dense. Un hoodie qu'on garde, qu'on ne remplace pas.",
+    "v2Title": "Authenticité",
+    "v2": "Pas de logo criard, pas de tendance jetable. Des pièces simples, portées par nous d'abord.",
+    "v3Title": "Respect",
+    "v3": "Des gens qui fabriquent, de la planète, et de toi : prix justes, production à la commande, retours gratuits."
+  },
+  "specs": {
+    "eyebrow": "La matière",
+    "title": "Lourd dehors,",
+    "titleSerif": "doux dedans.",
+    "big": "grammes par m²",
+    "fabric": "Tissu",
+    "fabricText": "Molleton 100 % coton biologique, 400 g/m², intérieur brossé. Pré-lavé : ne rétrécit pas.",
+    "fit": "Coupe",
+    "fitText": "Oversize épaules tombantes pour les hoodies, boxy pour les tees. Longueur étudiée pour tomber juste, pas pour flotter.",
+    "details": "Détails",
+    "detailsText": "Logo brodé poitrine, bords-côtes épais, cordons plats ton sur ton, étiquette tissée au col.",
+    "making": "Fabrication",
+    "makingText": "Confection atelier partenaire au Portugal, broderie et contrôle qualité en France. Petites séries sur précommande.",
+    "care": "Entretien",
+    "careText": "Lavage 30°, à l'envers, pas de sèche-linge. Il vieillit bien si tu le respectes."
+  },
+  "community": {
+    "eyebrow": "#KODAFAMILY",
+    "title": "Porté par",
+    "titleSerif": "vous.",
+    "follow": "Suivre {handle}",
+    "aria": "Photos de la communauté (placeholders)"
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Les questions",
+    "titleSerif": "qu'on nous pose.",
+    "sizeQuestion": "Une question sur ta taille ?",
+    "sizeLink": "Le guide des tailles"
+  },
+  "newsletter": {
+    "eyebrow": "Accès anticipé",
+    "title": "24 h d'avance",
+    "titleSerif": "sur chaque drop.",
+    "text": "Les drops partent vite. La liste reçoit le lien 24 h avant tout le monde, et un code de bienvenue de 10 %."
+  }
+}
