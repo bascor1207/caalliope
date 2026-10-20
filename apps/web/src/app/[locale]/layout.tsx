@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Instrument_Sans } from "next/font/google";
+import { Instrument_Sans, Outfit } from "next/font/google";
 import { notFound } from "next/navigation";
 import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
@@ -23,10 +23,10 @@ import { Header } from "../_shell/header";
 import "../globals.css";
 
 /*
- * Typo : Bricolage Grotesque pour les titres (grotesque à caractère, un peu bricolée, dans l'esprit du logo
- * dessiné à la main) et Instrument Sans pour le texte (lisible, chaleureux). Pas de serif italique.
+ * Typo : Outfit pour les titres (géométrique et ronde, dans l'esprit du logo, en graisse 600 pour rester
+ * légère) et Instrument Sans pour le texte (lisible, chaleureux). Jamais d'italique.
  */
-const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display-face", display: "swap" });
+const display = Outfit({ subsets: ["latin"], variable: "--font-display-face", display: "swap" });
 const sans = Instrument_Sans({ subsets: ["latin"], variable: "--font-sans-face", display: "swap" });
 
 interface Props {

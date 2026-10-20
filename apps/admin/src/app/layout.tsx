@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque, Instrument_Sans } from "next/font/google";
+import { Instrument_Sans, Outfit } from "next/font/google";
 import "./globals.css";
 
-const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display-face", display: "swap" });
+const display = Outfit({ subsets: ["latin"], variable: "--font-display-face", display: "swap" });
 const sans = Instrument_Sans({ subsets: ["latin"], variable: "--font-sans-face", display: "swap" });
 
 export const metadata: Metadata = {
