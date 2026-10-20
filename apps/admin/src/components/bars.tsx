@@ -7,7 +7,7 @@ interface Props {
 }
 
 const W = 720;
-const H = 200;
+const H = 240;
 const PAD = { top: 12, right: 8, bottom: 28, left: 36 };
 
 const fmtDay = (day: string) => `${day.slice(8, 10)}/${day.slice(5, 7)}`;
@@ -36,7 +36,7 @@ export function DailyBars({ points, metric, label }: Props) {
           return (
             <g key={t}>
               <line x1={PAD.left} x2={W - PAD.right} y1={y} y2={y} stroke="rgba(20,20,20,.08)" />
-              <text x={PAD.left - 8} y={y + 4} textAnchor="end" fontSize="11" fill="#6b6661">
+              <text x={PAD.left - 8} y={y + 4} textAnchor="end" fontSize="12" fill="#6b6661">
                 {t}
               </text>
             </g>
@@ -51,7 +51,7 @@ export function DailyBars({ points, metric, label }: Props) {
                 <title>{`${fmtDay(p.day)} : ${p[metric]}`}</title>
               </rect>
               {i % labelEvery === 0 && (
-                <text x={x + barW / 2} y={H - 8} textAnchor="middle" fontSize="11" fill="#6b6661">
+                <text x={x + barW / 2} y={H - 8} textAnchor="middle" fontSize="12" fill="#6b6661">
                   {fmtDay(p.day)}
                 </text>
               )}

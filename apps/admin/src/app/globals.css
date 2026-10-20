@@ -16,7 +16,7 @@
   --color-success: #256b3f; /* ≥ 4.5:1 sur fond success/10, cream et blanc */
   --font-sans: var(--font-inter), system-ui, -apple-system, sans-serif;
   --font-display: var(--font-syne), system-ui, sans-serif;
-  --radius-card: 20px;
+  --radius-card: 24px;
 }
 
 @layer base {
@@ -37,7 +37,11 @@
 
 @layer components {
   .card {
-    @apply rounded-card border border-line bg-white p-5;
+    @apply rounded-card border border-line bg-white p-6 md:p-7;
+  }
+  /* Chiffres clés : Inter, grands, tabulaires. Syne reste réservé aux titres. */
+  .kpi-value {
+    @apply mt-3 font-sans text-[38px] font-semibold leading-none tracking-[-0.02em] tabular-nums;
   }
   /* Skeleton : dégradé de gris qui balaie le bloc de gauche à droite (shimmer). */
   .skeleton {
@@ -59,7 +63,8 @@
       background-position: -120% 0;
     }
   }
+  /* Libellés : Inter, pas Syne, lisible en petit. */
   .eyebrow {
-    @apply font-display text-[11px] font-bold uppercase tracking-[0.16em] text-muted;
+    @apply font-sans text-xs font-semibold uppercase tracking-[0.12em] text-muted;
   }
 }

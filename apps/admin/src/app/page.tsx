@@ -27,14 +27,14 @@ export default async function Dashboard({ searchParams }: Props) {
   );
 
   return (
-    <main className="mx-auto w-[min(1200px,100%-32px)] py-8">
+    <main className="mx-auto w-[min(1360px,100%-40px)] py-10 md:py-12">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="eyebrow">KODA Clothing · Admin</p>
-          <h1 className="mt-1 text-[clamp(28px,4vw,40px)] font-extrabold leading-none tracking-[-0.04em]">
+          <h1 className="mt-2 text-[clamp(30px,4vw,44px)] font-extrabold leading-none tracking-[-0.04em]">
             Tableau de bord
           </h1>
-          <p className="mt-2 text-sm text-muted">
+          <p className="mt-3 text-[15px] text-muted">
             Du {fmtDate(s.range.from)} au {fmtDate(s.range.to)} · {s.events} événements
           </p>
           <div className="mt-2">
@@ -42,13 +42,13 @@ export default async function Dashboard({ searchParams }: Props) {
           </div>
         </div>
         <div className="flex items-center gap-2">
-          <nav aria-label="Période" className="inline-flex rounded-full bg-ink/6 p-1 text-xs font-semibold">
+          <nav aria-label="Période" className="inline-flex rounded-full bg-ink/6 p-1 text-sm font-semibold">
             {PERIODS.map((d) => (
               <Link
                 key={d}
                 href={`/?jours=${d}`}
                 aria-current={d === period ? "page" : undefined}
-                className={`rounded-full px-3 py-1.5 transition-colors ${d === period ? "bg-ink text-cream" : "hover:bg-ink/10"}`}
+                className={`whitespace-nowrap rounded-full px-3 py-2 transition-colors sm:px-4 ${d === period ? "bg-ink text-cream" : "hover:bg-ink/10"}`}
               >
                 {d} jours
               </Link>
@@ -57,7 +57,7 @@ export default async function Dashboard({ searchParams }: Props) {
           <form action={logout}>
             <button
               type="submit"
-              className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-3 py-2 text-xs font-semibold hover:border-ink"
+              className="inline-flex items-center gap-1.5 rounded-full border border-line bg-white px-4 py-2.5 text-sm font-semibold hover:border-ink"
             >
               <LogOutIcon className="size-3.5" aria-hidden="true" /> Déconnexion
             </button>
@@ -65,19 +65,17 @@ export default async function Dashboard({ searchParams }: Props) {
         </div>
       </header>
 
-      <section aria-label="Indicateurs clés" className="mt-8 grid grid-cols-2 gap-3 md:grid-cols-4">
+      <section aria-label="Indicateurs clés" className="mt-10 grid gap-4 sm:grid-cols-2 md:gap-5 xl:grid-cols-4">
         {kpis.map((k) => (
           <div key={k.key} className="card">
             <p className="eyebrow">{k.label}</p>
-            <p className="mt-2 font-display text-[28px] font-extrabold leading-none tracking-[-0.03em] tabular-nums">
-              {k.value}
-            </p>
-            {k.hint && <p className="mt-2 text-xs text-muted">{k.hint}</p>}
+            <p className="kpi-value">{k.value}</p>
+            {k.hint && <p className="mt-3 text-sm text-muted">{k.hint}</p>}
           </div>
         ))}
       </section>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[1.4fr_1fr]">
+      <div className="mt-8 grid gap-5 md:gap-6 lg:grid-cols-[1.4fr_1fr]">
         <Panel title="Pages vues par jour" hint={`${period} jours`}>
           <DailyBars points={s.daily} metric="pageViews" label="Pages vues" />
         </Panel>
@@ -86,7 +84,7 @@ export default async function Dashboard({ searchParams }: Props) {
         </Panel>
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-2">
+      <div className="mt-8 grid gap-5 md:gap-6 lg:grid-cols-2">
         <Panel title="Entonnoir d'achat" hint="taux par rapport à l'étape précédente">
           <Funnel
             steps={[
@@ -100,10 +98,10 @@ export default async function Dashboard({ searchParams }: Props) {
         </Panel>
         <Panel title="Produits" hint="vues → ajouts panier">
           {products.length === 0 ? (
-            <p className="text-sm text-muted">Aucune fiche vue sur la période.</p>
+            <p className="text-[15px] text-muted">Aucune fiche vue sur la période.</p>
           ) : (
-            <table className="w-full text-sm">
-              <thead className="text-left text-xs text-muted">
+            <table className="w-full text-[15px]">
+              <thead className="text-left text-sm text-muted">
                 <tr>
                   <th scope="col" className="pb-2 font-medium">
                     Produit
@@ -124,10 +122,10 @@ export default async function Dashboard({ searchParams }: Props) {
                   .sort((a, b) => b[1] - a[1])
                   .map(([id, views, carts]) => (
                     <tr key={id} className="border-t border-line">
-                      <td className="py-2 pr-3 font-medium">{id}</td>
-                      <td className="py-2 text-right tabular-nums">{views}</td>
-                      <td className="py-2 text-right tabular-nums">{carts}</td>
-                      <td className="py-2 text-right tabular-nums">
+                      <td className="py-3 pr-3 font-medium">{id}</td>
+                      <td className="py-3 text-right tabular-nums">{views}</td>
+                      <td className="py-3 text-right tabular-nums">{carts}</td>
+                      <td className="py-3 text-right tabular-nums">
                         {views ? `${Math.round((carts / views) * 100)} %` : "–"}
                       </td>
                     </tr>
@@ -138,7 +136,7 @@ export default async function Dashboard({ searchParams }: Props) {
         </Panel>
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-3">
+      <div className="mt-8 grid gap-5 md:gap-6 lg:grid-cols-3">
         <Panel title="Pages les plus vues">
           <RankTable rows={top(s.pageViews, 8)} label="Page" valueLabel="Vues" empty="Aucune page vue." />
         </Panel>
@@ -146,21 +144,21 @@ export default async function Dashboard({ searchParams }: Props) {
           <RankTable rows={top(s.clicks, 8)} label="Élément" valueLabel="Clics" empty="Aucun clic mesuré." />
         </Panel>
         <Panel title="Frictions" hint="ce qui bloque un achat">
-          <h3 className="eyebrow mb-2">Erreurs au checkout</h3>
+          <h3 className="eyebrow mb-3">Erreurs au checkout</h3>
           <RankTable
             rows={top(s.frictions.checkoutErrors, 5)}
             label="Erreur"
             valueLabel="Occurrences"
             empty="Aucune erreur."
           />
-          <h3 className="eyebrow mt-5 mb-2">Recherches sans résultat</h3>
+          <h3 className="eyebrow mt-7 mb-3">Recherches sans résultat</h3>
           <RankTable
             rows={top(s.searches.noResult, 5)}
             label="Requête"
             valueLabel="Fois"
             empty="Toutes les recherches ont des résultats."
           />
-          <h3 className="eyebrow mt-5 mb-2">Langues des sessions</h3>
+          <h3 className="eyebrow mt-7 mb-3">Langues des sessions</h3>
           <RankTable rows={top(s.locales, 3)} label="Langue" valueLabel="Sessions" empty="–" />
         </Panel>
       </div>

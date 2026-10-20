@@ -73,7 +73,7 @@ export function LiveFeed() {
   }, [router]);
 
   return (
-    <div className="flex items-center gap-3 text-xs text-muted" aria-live="polite">
+    <div className="flex items-center gap-3 text-sm text-muted" aria-live="polite">
       <span className="inline-flex items-center gap-1.5 font-semibold">
         <span
           aria-hidden="true"
@@ -84,7 +84,7 @@ export function LiveFeed() {
       {recent.length > 0 && (
         <ul className="hidden items-center gap-2 md:flex" aria-label="Derniers événements">
           {recent.slice(0, 4).map((ev, i) => (
-            <li key={`${ev.at}-${i}`} className="rounded-full bg-ink/6 px-2 py-0.5">
+            <li key={`${ev.at}-${i}`} className="rounded-full bg-ink/6 px-2.5 py-1">
               {LABELS[ev.name] ?? ev.name}
               {ev.path ? <span className="opacity-60"> · {ev.path}</span> : null}
             </li>

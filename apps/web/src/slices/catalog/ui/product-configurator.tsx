@@ -45,7 +45,13 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
     const first = imageFor(product, c.key);
     return first ? [first] : [];
   });
-  const stacked = [...firstShots, ...gallery.filter((g) => !firstShots.includes(g))];
+  /* Même index de vue pour chaque coloris : on monte aussi la vue n° `shot` de tous les coloris. */
+  const sameShots = product.colors.flatMap((c) => {
+    const shots = product.images.filter((i) => i.colorKey === c.key);
+    const img = shots[Math.min(shot, shots.length - 1)];
+    return img ? [img] : [];
+  });
+  const stacked = [...firstShots, ...gallery, ...sameShots].filter((img, i, all) => all.indexOf(img) === i);
 
   useEffect(() => {
     eventBus.publish("catalog.product-viewed", { productId: product.id, slug: product.slug, colorKey: color.key });
@@ -53,7 +59,9 @@ export function ProductConfigurator({ product, initialColorKey }: Props) {
 
   const chooseColor = (key: string) => {
     setColorKey(key);
-    setShot(0);
+    // On reste sur la même vue (face, dos…) si le coloris la possède, sinon sur sa dernière vue.
+    const count = product.images.filter((i) => i.colorKey === key).length;
+    setShot((s) => Math.max(0, Math.min(s, count - 1)));
     if (size && !isSizeAvailable(product, size, key)) setSize(null);
     router.replace(
       { pathname: "/produits/[slug]", params: { slug: product.slug }, query: { coloris: key } },
