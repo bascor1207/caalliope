@@ -8,6 +8,8 @@ export const SITE = {
   facebook: "https://www.facebook.com/kodaclothing/",
   tiktok: "https://www.tiktok.com/@kodaclothing",
   tagline: "More than clothing",
+  /** Studio qui a conçu et développé le site (crédit en pied de page + métadonnées). */
+  developer: { name: "GOLEM CORP", url: null as string | null },
   collectionName: "Collection",
   /**
    * Médias de marque, à déposer dans public/media/ (voir public/media/README.md).

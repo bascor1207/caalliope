@@ -13,5 +13,6 @@
   "contact": "Contact",
   "rights": "© {year} KODA Clothing · All rights reserved",
   "payment": "Secure payment · Card, Apple Pay, PayPal · Prices incl. VAT",
-  "sweats": "Sweatshirts"
+  "sweats": "Sweatshirts",
+  "credit": "Designed and built by <dev>{name}</dev>"
 }

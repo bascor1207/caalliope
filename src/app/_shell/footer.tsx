@@ -87,6 +87,24 @@ export async function Footer() {
           <span>{t("rights", { year: new Date().getFullYear() })}</span>
           <span>{t("payment")}</span>
         </div>
+        <p className="mt-2 text-xs text-muted">
+          {t.rich("credit", {
+            name: SITE.developer.name,
+            dev: (chunks) =>
+              SITE.developer.url ? (
+                <a
+                  href={SITE.developer.url}
+                  rel="noopener"
+                  target="_blank"
+                  className="font-semibold text-ink-2 hover:underline hover:underline-offset-4"
+                >
+                  {chunks}
+                </a>
+              ) : (
+                <b className="font-semibold text-ink-2">{chunks}</b>
+              ),
+          })}
+        </p>
         <div className="giant mt-12" aria-hidden="true">
           KODA
         </div>
