@@ -7,7 +7,7 @@ let resolver: (() => string | undefined) | null = null;
 
 /** Postgres est-il configuré (DATABASE_URL ou POSTGRES_URL, ou une source déclarée par `setDatabaseUrlResolver`) ? */
 export const hasDatabase = (env: NodeJS.ProcessEnv = process.env): boolean =>
-  Boolean(resolveUrl(env) ?? env.DATABASE_URL ?? env.POSTGRES_URL);
+  Boolean(resolveUrl() ?? env.DATABASE_URL ?? env.POSTGRES_URL);
 
 /**
  * Source d'URL prioritaire, déclarée par l'application : sur Cloudflare Workers la boutique lit la chaîne de
@@ -33,7 +33,7 @@ const hyperdriveUrl = (): string | undefined => {
   }
 };
 
-const resolveUrl = (env: NodeJS.ProcessEnv): string | undefined => {
+const resolveUrl = (): string | undefined => {
   try {
     return resolver?.() ?? hyperdriveUrl();
   } catch {
@@ -46,7 +46,7 @@ const resolveUrl = (env: NodeJS.ProcessEnv): string | undefined => {
  * pas de requêtes préparées, peu de connexions, un client par chaîne de connexion, créé à la première requête.
  */
 export function getSql(env: NodeJS.ProcessEnv = process.env): Sql {
-  const url = resolveUrl(env) ?? env.DATABASE_URL ?? env.POSTGRES_URL;
+  const url = resolveUrl() ?? env.DATABASE_URL ?? env.POSTGRES_URL;
   if (!url) throw new Error("DATABASE_URL manquante : la base Postgres n'est pas configurée.");
   let client = clients.get(url);
   if (!client) {
@@ -54,4 +54,36 @@ export function getSql(env: NodeJS.ProcessEnv = process.env): Sql {
     clients.set(url, client);
   }
   return client;
+}
+
+/**
+ * Aiguillage paresseux entre deux implémentations selon la présence de la base, évalué à chaque accès et non au
+ * chargement du module : sur Cloudflare Workers, les bindings (Hyperdrive, variables) n'existent qu'au sein d'une
+ * requête, un choix figé à l'évaluation du module tomberait toujours sur la version mémoire.
+ * Chaque implémentation est instanciée au plus une fois, à sa première utilisation.
+ */
+export function whenDatabase<T extends object>(withDatabase: () => T, withoutDatabase: () => T): T {
+  let db: T | undefined;
+  let memory: T | undefined;
+  const current = (): T => {
+    if (hasDatabase()) {
+      db ??= withDatabase();
+      return db;
+    }
+    memory ??= withoutDatabase();
+    return memory;
+  };
+  return new Proxy({} as T, {
+    get(_, prop) {
+      const target = current();
+      const value = Reflect.get(target, prop, target);
+      return typeof value === "function" ? value.bind(target) : value;
+    },
+    has: (_, prop) => prop in current(),
+    ownKeys: () => Reflect.ownKeys(current()),
+    getOwnPropertyDescriptor(_, prop) {
+      const descriptor = Reflect.getOwnPropertyDescriptor(current(), prop);
+      return descriptor ? { ...descriptor, configurable: true } : undefined;
+    },
+  });
 }

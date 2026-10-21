@@ -19,11 +19,12 @@ export async function prepareExpressPaymentAction(input: {
   locale: string;
   line: OrderLineInput;
 }): Promise<PrepareResult> {
-  if (!isLocale(input.locale) || !paymentProvider) return { ok: false, code: "network" };
+  const payments = paymentProvider();
+  if (!isLocale(input.locale) || !payments) return { ok: false, code: "network" };
   try {
     return await prepareExpressPayment(
       { locale: input.locale, line: cleanLine(input.line) },
-      { pricing: pricingCatalog, payments: paymentProvider },
+      { pricing: pricingCatalog, payments },
     );
   } catch {
     return { ok: false, code: "network" };
@@ -37,7 +38,8 @@ export async function completeExpressOrderAction(input: {
   line: OrderLineInput;
   customer: Customer;
 }): Promise<PlaceOrderResult> {
-  if (!isLocale(input.locale) || !paymentProvider) return { ok: false, errors: { cart: "network" } };
+  const payments = paymentProvider();
+  if (!isLocale(input.locale) || !payments) return { ok: false, errors: { cart: "network" } };
   const user = await getSessionUser().catch(() => null);
   const customer = Object.fromEntries(
     (["email", "firstName", "lastName", "address", "zip", "city"] as const).map((k) => [
@@ -56,7 +58,7 @@ export async function completeExpressOrderAction(input: {
         customer,
         userId: user?.id ?? null,
       },
-      { pricing: pricingCatalog, payments: paymentProvider, orders: ordersRepository },
+      { pricing: pricingCatalog, payments, orders: ordersRepository },
     );
   } catch {
     return { ok: false, errors: { cart: "network" } };
