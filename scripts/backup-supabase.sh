@@ -16,6 +16,8 @@ if [ -z "${SUPABASE_BACKUP_URL:-}" ]; then
 fi
 
 STAMP="$(date -u +%Y-%m-%dT%H%MZ)"
+ROOT="$(pwd)"
+# wrangler s'exécute dans apps/web (pnpm --filter) : chemins absolus obligatoires.
 PUT="pnpm --filter web exec wrangler r2 object put"
 ok=0
 
@@ -44,8 +46,7 @@ if install_pg_dump; then
   if "$PG_DUMP" "$SUPABASE_BACKUP_URL" --format=custom --no-owner --no-privileges \
       --schema=public --schema=auth --schema=storage --file="$DUMP"; then
     ls -la "$DUMP"
-    $PUT "kodaclothing-backups/$DUMP" --file="$DUMP" --content-type application/octet-stream --remote && ok=1
-    echo "pg_dump envoyé : $DUMP"
+    $PUT "kodaclothing-backups/$DUMP" --file="$ROOT/$DUMP" --content-type application/octet-stream --remote && ok=1 && echo "pg_dump envoyé : $DUMP"
   else
     echo "pg_dump a échoué, on passe à l'export logique."
   fi
@@ -57,8 +58,7 @@ fi
 JSON="koda-$STAMP.json.gz"
 if SUPABASE_BACKUP_URL="$SUPABASE_BACKUP_URL" pnpm --filter @koda/db exec node scripts/backup-export.mjs | gzip -9 > "$JSON"; then
   ls -la "$JSON"
-  $PUT "kodaclothing-backups/$JSON" --file="$JSON" --content-type application/gzip --remote && ok=1
-  echo "export logique envoyé : $JSON"
+  $PUT "kodaclothing-backups/$JSON" --file="$ROOT/$JSON" --content-type application/gzip --remote && ok=1 && echo "export logique envoyé : $JSON"
 fi
 
 [ "$ok" = 1 ] && echo "Sauvegarde terminée." || { echo "Aucune sauvegarde n'a pu être envoyée."; exit 1; }
