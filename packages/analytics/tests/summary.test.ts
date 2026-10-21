@@ -75,3 +75,88 @@ describe("sanitizeEvents", () => {
     expect(events[1].at).toBe("2026-10-20T12:00:00.000Z");
   });
 });
+
+describe("ventilations commerce", () => {
+  const ev = (
+    name: AnalyticsEvent["name"],
+    session: string,
+    props: AnalyticsEvent["props"] = {},
+    at = "2026-10-21T10:00:00.000Z",
+  ): AnalyticsEvent => ({
+    name,
+    at,
+    session,
+    path: "/",
+    locale: "fr",
+    props,
+  });
+  it("attribue les sessions et les ventes à une source, ventile par coloris, taille, rupture et promo", () => {
+    const s = summarize([
+      ev("session_start", "a", { source: "tiktok", campaign: "drop-casquette", referrer: "https://www.tiktok.com/" }),
+      ev("page_view", "a"),
+      ev("product_view", "a", { productId: "cap", colorKey: "navy" }),
+      ev("size_selected", "a", { productId: "cap", colorKey: "navy", size: "TU" }),
+      ev("add_to_cart", "a", { productId: "cap", colorKey: "navy", size: "TU", price: 29.9 }),
+      ev("soldout_click", "a", { productId: "hoodie", colorKey: "rose", size: "L" }),
+      ev("cart_view", "a"),
+      ev("checkout_started", "a"),
+      ev("order_placed", "a", {
+        orderId: "KODA-1",
+        total: 54.8,
+        subtotal: 59.8,
+        shipping: 0,
+        discount: 5,
+        promoCode: "DROP10",
+        items: [
+          { productId: "cap", colorKey: "navy", size: "TU", qty: 1, price: 29.9 },
+          { productId: "cap", colorKey: "noir", size: "TU", qty: 1, price: 29.9 },
+        ],
+      }),
+      ev("page_view", "b", { referrer: "https://www.instagram.com/" }),
+      ev("product_view", "b", { productId: "cap", colorKey: "navy" }),
+      ev("remove_from_cart", "b", { productId: "cap" }),
+      ev("newsletter_signup", "b", { source: "notify" }),
+      ev("page_view", "c"),
+    ]);
+    expect(s.sources).toEqual({
+      tiktok: { sessions: 1, orders: 1, revenue: 54.8 },
+      "instagram.com": { sessions: 1, orders: 0, revenue: 0 },
+      direct: { sessions: 1, orders: 0, revenue: 0 },
+    });
+    expect(s.campaigns["drop-casquette"]).toEqual({ sessions: 1, orders: 1, revenue: 54.8 });
+    expect(s.colors["cap|navy"]).toEqual({
+      productId: "cap",
+      colorKey: "navy",
+      views: 2,
+      addToCart: 1,
+      orders: 1,
+      units: 1,
+    });
+    expect(s.colors["cap|noir"].orders).toBe(1);
+    expect(s.sizes["cap|TU"]).toEqual({ selected: 1, addToCart: 1 });
+    expect(s.soldOutClicks).toEqual({ "hoodie|rose|L": 1 });
+    expect(s.cart).toEqual({ views: 1, removals: 1, removalsByProduct: { cap: 1 } });
+    expect(s.baskets).toEqual({ orders: 1, averageBasket: 54.8, itemsPerOrder: 2, multiItemShare: 1, discount: 5 });
+    expect(s.promos).toEqual({ DROP10: { orders: 1, revenue: 54.8, discount: 5 } });
+    expect(s.newsletterSignups).toEqual({ notify: 1 });
+  });
+
+  it("garde les lignes de commande dans le nettoyage et borne leur nombre", () => {
+    const [e] = sanitizeEvents(
+      [
+        {
+          name: "order_placed",
+          session: "s",
+          props: {
+            total: 10,
+            items: Array.from({ length: 40 }, (_, i) => ({ productId: `p${i}`, qty: 1, nested: { no: true } })),
+          },
+        },
+      ],
+      { now: () => new Date("2026-10-21T10:00:00.000Z") },
+    );
+    expect(Array.isArray(e.props.items)).toBe(true);
+    expect((e.props.items as unknown[]).length).toBe(30);
+    expect((e.props.items as Array<Record<string, unknown>>)[0]).toEqual({ productId: "p0", qty: 1 });
+  });
+});

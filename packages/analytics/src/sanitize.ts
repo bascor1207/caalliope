@@ -1,4 +1,4 @@
-import { type AnalyticsEvent, type EventProps, isEventName } from "./events";
+import { type AnalyticsEvent, type EventItem, type EventProps, isEventName, type Primitive } from "./events";
 
 export interface SanitizeOptions {
   now: () => Date;
@@ -7,8 +7,28 @@ export interface SanitizeOptions {
   maxBatch?: number;
 }
 
-const MAX_PROPS = 10;
+const MAX_PROPS = 16;
 const MAX_STRING = 120;
+const MAX_ITEMS = 30;
+
+const primitive = (v: unknown): Primitive | undefined =>
+  typeof v === "string" ? v.slice(0, MAX_STRING) : typeof v === "number" || typeof v === "boolean" ? v : undefined;
+
+/** Lignes d'une commande : petits objets de primitives, bornés en nombre et en clés. */
+const items = (v: unknown): EventItem[] | undefined => {
+  if (!Array.isArray(v)) return undefined;
+  const out: EventItem[] = [];
+  for (const raw of v.slice(0, MAX_ITEMS)) {
+    if (!raw || typeof raw !== "object") continue;
+    const item: EventItem = {};
+    for (const [k, x] of Object.entries(raw as Record<string, unknown>).slice(0, 8)) {
+      const p = primitive(x);
+      if (p !== undefined) item[k.slice(0, 40)] = p;
+    }
+    out.push(item);
+  }
+  return out;
+};
 
 /** Valide et nettoie un lot d'événements reçu du navigateur. Pure : ne touche aucun stockage. */
 export function sanitizeEvents(
@@ -27,8 +47,12 @@ export function sanitizeEvents(
     const props: EventProps = {};
     if (e.props && typeof e.props === "object") {
       for (const [k, v] of Object.entries(e.props as Record<string, unknown>).slice(0, MAX_PROPS)) {
-        if (typeof v === "string") props[k.slice(0, 40)] = v.slice(0, MAX_STRING);
-        else if (typeof v === "number" || typeof v === "boolean") props[k.slice(0, 40)] = v;
+        const p = primitive(v);
+        if (p !== undefined) props[k.slice(0, 40)] = p;
+        else if (k === "items") {
+          const list = items(v);
+          if (list) props.items = list;
+        }
       }
     }
     const claimed = typeof e.at === "string" ? Date.parse(e.at) : Number.NaN;

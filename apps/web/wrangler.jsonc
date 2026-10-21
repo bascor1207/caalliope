@@ -9,7 +9,14 @@
   // Auto-référence : la file de revalidation ISR rappelle le worker lui-même.
   "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "kodaclothing" }],
   // Base Postgres (Supabase, session pooler) via Hyperdrive : pool de connexions et TLS gérés par Cloudflare.
-  "hyperdrive": [{ "binding": "HYPERDRIVE", "id": "ee7b3b714c234c3fa5413fd3d3fb10f0" }],
+  // localConnectionString : exigé par wrangler pour l'émulation locale (build, wrangler dev), jamais utilisé en production.
+  "hyperdrive": [
+    {
+      "binding": "HYPERDRIVE",
+      "id": "ee7b3b714c234c3fa5413fd3d3fb10f0",
+      "localConnectionString": "postgres://koda:koda@localhost:5432/postgres"
+    }
+  ],
   // Cache ISR (pages et données) : bucket R2 créé par le workflow de déploiement.
   "r2_buckets": [{ "binding": "NEXT_INC_CACHE_R2_BUCKET", "bucket_name": "kodaclothing-next-cache" }],
   // File de revalidation + cache des tags : Durable Objects SQLite, inclus dans le plan gratuit.
