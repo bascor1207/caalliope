@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { setFlagValue } from "@/app/actions";
 import { OptimisticSwitch } from "@/components/optimistic-switch";
 import { Sections } from "@/components/sections";
-import { getSmtpSettings, getSocialSettings } from "@/lib/settings";
+import { DEFAULT_SOCIAL, getSmtpSettings, getSocialSettings } from "@/lib/settings";
 import { listFlags } from "@/lib/users";
 import { MaintenanceForm, SmtpForm, SocialForm } from "./settings-forms";
 
@@ -15,8 +15,39 @@ const LABELS: Record<string, string> = {
   "auth.apple": "Connexion avec Apple",
 };
 
+/** Chaque bloc charge ses données à part : une lecture qui échoue n'emporte pas toute la page et dit pourquoi. */
+async function safe<T>(
+  label: string,
+  load: () => Promise<T>,
+  fallback: T,
+): Promise<{ value: T; error: string | null }> {
+  try {
+    return { value: await load(), error: null };
+  } catch (e) {
+    const message = e instanceof Error ? `${e.name}: ${e.message}` : String(e);
+    console.error(`[admin] ${label} :`, e);
+    return { value: fallback, error: message };
+  }
+}
+
+function LoadError({ what, error }: { what: string; error: string | null }) {
+  if (!error) return null;
+  return (
+    <p role="alert" className="mb-5 rounded-[12px] border border-danger/30 bg-danger/10 p-3 text-sm text-danger">
+      {what} : lecture impossible. <code className="break-all text-xs">{error}</code>
+    </p>
+  );
+}
+
 export default async function SettingsPage() {
-  const [flags, smtp, social] = await Promise.all([listFlags(), getSmtpSettings(), getSocialSettings()]);
+  const [flagsR, smtpR, socialR] = await Promise.all([
+    safe("feature flags", listFlags, []),
+    safe("réglages SMTP", getSmtpSettings, null),
+    safe("réseaux sociaux", getSocialSettings, DEFAULT_SOCIAL),
+  ]);
+  const flags = flagsR.value;
+  const smtp = smtpR.value;
+  const social = socialR.value;
   return (
     <main className="mx-auto w-full max-w-[1400px] px-5 pt-5 pb-10 md:px-9 md:pt-6 md:pb-12">
       <header className="flex flex-wrap items-end justify-between gap-4">
@@ -43,6 +74,7 @@ export default async function SettingsPage() {
                     Les newsletters partent de cette boîte, en ton nom. Pour l'instant : bcorre.work@gmail.com ; plus
                     tard la boîte KODA. Gmail accepte environ 500 destinataires par jour (2 000 en Google Workspace).
                   </p>
+                  <LoadError what="Boîte d'envoi" error={smtpR.error} />
                   <SmtpForm current={smtp} hasPassword={Boolean(smtp?.pass)} />
                 </section>
               </>
@@ -60,6 +92,7 @@ export default async function SettingsPage() {
                   <p className="mt-1 mb-6 text-sm text-muted">
                     Repris dans le pied de page de la boutique et ses données SEO.
                   </p>
+                  <LoadError what="Réseaux sociaux" error={socialR.error} />
                   <SocialForm current={social} />
                 </section>
               </>
@@ -74,6 +107,7 @@ export default async function SettingsPage() {
                   <h2 id="flags-title" className="mb-5 text-[19px] font-semibold tracking-[-0.02em]">
                     Fonctionnalités
                   </h2>
+                  <LoadError what="Fonctionnalités" error={flagsR.error} />
                   {flags.length === 0 ? (
                     <p className="text-[15px] text-muted">Base de données absente : aucun réglage disponible.</p>
                   ) : (
