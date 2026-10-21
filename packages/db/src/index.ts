@@ -22,16 +22,23 @@ export function setDatabaseUrlResolver(fn: (() => string | undefined) | null): v
  * Sur Cloudflare Workers (OpenNext), le contexte de la requête (bindings compris) est exposé sur un symbole global :
  * on y lit la chaîne de connexion Hyperdrive sans dépendre du paquet OpenNext (ce module sert aussi à l'admin sur Vercel).
  */
-const hyperdriveUrl = (): string | undefined => {
+interface CloudflareContext {
+  env?: { HYPERDRIVE?: { connectionString?: string } };
+  ctx?: { waitUntil?: (p: Promise<unknown>) => void };
+}
+
+/** Contexte de la requête en cours sur Workers (objet propre à chaque requête), `undefined` ailleurs. */
+const cloudflareContext = (): CloudflareContext | undefined => {
   try {
-    const ctx = (globalThis as Record<symbol, unknown>)[Symbol.for("__cloudflare-context__")] as
-      | { env?: { HYPERDRIVE?: { connectionString?: string } } }
+    return (globalThis as Record<symbol, unknown>)[Symbol.for("__cloudflare-context__")] as
+      | CloudflareContext
       | undefined;
-    return ctx?.env?.HYPERDRIVE?.connectionString || undefined;
   } catch {
     return undefined;
   }
 };
+
+const hyperdriveUrl = (): string | undefined => cloudflareContext()?.env?.HYPERDRIVE?.connectionString || undefined;
 
 const resolveUrl = (): string | undefined => {
   try {
@@ -41,16 +48,30 @@ const resolveUrl = (): string | undefined => {
   }
 };
 
+const OPTIONS = { prepare: false, connect_timeout: 10, fetch_types: false } as const;
+/** Sur Workers : un client par requête, car un socket ouvert pour une requête est inutilisable (blocage) par une autre. */
+const perRequest = new WeakMap<object, Sql>();
+
 /**
- * Client Postgres partagé (driver `postgres`), pensé pour les poolers (Supabase, Hyperdrive) :
- * pas de requêtes préparées, peu de connexions, un client par chaîne de connexion, créé à la première requête.
+ * Client Postgres (driver `postgres`), pensé pour les poolers (Supabase, Hyperdrive) : pas de requêtes préparées,
+ * peu de connexions. Partagé par processus sur Node (Vercel, scripts) ; propre à la requête sur Cloudflare Workers,
+ * où Hyperdrive tient le vrai pool et où le runtime interdit de réutiliser les E/S d'une requête terminée.
  */
 export function getSql(env: NodeJS.ProcessEnv = process.env): Sql {
   const url = resolveUrl() ?? env.DATABASE_URL ?? env.POSTGRES_URL;
   if (!url) throw new Error("DATABASE_URL manquante : la base Postgres n'est pas configurée.");
+  const cf = cloudflareContext();
+  if (cf) {
+    let client = perRequest.get(cf);
+    if (!client) {
+      client = postgres(url, { ...OPTIONS, max: 2, idle_timeout: 5 });
+      perRequest.set(cf, client);
+    }
+    return client;
+  }
   let client = clients.get(url);
   if (!client) {
-    client = postgres(url, { prepare: false, max: 3, idle_timeout: 20, connect_timeout: 10, fetch_types: false });
+    client = postgres(url, { ...OPTIONS, max: 3, idle_timeout: 20 });
     clients.set(url, client);
   }
   return client;
