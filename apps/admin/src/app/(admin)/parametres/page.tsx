@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
-import { setFlagValue } from "@/app/actions";
-import { OptimisticSwitch } from "@/components/optimistic-switch";
 import { Sections } from "@/components/sections";
 import { DEFAULT_SOCIAL, getSmtpSettings, getSocialSettings } from "@/lib/settings";
 import { listFlags } from "@/lib/users";
+import { FlagSwitch } from "./flag-switch";
 import { MaintenanceForm, SmtpForm, SocialForm } from "./settings-forms";
 
 export const metadata: Metadata = { title: "Réglages" };
@@ -123,12 +122,7 @@ export default async function SettingsPage() {
                               <code className="rounded bg-ink/6 px-1.5 py-0.5 text-xs">{f.key}</code> · {f.description}
                             </span>
                           </div>
-                          <OptimisticSwitch
-                            checked={f.enabled}
-                            label={LABELS[f.key] ?? f.key}
-                            action={setFlagValue.bind(null, f.key)}
-                            successMessage={(on) => `${LABELS[f.key] ?? f.key} : ${on ? "activé" : "désactivé"}.`}
-                          />
+                          <FlagSwitch flagKey={f.key} label={LABELS[f.key] ?? f.key} checked={f.enabled} />
                         </li>
                       ))}
                     </ul>
