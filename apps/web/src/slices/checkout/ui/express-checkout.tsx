@@ -7,7 +7,7 @@ import {
   type StripeExpressCheckoutElementConfirmEvent,
 } from "@stripe/stripe-js";
 import { useLocale, useTranslations } from "next-intl";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "@/i18n/navigation";
 import { eventBus } from "@/shared/event-bus";
 import { useBusEvent } from "@/shared/event-bus/use-bus-event";
@@ -37,7 +37,7 @@ export function ExpressCheckout({ publishableKey }: { publishableKey: string }) 
   const locale = useLocale() as Locale;
   const [selection, setSelection] = useState<Selection | null>(null);
   useBusEvent("catalog.selection-changed", setSelection);
-  const stripePromise = useMemo(() => loadStripe(publishableKey, { locale }), [publishableKey, locale]);
+  const stripePromise = useMemo(() => loadStripe(publishableKey), [publishableKey]);
   if (!selection) return null;
   const totals = totalsFor([{ qty: 1, unitPrice: selection.unitPrice }]);
   return (
@@ -48,7 +48,7 @@ export function ExpressCheckout({ publishableKey }: { publishableKey: string }) 
         amount: toCents(totals.total),
         currency: "eur",
         locale,
-        appearance: { variables: { borderRadius: "14px", fontFamily: "inherit" } },
+        appearance: { variables: { borderRadius: "14px" } },
       }}
     >
       <ExpressButtons selection={selection} totals={totals} locale={locale} />
@@ -88,7 +88,29 @@ function ExpressButtons({ selection, totals, locale }: { selection: Selection; t
   const [busy, setBusy] = useState(false);
   /** Diagnostic (`?debug` dans l'URL) : état du composant Stripe et portefeuilles détectés. */
   const [diag, setDiag] = useState("chargement…");
+  const [caught, setCaught] = useState<string[]>([]);
   const debug = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("debug");
+
+  /* Diagnostic : on capte les erreurs (console, exceptions, promesses) pendant que Stripe se charge. */
+  useEffect(() => {
+    if (!debug) return;
+    const push = (m: string) => setCaught((l) => [...l.slice(-5), m.slice(0, 220)]);
+    const original = console.error;
+    console.error = (...args: unknown[]) => {
+      push(`console: ${args.map((a) => (a instanceof Error ? a.message : String(a))).join(" ")}`);
+      original(...args);
+    };
+    const onError = (e: ErrorEvent) => push(`error: ${e.message}`);
+    const onRejection = (e: PromiseRejectionEvent) =>
+      push(`promise: ${e.reason instanceof Error ? e.reason.message : String(e.reason)}`);
+    window.addEventListener("error", onError);
+    window.addEventListener("unhandledrejection", onRejection);
+    return () => {
+      console.error = original;
+      window.removeEventListener("error", onError);
+      window.removeEventListener("unhandledrejection", onRejection);
+    };
+  }, [debug]);
   const shippingRate = {
     id: "standard",
     amount: toCents(totals.shipping),
@@ -213,9 +235,15 @@ function ExpressButtons({ selection, totals, locale }: { selection: Selection; t
       )}
       {available && <p className="text-xs text-muted">{t("hint")}</p>}
       {debug && (
-        <p className="rounded-[10px] bg-sand px-3 py-2 font-mono text-xs text-ink-2">
-          stripe express · {diag} · {navigator.userAgent.slice(0, 90)}
-        </p>
+        <div className="grid gap-1 rounded-[10px] bg-sand px-3 py-2 font-mono text-xs text-ink-2">
+          <p>
+            stripe express · {diag} · stripe {stripe ? "ok" : "en attente"} · elements {elements ? "ok" : "en attente"}{" "}
+            · {navigator.userAgent.slice(0, 90)}
+          </p>
+          {caught.map((m) => (
+            <p key={m}>{m}</p>
+          ))}
+        </div>
       )}
     </div>
   );
