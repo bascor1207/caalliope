@@ -2,20 +2,41 @@ import postgres, { type Sql } from "postgres";
 
 export type { Sql };
 
-let client: Sql | null = null;
+const clients = new Map<string, Sql>();
+let resolver: (() => string | undefined) | null = null;
 
-/** Postgres est-il configuré (DATABASE_URL ou POSTGRES_URL) ? */
+/** Postgres est-il configuré (DATABASE_URL ou POSTGRES_URL, ou une source déclarée par `setDatabaseUrlResolver`) ? */
 export const hasDatabase = (env: NodeJS.ProcessEnv = process.env): boolean =>
-  Boolean(env.DATABASE_URL ?? env.POSTGRES_URL);
+  Boolean(resolveUrl(env) ?? env.DATABASE_URL ?? env.POSTGRES_URL);
 
 /**
- * Client Postgres partagé (driver `postgres`), pensé pour le pooler de transactions Supabase :
- * pas de requêtes préparées, peu de connexions, créé à la première requête.
+ * Source d'URL prioritaire, déclarée par l'application : sur Cloudflare Workers la boutique lit la chaîne de
+ * connexion du binding Hyperdrive (pool et TLS gérés par Cloudflare, car `tls.connect` de workerd ne sait pas
+ * monter le STARTTLS de Postgres). Ailleurs (Vercel, build, tests), DATABASE_URL suffit.
+ */
+export function setDatabaseUrlResolver(fn: (() => string | undefined) | null): void {
+  resolver = fn;
+}
+
+const resolveUrl = (env: NodeJS.ProcessEnv): string | undefined => {
+  try {
+    return resolver?.() ?? undefined;
+  } catch {
+    return undefined;
+  }
+};
+
+/**
+ * Client Postgres partagé (driver `postgres`), pensé pour les poolers (Supabase, Hyperdrive) :
+ * pas de requêtes préparées, peu de connexions, un client par chaîne de connexion, créé à la première requête.
  */
 export function getSql(env: NodeJS.ProcessEnv = process.env): Sql {
-  if (client) return client;
-  const url = env.DATABASE_URL ?? env.POSTGRES_URL;
+  const url = resolveUrl(env) ?? env.DATABASE_URL ?? env.POSTGRES_URL;
   if (!url) throw new Error("DATABASE_URL manquante : la base Postgres n'est pas configurée.");
-  client = postgres(url, { prepare: false, max: 3, idle_timeout: 20, connect_timeout: 10 });
+  let client = clients.get(url);
+  if (!client) {
+    client = postgres(url, { prepare: false, max: 3, idle_timeout: 20, connect_timeout: 10 });
+    clients.set(url, client);
+  }
   return client;
 }

@@ -33,7 +33,9 @@ async function readSources(): Promise<{ sources: ProductSource[]; palette: Recor
       return [{ ...data, id: r.id, slug: r.slug }];
     });
     return { sources: sources.length > 0 ? sources : PRODUCT_SOURCES, palette };
-  } catch {
+  } catch (error) {
+    /* Repli sur le catalogue du code, mais jamais en silence : visible dans les journaux du Worker. */
+    console.error("[catalog] lecture Postgres impossible, catalogue statique servi :", error);
     return { sources: PRODUCT_SOURCES, palette: PALETTE };
   }
 }
