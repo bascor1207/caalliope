@@ -26,7 +26,8 @@
     "add": "Ajouter · {price}",
     "added": "Ajouté",
     "soldOut": "{size} épuisé",
-    "close": "Fermer"
+    "close": "Fermer",
+    "soldOutNotify": "Épuisé en {size}. Inscris-toi à la newsletter en bas de page : on te prévient dès le réassort."
   },
   "product": {
     "eyebrow": "{sub}",
@@ -50,7 +51,8 @@
     "lightboxClose": "Fermer",
     "prev": "Photo précédente",
     "next": "Photo suivante",
-    "of": "{current} / {total}"
+    "of": "{current} / {total}",
+    "soldOutNotify": "Épuisé en {size}. Inscris-toi à la newsletter en bas de page : on te prévient dès le réassort."
   },
   "search": {
     "title": "Rechercher une pièce",

@@ -80,7 +80,17 @@ export function registerCheckoutListeners<S extends { checkout: CheckoutState },
       api.extra.bus.publish("checkout.order-placed", {
         ref: order.ref,
         total: order.total,
+        subtotal: order.subtotal,
+        shipping: order.shipping,
+        discount: 0,
         email: order.customer.email,
+        items: order.lines.map((l) => ({
+          productId: l.productId,
+          colorKey: l.colorKey,
+          size: l.size,
+          qty: l.qty,
+          price: l.unitPrice,
+        })),
       });
     },
   });

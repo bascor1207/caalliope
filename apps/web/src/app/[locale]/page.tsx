@@ -66,7 +66,7 @@ export default async function HomePage({ params }: Props) {
       <Community instagram={social.instagram} handle={handleOf(social.instagram)} />
       <Faq locale={locale} />
       <NewsletterSection>
-        <NewsletterForm />
+        <NewsletterForm source="home" />
       </NewsletterSection>
     </>
   );

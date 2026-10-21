@@ -16,6 +16,7 @@ import { emptyProduct, type ProductData, slugify, validateProduct } from "@/lib/
 import { getAnnouncement, getBanners, getMedia, saveAnnouncement, saveBanners, saveMedia } from "@/lib/marketing";
 import {
   createCampaign,
+  deleteCampaign,
   getCampaign,
   listCampaigns,
   listSubscribers,
@@ -48,7 +49,7 @@ const handler = createMcpHandler(
       {
         title: "Statistiques de la boutique",
         description:
-          "Synthèse d'audience et de ventes sur 7, 30 ou 90 jours : visites, pages vues, parcours d'achat (visites distinctes par étape), produits, clics, frictions, chiffre d'affaires.",
+          "Synthèse d'audience et de ventes sur 7, 30 ou 90 jours : visites, pages vues, parcours d'achat (visites distinctes par étape), produits, clics, frictions, chiffre d'affaires, et les ventilations déjà calculées : `colors` (vues, ajouts, commandes par produit et coloris), `sizes` (tailles choisies et ajoutées), `soldOutClicks` (clics sur ruptures par produit, coloris et taille), `baskets` (panier moyen, articles par commande, part des commandes multi-articles), `sources` et `campaigns` (visites, commandes et CA par utm_source / referrer / utm_campaign), `promos` (par code), `cart` (ouvertures, retraits), `newsletterSignups` (par origine). Le trafic de l'équipe est exclu à la source.",
         inputSchema: z.object({ days: z.number().int().optional().describe("7, 30 ou 90 (défaut 30)") }),
       },
       async ({ days }) => json(await loadSummary(isPeriod(days) ? (days as Period) : 30)),
@@ -344,6 +345,18 @@ const handler = createMcpHandler(
       "list_campaigns",
       { title: "Lister les campagnes", description: "Brouillons et campagnes envoyées.", inputSchema: z.object({}) },
       async () => json(await listCampaigns()),
+    );
+    server.registerTool(
+      "delete_campaign",
+      {
+        title: "Supprimer une campagne",
+        description: "Supprime un brouillon ou une campagne envoyée (son historique d'envois avec).",
+        inputSchema: z.object({ id: z.string() }),
+      },
+      async ({ id }) => {
+        await deleteCampaign(id);
+        return json({ ok: true, id });
+      },
     );
     server.registerTool(
       "upsert_campaign",

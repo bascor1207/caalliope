@@ -11,7 +11,7 @@ import { type SubscribeFormState, subscribeAction } from "../infrastructure/subs
  * Formulaire progressif (fonctionne sans JS). Rendu optimiste : dès l'envoi d'un e-mail valide, le message
  * de bienvenue s'affiche et le toast part ; si le serveur refuse, on revient au formulaire avec l'erreur.
  */
-export function NewsletterForm() {
+export function NewsletterForm({ source = "footer" }: { source?: string }) {
   const t = useTranslations("newsletter");
   const locale = useLocale();
   const [optimistic, setOptimistic] = useState<string | null>(null);
@@ -19,7 +19,7 @@ export function NewsletterForm() {
     const email = normalizeEmail(String(formData.get("email") ?? ""));
     if (isValidEmail(email)) {
       setOptimistic(displayName(email));
-      eventBus.publish("newsletter.subscribed", { email });
+      eventBus.publish("newsletter.subscribed", { email, source });
     }
     try {
       const result = await subscribeAction(prev, formData);

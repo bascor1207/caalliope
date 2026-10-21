@@ -7,6 +7,7 @@ import { Sections } from "@/components/sections";
 import { isPeriod, loadSummary, PERIODS, type Period } from "@/lib/analytics";
 import { kpisOf } from "@/lib/kpis";
 import { errorLabel, labelled, localeLabel, productLabel, trackLabel } from "@/lib/labels";
+import { shopUrl } from "@/lib/newsletter";
 
 /** Toujours calculé à la demande : les chiffres lus sont ceux du store à l'instant T. */
 export const dynamic = "force-dynamic";
@@ -25,6 +26,21 @@ export default async function Dashboard({ searchParams }: Props) {
   const products = Object.keys({ ...s.productViews, ...s.addToCart }).map(
     (id) => [id, s.productViews[id] ?? 0, s.addToCart[id] ?? 0] as const,
   );
+  const colors = Object.values(s.colors)
+    .sort((a, b) => b.units - a.units || b.addToCart - a.addToCart || b.views - a.views)
+    .slice(0, 12);
+  const sources = Object.entries(s.sources).sort(
+    (a, b) => b[1].revenue - a[1].revenue || b[1].sessions - a[1].sessions,
+  );
+  const eur = (n: number) => new Intl.NumberFormat("fr-FR", { style: "currency", currency: "EUR" }).format(n);
+  const soldOutLabel = (key: string) => {
+    const [productId, colorKey, size] = key.split("|");
+    return `${productLabel(productId)} · ${colorKey} · ${size}`;
+  };
+  const sizeLabel = (key: string) => {
+    const [productId, size] = key.split("|");
+    return `${productLabel(productId)} · ${size}`;
+  };
 
   return (
     <main className="mx-auto w-full max-w-[1400px] px-5 pt-5 pb-10 md:px-9 md:pt-6 md:pb-12">
@@ -41,7 +57,16 @@ export default async function Dashboard({ searchParams }: Props) {
             <LiveFeed />
           </div>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
+          <a
+            href={`${shopUrl()}/?koda_internal=1`}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-ghost text-sm"
+            title="Ouvre la boutique en marquant ce navigateur comme interne : ses visites ne seront plus comptées."
+          >
+            Exclure mon navigateur
+          </a>
           <nav aria-label="Période" className="inline-flex rounded-full bg-ink/6 p-1 text-sm font-semibold">
             {PERIODS.map((d) => (
               <Link
@@ -151,6 +176,160 @@ export default async function Dashboard({ searchParams }: Props) {
                         </tbody>
                       </table>
                     )}
+                  </Panel>
+                </div>
+              </>
+            ),
+          },
+          {
+            id: "ventes",
+            label: "Ventes & réassort",
+            children: (
+              <>
+                <div className="mt-8 grid gap-5 md:gap-6 lg:grid-cols-2">
+                  <Panel title="Par coloris" hint="fiches vues, ajouts au panier et commandes : la base des réassorts">
+                    {colors.length === 0 ? (
+                      <p className="text-[15px] text-muted">Aucune donnée par coloris sur la période.</p>
+                    ) : (
+                      <table className="w-full text-[15px]">
+                        <thead className="text-left text-sm text-muted">
+                          <tr>
+                            <th scope="col" className="pb-2 font-medium">
+                              Produit · coloris
+                            </th>
+                            <th scope="col" className="pb-2 text-right font-medium">
+                              Vues
+                            </th>
+                            <th scope="col" className="pb-2 text-right font-medium">
+                              Ajouts
+                            </th>
+                            <th scope="col" className="pb-2 text-right font-medium">
+                              Commandes
+                            </th>
+                            <th scope="col" className="pb-2 text-right font-medium">
+                              Conversion
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {colors.map((c) => (
+                            <tr key={`${c.productId}|${c.colorKey}`} className="border-t border-line">
+                              <td className="py-3 pr-3 font-medium">
+                                {productLabel(c.productId)} <span className="text-muted">· {c.colorKey}</span>
+                              </td>
+                              <td className="py-3 text-right tabular-nums">{c.views}</td>
+                              <td className="py-3 text-right tabular-nums">{c.addToCart}</td>
+                              <td className="py-3 text-right tabular-nums">{c.units}</td>
+                              <td className="py-3 text-right tabular-nums">
+                                {c.views ? `${Math.round((c.orders / c.views) * 100)} %` : "–"}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    )}
+                  </Panel>
+                  <Panel title="Demande non servie" hint="clics sur une taille épuisée : ce qu'il faut réassortir">
+                    <RankTable
+                      rows={top(s.soldOutClicks, 10).map(([k, v]) => [soldOutLabel(k), v])}
+                      label="Produit · coloris · taille"
+                      valueLabel="Clics"
+                      empty="Aucun clic sur une rupture."
+                    />
+                    <h3 className="eyebrow mt-7 mb-3">Tailles ajoutées au panier</h3>
+                    <RankTable
+                      rows={Object.entries(s.sizes)
+                        .map(([k, v]) => [sizeLabel(k), v.addToCart] as [string, number])
+                        .filter(([, v]) => v > 0)
+                        .sort((a, b) => b[1] - a[1])
+                        .slice(0, 8)}
+                      label="Produit · taille"
+                      valueLabel="Ajouts"
+                      empty="Aucun ajout."
+                    />
+                  </Panel>
+                  <Panel title="Panier" hint="valeur et composition des commandes">
+                    <dl className="grid grid-cols-2 gap-4 text-[15px] sm:grid-cols-4">
+                      <div>
+                        <dt className="text-sm text-muted">Panier moyen</dt>
+                        <dd className="mt-1 font-display text-2xl font-bold">{eur(s.baskets.averageBasket)}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-sm text-muted">Articles / commande</dt>
+                        <dd className="mt-1 font-display text-2xl font-bold">{s.baskets.itemsPerOrder || "–"}</dd>
+                      </div>
+                      <div>
+                        <dt className="text-sm text-muted">Commandes multi-articles</dt>
+                        <dd className="mt-1 font-display text-2xl font-bold">
+                          {s.baskets.orders ? `${Math.round(s.baskets.multiItemShare * 100)} %` : "–"}
+                        </dd>
+                      </div>
+                      <div>
+                        <dt className="text-sm text-muted">Paniers ouverts · retraits</dt>
+                        <dd className="mt-1 font-display text-2xl font-bold">
+                          {s.cart.views} · {s.cart.removals}
+                        </dd>
+                      </div>
+                    </dl>
+                    <h3 className="eyebrow mt-7 mb-3">Codes promo</h3>
+                    <RankTable
+                      rows={Object.entries(s.promos).map(
+                        ([k, v]) => [`${k} (${eur(v.revenue)})`, v.orders] as [string, number],
+                      )}
+                      label="Code"
+                      valueLabel="Commandes"
+                      empty="Aucun code promo utilisé."
+                    />
+                  </Panel>
+                  <Panel title="D'où viennent les ventes" hint="utm_source, sinon site d'origine, sinon direct">
+                    <table className="w-full text-[15px]">
+                      <thead className="text-left text-sm text-muted">
+                        <tr>
+                          <th scope="col" className="pb-2 font-medium">
+                            Source
+                          </th>
+                          <th scope="col" className="pb-2 text-right font-medium">
+                            Visites
+                          </th>
+                          <th scope="col" className="pb-2 text-right font-medium">
+                            Commandes
+                          </th>
+                          <th scope="col" className="pb-2 text-right font-medium">
+                            CA
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {sources.map(([name, v]) => (
+                          <tr key={name} className="border-t border-line">
+                            <td className="py-3 pr-3 font-medium">{name}</td>
+                            <td className="py-3 text-right tabular-nums">{v.sessions}</td>
+                            <td className="py-3 text-right tabular-nums">{v.orders}</td>
+                            <td className="py-3 text-right tabular-nums">{eur(v.revenue)}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                    {Object.keys(s.campaigns).length > 0 && (
+                      <>
+                        <h3 className="eyebrow mt-7 mb-3">Campagnes (utm_campaign)</h3>
+                        <RankTable
+                          rows={Object.entries(s.campaigns).map(
+                            ([k, v]) => [`${k} (${eur(v.revenue)})`, v.sessions] as [string, number],
+                          )}
+                          label="Campagne"
+                          valueLabel="Visites"
+                          empty="–"
+                        />
+                      </>
+                    )}
+                    <h3 className="eyebrow mt-7 mb-3">Inscriptions newsletter</h3>
+                    <RankTable
+                      rows={top(s.newsletterSignups, 5)}
+                      label="Origine"
+                      valueLabel="Inscrits"
+                      empty="Aucune inscription."
+                    />
                   </Panel>
                 </div>
               </>

@@ -58,9 +58,16 @@ export function QuickAdd({ product, colorKey }: Props) {
       <button
         key={size}
         type="button"
-        disabled={!available}
+        aria-disabled={!available}
         aria-label={available ? t("addSize", { size }) : t("soldOut", { size })}
-        onClick={() => add(size)}
+        onClick={() => {
+          if (!available) {
+            eventBus.publish("catalog.soldout-clicked", { productId: product.id, colorKey: color.key, size });
+            eventBus.publish("ui.notify", { text: t("soldOutNotify", { size }), tone: "error" });
+            return;
+          }
+          add(size);
+        }}
         data-track="card.quick-add"
         className={cn(
           "grid place-items-center rounded-full font-bold transition-[background-color,color,transform] duration-200",

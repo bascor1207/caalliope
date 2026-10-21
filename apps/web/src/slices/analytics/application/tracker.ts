@@ -41,13 +41,23 @@ export function bindAnalyticsToBus(bus: EventBus, tracker: Tracker): Unsubscribe
       tracker.track("product_view", { productId: p.productId, colorKey: p.colorKey }),
     ),
     bus.subscribe("catalog.product-chosen", (p) =>
-      tracker.track("product_chosen", {
+      tracker.track("add_to_cart", {
         productId: p.productId,
         colorKey: p.colorKey,
         size: p.size,
-        unitPrice: p.unitPrice,
-        source: p.source ?? "pdp",
+        price: p.unitPrice,
+        qty: p.qty,
+        from: p.source ?? "pdp",
       }),
+    ),
+    bus.subscribe("catalog.size-selected", (p) =>
+      tracker.track("size_selected", { productId: p.productId, colorKey: p.colorKey, size: p.size }),
+    ),
+    bus.subscribe("catalog.soldout-clicked", (p) =>
+      tracker.track("soldout_click", { productId: p.productId, colorKey: p.colorKey, size: p.size }),
+    ),
+    bus.subscribe("cart.line-removed", (p) =>
+      tracker.track("remove_from_cart", { productId: p.productId, colorKey: p.colorKey, size: p.size, qty: p.qty }),
     ),
     bus.subscribe("catalog.search-performed", (p) => {
       /* La même requête arrive deux fois (saisie dans l'en-tête puis page de résultats) : une seule mesure. */
@@ -56,13 +66,22 @@ export function bindAnalyticsToBus(bus: EventBus, tracker: Tracker): Unsubscribe
       lastSearch = { query: key, at: Date.now() };
       tracker.track("search", { query: p.query, results: p.results });
     }),
-    bus.subscribe("cart.open-requested", () => tracker.track("cart_opened")),
+    bus.subscribe("cart.open-requested", () => tracker.track("cart_view")),
     bus.subscribe("checkout.started", (p) => tracker.track("checkout_started", { count: p.count, total: p.total })),
     bus.subscribe("checkout.failed", (p) => tracker.track("checkout_failed", { code: p.code })),
     bus.subscribe("checkout.order-placed", (p) =>
-      tracker.track("order_placed", { total: p.total, express: Boolean(p.express) }),
+      tracker.track("order_placed", {
+        orderId: p.ref,
+        total: p.total,
+        subtotal: p.subtotal,
+        shipping: p.shipping,
+        discount: p.discount,
+        promoCode: p.promoCode ?? "",
+        express: Boolean(p.express),
+        items: p.items,
+      }),
     ),
-    bus.subscribe("newsletter.subscribed", () => tracker.track("newsletter_subscribed")),
+    bus.subscribe("newsletter.subscribed", (p) => tracker.track("newsletter_signup", { source: p.source })),
     bus.subscribe("app.error-caught", (p) => tracker.track("page_error", { digest: p.digest, message: p.message })),
   ];
   return () => {

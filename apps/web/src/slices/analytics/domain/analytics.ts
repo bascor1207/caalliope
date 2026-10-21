@@ -34,6 +34,57 @@ export const OPT_OUT_KEY = "koda.analytics";
 /** Clé locale posée par la slice auth : un admin connecté n'alimente pas les statistiques. */
 export const ROLE_KEY = "koda.role";
 
-/** Opposition à la mesure d'audience (stockée localement, jamais envoyée), ou utilisateur admin connecté. */
-export const isOptedOut = (storage: Pick<Storage, "getItem"> | null): boolean =>
-  storage?.getItem(OPT_OUT_KEY) === "off" || storage?.getItem(ROLE_KEY) === "admin";
+/** Navigateur de l'équipe (`?koda_internal=1` une fois, ou cookie `koda_internal=1`) : jamais compté. */
+export const INTERNAL_KEY = "koda.internal";
+
+/** Opposition à la mesure d'audience (stockée localement, jamais envoyée), admin connecté ou navigateur interne. */
+export const isOptedOut = (storage: Pick<Storage, "getItem"> | null, cookie = ""): boolean =>
+  storage?.getItem(OPT_OUT_KEY) === "off" ||
+  storage?.getItem(ROLE_KEY) === "admin" ||
+  storage?.getItem(INTERNAL_KEY) === "1" ||
+  /(?:^|;\s*)koda_internal=1(?:;|$)/.test(cookie);
+
+export interface Attribution {
+  source: string;
+  medium: string;
+  campaign: string;
+  referrer: string;
+}
+
+const ATTRIBUTION_KEY = "koda.source";
+
+/**
+ * Provenance de la session, figée au premier chargement (premier contact) : utm_* de l'URL et referrer.
+ * Renvoie `{ attribution, isNew }` ; `isNew` déclenche l'événement `session_start`.
+ */
+export function attributionFrom(
+  storage: Pick<Storage, "getItem" | "setItem"> | null,
+  search: string,
+  referrer: string,
+  host: string,
+): { attribution: Attribution; isNew: boolean } {
+  const existing = storage?.getItem(ATTRIBUTION_KEY);
+  if (existing) {
+    try {
+      return { attribution: JSON.parse(existing) as Attribution, isNew: false };
+    } catch {
+      /* valeur illisible : on recalcule */
+    }
+  }
+  const params = new URLSearchParams(search);
+  let ref = "";
+  try {
+    const u = referrer ? new URL(referrer) : null;
+    ref = u && u.hostname !== host ? u.origin : "";
+  } catch {
+    ref = "";
+  }
+  const attribution: Attribution = {
+    source: (params.get("utm_source") ?? "").slice(0, 60),
+    medium: (params.get("utm_medium") ?? "").slice(0, 60),
+    campaign: (params.get("utm_campaign") ?? "").slice(0, 80),
+    referrer: ref,
+  };
+  storage?.setItem(ATTRIBUTION_KEY, JSON.stringify(attribution));
+  return { attribution, isNew: true };
+}

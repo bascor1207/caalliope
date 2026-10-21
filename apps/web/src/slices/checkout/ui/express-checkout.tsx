@@ -210,7 +210,17 @@ function ExpressButtons({
     eventBus.publish("checkout.order-placed", {
       ref: result.order.ref,
       total: result.order.total,
+      subtotal: result.order.subtotal,
+      shipping: result.order.shipping,
+      discount: 0,
       email: customer.email,
+      items: result.order.lines.map((l) => ({
+        productId: l.productId,
+        colorKey: l.colorKey,
+        size: l.size,
+        qty: l.qty,
+        price: l.unitPrice,
+      })),
       express: true,
     });
     startNavigation();

@@ -5,7 +5,7 @@ import { useLocale } from "next-intl";
 import { useEffect, useRef, useSyncExternalStore } from "react";
 import { eventBus } from "@/shared/event-bus";
 import { bindAnalyticsToBus, createTracker, type Tracker } from "../application/tracker";
-import { clickTarget, isOptedOut, sessionIdFrom } from "../domain/analytics";
+import { attributionFrom, clickTarget, INTERNAL_KEY, isOptedOut, sessionIdFrom } from "../domain/analytics";
 import { beaconTransport } from "../infrastructure/beacon.transport";
 
 const safeStorage = (kind: "sessionStorage" | "localStorage") => {
@@ -35,9 +35,19 @@ export function AnalyticsProvider() {
   /* Opposition ou admin connecté : réévalué dès que la session ou la préférence change. */
   const blocked = useSyncExternalStore(
     subscribeBlocked,
-    () => isOptedOut(safeStorage("localStorage")),
+    () => isOptedOut(safeStorage("localStorage"), document.cookie),
     () => true,
   );
+
+  /* `?koda_internal=1` une fois : ce navigateur (équipe, tests) est exclu des statistiques pour de bon. */
+  useEffect(() => {
+    if (!new URLSearchParams(window.location.search).has("koda_internal")) return;
+    const value = new URLSearchParams(window.location.search).get("koda_internal");
+    const storage = safeStorage("localStorage");
+    if (value === "0") storage?.removeItem(INTERNAL_KEY);
+    else storage?.setItem(INTERNAL_KEY, "1");
+    window.dispatchEvent(new Event("koda:analytics-opt-out"));
+  }, []);
 
   useEffect(() => {
     if (blocked) return;
@@ -48,6 +58,14 @@ export function AnalyticsProvider() {
       now: () => new Date().toISOString(),
     });
     tracker.current = t;
+    /* Provenance : figée au premier contact de la session, envoyée une fois (session_start). */
+    const { attribution, isNew } = attributionFrom(
+      safeStorage("sessionStorage"),
+      window.location.search,
+      document.referrer,
+      window.location.hostname,
+    );
+    if (isNew) t.track("session_start", { ...attribution });
     const unbind = bindAnalyticsToBus(eventBus, t);
     const onHide = () => {
       if (document.visibilityState === "hidden") t.flush();

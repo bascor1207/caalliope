@@ -26,7 +26,8 @@
     "add": "Add · {price}",
     "added": "Added",
     "soldOut": "{size} sold out",
-    "close": "Close"
+    "close": "Close",
+    "soldOutNotify": "Sold out in {size}. Join the newsletter at the bottom of the page: we will tell you when it is back."
   },
   "product": {
     "eyebrow": "{sub}",
@@ -50,7 +51,8 @@
     "lightboxClose": "Close",
     "prev": "Previous photo",
     "next": "Next photo",
-    "of": "{current} / {total}"
+    "of": "{current} / {total}",
+    "soldOutNotify": "Sold out in {size}. Join the newsletter at the bottom of the page: we will tell you when it is back."
   },
   "search": {
     "title": "Search for a piece",

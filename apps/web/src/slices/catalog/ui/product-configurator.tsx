@@ -259,12 +259,23 @@ export function ProductConfigurator({ product: initial, initialColorKey, express
                 <button
                   key={s}
                   type="button"
-                  disabled={!available}
+                  aria-disabled={!available}
                   aria-pressed={s === size}
                   aria-label={available ? s : t("soldOut", { size: s })}
                   onClick={() => {
+                    if (!available) {
+                      /* Rupture cliquée : demande non servie, mesurée ; on oriente vers la newsletter. */
+                      eventBus.publish("catalog.soldout-clicked", {
+                        productId: product.id,
+                        colorKey: color.key,
+                        size: s,
+                      });
+                      eventBus.publish("ui.notify", { text: t("soldOutNotify", { size: s }), tone: "error" });
+                      return;
+                    }
                     setSize(s);
                     setError(null);
+                    eventBus.publish("catalog.size-selected", { productId: product.id, colorKey: color.key, size: s });
                   }}
                   className={cn(
                     "min-w-[52px] rounded-[10px] border-[1.5px] border-line px-3 py-2.5 text-sm font-semibold transition-[background-color,border-color,color] duration-200 hover:border-ink",

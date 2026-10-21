@@ -93,7 +93,16 @@ describe("bus ↔ store", () => {
       unitPrice: 10,
       qty: 1,
     });
-    bus.publish("checkout.order-placed", { ref: "KODA-9", total: 63.9, email: "a@b.fr", express: true });
+    bus.publish("checkout.order-placed", {
+      ref: "KODA-9",
+      total: 63.9,
+      subtotal: 59,
+      shipping: 4.9,
+      discount: 0,
+      email: "a@b.fr",
+      items: [{ productId: "p", colorKey: "c", size: "M", qty: 1, price: 59 }],
+      express: true,
+    });
     expect(selectLines(store.getState())).toHaveLength(1);
   });
 
@@ -112,7 +121,15 @@ describe("bus ↔ store", () => {
       qty: 2,
     });
     expect(selectLines(store.getState())).toHaveLength(1);
-    bus.publish("checkout.order-placed", { ref: "KODA-1001", total: 20, email: "a@b.fr" });
+    bus.publish("checkout.order-placed", {
+      ref: "KODA-1001",
+      total: 20,
+      subtotal: 20,
+      shipping: 0,
+      discount: 0,
+      email: "a@b.fr",
+      items: [],
+    });
     expect(selectLines(store.getState())).toHaveLength(0);
     expect(store.getState().notifications.toasts.at(-1)).toMatchObject({ kind: "order-placed" });
   });

@@ -70,12 +70,9 @@ export function CheckoutForm({ lines, totals, prefill = {} }: Props) {
 
   useEffect(() => () => void dispatch(checkoutReset()), [dispatch]);
   const count = lines.reduce((n, l) => n + l.qty, 0);
-  // biome-ignore lint/correctness/useExhaustiveDependencies: un seul fait "commande démarrée" par affichage du formulaire.
-  useEffect(() => {
-    if (count > 0) eventBus.publish("checkout.started", { count, total: totals.total });
-  }, []);
-
   const submit = async (formData: FormData) => {
+    /* « Paiement démarré » = clic sur le bouton, pas l'affichage de la page : c'est le vrai signal d'intention. */
+    eventBus.publish("checkout.started", { count, total: totals.total });
     const customer = Object.fromEntries(
       (["email", "firstName", "lastName", "address", "zip", "city"] as const).map((k) => [
         k,
