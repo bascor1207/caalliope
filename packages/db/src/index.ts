@@ -18,11 +18,26 @@ export function setDatabaseUrlResolver(fn: (() => string | undefined) | null): v
   resolver = fn;
 }
 
-const resolveUrl = (env: NodeJS.ProcessEnv): string | undefined => {
+/**
+ * Sur Cloudflare Workers (OpenNext), le contexte de la requête (bindings compris) est exposé sur un symbole global :
+ * on y lit la chaîne de connexion Hyperdrive sans dépendre du paquet OpenNext (ce module sert aussi à l'admin sur Vercel).
+ */
+const hyperdriveUrl = (): string | undefined => {
   try {
-    return resolver?.() ?? undefined;
+    const ctx = (globalThis as Record<symbol, unknown>)[Symbol.for("__cloudflare-context__")] as
+      | { env?: { HYPERDRIVE?: { connectionString?: string } } }
+      | undefined;
+    return ctx?.env?.HYPERDRIVE?.connectionString || undefined;
   } catch {
     return undefined;
+  }
+};
+
+const resolveUrl = (env: NodeJS.ProcessEnv): string | undefined => {
+  try {
+    return resolver?.() ?? hyperdriveUrl();
+  } catch {
+    return hyperdriveUrl();
   }
 };
 
@@ -35,7 +50,7 @@ export function getSql(env: NodeJS.ProcessEnv = process.env): Sql {
   if (!url) throw new Error("DATABASE_URL manquante : la base Postgres n'est pas configurée.");
   let client = clients.get(url);
   if (!client) {
-    client = postgres(url, { prepare: false, max: 3, idle_timeout: 20, connect_timeout: 10 });
+    client = postgres(url, { prepare: false, max: 3, idle_timeout: 20, connect_timeout: 10, fetch_types: false });
     clients.set(url, client);
   }
   return client;
