@@ -95,8 +95,7 @@ Mise en place, une seule fois :
 
 Les autres workflows : `supabase-backup.yml` (export `pg_dump` chaque nuit vers R2, car le plan gratuit de Supabase n'a
 pas de sauvegarde), `supabase-keepalive.yml` (une requête par jour pour éviter la mise en pause après 7 jours sans
-activité) et `media-to-r2.yml` (copie des vidéos vers le bucket public, trafic sortant illimité ; adapter ensuite
-`SITE.media` à l'URL publique du bucket). Les secrets absents font simplement sauter l'étape, avec un avertissement.
+activité). Les vidéos de marque sont dans le bucket public `kodaclothing-media` (`SITE.media` pointe sur son URL r2.dev). Les secrets absents font simplement sauter l'étape, avec un avertissement.
 
 En local : `pnpm --filter web preview:cf` construit la boutique pour Workers et la sert avec `wrangler dev`
 (cache R2 et Durable Objects émulés). Limites du plan gratuit : 3 Mo compressés pour le Worker (2,8 Mo aujourd'hui : les images Open Graph sont des

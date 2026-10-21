@@ -1,7 +1,7 @@
 # Médias de marque
 
-Seuls le logo et l'icône vivent ici (servis par le CDN Vercel). Les vidéos sont hébergées sur Supabase Storage
-(bucket public `media`, dossier `marketing/`) et référencées par `src/shared/config/site.ts` (`SITE.media`) ;
+Seuls le logo et l'icône vivent ici (servis par le CDN Vercel). Les vidéos sont hébergées sur Cloudflare R2
+(bucket public `kodaclothing-media`, dossier `marketing/`, trafic sortant illimité) et référencées par `src/shared/config/site.ts` (`SITE.media`) ;
 le back-office (Marketing) permet d'en envoyer d'autres sans toucher au code.
 
 | Fichier          | Usage                                                                     | Recommandation                          |
@@ -9,7 +9,7 @@ le back-office (Marketing) permet d'en envoyer d'autres sans toucher au code.
 | `koda-logo.png`  | Logo rond (photo de profil Instagram) animé dans le loader de navigation  | PNG carré, 512 px                       |
 | `koda-icon.png`  | Favicon et icône iOS : fond uni bleu ciel, lettres agrandies (lisible en 16 px) | PNG carré 512 px, généré depuis le logo |
 
-Vidéos hébergées (Supabase Storage, `marketing/`) :
+Vidéos hébergées (R2, `marketing/`) :
 
 | Fichier          | Usage                                               | Recommandation                                         |
 | ---------------- | --------------------------------------------------- | ------------------------------------------------------ |

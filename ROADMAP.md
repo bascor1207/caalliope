@@ -35,6 +35,7 @@ Suivi des idées et de leur état. Mis à jour à chaque lot livré.
 - Admin mobile : onglets par section (ancres), sous-menus dans la barre latérale, KPI compacts.
 
 - Annonce plein écran (modale) pilotée depuis Marketing et le MCP : avertissement / promo / nouveauté, code copiable, période, vue une fois par visiteur, « réafficher » par version.
+- Boutique hébergée sur Cloudflare Workers (plan gratuit, usage commercial autorisé) via OpenNext : build et déploiement automatiques à chaque push sur `main` (Workers Builds), cache ISR dans R2, secrets posés sur le Worker ; vidéos servies depuis R2 (bucket public, trafic sortant illimité). Vercel conservé pour l'admin.
 - MCP admin branchable dans claude.ai / ChatGPT : serveur OAuth 2.1 sans état (enregistrement dynamique, PKCE, consentement dans l'admin), en plus du jeton fixe.
 - Ajout rapide depuis la collection : rangée de tailles au survol (desktop), bouton « + » et feuille de tailles (mobile), optimiste, toast vert « Voir le panier » ; mesuré (`product_chosen` source `quick`).
 - Achat express Stripe sur la fiche produit : Apple Pay / Google Pay / Link (Express Checkout Element), montant et livraison recalculés côté serveur, commande enregistrée après vérification du paiement (`payment_ref`). Affiché dès que les clés Stripe sont présentes.
@@ -42,8 +43,8 @@ Suivi des idées et de leur état. Mis à jour à chaque lot livré.
 - Animations lissées : cartes « Notre histoire » (survol sur un calque séparé), flou d'en-tête allégé, formes pastel moins coûteuses (2 sur mobile), transitions ciblées.
 
 ## En cours / à configurer par KODA
-- Hébergement 0 € : compte Cloudflare, R2 activé, jetons et secrets GitHub (voir README « Hébergement à 0 € »), puis lancer le workflow « Deploy web (Cloudflare) ». Vercel reste en secours pour la boutique jusqu'à validation ; l'admin reste sur Vercel.
-- Sauvegardes : secret `SUPABASE_DB_URL` + jeton R2 dans GitHub ; vidéos : lancer « Media → R2 » puis me donner l'URL publique du bucket.
+- Cloudflare : valider la boutique sur https://kodaclothing.kodaclothing.workers.dev (navigation, panier, compte, Apple Pay), puis brancher le domaine final sur le Worker (Workers & Pages → kodaclothing → Domaines), mettre à jour `NEXT_PUBLIC_SITE_URL` (variable de build Cloudflare), `SHOP_URL` côté admin (Vercel) et le domaine dans Stripe ; ensuite retirer le projet Vercel de la boutique.
+- Sauvegardes nocturnes : créer un jeton R2 « Object Read & Write » (R2 → Gérer les jetons) et ajouter `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `CLOUDFLARE_ACCOUNT_ID` et `SUPABASE_DB_URL` dans GitHub → Settings → Secrets (le workflow tourne déjà et s'ignore tant qu'ils manquent).
 - Stripe : clés de test en place sur Vercel, domaine `kodaclothing.vercel.app` validé (Apple Pay, Google Pay, Link actifs). Pour encaisser pour de vrai : activer le compte Stripe, remplacer les deux clés par les clés `live`, et ajouter le domaine final.
 - Domaine final à brancher sur Vercel (puis `NEXT_PUBLIC_SITE_URL` à mettre à jour), Google Search Console (sitemap) et Merchant Center (flux).
 - Admin → Catalogue → « Importer le catalogue de la boutique » (une fois le déploiement passé) : les fiches deviennent éditables.

@@ -12,21 +12,21 @@ export const SITE = {
   developer: { name: "GOLEM CORP", url: null as string | null },
   collectionName: "Collection",
   /**
-   * Médias de marque. Les vidéos sont hébergées sur Supabase Storage (bucket `media`, dossier `marketing/`),
+   * Médias de marque. Les vidéos sont hébergées sur Cloudflare R2 (bucket public `kodaclothing-media`, dossier `marketing/`, trafic sortant illimité),
    * jamais dans le dépôt ni dans le bundle ; le back-office (Marketing) peut les remplacer. Logo et icône restent
    * dans public/media/ (voir public/media/README.md). `null` = la section s'affiche sans vidéo.
    */
   media: {
     storyVideo: {
-      src: "https://skmhnhnpssnejjvjhyjo.supabase.co/storage/v1/object/public/media/marketing/koda-story.mp4",
-      poster: "https://skmhnhnpssnejjvjhyjo.supabase.co/storage/v1/object/public/media/marketing/koda-story.jpg",
+      src: "https://pub-af8df0f2ece54610a0bb91f01b8e7fe1.r2.dev/marketing/koda-story.mp4",
+      poster: "https://pub-af8df0f2ece54610a0bb91f01b8e7fe1.r2.dev/marketing/koda-story.jpg",
     } as {
       src: string;
       poster?: string;
     } | null,
     heroVideo: {
-      src: "https://skmhnhnpssnejjvjhyjo.supabase.co/storage/v1/object/public/media/marketing/koda-hero.mp4",
-      poster: "https://skmhnhnpssnejjvjhyjo.supabase.co/storage/v1/object/public/media/marketing/koda-hero.jpg",
+      src: "https://pub-af8df0f2ece54610a0bb91f01b8e7fe1.r2.dev/marketing/koda-hero.mp4",
+      poster: "https://pub-af8df0f2ece54610a0bb91f01b8e7fe1.r2.dev/marketing/koda-hero.jpg",
     } as {
       src: string;
       poster?: string;

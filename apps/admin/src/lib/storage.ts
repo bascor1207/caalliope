@@ -6,13 +6,12 @@ const serviceKey = () => process.env.SUPABASE_SERVICE_ROLE_KEY ?? "";
 
 export const storageConfigured = () => Boolean(url() && serviceKey());
 
-const PUBLIC_BASE = "https://skmhnhnpssnejjvjhyjo.supabase.co";
-
-/** Vidéo de marque livrée dans le bucket public (`marketing/<nom>.mp4` + affiche `.jpg`), jamais dans le dépôt. */
-export const defaultVideo = (name: string) => {
-  const base = `${(url() || PUBLIC_BASE).replace(/\/$/, "")}/storage/v1/object/public/${BUCKET}/marketing`;
-  return { src: `${base}/${name}.mp4`, poster: `${base}/${name}.jpg` };
-};
+/** Vidéos de marque sur Cloudflare R2 (bucket public, trafic sortant illimité) : `marketing/<nom>.mp4` + affiche `.jpg`. */
+const MEDIA_CDN = process.env.MEDIA_CDN_URL ?? "https://pub-af8df0f2ece54610a0bb91f01b8e7fe1.r2.dev";
+export const defaultVideo = (name: string) => ({
+  src: `${MEDIA_CDN}/marketing/${name}.mp4`,
+  poster: `${MEDIA_CDN}/marketing/${name}.jpg`,
+});
 
 const admin = () => createClient(url(), serviceKey(), { auth: { persistSession: false, autoRefreshToken: false } });
 
