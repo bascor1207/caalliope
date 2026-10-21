@@ -13,7 +13,7 @@ import { eventBus } from "@/shared/event-bus";
 import { useBusEvent } from "@/shared/event-bus/use-bus-event";
 import type { Locale } from "@/shared/kernel/locale";
 import { type Totals, totalsFor } from "@/shared/kernel/shipping-policy";
-import { startNavigation } from "@/shared/ui";
+import { Skeleton, startNavigation } from "@/shared/ui";
 import { toCents } from "../application/express-checkout";
 import type { Customer, ErrorCode, OrderLineInput } from "../domain/order";
 import { completeExpressOrderAction, prepareExpressPaymentAction } from "../infrastructure/express-checkout.action";
@@ -83,13 +83,22 @@ function ExpressButtons({ selection, totals, locale }: { selection: Selection; t
   const stripe = useStripe();
   const elements = useElements();
   const router = useRouter();
-  const [available, setAvailable] = useState(false);
+  /** loading : Stripe se charge (squelette) ; ready : au moins un portefeuille ; none : rien à proposer. */
+  const [state, setState] = useState<"loading" | "ready" | "none">("loading");
+  const available = state === "ready";
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   /** Diagnostic (`?debug` dans l'URL) : état du composant Stripe et portefeuilles détectés. */
   const [diag, setDiag] = useState("chargement…");
   const [caught, setCaught] = useState<string[]>([]);
   const debug = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("debug");
+
+  /* Sans réponse de Stripe après 10 s (script bloqué…), on replie le squelette plutôt que de le laisser tourner. */
+  useEffect(() => {
+    if (state !== "loading") return;
+    const timer = window.setTimeout(() => setState((s) => (s === "loading" ? "none" : s)), 10_000);
+    return () => window.clearTimeout(timer);
+  }, [state]);
 
   /* Diagnostic : on capte les erreurs (console, exceptions, promesses) pendant que Stripe se charge. */
   useEffect(() => {
@@ -193,41 +202,51 @@ function ExpressButtons({ selection, totals, locale }: { selection: Selection; t
   };
 
   return (
-    <div className="grid gap-2" aria-busy={busy} data-express={available ? "ready" : "none"}>
-      {available && (
+    <div className={state === "none" ? "h-0 overflow-hidden" : "grid gap-2"} aria-busy={busy} data-express={state}>
+      {state !== "none" && (
         <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.1em] text-muted before:h-px before:flex-1 before:bg-line after:h-px after:flex-1 after:bg-line">
           {t("title")}
         </p>
       )}
-      <ExpressCheckoutElement
-        options={{
-          buttonType: { applePay: "buy", googlePay: "buy" },
-          buttonHeight: 48,
-          layout: { maxColumns: 1, maxRows: 2, overflow: "auto" },
-          paymentMethods: { paypal: "never", amazonPay: "never", klarna: "never" },
-          emailRequired: true,
-          shippingAddressRequired: true,
-          allowedShippingCountries: ["FR"],
-          shippingRates: [shippingRate],
-        }}
-        onReady={(e) => {
-          setAvailable(Boolean(e.availablePaymentMethods));
-          setDiag(
-            e.availablePaymentMethods
-              ? `prêt · ${Object.entries(e.availablePaymentMethods)
-                  .filter(([, on]) => on)
-                  .map(([k]) => k)
-                  .join(", ")}`
-              : "prêt · aucun portefeuille disponible dans ce navigateur",
-          );
-        }}
-        onLoadError={(e) => setDiag(`erreur de chargement · ${e.error?.message ?? "inconnue"}`)}
-        onClick={onClick}
-        onConfirm={onConfirm}
-        onShippingAddressChange={(e) => e.resolve({ shippingRates: [shippingRate] })}
-        onShippingRateChange={(e) => e.resolve()}
-        onCancel={() => setBusy(false)}
-      />
+      <div className="relative min-h-12">
+        {state === "loading" && (
+          <div className="absolute inset-0 grid gap-2" aria-hidden="true">
+            <Skeleton className="h-12 rounded-[14px]" />
+          </div>
+        )}
+        <ExpressCheckoutElement
+          options={{
+            buttonType: { applePay: "buy", googlePay: "buy" },
+            buttonHeight: 48,
+            layout: { maxColumns: 1, maxRows: 2, overflow: "auto" },
+            paymentMethods: { paypal: "never", amazonPay: "never", klarna: "never" },
+            emailRequired: true,
+            shippingAddressRequired: true,
+            allowedShippingCountries: ["FR"],
+            shippingRates: [shippingRate],
+          }}
+          onReady={(e) => {
+            setState(e.availablePaymentMethods ? "ready" : "none");
+            setDiag(
+              e.availablePaymentMethods
+                ? `prêt · ${Object.entries(e.availablePaymentMethods)
+                    .filter(([, on]) => on)
+                    .map(([k]) => k)
+                    .join(", ")}`
+                : "prêt · aucun portefeuille disponible dans ce navigateur",
+            );
+          }}
+          onLoadError={(e) => {
+            setState("none");
+            setDiag(`erreur de chargement · ${e.error?.message ?? "inconnue"}`);
+          }}
+          onClick={onClick}
+          onConfirm={onConfirm}
+          onShippingAddressChange={(e) => e.resolve({ shippingRates: [shippingRate] })}
+          onShippingRateChange={(e) => e.resolve()}
+          onCancel={() => setBusy(false)}
+        />
+      </div>
       {error && (
         <p className="text-xs text-danger" role="alert">
           {error}
