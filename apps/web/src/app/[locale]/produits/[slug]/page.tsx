@@ -42,7 +42,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     colors: product.colors.map((c) => c.name).join(", "),
     price: format.number(product.price, "eur"),
   });
-  const ogImage = absoluteUrl(`${pathFor(locale, "/produits/[slug]", { slug })}/opengraph-image`);
+  /* Photo du premier coloris (CDN) comme image de partage ; repli sur l'image de marque statique. */
+  const ogImage = product.images[0]?.src ?? absoluteUrl(`/og-${locale}.png`);
   return {
     title,
     description,
@@ -51,9 +52,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       type: "website",
       title,
       description,
-      images: [{ url: ogImage, width: 1200, height: 630, alt: product.name }],
+      images: [{ url: ogImage, alt: product.name }],
     },
-    twitter: { card: "summary_large_image", title, description },
+    twitter: { card: "summary_large_image", title, description, images: [ogImage] },
   };
 }
 
@@ -74,7 +75,7 @@ export default async function ProductPage({ params }: Props) {
 
   return (
     <div className="container-k pt-10 pb-[clamp(72px,10vw,128px)]">
-      <JsonLd data={productGroupJsonLd(product, url, `${url}/opengraph-image`)} />
+      <JsonLd data={productGroupJsonLd(product, url, product.images[0]?.src ?? absoluteUrl(`/og-${locale}.png`))} />
       <JsonLd
         data={breadcrumbJsonLd([
           { name: tc("labels.home"), url: pathFor(locale, "/") },

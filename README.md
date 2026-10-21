@@ -83,7 +83,13 @@ Mise en place, une seule fois :
    `postgres`), et les mêmes variables que sur Vercel : `DATABASE_URL`, `NEXT_PUBLIC_SUPABASE_URL`,
    `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `REVALIDATE_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `STRIPE_SECRET_KEY`.
    Variable (onglet Variables) : `SHOP_URL`, l'URL publique de la boutique.
-6. Lancer « Deploy web (Cloudflare) » (Actions → Run workflow). La boutique répond sur
+6. **Ou, plus simple, Workers Builds** (le CI de Cloudflare, gratuit, sans secrets GitHub) : Workers & Pages →
+   `kodaclothing` → Settings → Build → Connect repository → GitHub `bascor1207/caalliope`, branche `main`,
+   root directory `/`, build command `pnpm --filter web build:cf`, deploy command
+   `pnpm --filter web exec wrangler deploy`. Variables de build : `NEXT_PUBLIC_SITE_URL`, `NEXT_PUBLIC_SUPABASE_URL`,
+   `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `DATABASE_URL` (les fiches produit
+   sont pré-rendues au build). Les secrets d'exécution se posent sur le Worker (Settings → Variables and Secrets).
+   Sinon, lancer « Deploy web (Cloudflare) » (Actions → Run workflow). La boutique répond sur
    `https://kodaclothing.<sous-domaine>.workers.dev`, puis sur le domaine final (Workers → kodaclothing → Domaines).
    Mettre ensuite à jour `SHOP_URL`, `SHOP_URL` côté admin (Vercel), le domaine dans Stripe et `SITE.url`.
 
@@ -93,7 +99,9 @@ activité) et `media-to-r2.yml` (copie des vidéos vers le bucket public, trafic
 `SITE.media` à l'URL publique du bucket). Les secrets absents font simplement sauter l'étape, avec un avertissement.
 
 En local : `pnpm --filter web preview:cf` construit la boutique pour Workers et la sert avec `wrangler dev`
-(cache R2 et Durable Objects émulés). Limite à surveiller sur le plan gratuit : 10 ms de CPU par requête ; les pages
+(cache R2 et Durable Objects émulés). Limites du plan gratuit : 3 Mo compressés pour le Worker (2,8 Mo aujourd'hui : les images Open Graph sont des
+fichiers statiques `public/og-*.png` et l'icône un `app/icon.png`, car `next/og` à lui seul pesait 600 Ko) et 10 ms
+de CPU par requête ; les pages
 statiques et ISR sont servies depuis le cache, les pages dynamiques tiennent largement (30 à 200 ms de temps total
 mesurés en local). Si Cloudflare signale des dépassements, le plan Workers Paid (5 $/mois) lève la limite.
 

@@ -6,7 +6,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
 import { routing } from "@/i18n/routing";
-import { SITE } from "@/shared/config/site";
+import { absoluteUrl, SITE } from "@/shared/config/site";
 import type { Locale } from "@/shared/kernel/locale";
 import { localizedAlternates, organizationJsonLd, websiteJsonLd } from "@/shared/seo/metadata";
 import { JsonLd, NavigationLoader } from "@/shared/ui";
@@ -74,8 +74,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       locale: locale === "fr" ? "fr_FR" : "en_GB",
       title: t("ogTitle"),
       description: t("ogDescription"),
+      /* Image statique par langue (public/og-*.png) : pas de rendu d'image côté serveur, bundle Workers léger. */
+      images: [{ url: absoluteUrl(`/og-${locale}.png`), width: 1200, height: 630, alt: t("ogTitle") }],
     },
-    twitter: { card: "summary_large_image", title: t("ogTitle"), description: t("ogDescription") },
+    twitter: {
+      card: "summary_large_image",
+      title: t("ogTitle"),
+      description: t("ogDescription"),
+      images: [absoluteUrl(`/og-${locale}.png`)],
+    },
   };
 }
 
