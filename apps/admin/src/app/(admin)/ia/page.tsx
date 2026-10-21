@@ -39,8 +39,15 @@ export default function AiPage() {
           Adresse du serveur : <code className="rounded bg-ink/6 px-1.5 py-0.5 text-xs">{endpoint}</code> · jeton :{" "}
           {configured ? "configuré (variable MCP_TOKEN sur Vercel)" : "absent, pose MCP_TOKEN sur Vercel"}.
         </p>
+        <p className="mt-4 text-sm font-semibold">claude.ai, ChatGPT (connecteurs OAuth) :</p>
+        <p className="mt-1 text-sm text-muted">
+          Réglages → Connecteurs → « Ajouter un connecteur personnalisé », adresse{" "}
+          <code className="rounded bg-ink/6 px-1.5 py-0.5 text-xs">{endpoint}</code>, sans jeton. L'outil s'enregistre
+          tout seul, te renvoie ici pour te connecter et autoriser, puis reçoit un accès renouvelé automatiquement
+          pendant 30 jours. Pour révoquer tous les accès OAuth d'un coup : changer ADMIN_SECRET sur Vercel.
+        </p>
         <p className="mt-4 text-sm font-semibold">
-          Claude Desktop, Claude Code, Cursor (fichier de configuration MCP) :
+          Claude Desktop, Claude Code, Cursor (fichier de configuration MCP, jeton fixe) :
         </p>
         <pre className="mt-2 overflow-x-auto rounded-[12px] bg-ink p-4 text-xs leading-relaxed text-cream">
           {config}

@@ -200,8 +200,13 @@ Côté store, un **listener middleware** RTK traduit les actions en événements
 
 ## IA & automatisation (MCP)
 
-L'admin expose un serveur MCP (`apps/admin/src/app/api/mcp/route.ts`, `mcp-handler`) protégé par le jeton
-`MCP_TOKEN` (`Authorization: Bearer …`). 22 outils reprennent les mêmes bibliothèques que l'interface : statistiques,
+L'admin expose un serveur MCP (`apps/admin/src/app/api/mcp/route.ts`, `mcp-handler`) accessible de deux façons :
+le jeton fixe `MCP_TOKEN` (`Authorization: Bearer …`, pour Claude Code, Cursor, scripts) ou **OAuth 2.1** pour les
+connecteurs de claude.ai et ChatGPT, qui exigent l'enregistrement dynamique (RFC 7591), les métadonnées RFC 8414 /
+RFC 9728 et PKCE. Le serveur d'autorisation est dans l'admin lui-même (`src/lib/oauth.ts`, routes `/.well-known/*`,
+`/oauth/register`, `/oauth/authorize` (consentement, derrière la session admin), `/oauth/token`) et ne stocke rien :
+clients, codes et jetons sont signés HMAC avec `ADMIN_SECRET` (accès 1 h, rafraîchissement 30 jours). Changer
+`ADMIN_SECRET` révoque tout. 22 outils reprennent les mêmes bibliothèques que l'interface : statistiques,
 fiches produit (lecture, création, modification, mise en ligne, suppression), palette, envoi de médias (URL signée),
 vidéos et bandeau, réseaux sociaux, newsletter (inscrits, campagnes, test, envoi), feature flags, comptes. Chaque
 écriture rafraîchit la boutique. La page admin « IA & automatisation » donne la configuration à coller dans Claude,

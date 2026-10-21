@@ -13,7 +13,7 @@ const MESSAGES: Record<NonNullable<LoginState["error"]>, string> = {
 const input =
   "rounded-[12px] border-[1.5px] border-line bg-cream px-3.5 py-3 text-base font-normal outline-none focus:border-ink";
 
-export function LoginForm({ supabase }: { supabase: boolean }) {
+export function LoginForm({ supabase, next }: { supabase: boolean; next?: string }) {
   const [account, accountAction, accountPending] = useActionState(loginWithAccount, { error: null });
   const [master, masterAction, masterPending] = useActionState(loginWithMasterPassword, { error: null });
   const [showMaster, setShowMaster] = useState(!supabase);
@@ -22,6 +22,7 @@ export function LoginForm({ supabase }: { supabase: boolean }) {
     <div className="mt-6 grid gap-6">
       {supabase && (
         <form action={accountAction} className="grid gap-3">
+          <input type="hidden" name="next" value={next ?? ""} />
           <label className="grid gap-1.5 text-sm font-semibold" htmlFor="email">
             E-mail
             <input id="email" name="email" type="email" autoComplete="email" required className={input} />
@@ -61,6 +62,7 @@ export function LoginForm({ supabase }: { supabase: boolean }) {
       )}
       {showMaster && (
         <form action={masterAction} className="grid gap-3 rounded-[16px] border border-line bg-cream/60 p-4">
+          <input type="hidden" name="next" value={next ?? ""} />
           <label className="grid gap-1.5 text-sm font-semibold" htmlFor="master">
             Mot de passe maître
             <input

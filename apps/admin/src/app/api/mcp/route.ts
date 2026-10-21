@@ -1,6 +1,7 @@
 import { createMcpHandler, withMcpAuth } from "mcp-handler";
 import { z } from "zod";
 import { isPeriod, loadSummary, type Period } from "@/lib/analytics";
+import { credentials, safeEqual } from "@/lib/auth";
 import {
   deleteCatalogProduct,
   getCatalogProduct,
@@ -23,6 +24,7 @@ import {
   subscriberStats,
   updateCampaign,
 } from "@/lib/newsletter";
+import { readAccessToken } from "@/lib/oauth";
 import { getSocialSettings, revalidateShop, SOCIAL_KEY, setSetting } from "@/lib/settings";
 import { createUploadTicket, storageConfigured } from "@/lib/storage";
 import { listFlags, listUsers, setFlag } from "@/lib/users";
@@ -36,7 +38,7 @@ const localized = z.object({ fr: z.string(), en: z.string() });
 /**
  * Serveur MCP de l'admin : une IA (Claude, Cursor, ChatGPT…) pilote le back-office avec les mêmes règles
  * que l'interface : catalogue, marketing, newsletter, réglages, statistiques, envoi de médias.
- * Authentification : en-tête `Authorization: Bearer <MCP_TOKEN>`.
+ * Authentification : `Authorization: Bearer <MCP_TOKEN>` ou OAuth (voir src/lib/oauth.ts).
  */
 const handler = createMcpHandler(
   (server) => {
@@ -437,15 +439,18 @@ const handler = createMcpHandler(
   { serverInfo: { name: "koda-admin", version: "1.0.0" } },
 );
 
+/**
+ * Deux façons de s'authentifier : le jeton fixe MCP_TOKEN (Claude Code, Cursor, scripts) ou un jeton d'accès
+ * OAuth délivré par /oauth/token après consentement de l'admin (claude.ai, ChatGPT…).
+ */
 const verifyToken = async (_req: Request, bearer?: string) => {
+  if (!bearer) return undefined;
   const expected = process.env.MCP_TOKEN;
-  if (!expected || !bearer || bearer.length !== expected.length) return undefined;
-  const a = new TextEncoder().encode(bearer);
-  const b = new TextEncoder().encode(expected);
-  let diff = 0;
-  for (let i = 0; i < a.length; i++) diff |= a[i] ^ b[i];
-  if (diff !== 0) return undefined;
-  return { token: bearer, clientId: "koda-admin-mcp", scopes: ["admin"] };
+  if (expected && safeEqual(bearer, expected)) return { token: bearer, clientId: "koda-admin-mcp", scopes: ["admin"] };
+  const creds = credentials(process.env);
+  const access = creds ? await readAccessToken(creds.secret, bearer) : null;
+  if (!access) return undefined;
+  return { token: bearer, clientId: access.client, scopes: access.scope.split(" "), expiresAt: access.exp };
 };
 
 const secured = withMcpAuth(handler, verifyToken, { required: true });

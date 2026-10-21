@@ -35,6 +35,7 @@ Suivi des idées et de leur état. Mis à jour à chaque lot livré.
 - Admin mobile : onglets par section (ancres), sous-menus dans la barre latérale, KPI compacts.
 
 - Annonce plein écran (modale) pilotée depuis Marketing et le MCP : avertissement / promo / nouveauté, code copiable, période, vue une fois par visiteur, « réafficher » par version.
+- MCP admin branchable dans claude.ai / ChatGPT : serveur OAuth 2.1 sans état (enregistrement dynamique, PKCE, consentement dans l'admin), en plus du jeton fixe.
 - Ajout rapide depuis la collection : rangée de tailles au survol (desktop), bouton « + » et feuille de tailles (mobile), optimiste, toast vert « Voir le panier » ; mesuré (`product_chosen` source `quick`).
 - Achat express Stripe sur la fiche produit : Apple Pay / Google Pay / Link (Express Checkout Element), montant et livraison recalculés côté serveur, commande enregistrée après vérification du paiement (`payment_ref`). Affiché dès que les clés Stripe sont présentes.
 - Vidéos de marque hébergées sur Supabase Storage (bucket `media/marketing`, 6,4 Mo retirés du dépôt et des déploiements) ; dates des annonces et bandeaux saisies en heure de Paris.

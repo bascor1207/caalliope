@@ -23,6 +23,12 @@ export interface LoginState {
   error: "config" | "password" | "credentials" | "not-admin" | null;
 }
 
+/** Chemin interne où revenir après connexion (jamais une URL externe). */
+const nextPath = (formData: FormData) => {
+  const next = String(formData.get("next") ?? "");
+  return next.startsWith("/") && !next.startsWith("//") ? next : "/";
+};
+
 async function openSession() {
   const creds = credentials(process.env);
   if (!creds) return false;
@@ -51,7 +57,7 @@ export async function loginWithAccount(_prev: LoginState, formData: FormData): P
     return { error: "not-admin" };
   }
   if (!(await openSession())) return { error: "config" };
-  redirect("/");
+  redirect(nextPath(formData));
 }
 
 /** Accès de secours : mot de passe maître (ADMIN_PASSWORD), tant que l'équipe n'a pas de compte admin. */
@@ -60,7 +66,7 @@ export async function loginWithMasterPassword(_prev: LoginState, formData: FormD
   if (!creds) return { error: "config" };
   if (!safeEqual(String(formData.get("password") ?? ""), creds.password)) return { error: "password" };
   await openSession();
-  redirect("/");
+  redirect(nextPath(formData));
 }
 
 export async function logout() {
