@@ -68,6 +68,8 @@
     "shipping": "Livraison standard (2 à 5 jours ouvrés)",
     "shippingFree": "Livraison offerte (2 à 5 jours ouvrés)",
     "failed": "Paiement non abouti, réessaie.",
-    "paidButFailed": "Paiement reçu mais commande non enregistrée (réf. {ref}). Écris-nous, on règle ça tout de suite."
+    "paidButFailed": "Paiement reçu mais commande non enregistrée (réf. {ref}). Écris-nous, on règle ça tout de suite.",
+    "signIn": "Connecte-toi pour payer en un clic",
+    "signInHint": "Un compte, 30 secondes : ta commande et son suivi restent dans ton espace."
   }
 }

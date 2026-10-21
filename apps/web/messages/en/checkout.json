@@ -68,6 +68,8 @@
     "shipping": "Standard shipping (2 to 5 business days)",
     "shippingFree": "Free shipping (2 to 5 business days)",
     "failed": "Payment did not go through, please retry.",
-    "paidButFailed": "Payment received but the order could not be saved (ref. {ref}). Write to us, we will sort it out right away."
+    "paidButFailed": "Payment received but the order could not be saved (ref. {ref}). Write to us, we will sort it out right away.",
+    "signIn": "Sign in to pay in one tap",
+    "signInHint": "An account takes 30 seconds: your order and its tracking stay in your space."
   }
 }

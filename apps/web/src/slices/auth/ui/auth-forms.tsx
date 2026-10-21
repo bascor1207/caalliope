@@ -10,18 +10,30 @@ import { authGateway, sessionActions } from "./session-store";
 
 interface Props {
   features: AuthFeatures;
+  /** Chemin complet (avec locale) où revenir après connexion, ex. une fiche produit. Par défaut : le compte. */
+  next?: string;
+  /** Formulaire dans une modale : connecté = on reste sur place et on prévient, sans navigation. */
+  onSuccess?: () => void;
 }
 
-const callbackUrl = (locale: Locale) =>
-  `${window.location.origin}/auth/callback?next=${encodeURIComponent(getPathname({ locale, href: "/compte" }))}`;
+const callbackUrl = (locale: Locale, next?: string) =>
+  `${window.location.origin}/auth/callback?next=${encodeURIComponent(next ?? getPathname({ locale, href: "/compte" }))}`;
 
-function ProviderButtons({ features, onError }: { features: AuthFeatures; onError: (code: AuthErrorCode) => void }) {
+function ProviderButtons({
+  features,
+  next,
+  onError,
+}: {
+  features: AuthFeatures;
+  next?: string;
+  onError: (code: AuthErrorCode) => void;
+}) {
   const t = useTranslations("auth");
   const locale = useLocale() as Locale;
   const providers: OAuthProvider[] = (["google", "apple"] as const).filter((p) => features[p]);
   if (providers.length === 0) return null;
   const go = async (provider: OAuthProvider) => {
-    const result = await authGateway.signInWithProvider(provider, callbackUrl(locale));
+    const result = await authGateway.signInWithProvider(provider, callbackUrl(locale, next));
     if (!result.ok) onError(result.code);
   };
   return (
@@ -76,7 +88,7 @@ const AppleMark = () => (
 );
 
 /** Connexion : e-mail + mot de passe, Google et Apple selon les feature flags. */
-export function LoginForm({ features }: Props) {
+export function LoginForm({ features, next, onSuccess }: Props) {
   const t = useTranslations("auth");
   const router = useRouter();
   const [error, setError] = useState<AuthErrorCode | null>(null);
@@ -94,14 +106,24 @@ export function LoginForm({ features }: Props) {
       return;
     }
     await sessionActions.refresh();
+    if (onSuccess) {
+      onSuccess();
+      router.refresh();
+      return;
+    }
     startNavigation();
+    if (next) {
+      // Retour là où l'on était (chemin complet, locale comprise) : rechargement pour resynchroniser la session serveur.
+      window.location.assign(next);
+      return;
+    }
     router.push("/compte");
     router.refresh();
   };
 
   return (
     <div className="grid gap-5">
-      <ProviderButtons features={features} onError={setError} />
+      <ProviderButtons features={features} next={next} onError={setError} />
       {features.email && (
         <form onSubmit={submit} className="grid gap-4" noValidate>
           <Label>
@@ -124,7 +146,10 @@ export function LoginForm({ features }: Props) {
       )}
       <p className="text-sm text-muted">
         {t("noAccount")}{" "}
-        <Link href="/inscription" className="font-semibold text-ink underline underline-offset-[3px]">
+        <Link
+          href={{ pathname: "/inscription", query: next ? { next } : undefined }}
+          className="font-semibold text-ink underline underline-offset-[3px]"
+        >
           {t("signupLink")}
         </Link>
       </p>
@@ -133,7 +158,7 @@ export function LoginForm({ features }: Props) {
 }
 
 /** Inscription : prénom, nom, e-mail, mot de passe. Confirmation par e-mail (réglage Supabase par défaut). */
-export function SignupForm({ features }: Props) {
+export function SignupForm({ features, next }: Props) {
   const t = useTranslations("auth");
   const locale = useLocale() as Locale;
   const [error, setError] = useState<AuthErrorCode | null>(null);
@@ -150,7 +175,7 @@ export function SignupForm({ features }: Props) {
       password: String(form.get("password")),
       firstName: String(form.get("firstName")).trim(),
       lastName: String(form.get("lastName")).trim(),
-      redirectTo: callbackUrl(locale),
+      redirectTo: callbackUrl(locale, next),
     });
     setPending(false);
     if (!result.ok) {
@@ -171,7 +196,7 @@ export function SignupForm({ features }: Props) {
 
   return (
     <div className="grid gap-5">
-      <ProviderButtons features={features} onError={setError} />
+      <ProviderButtons features={features} next={next} onError={setError} />
       {features.email && (
         <form onSubmit={submit} className="grid gap-4" noValidate>
           <div className="grid gap-4 sm:grid-cols-2">

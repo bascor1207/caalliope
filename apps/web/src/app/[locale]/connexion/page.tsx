@@ -11,7 +11,11 @@ export const dynamic = "force-dynamic";
 
 interface Props {
   params: Promise<{ locale: Locale }>;
+  searchParams: Promise<{ next?: string }>;
 }
+
+/** Retour après connexion : uniquement un chemin interne (jamais une URL externe). */
+const safeNext = (next?: string) => (next?.startsWith("/") && !next.startsWith("//") ? next : undefined);
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
@@ -19,18 +23,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return { title: t("loginTitle"), robots: { index: false, follow: true } };
 }
 
-export default async function LoginPage({ params }: Props) {
-  const { locale } = await params;
+export default async function LoginPage({ params, searchParams }: Props) {
+  const [{ locale }, { next }] = await Promise.all([params, searchParams]);
   setRequestLocale(locale);
   const [user, features, t] = await Promise.all([getSessionUser(), getAuthFeatures(), getTranslations("auth")]);
-  if (user) redirect(getPathname({ locale, href: "/compte" }));
+  if (user) redirect(safeNext(next) ?? getPathname({ locale, href: "/compte" }));
   return (
     <div className="container-k mx-auto max-w-[460px] pt-10 pb-[clamp(72px,10vw,128px)]">
       <p className="eyebrow">{t("eyebrow")}</p>
       <h1 className="mt-2 mb-6 text-[clamp(30px,5vw,48px)] tracking-[-0.03em]">
         {t("loginTitle")} <span className="serif">{t("loginSerif")}</span>
       </h1>
-      <LoginForm features={features} />
+      <LoginForm features={features} next={safeNext(next)} />
     </div>
   );
 }

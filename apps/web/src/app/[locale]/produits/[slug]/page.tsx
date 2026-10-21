@@ -2,12 +2,14 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getFormatter, getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
+import { ExpressPurchase } from "@/app/_shell/express-purchase";
 import { Link } from "@/i18n/navigation";
 import { routing } from "@/i18n/routing";
 import { absoluteUrl } from "@/shared/config/site";
 import type { Locale } from "@/shared/kernel/locale";
 import { breadcrumbJsonLd, localizedAlternates, pathFor } from "@/shared/seo/metadata";
 import { Button, JsonLd } from "@/shared/ui";
+import { getAuthFeatures } from "@/slices/auth/public-server";
 import {
   catalogRepository,
   getProduct,
@@ -17,7 +19,6 @@ import {
 } from "@/slices/catalog/public-server";
 import { ProductCard, ProductConfigurator, ProductConfiguratorFromUrl } from "@/slices/catalog/public-ui";
 import { stripeConfigured, stripePublishableKey } from "@/slices/checkout/public-server";
-import { ExpressCheckout } from "@/slices/checkout/public-ui";
 
 interface Props {
   params: Promise<{ locale: Locale; slug: string }>;
@@ -67,7 +68,9 @@ export default async function ProductPage({ params }: Props) {
   const tc = await getTranslations("common");
   const url = pathFor(locale, "/produits/[slug]", { slug });
   /* Apple Pay / Google Pay dès que les clés Stripe sont là ; sinon la fiche reste telle quelle. */
-  const express = stripeConfigured() ? <ExpressCheckout publishableKey={stripePublishableKey()} /> : null;
+  const express = stripeConfigured() ? (
+    <ExpressPurchase publishableKey={stripePublishableKey()} features={await getAuthFeatures()} />
+  ) : null;
 
   return (
     <div className="container-k pt-10 pb-[clamp(72px,10vw,128px)]">

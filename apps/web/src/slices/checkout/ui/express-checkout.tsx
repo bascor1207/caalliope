@@ -6,6 +6,7 @@ import {
   type StripeExpressCheckoutElementClickEvent,
   type StripeExpressCheckoutElementConfirmEvent,
 } from "@stripe/stripe-js";
+import { LockIcon } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "@/i18n/navigation";
@@ -33,7 +34,17 @@ interface Selection {
  * de livraison que le panier, et le serveur le recalcule avant de créer le paiement.
  * Mode test Stripe (clés `pk_test_` / `sk_test_`) : aucun débit réel.
  */
-export function ExpressCheckout({ publishableKey }: { publishableKey: string }) {
+export type ExpressSession = "loading" | "anonymous" | "authenticated";
+
+interface ExpressProps {
+  publishableKey: string;
+  /** État de session fourni par la composition root : l'achat express exige un compte (trace de la commande). */
+  session: ExpressSession;
+  /** Ouvre la connexion (modale composée par la page) sans quitter la fiche. */
+  onSignIn: () => void;
+}
+
+export function ExpressCheckout({ publishableKey, session, onSignIn }: ExpressProps) {
   const locale = useLocale() as Locale;
   const [selection, setSelection] = useState<Selection | null>(null);
   useBusEvent("catalog.selection-changed", setSelection);
@@ -51,7 +62,7 @@ export function ExpressCheckout({ publishableKey }: { publishableKey: string }) 
         appearance: { variables: { borderRadius: "14px" } },
       }}
     >
-      <ExpressButtons selection={selection} totals={totals} locale={locale} />
+      <ExpressButtons selection={selection} totals={totals} locale={locale} session={session} onSignIn={onSignIn} />
     </Elements>
   );
 }
@@ -77,7 +88,19 @@ export function customerFromWallet(event: {
   };
 }
 
-function ExpressButtons({ selection, totals, locale }: { selection: Selection; totals: Totals; locale: Locale }) {
+function ExpressButtons({
+  selection,
+  totals,
+  locale,
+  session,
+  onSignIn,
+}: {
+  selection: Selection;
+  totals: Totals;
+  locale: Locale;
+  session: ExpressSession;
+  onSignIn: () => void;
+}) {
   const t = useTranslations("checkout.express");
   const tErrors = useTranslations("checkout.form.errors");
   const stripe = useStripe();
@@ -131,6 +154,7 @@ function ExpressButtons({ selection, totals, locale }: { selection: Selection; t
   };
 
   const onClick = (event: StripeExpressCheckoutElementClickEvent) => {
+    if (session !== "authenticated") return;
     if (!selection.size) {
       setError(t("chooseSize"));
       return;
@@ -209,7 +233,18 @@ function ExpressButtons({ selection, totals, locale }: { selection: Selection; t
         </p>
       )}
       <div className="relative min-h-12">
-        {state === "loading" && (
+        {state === "ready" && session === "anonymous" && (
+          <button
+            type="button"
+            onClick={onSignIn}
+            className="absolute inset-0 z-10 flex items-center justify-center gap-2.5 rounded-[14px] bg-cream/85 px-4 text-center text-sm font-semibold backdrop-blur-[3px] transition-colors hover:bg-cream/95"
+            data-track="express.sign-in"
+          >
+            <LockIcon className="size-4 shrink-0" aria-hidden="true" />
+            {t("signIn")}
+          </button>
+        )}
+        {(state === "loading" || session === "loading") && (
           <div className="absolute inset-0 grid gap-2" aria-hidden="true">
             <Skeleton className="h-12 rounded-[14px]" />
           </div>
@@ -252,7 +287,7 @@ function ExpressButtons({ selection, totals, locale }: { selection: Selection; t
           {error}
         </p>
       )}
-      {available && <p className="text-xs text-muted">{t("hint")}</p>}
+      {available && <p className="text-xs text-muted">{session === "anonymous" ? t("signInHint") : t("hint")}</p>}
       {debug && (
         <div className="grid gap-1 rounded-[10px] bg-sand px-3 py-2 font-mono text-xs text-ink-2">
           <p>
