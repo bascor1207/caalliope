@@ -3,6 +3,7 @@ import Link from "next/link";
 import { DailyBars } from "@/components/bars";
 import { LiveFeed } from "@/components/live-feed";
 import { Funnel, Panel, RankTable } from "@/components/panels";
+import { Sections } from "@/components/sections";
 import { isPeriod, loadSummary, PERIODS, type Period } from "@/lib/analytics";
 import { kpisOf } from "@/lib/kpis";
 import { errorLabel, labelled, localeLabel, productLabel, trackLabel } from "@/lib/labels";
@@ -55,122 +56,159 @@ export default async function Dashboard({ searchParams }: Props) {
           </nav>
         </div>
       </header>
-
-      <section aria-label="Indicateurs clés" className="mt-10">
-        <div className="grid gap-4 sm:grid-cols-2 md:gap-5 xl:grid-cols-4">
-          {kpis.map((k) => (
-            <div key={k.key} className="card">
-              <p className="eyebrow">{k.label}</p>
-              <p className="kpi-value">{k.value}</p>
-              <p className="mt-3 text-sm text-muted">{k.hint}</p>
-            </div>
-          ))}
-        </div>
-        <p className="mt-4 text-sm text-muted">
-          Une visite = un passage sur la boutique. Les pourcentages sont des parts de visites (une même visite peut
-          ouvrir plusieurs fiches : on la compte une fois).
-        </p>
-      </section>
-
-      <div className="mt-8 grid gap-5 md:gap-6 lg:grid-cols-[1.4fr_1fr]">
-        <Panel title="Pages vues par jour" hint={`${period} jours`}>
-          <DailyBars points={s.daily} metric="pageViews" label="Pages vues" />
-        </Panel>
-        <Panel title="Commandes par jour" hint={`${period} jours`}>
-          <DailyBars points={s.daily} metric="orders" label="Commandes" />
-        </Panel>
-      </div>
-
-      <div className="mt-8 grid gap-5 md:gap-6 lg:grid-cols-2">
-        <Panel title="Parcours d'achat" hint="visites ayant atteint chaque étape">
-          <Funnel
-            steps={[
-              { label: "Visites", value: s.sessions },
-              { label: "Fiche produit ouverte", value: s.reached.productViews },
-              { label: "Article ajouté au panier", value: s.reached.addToCart },
-              { label: "Paiement démarré", value: s.reached.checkoutStarted },
-              { label: "Commande passée", value: s.reached.ordersPlaced },
-            ]}
-          />
-        </Panel>
-        <Panel title="Produits" hint="fiches ouvertes et ajouts au panier">
-          {products.length === 0 ? (
-            <p className="text-[15px] text-muted">Aucune fiche vue sur la période.</p>
-          ) : (
-            <table className="w-full text-[15px]">
-              <thead className="text-left text-sm text-muted">
-                <tr>
-                  <th scope="col" className="pb-2 font-medium">
-                    Produit
-                  </th>
-                  <th scope="col" className="pb-2 text-right font-medium">
-                    Fiches ouvertes
-                  </th>
-                  <th scope="col" className="pb-2 text-right font-medium">
-                    Ajouts panier
-                  </th>
-                  <th scope="col" className="pb-2 text-right font-medium">
-                    Ajouts / fiches
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {products
-                  .sort((a, b) => b[1] - a[1])
-                  .map(([id, views, carts]) => (
-                    <tr key={id} className="border-t border-line">
-                      <td className="py-3 pr-3 font-medium">{productLabel(id)}</td>
-                      <td className="py-3 text-right tabular-nums">{views}</td>
-                      <td className="py-3 text-right tabular-nums">{carts}</td>
-                      <td className="py-3 text-right tabular-nums">
-                        {views ? `${Math.round((carts / views) * 100)} %` : "–"}
-                      </td>
-                    </tr>
-                  ))}
-              </tbody>
-            </table>
-          )}
-        </Panel>
-      </div>
-
-      <div className="mt-8 grid gap-5 md:gap-6 lg:grid-cols-3">
-        <Panel title="Pages les plus vues">
-          <RankTable rows={top(s.pageViews, 8)} label="Page" valueLabel="Vues" empty="Aucune page vue." />
-        </Panel>
-        <Panel title="Clics mesurés" hint="boutons et liens suivis">
-          <RankTable
-            rows={labelled(top(s.clicks, 12), trackLabel).slice(0, 8)}
-            label="Élément"
-            valueLabel="Clics"
-            empty="Aucun clic mesuré."
-          />
-        </Panel>
-        <Panel title="Frictions" hint="ce qui freine un achat">
-          <h3 className="eyebrow mb-3">Erreurs au checkout</h3>
-          <RankTable
-            rows={labelled(top(s.frictions.checkoutErrors, 8), errorLabel).slice(0, 5)}
-            label="Erreur"
-            valueLabel="Occurrences"
-            empty="Aucune erreur."
-          />
-          <h3 className="eyebrow mt-7 mb-3">Recherches sans résultat</h3>
-          <RankTable
-            rows={top(s.searches.noResult, 5)}
-            label="Requête"
-            valueLabel="Fois"
-            empty="Toutes les recherches ont des résultats."
-          />
-          <h3 className="eyebrow mt-7 mb-3">Pages en erreur (hors 404)</h3>
-          <RankTable
-            rows={top(s.frictions.pageErrors, 5)}
-            label="Page"
-            valueLabel="Erreurs"
-            empty="Aucune page en erreur."
-          />
-          <h3 className="eyebrow mt-7 mb-3">Langues des visites</h3>
-          <RankTable rows={labelled(top(s.locales, 3), localeLabel)} label="Langue" valueLabel="Visites" empty="–" />
-        </Panel>
-      </div>
+      <Sections
+        items={[
+          {
+            id: "essentiel",
+            label: "Essentiel",
+            children: (
+              <>
+                <section aria-label="Indicateurs clés" className="mt-10">
+                  <div className="grid grid-cols-2 gap-3 md:gap-5 xl:grid-cols-4">
+                    {kpis.map((k) => (
+                      <div key={k.key} className="card max-md:p-4">
+                        <p className="eyebrow">{k.label}</p>
+                        <p className="kpi-value">{k.value}</p>
+                        <p className="mt-3 text-sm text-muted">{k.hint}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="mt-4 text-sm text-muted">
+                    Une visite = un passage sur la boutique. Les pourcentages sont des parts de visites (une même visite
+                    peut ouvrir plusieurs fiches : on la compte une fois).
+                  </p>
+                </section>
+              </>
+            ),
+          },
+          {
+            id: "courbes",
+            label: "Courbes",
+            children: (
+              <>
+                <div className="mt-8 grid gap-5 md:gap-6 lg:grid-cols-[1.4fr_1fr]">
+                  <Panel title="Pages vues par jour" hint={`${period} jours`}>
+                    <DailyBars points={s.daily} metric="pageViews" label="Pages vues" />
+                  </Panel>
+                  <Panel title="Commandes par jour" hint={`${period} jours`}>
+                    <DailyBars points={s.daily} metric="orders" label="Commandes" />
+                  </Panel>
+                </div>
+              </>
+            ),
+          },
+          {
+            id: "parcours",
+            label: "Parcours & produits",
+            children: (
+              <>
+                <div className="mt-8 grid gap-5 md:gap-6 lg:grid-cols-2">
+                  <Panel title="Parcours d'achat" hint="visites ayant atteint chaque étape">
+                    <Funnel
+                      steps={[
+                        { label: "Visites", value: s.sessions },
+                        { label: "Fiche produit ouverte", value: s.reached.productViews },
+                        { label: "Article ajouté au panier", value: s.reached.addToCart },
+                        { label: "Paiement démarré", value: s.reached.checkoutStarted },
+                        { label: "Commande passée", value: s.reached.ordersPlaced },
+                      ]}
+                    />
+                  </Panel>
+                  <Panel title="Produits" hint="fiches ouvertes et ajouts au panier">
+                    {products.length === 0 ? (
+                      <p className="text-[15px] text-muted">Aucune fiche vue sur la période.</p>
+                    ) : (
+                      <table className="w-full text-[15px]">
+                        <thead className="text-left text-sm text-muted">
+                          <tr>
+                            <th scope="col" className="pb-2 font-medium">
+                              Produit
+                            </th>
+                            <th scope="col" className="pb-2 text-right font-medium">
+                              Fiches ouvertes
+                            </th>
+                            <th scope="col" className="pb-2 text-right font-medium">
+                              Ajouts panier
+                            </th>
+                            <th scope="col" className="pb-2 text-right font-medium">
+                              Ajouts / fiches
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {products
+                            .sort((a, b) => b[1] - a[1])
+                            .map(([id, views, carts]) => (
+                              <tr key={id} className="border-t border-line">
+                                <td className="py-3 pr-3 font-medium">{productLabel(id)}</td>
+                                <td className="py-3 text-right tabular-nums">{views}</td>
+                                <td className="py-3 text-right tabular-nums">{carts}</td>
+                                <td className="py-3 text-right tabular-nums">
+                                  {views ? `${Math.round((carts / views) * 100)} %` : "–"}
+                                </td>
+                              </tr>
+                            ))}
+                        </tbody>
+                      </table>
+                    )}
+                  </Panel>
+                </div>
+              </>
+            ),
+          },
+          {
+            id: "pages",
+            label: "Pages, clics & frictions",
+            children: (
+              <>
+                <div className="mt-8 grid gap-5 md:gap-6 lg:grid-cols-3">
+                  <Panel title="Pages les plus vues">
+                    <RankTable rows={top(s.pageViews, 8)} label="Page" valueLabel="Vues" empty="Aucune page vue." />
+                  </Panel>
+                  <Panel title="Clics mesurés" hint="boutons et liens suivis">
+                    <RankTable
+                      rows={labelled(top(s.clicks, 12), trackLabel).slice(0, 8)}
+                      label="Élément"
+                      valueLabel="Clics"
+                      empty="Aucun clic mesuré."
+                    />
+                  </Panel>
+                  <Panel title="Frictions" hint="ce qui freine un achat">
+                    <h3 className="eyebrow mb-3">Erreurs au checkout</h3>
+                    <RankTable
+                      rows={labelled(top(s.frictions.checkoutErrors, 8), errorLabel).slice(0, 5)}
+                      label="Erreur"
+                      valueLabel="Occurrences"
+                      empty="Aucune erreur."
+                    />
+                    <h3 className="eyebrow mt-7 mb-3">Recherches sans résultat</h3>
+                    <RankTable
+                      rows={top(s.searches.noResult, 5)}
+                      label="Requête"
+                      valueLabel="Fois"
+                      empty="Toutes les recherches ont des résultats."
+                    />
+                    <h3 className="eyebrow mt-7 mb-3">Pages en erreur (hors 404)</h3>
+                    <RankTable
+                      rows={top(s.frictions.pageErrors, 5)}
+                      label="Page"
+                      valueLabel="Erreurs"
+                      empty="Aucune page en erreur."
+                    />
+                    <h3 className="eyebrow mt-7 mb-3">Langues des visites</h3>
+                    <RankTable
+                      rows={labelled(top(s.locales, 3), localeLabel)}
+                      label="Langue"
+                      valueLabel="Visites"
+                      empty="–"
+                    />
+                  </Panel>
+                </div>
+              </>
+            ),
+          },
+        ]}
+      />
     </main>
   );
 }

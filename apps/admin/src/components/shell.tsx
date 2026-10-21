@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  BotIcon,
   LayoutDashboardIcon,
   LogOutIcon,
   MailIcon,
@@ -18,14 +19,69 @@ import { usePathname } from "next/navigation";
 import { type ReactNode, useEffect, useState } from "react";
 import { logout } from "@/app/actions";
 
-export const ADMIN_LINKS = [
-  { href: "/", label: "Tableau de bord", Icon: LayoutDashboardIcon },
+interface AdminLink {
+  href: string;
+  label: string;
+  Icon: typeof LayoutDashboardIcon;
+  /** Sous-menus : ancres des sections (onglets sur mobile) ou sous-pages. */
+  sub?: Array<{ href: string; label: string }>;
+}
+
+export const ADMIN_LINKS: AdminLink[] = [
+  {
+    href: "/",
+    label: "Tableau de bord",
+    Icon: LayoutDashboardIcon,
+    sub: [
+      { href: "/#essentiel", label: "Essentiel" },
+      { href: "/#courbes", label: "Courbes" },
+      { href: "/#parcours", label: "Parcours & produits" },
+      { href: "/#pages", label: "Pages, clics & frictions" },
+    ],
+  },
   { href: "/utilisateurs", label: "Utilisateurs", Icon: UsersIcon },
-  { href: "/catalogue", label: "Catalogue", Icon: ShirtIcon },
-  { href: "/marketing", label: "Marketing", Icon: MegaphoneIcon },
-  { href: "/newsletter", label: "Newsletter", Icon: MailIcon },
-  { href: "/parametres", label: "Réglages", Icon: SettingsIcon },
-] as const;
+  {
+    href: "/catalogue",
+    label: "Catalogue",
+    Icon: ShirtIcon,
+    sub: [
+      { href: "/catalogue#fiches", label: "Fiches" },
+      { href: "/catalogue/nouveau", label: "Nouvelle fiche" },
+      { href: "/catalogue#palette", label: "Palette" },
+    ],
+  },
+  {
+    href: "/marketing",
+    label: "Marketing",
+    Icon: MegaphoneIcon,
+    sub: [
+      { href: "/marketing#hero", label: "Hero" },
+      { href: "/marketing#histoire", label: "Histoire" },
+      { href: "/marketing#bandeau", label: "Bandeau" },
+    ],
+  },
+  {
+    href: "/newsletter",
+    label: "Newsletter",
+    Icon: MailIcon,
+    sub: [
+      { href: "/newsletter", label: "Inscrits" },
+      { href: "/newsletter/campagnes", label: "Campagnes" },
+    ],
+  },
+  {
+    href: "/parametres",
+    label: "Réglages",
+    Icon: SettingsIcon,
+    sub: [
+      { href: "/parametres#emails", label: "E-mails" },
+      { href: "/parametres#reseaux", label: "Réseaux" },
+      { href: "/parametres#fonctionnalites", label: "Fonctionnalités" },
+      { href: "/parametres#maintenance", label: "Maintenance" },
+    ],
+  },
+  { href: "/ia", label: "IA & automatisation", Icon: BotIcon },
+];
 
 const KEY = "koda.admin.sidebar";
 
@@ -125,8 +181,9 @@ export function AdminShell({ children }: { children: ReactNode }) {
 
           <nav className="mt-5 flex-1">
             <ul className="grid gap-1">
-              {ADMIN_LINKS.map(({ href, label, Icon }) => {
+              {ADMIN_LINKS.map(({ href, label, Icon, sub }) => {
                 const active = isActive(href, path);
+                const showSub = sub && !collapsed && (open || active);
                 return (
                   <li key={href}>
                     <Link
@@ -138,6 +195,21 @@ export function AdminShell({ children }: { children: ReactNode }) {
                       <Icon className="size-[18px] shrink-0" aria-hidden="true" />
                       <span className={collapsed ? "md:sr-only" : ""}>{label}</span>
                     </Link>
+                    {showSub && (
+                      <ul className="my-1 ml-[22px] grid gap-0.5 border-line border-l pl-3">
+                        {sub.map((s) => (
+                          <li key={s.href}>
+                            <Link
+                              href={s.href}
+                              onClick={() => setOpen(false)}
+                              className={`block rounded-[8px] px-2.5 py-1.5 text-[13px] font-medium transition-colors hover:bg-ink/6 ${path === s.href.split("#")[0] && s.href.includes("#") ? "text-ink" : "text-ink-2"}`}
+                            >
+                              {s.label}
+                            </Link>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </li>
                 );
               })}

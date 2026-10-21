@@ -12,6 +12,7 @@ const LABELS: Record<string, string> = {
   newsletter: "Newsletter",
   campagnes: "Campagnes",
   parametres: "Réglages",
+  ia: "IA & automatisation",
 };
 
 /** Libellé d'un segment dynamique selon son parent (identifiant de fiche, de campagne…). */

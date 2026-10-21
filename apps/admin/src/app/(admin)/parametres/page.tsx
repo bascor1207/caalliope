@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { setFlagValue } from "@/app/actions";
 import { OptimisticSwitch } from "@/components/optimistic-switch";
+import { Sections } from "@/components/sections";
 import { getSmtpSettings, getSocialSettings } from "@/lib/settings";
 import { listFlags } from "@/lib/users";
 import { MaintenanceForm, SmtpForm, SocialForm } from "./settings-forms";
@@ -27,66 +28,105 @@ export default async function SettingsPage() {
           </p>
         </div>
       </header>
-      <section className="card mt-10" aria-labelledby="smtp-title">
-        <h2 id="smtp-title" className="text-[19px] font-semibold tracking-[-0.02em]">
-          Boîte d'envoi des e-mails
-        </h2>
-        <p className="mt-1 mb-6 text-sm text-muted">
-          Les newsletters partent de cette boîte, en ton nom. Pour l'instant : bcorre.work@gmail.com ; plus tard la
-          boîte KODA. Gmail accepte environ 500 destinataires par jour (2 000 en Google Workspace).
-        </p>
-        <SmtpForm current={smtp} hasPassword={Boolean(smtp?.pass)} />
-      </section>
-
-      <section className="card mt-6" aria-labelledby="social-title">
-        <h2 id="social-title" className="text-[19px] font-semibold tracking-[-0.02em]">
-          Réseaux sociaux et contact
-        </h2>
-        <p className="mt-1 mb-6 text-sm text-muted">Repris dans le pied de page de la boutique et ses données SEO.</p>
-        <SocialForm current={social} />
-      </section>
-
-      <section className="card mt-6" aria-labelledby="flags-title">
-        <h2 id="flags-title" className="mb-5 text-[19px] font-semibold tracking-[-0.02em]">
-          Fonctionnalités
-        </h2>
-        {flags.length === 0 ? (
-          <p className="text-[15px] text-muted">Base de données absente : aucun réglage disponible.</p>
-        ) : (
-          <ul className="divide-y divide-line">
-            {flags.map((f) => (
-              <li key={f.key} className="flex flex-wrap items-center justify-between gap-4 py-4 first:pt-0 last:pb-0">
-                <div>
-                  <b className="block text-[15px]">{LABELS[f.key] ?? f.key}</b>
-                  <span className="text-sm text-muted">
-                    <code className="rounded bg-ink/6 px-1.5 py-0.5 text-xs">{f.key}</code> · {f.description}
-                  </span>
-                </div>
-                <OptimisticSwitch
-                  checked={f.enabled}
-                  label={LABELS[f.key] ?? f.key}
-                  action={setFlagValue.bind(null, f.key)}
-                  successMessage={(on) => `${LABELS[f.key] ?? f.key} : ${on ? "activé" : "désactivé"}.`}
-                />
-              </li>
-            ))}
-          </ul>
-        )}
-        <p className="mt-6 text-sm text-muted">
-          Google et Apple exigent aussi que le fournisseur soit configuré dans Supabase (Authentication → Providers). Le
-          flag ne fait qu'afficher ou masquer le bouton sur la boutique.
-        </p>
-      </section>
-      <section className="card mt-6 border-danger/30" aria-labelledby="maintenance-title">
-        <h2 id="maintenance-title" className="text-[19px] font-semibold tracking-[-0.02em]">
-          Maintenance
-        </h2>
-        <p className="mt-1 mb-5 text-sm text-muted">
-          Après une phase de tests : efface les événements du tableau de bord. Commandes, comptes et inscrits sont
-          conservés.
-        </p>
-        <MaintenanceForm />
-      </section>
+      <Sections
+        items={[
+          {
+            id: "emails",
+            label: "E-mails",
+            children: (
+              <>
+                <section className="card mt-10" aria-labelledby="smtp-title">
+                  <h2 id="smtp-title" className="text-[19px] font-semibold tracking-[-0.02em]">
+                    Boîte d'envoi des e-mails
+                  </h2>
+                  <p className="mt-1 mb-6 text-sm text-muted">
+                    Les newsletters partent de cette boîte, en ton nom. Pour l'instant : bcorre.work@gmail.com ; plus
+                    tard la boîte KODA. Gmail accepte environ 500 destinataires par jour (2 000 en Google Workspace).
+                  </p>
+                  <SmtpForm current={smtp} hasPassword={Boolean(smtp?.pass)} />
+                </section>
+              </>
+            ),
+          },
+          {
+            id: "reseaux",
+            label: "Réseaux",
+            children: (
+              <>
+                <section className="card mt-6" aria-labelledby="social-title">
+                  <h2 id="social-title" className="text-[19px] font-semibold tracking-[-0.02em]">
+                    Réseaux sociaux et contact
+                  </h2>
+                  <p className="mt-1 mb-6 text-sm text-muted">
+                    Repris dans le pied de page de la boutique et ses données SEO.
+                  </p>
+                  <SocialForm current={social} />
+                </section>
+              </>
+            ),
+          },
+          {
+            id: "fonctionnalites",
+            label: "Fonctionnalités",
+            children: (
+              <>
+                <section className="card mt-6" aria-labelledby="flags-title">
+                  <h2 id="flags-title" className="mb-5 text-[19px] font-semibold tracking-[-0.02em]">
+                    Fonctionnalités
+                  </h2>
+                  {flags.length === 0 ? (
+                    <p className="text-[15px] text-muted">Base de données absente : aucun réglage disponible.</p>
+                  ) : (
+                    <ul className="divide-y divide-line">
+                      {flags.map((f) => (
+                        <li
+                          key={f.key}
+                          className="flex flex-wrap items-center justify-between gap-4 py-4 first:pt-0 last:pb-0"
+                        >
+                          <div>
+                            <b className="block text-[15px]">{LABELS[f.key] ?? f.key}</b>
+                            <span className="text-sm text-muted">
+                              <code className="rounded bg-ink/6 px-1.5 py-0.5 text-xs">{f.key}</code> · {f.description}
+                            </span>
+                          </div>
+                          <OptimisticSwitch
+                            checked={f.enabled}
+                            label={LABELS[f.key] ?? f.key}
+                            action={setFlagValue.bind(null, f.key)}
+                            successMessage={(on) => `${LABELS[f.key] ?? f.key} : ${on ? "activé" : "désactivé"}.`}
+                          />
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                  <p className="mt-6 text-sm text-muted">
+                    Google et Apple exigent aussi que le fournisseur soit configuré dans Supabase (Authentication →
+                    Providers). Le flag ne fait qu'afficher ou masquer le bouton sur la boutique.
+                  </p>
+                </section>
+              </>
+            ),
+          },
+          {
+            id: "maintenance",
+            label: "Maintenance",
+            children: (
+              <>
+                <section className="card mt-6 border-danger/30" aria-labelledby="maintenance-title">
+                  <h2 id="maintenance-title" className="text-[19px] font-semibold tracking-[-0.02em]">
+                    Maintenance
+                  </h2>
+                  <p className="mt-1 mb-5 text-sm text-muted">
+                    Après une phase de tests : efface les événements du tableau de bord. Commandes, comptes et inscrits
+                    sont conservés.
+                  </p>
+                  <MaintenanceForm />
+                </section>
+              </>
+            ),
+          },
+        ]}
+      />
     </main>
   );
 }

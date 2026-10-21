@@ -31,6 +31,9 @@ Suivi des idées et de leur état. Mis à jour à chaque lot livré.
 - SEO : pages catégories indexables (hoodies, sweats, t-shirts, FR/EN), JSON-LD ProductGroup avec variantes et stock réel, flux Google Merchant (`/feed/google-merchant.xml`), robots.txt complet, sitemap enrichi, OG à jour.
 - Curseurs : main sur tout ce qui se clique, curseur maison « agrandir / réduire » sur la galerie produit.
 
+- Serveur MCP de l'admin (`/api/mcp`, jeton `MCP_TOKEN`) : 22 outils (catalogue, médias, marketing, newsletter, réglages, stats) pour piloter le back-office depuis Claude, Cursor… Page « IA & automatisation » avec la config.
+- Admin mobile : onglets par section (ancres), sous-menus dans la barre latérale, KPI compacts.
+
 ## En cours / à configurer par KODA
 - Domaine final à brancher sur Vercel (puis `NEXT_PUBLIC_SITE_URL` à mettre à jour), Google Search Console (sitemap) et Merchant Center (flux).
 - Admin → Catalogue → « Importer le catalogue de la boutique » (une fois le déploiement passé) : les fiches deviennent éditables.

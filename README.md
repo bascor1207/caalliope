@@ -160,6 +160,15 @@ Côté store, un **listener middleware** RTK traduit les actions en événements
 - **Envois de fichiers** : `createSignedUploadUrl` côté serveur (clé service), `uploadToSignedUrl` côté navigateur :
   rien ne transite par Vercel (limite 4,5 Mo), jusqu'à 50 Mo par fichier, 1 Go offerts.
 
+## IA & automatisation (MCP)
+
+L'admin expose un serveur MCP (`apps/admin/src/app/api/mcp/route.ts`, `mcp-handler`) protégé par le jeton
+`MCP_TOKEN` (`Authorization: Bearer …`). 22 outils reprennent les mêmes bibliothèques que l'interface : statistiques,
+fiches produit (lecture, création, modification, mise en ligne, suppression), palette, envoi de médias (URL signée),
+vidéos et bandeau, réseaux sociaux, newsletter (inscrits, campagnes, test, envoi), feature flags, comptes. Chaque
+écriture rafraîchit la boutique. La page admin « IA & automatisation » donne la configuration à coller dans Claude,
+Cursor ou Claude Code.
+
 ## Marketing, analytics et admin
 
 - **`marketing`** : le bandeau au-dessus du header lit des bannières (texte FR/EN, lien, fenêtre de diffusion, ordre)

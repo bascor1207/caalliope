@@ -64,7 +64,7 @@
   }
   /* Chiffres clés : Instrument Sans, grands, tabulaires. Outfit reste réservé aux titres. */
   .kpi-value {
-    @apply mt-3 font-sans text-[38px] font-semibold leading-none tracking-[-0.02em] tabular-nums;
+    @apply mt-2 font-sans text-[30px] font-semibold leading-none tracking-[-0.02em] tabular-nums md:mt-3 md:text-[38px];
   }
   /* Skeleton : dégradé de gris qui balaie le bloc de gauche à droite (shimmer). */
   .skeleton {
