@@ -93,9 +93,14 @@ Mise en place, une seule fois :
    `https://kodaclothing.<sous-domaine>.workers.dev`, puis sur le domaine final (Workers → kodaclothing → Domaines).
    Mettre ensuite à jour `SHOP_URL`, `SHOP_URL` côté admin (Vercel), le domaine dans Stripe et `SITE.url`.
 
-Les autres workflows : `supabase-backup.yml` (export `pg_dump` chaque nuit vers R2, car le plan gratuit de Supabase n'a
-pas de sauvegarde), `supabase-keepalive.yml` (une requête par jour pour éviter la mise en pause après 7 jours sans
-activité). Les vidéos de marque sont dans le bucket public `kodaclothing-media` (`SITE.media` pointe sur son URL r2.dev). Les secrets absents font simplement sauter l'étape, avec un avertissement.
+**Sauvegardes nocturnes sans GitHub ni clé S3** : le plan gratuit de Supabase n'en fournit pas, donc un Worker planifié
+(`koda-backup`, cron 03:17 UTC) appelle chaque nuit un « deploy hook » Workers Builds qui exécute
+`scripts/backup-supabase.sh` dans le CI Cloudflare : `pg_dump` 17 (paquets PGDG extraits dans /tmp, sans root) des
+schémas public, auth et storage, plus un export logique NDJSON (`packages/db/scripts/backup-export.mjs`) en repli, le
+tout envoyé par `wrangler` dans le bucket privé `kodaclothing-backups` (règle de cycle de vie : 30 jours). Le rôle
+Postgres `koda_backup` est en lecture seule avec `BYPASSRLS` (variable de build `SUPABASE_BACKUP_URL`). Restaurer :
+`pg_restore --no-owner -d <url> koda-<date>.dump`. Le workflow GitHub `supabase-keepalive.yml` (une requête par jour
+pour éviter la mise en pause après 7 jours sans activité) reste en place, il n'a besoin d'aucun secret. Les vidéos de marque sont dans le bucket public `kodaclothing-media` (`SITE.media` pointe sur son URL r2.dev). Les secrets absents font simplement sauter l'étape, avec un avertissement.
 
 En local : `pnpm --filter web preview:cf` construit la boutique pour Workers et la sert avec `wrangler dev`
 (cache R2 et Durable Objects émulés). Limites du plan gratuit : 3 Mo compressés pour le Worker (2,8 Mo aujourd'hui : les images Open Graph sont des
