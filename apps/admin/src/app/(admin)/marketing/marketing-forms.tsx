@@ -5,6 +5,7 @@ import { useActionState, useState } from "react";
 import { MediaUpload } from "@/components/media-upload";
 import { useToastOnState } from "@/components/toaster";
 import type { AnnouncementSource, BannerSource, VideoMedia } from "@/lib/marketing";
+import { fromParisLocal, toParisLocal } from "@/lib/time";
 import { type MarketingState, saveAnnouncementAction, saveBannersAction, saveVideoBlock } from "./actions";
 
 const INPUT =
@@ -239,10 +240,8 @@ export function BannersForm({ initial }: { initial: BannerSource[] }) {
                 Du <span className="font-normal text-muted">· facultatif</span>
                 <input
                   type="datetime-local"
-                  value={b.startsAt?.slice(0, 16) ?? ""}
-                  onChange={(e) =>
-                    update(i, { startsAt: e.target.value ? new Date(e.target.value).toISOString() : undefined })
-                  }
+                  value={toParisLocal(b.startsAt)}
+                  onChange={(e) => update(i, { startsAt: fromParisLocal(e.target.value) })}
                   className={INPUT}
                 />
               </label>
@@ -250,10 +249,8 @@ export function BannersForm({ initial }: { initial: BannerSource[] }) {
                 Au
                 <input
                   type="datetime-local"
-                  value={b.endsAt?.slice(0, 16) ?? ""}
-                  onChange={(e) =>
-                    update(i, { endsAt: e.target.value ? new Date(e.target.value).toISOString() : undefined })
-                  }
+                  value={toParisLocal(b.endsAt)}
+                  onChange={(e) => update(i, { endsAt: fromParisLocal(e.target.value) })}
                   className={INPUT}
                 />
               </label>
@@ -288,8 +285,6 @@ export function BannersForm({ initial }: { initial: BannerSource[] }) {
     </form>
   );
 }
-
-const toLocal = (iso?: string) => (iso ? new Date(iso).toISOString().slice(0, 16) : "");
 
 /** Annonce plein écran : avertissement, promo ou nouveauté, affichée une fois par visiteur (jusqu'à « réafficher »). */
 export function AnnouncementForm({ current }: { current: AnnouncementSource | null }) {
@@ -372,11 +367,16 @@ export function AnnouncementForm({ current }: { current: AnnouncementSource | nu
         </label>
         <label className="text-sm font-semibold">
           Du <span className="font-normal text-muted">· facultatif</span>
-          <input name="startsAt" type="datetime-local" defaultValue={toLocal(current?.startsAt)} className={INPUT} />
+          <input
+            name="startsAt"
+            type="datetime-local"
+            defaultValue={toParisLocal(current?.startsAt)}
+            className={INPUT}
+          />
         </label>
         <label className="text-sm font-semibold">
           Au <span className="font-normal text-muted">· facultatif</span>
-          <input name="endsAt" type="datetime-local" defaultValue={toLocal(current?.endsAt)} className={INPUT} />
+          <input name="endsAt" type="datetime-local" defaultValue={toParisLocal(current?.endsAt)} className={INPUT} />
         </label>
       </div>
       <div className="flex flex-wrap items-center gap-5">

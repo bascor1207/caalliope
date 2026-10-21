@@ -6,6 +6,14 @@ const serviceKey = () => process.env.SUPABASE_SERVICE_ROLE_KEY ?? "";
 
 export const storageConfigured = () => Boolean(url() && serviceKey());
 
+const PUBLIC_BASE = "https://skmhnhnpssnejjvjhyjo.supabase.co";
+
+/** Vidéo de marque livrée dans le bucket public (`marketing/<nom>.mp4` + affiche `.jpg`), jamais dans le dépôt. */
+export const defaultVideo = (name: string) => {
+  const base = `${(url() || PUBLIC_BASE).replace(/\/$/, "")}/storage/v1/object/public/${BUCKET}/marketing`;
+  return { src: `${base}/${name}.mp4`, poster: `${base}/${name}.jpg` };
+};
+
 const admin = () => createClient(url(), serviceKey(), { auth: { persistSession: false, autoRefreshToken: false } });
 
 const slugify = (name: string) =>

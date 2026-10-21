@@ -12,6 +12,7 @@ import {
   type VideoMedia,
 } from "@/lib/marketing";
 import { revalidateShop } from "@/lib/settings";
+import { fromParisLocal } from "@/lib/time";
 
 export interface MarketingState {
   ok?: string;
@@ -67,8 +68,8 @@ export async function saveBannersAction(_prev: MarketingState, f: FormData): Pro
       id: b.id || `b-${Date.now().toString(36)}-${i}`,
       message: { fr: b.message.fr.trim(), en: (b.message.en || b.message.fr).trim() },
       href: b.href?.trim() || undefined,
-      startsAt: b.startsAt || undefined,
-      endsAt: b.endsAt || undefined,
+      startsAt: fromParisLocal(b.startsAt),
+      endsAt: fromParisLocal(b.endsAt),
       active: Boolean(b.active),
       order: i + 1,
     }));
@@ -92,8 +93,8 @@ export async function saveAnnouncementAction(_prev: MarketingState, f: FormData)
     ctaUrl: str(f, "ctaUrl") || undefined,
     code: str(f, "code") || undefined,
     active: f.get("active") === "on",
-    startsAt: str(f, "startsAt") ? new Date(str(f, "startsAt")).toISOString() : undefined,
-    endsAt: str(f, "endsAt") ? new Date(str(f, "endsAt")).toISOString() : undefined,
+    startsAt: fromParisLocal(str(f, "startsAt")),
+    endsAt: fromParisLocal(str(f, "endsAt")),
     version: (current?.version ?? 0) + (f.get("reshow") === "on" || !current ? 1 : 0),
   };
   if (next.active && !next.title.fr) return { error: "Un titre (FR) est requis pour afficher l'annonce." };

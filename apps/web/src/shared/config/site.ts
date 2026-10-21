@@ -12,15 +12,22 @@ export const SITE = {
   developer: { name: "GOLEM CORP", url: null as string | null },
   collectionName: "Collection",
   /**
-   * Médias de marque, à déposer dans public/media/ (voir public/media/README.md).
-   * `null` = la section s'affiche sans vidéo.
+   * Médias de marque. Les vidéos sont hébergées sur Supabase Storage (bucket `media`, dossier `marketing/`),
+   * jamais dans le dépôt ni dans le bundle ; le back-office (Marketing) peut les remplacer. Logo et icône restent
+   * dans public/media/ (voir public/media/README.md). `null` = la section s'affiche sans vidéo.
    */
   media: {
-    storyVideo: { src: "/media/koda-story.mp4", poster: "/media/koda-story.jpg" } as {
+    storyVideo: {
+      src: "https://skmhnhnpssnejjvjhyjo.supabase.co/storage/v1/object/public/media/marketing/koda-story.mp4",
+      poster: "https://skmhnhnpssnejjvjhyjo.supabase.co/storage/v1/object/public/media/marketing/koda-story.jpg",
+    } as {
       src: string;
       poster?: string;
     } | null,
-    heroVideo: { src: "/media/koda-hero.mp4", poster: "/media/koda-hero.jpg" } as {
+    heroVideo: {
+      src: "https://skmhnhnpssnejjvjhyjo.supabase.co/storage/v1/object/public/media/marketing/koda-hero.mp4",
+      poster: "https://skmhnhnpssnejjvjhyjo.supabase.co/storage/v1/object/public/media/marketing/koda-hero.jpg",
+    } as {
       src: string;
       poster?: string;
     } | null,

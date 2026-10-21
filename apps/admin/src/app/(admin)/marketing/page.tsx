@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Sections } from "@/components/sections";
 import { getAnnouncement, getBanners, getMedia } from "@/lib/marketing";
-import { storageConfigured } from "@/lib/storage";
+import { defaultVideo, storageConfigured } from "@/lib/storage";
 import { AnnouncementForm, BannersForm, VideoBlockForm } from "./marketing-forms";
 
 export const metadata: Metadata = { title: "Marketing" };
@@ -10,11 +10,7 @@ export const dynamic = "force-dynamic";
 export default async function MarketingPage() {
   const [media, banners, announcement] = await Promise.all([getMedia(), getBanners(), getAnnouncement()]);
   const storage = storageConfigured();
-  const shop = (process.env.SHOP_URL ?? "https://kodaclothing.vercel.app").replace(/\/$/, "");
-  const defaults = {
-    hero: { src: `${shop}/media/koda-hero.mp4`, poster: `${shop}/media/koda-hero.jpg` },
-    story: { src: `${shop}/media/koda-story.mp4`, poster: `${shop}/media/koda-story.jpg` },
-  };
+  const defaults = { hero: defaultVideo("koda-hero"), story: defaultVideo("koda-story") };
   return (
     <main className="mx-auto w-full max-w-[1400px] px-5 pt-5 pb-10 md:px-9 md:pt-6 md:pb-12">
       <header>
@@ -36,8 +32,8 @@ export default async function MarketingPage() {
                     Vidéo de fond du hero
                   </h2>
                   <p className="mt-1 mb-6 text-sm text-muted">
-                    Fond du titre de l'accueil : la vidéo livrée avec le code (fond.mp4) sous les formes pastel, ta
-                    propre vidéo, ou un fond uni.
+                    Fond du titre de l'accueil : la vidéo de marque (fond.mp4, hébergée sur Supabase Storage) sous les
+                    formes pastel, ta propre vidéo, ou un fond uni.
                   </p>
                   <VideoBlockForm
                     block="hero"
@@ -61,13 +57,13 @@ export default async function MarketingPage() {
                     Bloc vidéo « Notre histoire »
                   </h2>
                   <p className="mt-1 mb-6 text-sm text-muted">
-                    Grand bloc plein cadre sur l'accueil, texte en surimpression. Par défaut : le fichier déposé dans le
-                    code (public/media/koda-story.mp4), ou masqué s'il manque.
+                    Grand bloc plein cadre sur l'accueil, texte en surimpression. Par défaut : la vidéo de marque
+                    hébergée sur Supabase Storage (marketing/koda-story.mp4).
                   </p>
                   <VideoBlockForm
                     block="story"
                     current={media.story}
-                    defaultLabel="Vidéo du code"
+                    defaultLabel="Vidéo de marque"
                     storage={storage}
                     defaultVideo={defaults.story}
                   />
