@@ -89,7 +89,8 @@ export function ProductCard({ product, delay }: { product: Product; delay?: 1 | 
             data-track="card.open"
           />
           {gallery.length > 1 && (
-            <div className="absolute right-2 bottom-2 z-2 flex gap-1 sm:right-3 sm:bottom-3 sm:opacity-0 sm:transition-opacity sm:group-hover/card:opacity-100 sm:group-focus-within/card:opacity-100">
+            /* Mobile : en bas à droite (le « + » est à gauche). Desktop : en haut à droite, la rangée d'ajout rapide occupant le bas. */
+            <div className="absolute right-2 bottom-2 z-2 flex gap-1 sm:right-3 sm:bottom-3 sm:opacity-0 sm:transition-opacity sm:group-hover/card:opacity-100 sm:group-focus-within/card:opacity-100 lg:top-3 lg:bottom-auto">
               <button
                 type="button"
                 aria-label={t("prev")}
