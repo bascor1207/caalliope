@@ -251,7 +251,7 @@ export function ProductConfigurator({ product: initial, initialColorKey }: Props
                     setError(null);
                   }}
                   className={cn(
-                    "min-w-[52px] rounded-[10px] border-[1.5px] border-line px-3 py-2.5 text-sm font-semibold transition-all hover:border-ink",
+                    "min-w-[52px] rounded-[10px] border-[1.5px] border-line px-3 py-2.5 text-sm font-semibold transition-[background-color,border-color,color] duration-200 hover:border-ink",
                     s === size && "border-ink bg-ink text-cream",
                     !available && "cursor-not-allowed line-through opacity-35",
                   )}

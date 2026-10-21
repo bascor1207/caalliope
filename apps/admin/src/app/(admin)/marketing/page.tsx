@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { Sections } from "@/components/sections";
-import { getBanners, getMedia } from "@/lib/marketing";
+import { getAnnouncement, getBanners, getMedia } from "@/lib/marketing";
 import { storageConfigured } from "@/lib/storage";
-import { BannersForm, VideoBlockForm } from "./marketing-forms";
+import { AnnouncementForm, BannersForm, VideoBlockForm } from "./marketing-forms";
 
 export const metadata: Metadata = { title: "Marketing" };
 export const dynamic = "force-dynamic";
 
 export default async function MarketingPage() {
-  const [media, banners] = await Promise.all([getMedia(), getBanners()]);
+  const [media, banners, announcement] = await Promise.all([getMedia(), getBanners(), getAnnouncement()]);
   const storage = storageConfigured();
   const shop = (process.env.SHOP_URL ?? "https://kodaclothing.vercel.app").replace(/\/$/, "");
   const defaults = {
@@ -21,7 +21,7 @@ export default async function MarketingPage() {
         <p className="eyebrow">KODA Clothing</p>
         <h1 className="mt-2 text-[clamp(30px,4vw,44px)] leading-none tracking-[-0.03em]">Marketing</h1>
         <p className="mt-3 text-[15px] text-muted">
-          Vidéos de l'accueil et bandeau d'annonces. Chaque enregistrement met la boutique à jour.
+          Vidéos de l'accueil, bandeau d'annonces et annonce plein écran. Chaque enregistrement met la boutique à jour.
         </p>
       </header>
       <Sections
@@ -89,6 +89,24 @@ export default async function MarketingPage() {
                     Friday…).
                   </p>
                   <BannersForm initial={banners} />
+                </section>
+              </>
+            ),
+          },
+          {
+            id: "annonce",
+            label: "Annonce",
+            children: (
+              <>
+                <section className="card mt-6" aria-labelledby="announcement-title">
+                  <h2 id="announcement-title" className="text-[19px] font-semibold tracking-[-0.02em]">
+                    Annonce plein écran
+                  </h2>
+                  <p className="mt-1 mb-6 text-sm text-muted">
+                    Une modale à l'arrivée sur la boutique : avertissement (retard, fermeture), promo avec code,
+                    nouveauté. Vue une fois par visiteur, programmable.
+                  </p>
+                  <AnnouncementForm current={announcement} />
                 </section>
               </>
             ),

@@ -15,7 +15,9 @@
     "allDrop": "Collection",
     "sizeGuide": "Size guide",
     "back": "Back to the shop",
-    "retry": "Retry"
+    "retry": "Retry",
+    "copy": "Copy the code",
+    "copied": "Code copied"
   },
   "labels": {
     "home": "Home",

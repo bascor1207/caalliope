@@ -58,6 +58,7 @@ export const ADMIN_LINKS: AdminLink[] = [
       { href: "/marketing#hero", label: "Hero" },
       { href: "/marketing#histoire", label: "Histoire" },
       { href: "/marketing#bandeau", label: "Bandeau" },
+      { href: "/marketing#annonce", label: "Annonce" },
     ],
   },
   {

@@ -1,7 +1,16 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { type BannerSource, getMedia, saveBanners, saveMedia, type VideoMedia } from "@/lib/marketing";
+import {
+  type AnnouncementSource,
+  type BannerSource,
+  getAnnouncement,
+  getMedia,
+  saveAnnouncement,
+  saveBanners,
+  saveMedia,
+  type VideoMedia,
+} from "@/lib/marketing";
 import { revalidateShop } from "@/lib/settings";
 
 export interface MarketingState {
@@ -69,4 +78,29 @@ export async function saveBannersAction(_prev: MarketingState, f: FormData): Pro
     return { error: `Enregistrement impossible : ${e instanceof Error ? e.message : String(e)}` };
   }
   return done("Bandeau enregistré.");
+}
+
+/** Annonce (modale) : enregistre, et « réafficher » incrémente la version pour la remontrer à tout le monde. */
+export async function saveAnnouncementAction(_prev: MarketingState, f: FormData): Promise<MarketingState> {
+  const current = await getAnnouncement();
+  const kind = str(f, "kind");
+  const next: AnnouncementSource = {
+    kind: kind === "warning" || kind === "promo" ? kind : "info",
+    title: { fr: str(f, "titleFr"), en: str(f, "titleEn") || str(f, "titleFr") },
+    text: { fr: str(f, "textFr"), en: str(f, "textEn") || str(f, "textFr") },
+    ctaLabel: str(f, "ctaFr") ? { fr: str(f, "ctaFr"), en: str(f, "ctaEn") || str(f, "ctaFr") } : undefined,
+    ctaUrl: str(f, "ctaUrl") || undefined,
+    code: str(f, "code") || undefined,
+    active: f.get("active") === "on",
+    startsAt: str(f, "startsAt") ? new Date(str(f, "startsAt")).toISOString() : undefined,
+    endsAt: str(f, "endsAt") ? new Date(str(f, "endsAt")).toISOString() : undefined,
+    version: (current?.version ?? 0) + (f.get("reshow") === "on" || !current ? 1 : 0),
+  };
+  if (next.active && !next.title.fr) return { error: "Un titre (FR) est requis pour afficher l'annonce." };
+  try {
+    await saveAnnouncement(next);
+  } catch (e) {
+    return { error: `Enregistrement impossible : ${e instanceof Error ? e.message : String(e)}` };
+  }
+  return done(next.active ? "Annonce enregistrée et affichée." : "Annonce enregistrée (masquée).");
 }

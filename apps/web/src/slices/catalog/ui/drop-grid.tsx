@@ -40,7 +40,7 @@ export function DropGrid() {
               aria-pressed={f === filter}
               onClick={() => select(f)}
               className={cn(
-                "inline-flex shrink-0 items-center gap-2 rounded-full border-[1.5px] border-line px-4 py-2.5 font-display text-[13px] font-bold transition-all hover:border-ink",
+                "inline-flex shrink-0 items-center gap-2 rounded-full border-[1.5px] border-line px-4 py-2.5 font-display text-[13px] font-bold transition-[background-color,border-color,color] duration-200 hover:border-ink",
                 "aria-pressed:border-ink aria-pressed:bg-ink aria-pressed:text-cream",
               )}
             >

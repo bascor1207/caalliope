@@ -15,7 +15,9 @@
     "allDrop": "Collection",
     "sizeGuide": "Guide des tailles",
     "back": "Retour à la boutique",
-    "retry": "Réessayer"
+    "retry": "Réessayer",
+    "copy": "Copier le code",
+    "copied": "Code copié"
   },
   "labels": {
     "home": "Accueil",

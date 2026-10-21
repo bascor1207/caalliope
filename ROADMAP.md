@@ -34,7 +34,11 @@ Suivi des idées et de leur état. Mis à jour à chaque lot livré.
 - Serveur MCP de l'admin (`/api/mcp`, jeton `MCP_TOKEN`) : 22 outils (catalogue, médias, marketing, newsletter, réglages, stats) pour piloter le back-office depuis Claude, Cursor… Page « IA & automatisation » avec la config.
 - Admin mobile : onglets par section (ancres), sous-menus dans la barre latérale, KPI compacts.
 
+- Annonce plein écran (modale) pilotée depuis Marketing et le MCP : avertissement / promo / nouveauté, code copiable, période, vue une fois par visiteur, « réafficher » par version.
+- Animations lissées : cartes « Notre histoire » (survol sur un calque séparé), flou d'en-tête allégé, formes pastel moins coûteuses (2 sur mobile), transitions ciblées.
+
 ## En cours / à configurer par KODA
+- Vidéos : les envoyer depuis Marketing (Ma vidéo) vers Supabase Storage puis me dire de retirer les fichiers du dépôt.
 - Domaine final à brancher sur Vercel (puis `NEXT_PUBLIC_SITE_URL` à mettre à jour), Google Search Console (sitemap) et Merchant Center (flux).
 - Admin → Catalogue → « Importer le catalogue de la boutique » (une fois le déploiement passé) : les fiches deviennent éditables.
 - Admin → Réglages → Boîte d'envoi : smtp.gmail.com / bcorre.work@gmail.com / mot de passe d'application, puis « Envoyer le test ».

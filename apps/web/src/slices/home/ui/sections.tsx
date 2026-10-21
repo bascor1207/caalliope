@@ -63,16 +63,14 @@ export async function Story() {
         </Reveal>
         <ul className="grid gap-3 md:gap-3.5">
           {values.map((n) => (
-            <Reveal
-              key={n}
-              as="li"
-              delay={n}
-              className="grid grid-cols-[44px_1fr] items-start gap-3.5 rounded-[18px] border border-cream/10 bg-cream/6 p-4 transition-[background-color,transform] duration-400 ease-expo hover:translate-x-1.5 hover:bg-cream/10 md:grid-cols-[56px_1fr] md:gap-[18px] md:rounded-card md:p-6"
-            >
-              <span className="serif text-[32px] leading-none text-sage md:text-[40px]">0{n}</span>
-              <div>
-                <h3 className="mb-1.5 text-lg md:text-xl">{t(`v${n}Title`)}</h3>
-                <p className="text-sm text-cream/70 md:text-[15px]">{t(`v${n}`)}</p>
+            <Reveal key={n} as="li" delay={n}>
+              {/* Le survol anime un calque enfant : il ne se bat plus avec la transition d'apparition du <li>. */}
+              <div className="story-card grid grid-cols-[44px_1fr] items-start gap-3.5 rounded-[18px] border border-cream/10 bg-cream/6 p-4 md:grid-cols-[56px_1fr] md:gap-[18px] md:rounded-card md:p-6">
+                <span className="serif text-[32px] leading-none text-sage md:text-[40px]">0{n}</span>
+                <div>
+                  <h3 className="mb-1.5 text-lg md:text-xl">{t(`v${n}Title`)}</h3>
+                  <p className="text-sm text-cream/70 md:text-[15px]">{t(`v${n}`)}</p>
+                </div>
               </div>
             </Reveal>
           ))}

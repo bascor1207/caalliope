@@ -34,7 +34,7 @@ export function Header() {
   const isHome = pathname === "/";
 
   return (
-    <header className="sticky top-0 z-50 flex h-header items-center border-b border-line bg-cream/78 backdrop-blur-[14px] backdrop-saturate-[160%]">
+    <header className="sticky top-0 z-50 flex h-header items-center border-b border-line bg-cream/85 backdrop-blur-[8px]">
       <div className="container-k grid grid-cols-[1fr_auto_1fr] items-center gap-4">
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>

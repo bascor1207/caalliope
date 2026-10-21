@@ -12,7 +12,7 @@ import {
   slugTaken,
 } from "@/lib/catalog";
 import { emptyProduct, type ProductData, slugify, validateProduct } from "@/lib/catalog-types";
-import { getBanners, getMedia, saveBanners, saveMedia } from "@/lib/marketing";
+import { getAnnouncement, getBanners, getMedia, saveAnnouncement, saveBanners, saveMedia } from "@/lib/marketing";
 import {
   createCampaign,
   getCampaign,
@@ -268,6 +268,33 @@ const handler = createMcpHandler(
         );
         await revalidateShop("settings");
         return json({ ok: true, banners: banners.length });
+      },
+    );
+    server.registerTool(
+      "set_announcement",
+      {
+        title: "Annonce plein écran (modale)",
+        description:
+          "Avertissement, promo ou nouveauté affiché une fois par visiteur à l'arrivée. reshow=true la réaffiche à ceux qui l'avaient fermée. active=false la masque.",
+        inputSchema: z.object({
+          kind: z.enum(["info", "warning", "promo"]).default("info"),
+          title: localized,
+          text: localized,
+          ctaLabel: localized.optional(),
+          ctaUrl: z.string().optional(),
+          code: z.string().optional(),
+          active: z.boolean().default(true),
+          startsAt: z.string().optional(),
+          endsAt: z.string().optional(),
+          reshow: z.boolean().default(false),
+        }),
+      },
+      async ({ reshow, ...a }) => {
+        const current = await getAnnouncement();
+        const next = { ...a, version: (current?.version ?? 0) + (reshow || !current ? 1 : 0) };
+        await saveAnnouncement(next);
+        await revalidateShop("settings");
+        return json({ ok: true, announcement: next });
       },
     );
     server.registerTool(

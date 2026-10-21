@@ -14,8 +14,14 @@ import { AnalyticsProvider } from "@/slices/analytics/public-ui";
 import { CartDrawer } from "@/slices/cart/public-ui";
 import { catalogRepository, listProducts } from "@/slices/catalog/public-server";
 import { CatalogLive } from "@/slices/catalog/public-ui";
-import { bannersRepository, listLiveBanners } from "@/slices/marketing/public-server";
-import { MarketingBar } from "@/slices/marketing/public-ui";
+import {
+  bannersRepository,
+  getAnnouncement,
+  isAnnouncementLive,
+  listLiveBanners,
+  resolveAnnouncement,
+} from "@/slices/marketing/public-server";
+import { AnnouncementDialog, MarketingBar } from "@/slices/marketing/public-ui";
 import { Toaster } from "@/slices/notifications/public-ui";
 import { StoreProvider } from "@/store/store-provider";
 import { AddedToCart } from "../_shell/added-to-cart";
@@ -88,6 +94,11 @@ export default async function LocaleLayout({ children, params }: Props) {
   const tc = await getTranslations("common");
   const banners = await listLiveBanners(bannersRepository, locale);
   const products = await listProducts(catalogRepository, locale);
+  const announcementSource = await getAnnouncement();
+  const announcement =
+    announcementSource && isAnnouncementLive(announcementSource, new Date())
+      ? resolveAnnouncement(announcementSource, locale)
+      : null;
 
   return (
     <html
@@ -116,6 +127,7 @@ export default async function LocaleLayout({ children, params }: Props) {
             <Footer />
             <CartDrawer />
             <AddedToCart />
+            <AnnouncementDialog announcement={announcement} />
             <Toaster />
             <AnalyticsProvider />
             <CatalogLive locale={locale} />

@@ -1,6 +1,7 @@
 import { getSql, hasDatabase } from "@koda/db";
 import { unstable_cache } from "next/cache";
 import { SITE } from "@/shared/config/site";
+import type { AnnouncementSource } from "../domain/announcement";
 import type { BannerSource } from "../domain/banner";
 import type { SocialLinks } from "../domain/social";
 import { BANNERS } from "./banners.data";
@@ -79,5 +80,12 @@ export const getSiteMedia = unstable_cache(
 export const getBanners = unstable_cache(
   async (): Promise<BannerSource[]> => (await readSetting<BannerSource[]>("banners")) ?? BANNERS,
   ["site-settings-banners", CACHE_VERSION],
+  { tags: ["settings"], revalidate: 3600 },
+);
+
+/** Annonce (modale) éditée dans le back-office. `null` tant qu'aucune n'est enregistrée. */
+export const getAnnouncement = unstable_cache(
+  async (): Promise<AnnouncementSource | null> => readSetting<AnnouncementSource>("announcement"),
+  ["site-settings-announcement", CACHE_VERSION],
   { tags: ["settings"], revalidate: 3600 },
 );

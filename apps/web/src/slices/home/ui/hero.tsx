@@ -44,8 +44,8 @@ export async function Hero({
         <div className="absolute inset-0 -z-10 overflow-hidden" aria-hidden="true">
           <div className="hero-blob -top-[25vmax] -left-[15vmax] size-[60vmax] bg-sage" />
           <div className="hero-blob -right-[10vmax] -bottom-[25vmax] size-[55vmax] bg-lavender [animation-delay:-6s]" />
-          <div className="hero-blob top-[20%] right-[20%] size-[40vmax] bg-sky [animation-delay:-12s]" />
-          <div className="hero-blob bottom-[10%] left-[25%] size-[35vmax] bg-clay opacity-70 [animation-delay:-3s]" />
+          <div className="hero-blob top-[20%] right-[20%] size-[40vmax] bg-sky max-md:hidden [animation-delay:-12s]" />
+          <div className="hero-blob bottom-[10%] left-[25%] size-[35vmax] bg-clay opacity-70 max-md:hidden [animation-delay:-3s]" />
         </div>
       )}
       <div className="hero-grain -z-10" aria-hidden="true" />

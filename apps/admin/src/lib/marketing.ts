@@ -59,3 +59,21 @@ export const DEFAULT_BANNERS: BannerSource[] = [
 export const getBanners = async (): Promise<BannerSource[]> =>
   (await getSetting<BannerSource[]>(BANNERS_KEY)) ?? DEFAULT_BANNERS;
 export const saveBanners = (banners: BannerSource[]) => setSetting(BANNERS_KEY, banners);
+
+export type AnnouncementKind = "info" | "warning" | "promo";
+export interface AnnouncementSource {
+  kind: AnnouncementKind;
+  title: Localized;
+  text: Localized;
+  ctaLabel?: Localized;
+  ctaUrl?: string;
+  code?: string;
+  active: boolean;
+  startsAt?: string;
+  endsAt?: string;
+  version: number;
+}
+export const ANNOUNCEMENT_KEY = "announcement";
+export const getAnnouncement = async (): Promise<AnnouncementSource | null> =>
+  getSetting<AnnouncementSource>(ANNOUNCEMENT_KEY);
+export const saveAnnouncement = (a: AnnouncementSource) => setSetting(ANNOUNCEMENT_KEY, a);
