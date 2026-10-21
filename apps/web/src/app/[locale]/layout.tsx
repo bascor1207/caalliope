@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Instrument_Sans, Outfit } from "next/font/google";
 import { notFound } from "next/navigation";
-import Script from "next/script";
 import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Suspense } from "react";
@@ -115,10 +114,16 @@ export default async function LocaleLayout({ children, params }: Props) {
       data-scroll-behavior="smooth"
     >
       <head>
-        {/* Active les animations uniquement si JS tourne : sans JS, tout est visible. */}
-        <Script id="js-flag" strategy="beforeInteractive">
-          {"document.documentElement.classList.add('js')"}
-        </Script>
+        {/*
+          Active les animations uniquement si JS tourne : sans JS, tout est visible. Script inline brut, exécuté
+          pendant l'analyse du <head>, donc avant le premier rendu : avec next/script (beforeInteractive) la classe
+          arrivait après la première peinture et toutes les animations d'entrée repartaient de zéro (flash).
+        */}
+        <script
+          id="js-flag"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: constante, aucune donnée utilisateur
+          dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }}
+        />
         <JsonLd data={organizationJsonLd()} />
         <JsonLd data={websiteJsonLd(locale)} />
       </head>
