@@ -14,7 +14,10 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest",
-    "check": "pnpm lint:arch && pnpm typecheck && pnpm test"
+    "check": "pnpm lint:arch && pnpm typecheck && pnpm test",
+    "build:cf": "opennextjs-cloudflare build",
+    "preview:cf": "opennextjs-cloudflare build && wrangler dev",
+    "deploy:cf": "opennextjs-cloudflare build && wrangler deploy"
   },
   "dependencies": {
     "@koda/analytics": "workspace:*",
@@ -37,6 +40,7 @@
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
+    "@opennextjs/cloudflare": "^1.20.12",
     "@tailwindcss/postcss": "^4.3.3",
     "@types/node": "^22.15.0",
     "@types/react": "^19.1.0",
@@ -44,6 +48,7 @@
     "tailwindcss": "^4.3.3",
     "tw-animate-css": "^1.4.0",
     "typescript": "^5.8.0",
-    "vitest": "^5.0.0"
+    "vitest": "^5.0.0",
+    "wrangler": "^4.151.3"
   }
 }

@@ -41,6 +41,8 @@ Suivi des idées et de leur état. Mis à jour à chaque lot livré.
 - Animations lissées : cartes « Notre histoire » (survol sur un calque séparé), flou d'en-tête allégé, formes pastel moins coûteuses (2 sur mobile), transitions ciblées.
 
 ## En cours / à configurer par KODA
+- Hébergement 0 € : compte Cloudflare, R2 activé, jetons et secrets GitHub (voir README « Hébergement à 0 € »), puis lancer le workflow « Deploy web (Cloudflare) ». Vercel reste en secours pour la boutique jusqu'à validation ; l'admin reste sur Vercel.
+- Sauvegardes : secret `SUPABASE_DB_URL` + jeton R2 dans GitHub ; vidéos : lancer « Media → R2 » puis me donner l'URL publique du bucket.
 - Stripe : clés de test en place sur Vercel, domaine `kodaclothing.vercel.app` validé (Apple Pay, Google Pay, Link actifs). Pour encaisser pour de vrai : activer le compte Stripe, remplacer les deux clés par les clés `live`, et ajouter le domaine final.
 - Domaine final à brancher sur Vercel (puis `NEXT_PUBLIC_SITE_URL` à mettre à jour), Google Search Console (sitemap) et Merchant Center (flux).
 - Admin → Catalogue → « Importer le catalogue de la boutique » (une fois le déploiement passé) : les fiches deviennent éditables.
@@ -53,6 +55,9 @@ Suivi des idées et de leur état. Mis à jour à chaque lot livré.
 
 ## À faire
 
+- Espace client : page de détail d'une commande passée (articles, adresse, paiement, facture, suivi) depuis « Mes commandes ».
+- Admin : modes de livraison configurables (nom, prix, délai, seuil d'offre) transmis à Apple Pay / Google Pay et au checkout, à la place de la règle codée (4,90 €, offerte dès 80 €).
+- Module facturation : PDF numéroté par commande, envoyé avec la confirmation, téléchargeable dans le compte et l'admin, avoirs sur remboursement (mentions légales à fournir).
 - Paiement Stripe du panier complet (le checkout classique reste une précommande sans débit), webhook pour relire les paiements.
 - Migration Shopify : produits (déjà importés en données), clients (invitation), commandes (CSV → `orders`, source shopify).
 - Produits et bannières éditables depuis l'admin (plus de fichier de données).

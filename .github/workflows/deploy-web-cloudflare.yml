@@ -1,0 +1,103 @@
+# Boutique → Cloudflare Workers (plan gratuit), via OpenNext + wrangler.
+# Se déclenche à chaque push sur main touchant la boutique, ou à la main (Actions → Run workflow).
+# Secrets GitHub attendus (Settings → Secrets and variables → Actions) :
+#   CLOUDFLARE_API_TOKEN, CLOUDFLARE_ACCOUNT_ID,
+#   DATABASE_URL, NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY, REVALIDATE_SECRET,
+#   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY, STRIPE_SECRET_KEY
+# Variable GitHub (Variables, pas Secrets) : SHOP_URL = URL publique de la boutique (workers.dev puis domaine final).
+name: Deploy web (Cloudflare)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "apps/web/**"
+      - "packages/**"
+      - "pnpm-lock.yaml"
+      - ".github/workflows/deploy-web-cloudflare.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-web-cloudflare
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - name: Vérifier la configuration
+        id: config
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::warning::CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID absents : déploiement Cloudflare ignoré."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: actions/checkout@v4
+        if: steps.config.outputs.ready == 'true'
+
+      - uses: pnpm/action-setup@v4
+        if: steps.config.outputs.ready == 'true'
+
+      - uses: actions/setup-node@v4
+        if: steps.config.outputs.ready == 'true'
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Installer
+        if: steps.config.outputs.ready == 'true'
+        run: pnpm install --frozen-lockfile
+
+      - name: Construire (OpenNext)
+        if: steps.config.outputs.ready == 'true'
+        working-directory: apps/web
+        env:
+          # Les NEXT_PUBLIC_* sont figées dans le bundle au moment du build.
+          NEXT_PUBLIC_SITE_URL: ${{ vars.SHOP_URL || 'https://kodaclothing.vercel.app' }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: pnpm exec opennextjs-cloudflare build
+
+      - name: Préparer le bucket du cache ISR
+        if: steps.config.outputs.ready == 'true'
+        working-directory: apps/web
+        run: pnpm exec wrangler r2 bucket create kodaclothing-next-cache || echo "bucket déjà présent"
+
+      - name: Déployer le worker
+        if: steps.config.outputs.ready == 'true'
+        working-directory: apps/web
+        run: pnpm exec wrangler deploy --var NEXT_PUBLIC_SITE_URL:"${{ vars.SHOP_URL || 'https://kodaclothing.vercel.app' }}"
+
+      - name: Poser les secrets du worker
+        if: steps.config.outputs.ready == 'true'
+        working-directory: apps/web
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+          REVALIDATE_SECRET: ${{ secrets.REVALIDATE_SECRET }}
+          NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
+          STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
+        run: |
+          node -e '
+            const keys = ["DATABASE_URL","NEXT_PUBLIC_SUPABASE_URL","NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY","REVALIDATE_SECRET","NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY","STRIPE_SECRET_KEY"];
+            const out = {};
+            for (const k of keys) if (process.env[k]) out[k] = process.env[k];
+            require("fs").writeFileSync("secrets.json", JSON.stringify(out));
+            console.log("secrets posés :", Object.keys(out).join(", "));
+          '
+          pnpm exec wrangler secret bulk secrets.json
+          rm -f secrets.json
+
+      - name: Résumé
+        if: steps.config.outputs.ready == 'true'
+        run: echo "Boutique déployée sur Cloudflare (worker kodaclothing). URL : ${{ vars.SHOP_URL || 'voir le dashboard Workers → kodaclothing' }}" >> "$GITHUB_STEP_SUMMARY"

@@ -34,3 +34,7 @@ playwright-report
 *.log
 npm-debug.log*
 pnpm-debug.log*
+
+# Cloudflare (OpenNext)
+.open-next
+.wrangler

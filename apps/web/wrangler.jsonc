@@ -1,0 +1,25 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "kodaclothing",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": { "directory": ".open-next/assets", "binding": "ASSETS" },
+  "observability": { "enabled": true },
+  // Auto-référence : la file de revalidation ISR rappelle le worker lui-même.
+  "services": [{ "binding": "WORKER_SELF_REFERENCE", "service": "kodaclothing" }],
+  // Cache ISR (pages et données) : bucket R2 créé par le workflow de déploiement.
+  "r2_buckets": [{ "binding": "NEXT_INC_CACHE_R2_BUCKET", "bucket_name": "kodaclothing-next-cache" }],
+  // File de revalidation + cache des tags : Durable Objects SQLite, inclus dans le plan gratuit.
+  "durable_objects": {
+    "bindings": [
+      { "name": "NEXT_CACHE_DO_QUEUE", "class_name": "DOQueueHandler" },
+      { "name": "NEXT_TAG_CACHE_DO_SHARDED", "class_name": "DOShardedTagCache" }
+    ]
+  },
+  "migrations": [{ "tag": "v1", "new_sqlite_classes": ["DOQueueHandler", "DOShardedTagCache"] }],
+  // Variables publiques (les secrets sont posés par le workflow via `wrangler secret`).
+  "vars": {
+    "NEXT_PUBLIC_SITE_URL": "https://kodaclothing.vercel.app"
+  }
+}

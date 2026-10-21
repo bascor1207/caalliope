@@ -59,6 +59,44 @@ route s'abonne côté serveur aux insertions de `analytics_events` via Supabase 
 relaie chaque événement au navigateur, qui recalcule les chiffres (regroupés à 1,5 s) et affiche les derniers
 événements. Aucune clé Supabase n'atteint le navigateur. Sans Supabase, le dashboard se rafraîchit toutes les 30 s.
 
+## Hébergement à 0 € : boutique sur Cloudflare, admin sur Vercel
+
+Le plan Hobby de Vercel interdit l'usage commercial ; le plan gratuit de Cloudflare Workers l'autorise (100 000 requêtes
+par jour). La boutique est donc construite avec [OpenNext](https://opennext.js.org/cloudflare) (`apps/web/open-next.config.ts`,
+`apps/web/wrangler.jsonc`) et déployée par GitHub Actions à chaque push sur `main`
+(`.github/workflows/deploy-web-cloudflare.yml`). L'admin reste sur Vercel (SMTP et MCP ont besoin d'un vrai Node).
+Vercel garde la boutique en secours tant que Cloudflare n'est pas validé.
+
+Mise en place, une seule fois :
+
+1. **Cloudflare** : créer le compte, activer R2 (Dashboard → R2 → Enable, une carte est demandée mais rien n'est débité
+   dans le palier gratuit). Noter l'`Account ID` (page d'accueil du compte, colonne de droite).
+2. **Jeton API** (Mon profil → Jetons API → Créer → modèle « Edit Cloudflare Workers »), en ajoutant les permissions
+   `Workers R2 Storage : Edit` et `Workers Scripts : Edit`. Il sert au workflow de déploiement.
+3. **Jeton R2 S3** (R2 → Gérer les jetons API → « Object Read & Write ») : fournit `R2_ACCESS_KEY_ID` / `R2_SECRET_ACCESS_KEY`
+   pour les sauvegardes et la copie des vidéos.
+4. **Buckets R2** : `kodaclothing-next-cache` (créé par le workflow), `kodaclothing-backups` (privé, règle de cycle de
+   vie : supprimer après 30 jours), `kodaclothing-media` (accès public activé : Settings → Public access → r2.dev ou
+   domaine personnalisé).
+5. **Secrets GitHub** (Settings → Secrets and variables → Actions) : `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`,
+   `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `SUPABASE_DB_URL` (chaîne « Session pooler », port 5432, utilisateur
+   `postgres`), et les mêmes variables que sur Vercel : `DATABASE_URL`, `NEXT_PUBLIC_SUPABASE_URL`,
+   `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `REVALIDATE_SECRET`, `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `STRIPE_SECRET_KEY`.
+   Variable (onglet Variables) : `SHOP_URL`, l'URL publique de la boutique.
+6. Lancer « Deploy web (Cloudflare) » (Actions → Run workflow). La boutique répond sur
+   `https://kodaclothing.<sous-domaine>.workers.dev`, puis sur le domaine final (Workers → kodaclothing → Domaines).
+   Mettre ensuite à jour `SHOP_URL`, `SHOP_URL` côté admin (Vercel), le domaine dans Stripe et `SITE.url`.
+
+Les autres workflows : `supabase-backup.yml` (export `pg_dump` chaque nuit vers R2, car le plan gratuit de Supabase n'a
+pas de sauvegarde), `supabase-keepalive.yml` (une requête par jour pour éviter la mise en pause après 7 jours sans
+activité) et `media-to-r2.yml` (copie des vidéos vers le bucket public, trafic sortant illimité ; adapter ensuite
+`SITE.media` à l'URL publique du bucket). Les secrets absents font simplement sauter l'étape, avec un avertissement.
+
+En local : `pnpm --filter web preview:cf` construit la boutique pour Workers et la sert avec `wrangler dev`
+(cache R2 et Durable Objects émulés). Limite à surveiller sur le plan gratuit : 10 ms de CPU par requête ; les pages
+statiques et ISR sont servies depuis le cache, les pages dynamiques tiennent largement (30 à 200 ms de temps total
+mesurés en local). Si Cloudflare signale des dépassements, le plan Workers Paid (5 $/mois) lève la limite.
+
 ## Arborescence de la boutique (`apps/web`)
 
 ```
