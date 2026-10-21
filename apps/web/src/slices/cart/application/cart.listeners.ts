@@ -14,7 +14,7 @@ export function registerCartListeners<S extends { cart: CartState }, D extends D
   startListening({
     actionCreator: lineAdded,
     effect: (action, api) => {
-      const { line, qty = 1 } = action.payload;
+      const { line, qty = 1, quiet = false } = action.payload;
       api.extra.bus.publish("cart.line-added", {
         productId: line.productId,
         name: line.name,
@@ -22,6 +22,7 @@ export function registerCartListeners<S extends { cart: CartState }, D extends D
         size: line.size,
         qty,
         count: countOf(api.getState().cart),
+        quick: quiet,
       });
     },
   });

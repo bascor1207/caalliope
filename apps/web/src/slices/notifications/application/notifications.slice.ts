@@ -45,6 +45,18 @@ export function bindNotificationsToBus(bus: EventBus, dispatch: Dispatch): Unsub
     bus.subscribe("checkout.order-placed", (p) =>
       dispatch(toastPushed({ kind: "order-placed", params: { ref: p.ref } })),
     ),
+    /* Ajout rapide depuis la collection : un toast avec « Voir le panier », la modale reste fermée. */
+    bus.subscribe("cart.line-added", (p) => {
+      if (p.quick) {
+        dispatch(
+          toastPushed({
+            kind: "cart-added",
+            params: { name: p.name, color: p.colorName, size: p.size },
+            action: "open-cart",
+          }),
+        );
+      }
+    }),
     bus.subscribe("newsletter.subscribed", () => dispatch(toastPushed({ kind: "subscribed", params: {} }))),
     bus.subscribe("ui.notify", (p) =>
       dispatch(toastPushed({ kind: "message", params: { text: p.text }, tone: p.tone })),

@@ -46,6 +46,7 @@ export function bindAnalyticsToBus(bus: EventBus, tracker: Tracker): Unsubscribe
         colorKey: p.colorKey,
         size: p.size,
         unitPrice: p.unitPrice,
+        source: p.source ?? "pdp",
       }),
     ),
     bus.subscribe("catalog.search-performed", (p) => {
@@ -58,7 +59,9 @@ export function bindAnalyticsToBus(bus: EventBus, tracker: Tracker): Unsubscribe
     bus.subscribe("cart.open-requested", () => tracker.track("cart_opened")),
     bus.subscribe("checkout.started", (p) => tracker.track("checkout_started", { count: p.count, total: p.total })),
     bus.subscribe("checkout.failed", (p) => tracker.track("checkout_failed", { code: p.code })),
-    bus.subscribe("checkout.order-placed", (p) => tracker.track("order_placed", { total: p.total })),
+    bus.subscribe("checkout.order-placed", (p) =>
+      tracker.track("order_placed", { total: p.total, express: Boolean(p.express) }),
+    ),
     bus.subscribe("newsletter.subscribed", () => tracker.track("newsletter_subscribed")),
     bus.subscribe("app.error-caught", (p) => tracker.track("page_error", { digest: p.digest, message: p.message })),
   ];

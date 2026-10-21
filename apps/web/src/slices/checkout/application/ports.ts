@@ -35,6 +35,34 @@ export interface PlaceOrderInput {
   lines: OrderLineInput[];
   /** Renseigné côté serveur depuis la session, jamais par le client. */
   userId?: string | null;
+  paymentRef?: string | null;
+}
+
+/** Paiement créé chez le prestataire, à confirmer dans le navigateur. */
+export interface PaymentIntentRef {
+  id: string;
+  clientSecret: string;
+}
+
+export interface PaymentIntentState {
+  id: string;
+  status: "succeeded" | "processing" | "requires_payment_method" | "requires_action" | "canceled" | "other";
+  /** Montant en centimes. */
+  amount: number;
+  currency: string;
+  metadata: Record<string, string>;
+  /** Portefeuille utilisé, s'il y en a un (apple_pay, google_pay, link…). */
+  wallet: string | null;
+}
+
+/** Port paiement (Stripe…) : créer puis relire une intention de paiement. Montants en centimes. */
+export interface PaymentProvider {
+  createIntent(input: {
+    amount: number;
+    currency: string;
+    metadata: Record<string, string>;
+  }): Promise<PaymentIntentRef>;
+  retrieveIntent(id: string): Promise<PaymentIntentState | null>;
 }
 
 export type PlaceOrderResult = { ok: true; order: Order } | { ok: false; errors: ValidationErrors };

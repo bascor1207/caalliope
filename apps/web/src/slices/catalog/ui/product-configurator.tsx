@@ -4,7 +4,7 @@ import { RotateCcwIcon, ShieldCheckIcon, TruckIcon, ZoomInIcon } from "lucide-re
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useEffect, useRef, useState } from "react";
+import { type ReactNode, useEffect, useRef, useState } from "react";
 import { Link, useRouter } from "@/i18n/navigation";
 import { eventBus } from "@/shared/event-bus";
 import { Button, cn, Price, ProductArt, Skeleton, useMoney } from "@/shared/ui";
@@ -16,19 +16,21 @@ import { defaultSize, imageFor, isSizeAvailable, type Product, pickColor } from 
 interface Props {
   product: Product;
   initialColorKey?: string;
+  /** Emplacement sous le bouton d'ajout (achat express Stripe…), composé par la page. */
+  express?: ReactNode;
 }
 
 /** Lit `?coloris=` dans l'URL. À rendre dans un <Suspense> ; le fallback est le configurateur sans URL. */
-export function ProductConfiguratorFromUrl({ product }: { product: Product }) {
+export function ProductConfiguratorFromUrl({ product, express }: { product: Product; express?: ReactNode }) {
   const wanted = useSearchParams().get("coloris");
-  return <ProductConfigurator product={product} initialColorKey={pickColor(product, wanted).key} />;
+  return <ProductConfigurator product={product} initialColorKey={pickColor(product, wanted).key} express={express} />;
 }
 
 /**
  * Choix coloris + taille, galerie par coloris, visionneuse plein écran.
  * Ne connaît pas le panier : publie `catalog.product-chosen`, la slice panier décide quoi en faire.
  */
-export function ProductConfigurator({ product: initial, initialColorKey }: Props) {
+export function ProductConfigurator({ product: initial, initialColorKey, express }: Props) {
   /* Le store suit la base en temps réel : prix, stock et photos à jour sans recharger. */
   const live = useAppSelector((state) => selectProducts(state).find((p) => p.id === initial.id));
   const product = live ?? initial;
@@ -62,6 +64,20 @@ export function ProductConfigurator({ product: initial, initialColorKey }: Props
   useEffect(() => {
     eventBus.publish("catalog.product-viewed", { productId: product.id, slug: product.slug, colorKey: color.key });
   }, [product.id, product.slug, color.key]);
+
+  /* La sélection courante est un fait publié : l'achat express (autre slice) la suit sans couplage. */
+  useEffect(() => {
+    eventBus.publish("catalog.selection-changed", {
+      productId: product.id,
+      slug: product.slug,
+      name: product.name,
+      colorKey: color.key,
+      colorName: color.name,
+      size,
+      unitPrice: product.price,
+      imageSrc: imageFor(product, color.key)?.src,
+    });
+  }, [product, color.key, color.name, size]);
 
   const chooseColor = (key: string) => {
     setColorKey(key);
@@ -274,6 +290,7 @@ export function ProductConfigurator({ product: initial, initialColorKey }: Props
         >
           {t("preorder", { price: money(product.price) })}
         </Button>
+        {express && <div className="max-md:order-3">{express}</div>}
         <ul className="grid gap-2 text-[13px] text-ink-2 max-md:order-4">
           <li className="flex items-center gap-2.5">
             <TruckIcon className="size-4 shrink-0" /> {t("reassure1")}

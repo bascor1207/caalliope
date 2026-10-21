@@ -36,7 +36,8 @@
       "unavailable-color": "Coloris indisponible",
       "unavailable-size": "Taille épuisée",
       "invalid-qty": "Quantité invalide",
-      "network": "Impossible de valider la commande, réessaie."
+      "network": "Impossible de valider la commande, réessaie.",
+      "payment-failed": "Paiement refusé ou incomplet"
     }
   },
   "confirmation": {
@@ -59,5 +60,14 @@
       "cancelled": "Annulée",
       "refunded": "Remboursée"
     }
+  },
+  "express": {
+    "title": "Achat express",
+    "hint": "Apple Pay, Google Pay ou Link : la pièce sélectionnée, livrée à l'adresse de ton portefeuille.",
+    "chooseSize": "Choisis une taille pour payer en un clic.",
+    "shipping": "Livraison standard (2 à 5 jours ouvrés)",
+    "shippingFree": "Livraison offerte (2 à 5 jours ouvrés)",
+    "failed": "Paiement non abouti, réessaie.",
+    "paidButFailed": "Paiement reçu mais commande non enregistrée (réf. {ref}). Écris-nous, on règle ça tout de suite."
   }
 }

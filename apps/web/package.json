@@ -20,6 +20,8 @@
     "@koda/analytics": "workspace:*",
     "@koda/db": "workspace:*",
     "@reduxjs/toolkit": "^2.11.0",
+    "@stripe/react-stripe-js": "^7.0.0",
+    "@stripe/stripe-js": "^10.1.0",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.118.0",
     "class-variance-authority": "^0.7.1",
@@ -31,6 +33,7 @@
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "react-redux": "^9.2.0",
+    "stripe": "^23.0.0",
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {

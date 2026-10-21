@@ -36,7 +36,8 @@
       "unavailable-color": "Colour unavailable",
       "unavailable-size": "Size sold out",
       "invalid-qty": "Invalid quantity",
-      "network": "Could not submit the order, please retry."
+      "network": "Could not submit the order, please retry.",
+      "payment-failed": "Payment declined or incomplete"
     }
   },
   "confirmation": {
@@ -59,5 +60,14 @@
       "cancelled": "Cancelled",
       "refunded": "Refunded"
     }
+  },
+  "express": {
+    "title": "Express checkout",
+    "hint": "Apple Pay, Google Pay or Link: the selected piece, shipped to your wallet address.",
+    "chooseSize": "Pick a size to pay in one tap.",
+    "shipping": "Standard shipping (2 to 5 business days)",
+    "shippingFree": "Free shipping (2 to 5 business days)",
+    "failed": "Payment did not go through, please retry.",
+    "paidButFailed": "Payment received but the order could not be saved (ref. {ref}). Write to us, we will sort it out right away."
   }
 }

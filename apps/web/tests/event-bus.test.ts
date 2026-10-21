@@ -9,7 +9,15 @@ describe("event bus (CustomEvent sur un EventTarget)", () => {
     bus.subscribe("cart.line-added", onAdded);
     bus.subscribe("cart.cleared", onCleared);
 
-    bus.publish("cart.line-added", { productId: "p", name: "Hoodie", colorName: "Sauge", size: "M", qty: 1, count: 1 });
+    bus.publish("cart.line-added", {
+      productId: "p",
+      name: "Hoodie",
+      colorName: "Sauge",
+      size: "M",
+      qty: 1,
+      count: 1,
+      quick: false,
+    });
 
     expect(onAdded).toHaveBeenCalledWith({
       productId: "p",
@@ -18,6 +26,7 @@ describe("event bus (CustomEvent sur un EventTarget)", () => {
       size: "M",
       qty: 1,
       count: 1,
+      quick: false,
     });
     expect(onCleared).not.toHaveBeenCalled();
   });

@@ -21,11 +21,15 @@ export function bindCartToBus(bus: EventBus, dispatch: Dispatch): Unsubscribe {
             unitPrice: p.unitPrice,
           },
           qty: p.qty,
+          quiet: p.source === "quick",
         }),
       );
     }),
     bus.subscribe("cart.open-requested", () => dispatch(opened())),
-    bus.subscribe("checkout.order-placed", () => dispatch(cleared({ reason: "order-placed" }))),
+    /* Un achat express (depuis la fiche) ne touche pas au panier : seules les commandes du panier le vident. */
+    bus.subscribe("checkout.order-placed", (p) => {
+      if (!p.express) dispatch(cleared({ reason: "order-placed" }));
+    }),
   ];
   return () => {
     for (const unsubscribe of subscriptions) unsubscribe();

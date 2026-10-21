@@ -5,8 +5,9 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { Link } from "@/i18n/navigation";
-import { Badge, Button, cn, Price, ProductArt, Reveal, Skeleton } from "@/shared/ui";
+import { Badge, cn, Price, ProductArt, Reveal, Skeleton } from "@/shared/ui";
 import { imageFor, isDarkBadge, type Product, pickColor } from "../domain/product";
+import { QuickAdd } from "./quick-add";
 
 export function ProductCard({ product, delay }: { product: Product; delay?: 1 | 2 | 3 }) {
   const t = useTranslations("catalog.card");
@@ -107,13 +108,7 @@ export function ProductCard({ product, delay }: { product: Product; delay?: 1 | 
               </button>
             </div>
           )}
-          <div className="absolute bottom-3 left-3 z-2 hidden translate-y-4 opacity-0 transition-[transform,opacity] duration-400 ease-expo group-hover/card:translate-y-0 group-hover/card:opacity-100 group-focus-within/card:translate-y-0 group-focus-within/card:opacity-100 lg:block">
-            <Button asChild size="sm">
-              <Link href={href} data-track="card.see">
-                {t("see")}
-              </Link>
-            </Button>
-          </div>
+          <QuickAdd product={product} colorKey={color.key} />
         </div>
         {/* Colonne bornée (minmax 0) : un nom long se coupe sur deux lignes au lieu d'élargir la carte. */}
         <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-2 p-3 sm:gap-2.5 sm:px-[18px] sm:pt-4 sm:pb-[18px]">

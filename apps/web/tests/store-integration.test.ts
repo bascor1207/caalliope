@@ -53,6 +53,50 @@ describe("bus ↔ store", () => {
     expect(state.notifications.toasts).toHaveLength(0);
   });
 
+  it("un ajout rapide depuis la collection remplit le panier et confirme par un toast, sans modale", () => {
+    const { bus, store } = setup();
+    bus.publish("catalog.product-chosen", {
+      productId: "tee-koda",
+      slug: "tee-koda",
+      name: "Tee Koda",
+      productType: "tee",
+      colorKey: "sable",
+      colorName: "Sable",
+      colorHex: "#E8DCC8",
+      size: "L",
+      unitPrice: 38,
+      qty: 1,
+      source: "quick",
+    });
+    const state = store.getState();
+    expect(selectCartCount(state)).toBe(1);
+    expect(state.cart.isAddedDialogOpen).toBe(false);
+    expect(state.notifications.toasts).toHaveLength(1);
+    expect(state.notifications.toasts[0]).toMatchObject({
+      kind: "cart-added",
+      params: { name: "Tee Koda", color: "Sable", size: "L" },
+      action: "open-cart",
+    });
+  });
+
+  it("un achat express depuis la fiche ne vide pas le panier", () => {
+    const { bus, store } = setup();
+    bus.publish("catalog.product-chosen", {
+      productId: "p",
+      slug: "p",
+      name: "P",
+      productType: "tee",
+      colorKey: "c",
+      colorName: "C",
+      colorHex: "#fff",
+      size: "M",
+      unitPrice: 10,
+      qty: 1,
+    });
+    bus.publish("checkout.order-placed", { ref: "KODA-9", total: 63.9, email: "a@b.fr", express: true });
+    expect(selectLines(store.getState())).toHaveLength(1);
+  });
+
   it("une commande passée vide le panier", () => {
     const { bus, store } = setup();
     bus.publish("catalog.product-chosen", {

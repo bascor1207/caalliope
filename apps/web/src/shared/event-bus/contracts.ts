@@ -18,6 +18,19 @@ export interface IntegrationEvents {
     size: string;
     unitPrice: number;
     qty: number;
+    /** `quick` = ajout rapide depuis la collection (toast, pas de modale). */
+    source?: "pdp" | "quick";
+  };
+  /** Le catalogue : la sélection courante de la fiche produit (coloris, taille) a changé. */
+  "catalog.selection-changed": {
+    productId: string;
+    slug: string;
+    name: string;
+    colorKey: string;
+    colorName: string;
+    size: string | null;
+    unitPrice: number;
+    imageSrc?: string;
   };
   /** Le catalogue : une fiche produit a été affichée. */
   "catalog.product-viewed": { productId: string; slug: string; colorKey: string };
@@ -32,13 +45,28 @@ export interface IntegrationEvents {
   /** Le checkout : une soumission a été refusée (friction). */
   "checkout.failed": { code: string };
   /** Le panier : une ligne a été ajoutée. */
-  "cart.line-added": { productId: string; name: string; colorName: string; size: string; qty: number; count: number };
+  "cart.line-added": {
+    productId: string;
+    name: string;
+    colorName: string;
+    size: string;
+    qty: number;
+    count: number;
+    /** Ajout rapide depuis la collection : à confirmer par un toast plutôt qu'une modale. */
+    quick: boolean;
+  };
   /** Quelqu'un demande l'ouverture du panier (toast, bouton...). */
   "cart.open-requested": Record<string, never>;
   /** Le panier a été vidé. */
   "cart.cleared": { reason: "order-placed" | "user" };
   /** Le checkout : une commande a été enregistrée. */
-  "checkout.order-placed": { ref: string; total: number; email: string };
+  "checkout.order-placed": {
+    ref: string;
+    total: number;
+    email: string;
+    /** Achat express (Apple Pay / Google Pay depuis la fiche) : le panier n'est pas concerné. */
+    express?: boolean;
+  };
   /** La newsletter : un e-mail a été inscrit. */
   "newsletter.subscribed": { email: string };
 }

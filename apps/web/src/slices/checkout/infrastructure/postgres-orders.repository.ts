@@ -26,9 +26,9 @@ export class PostgresOrdersRepository implements OrdersRepository {
   async save(order: Order): Promise<void> {
     const sql = getSql();
     await sql`
-      INSERT INTO orders (ref, user_id, email, status, currency, subtotal, shipping, total, payment, customer, lines, source, placed_at)
+      INSERT INTO orders (ref, user_id, email, status, currency, subtotal, shipping, total, payment, payment_ref, customer, lines, source, placed_at)
       VALUES (${order.ref}, ${order.userId ?? null}, ${order.customer.email}, 'paid', 'EUR', ${order.subtotal}, ${order.shipping},
-              ${order.total}, ${order.payment}, ${sql.json(order.customer as never)},
+              ${order.total}, ${order.payment}, ${order.paymentRef ?? null}, ${sql.json(order.customer as never)},
               ${sql.json(order.lines as never)}, 'koda', ${order.createdAt})`;
   }
 

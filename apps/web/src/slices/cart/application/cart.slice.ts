@@ -19,10 +19,11 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    lineAdded(state, action: PayloadAction<{ line: NewCartLine; qty?: number }>) {
+    /** `quiet` : ajout rapide depuis la collection, confirmé par un toast (la modale reste fermée). */
+    lineAdded(state, action: PayloadAction<{ line: NewCartLine; qty?: number; quiet?: boolean }>) {
       state.lines = addLine(state, action.payload.line, action.payload.qty).lines;
       state.lastAdded = { ...action.payload.line, qty: action.payload.qty ?? 1 };
-      state.isAddedDialogOpen = true;
+      state.isAddedDialogOpen = !action.payload.quiet;
     },
     qtySet(state, action: PayloadAction<{ key: string; qty: number }>) {
       state.lines = setQty(state, action.payload.key, action.payload.qty).lines;

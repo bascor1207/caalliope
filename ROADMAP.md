@@ -35,10 +35,13 @@ Suivi des idées et de leur état. Mis à jour à chaque lot livré.
 - Admin mobile : onglets par section (ancres), sous-menus dans la barre latérale, KPI compacts.
 
 - Annonce plein écran (modale) pilotée depuis Marketing et le MCP : avertissement / promo / nouveauté, code copiable, période, vue une fois par visiteur, « réafficher » par version.
+- Ajout rapide depuis la collection : rangée de tailles au survol (desktop), bouton « + » et feuille de tailles (mobile), optimiste, toast vert « Voir le panier » ; mesuré (`product_chosen` source `quick`).
+- Achat express Stripe sur la fiche produit : Apple Pay / Google Pay / Link (Express Checkout Element), montant et livraison recalculés côté serveur, commande enregistrée après vérification du paiement (`payment_ref`). Affiché dès que les clés Stripe sont présentes.
 - Vidéos de marque hébergées sur Supabase Storage (bucket `media/marketing`, 6,4 Mo retirés du dépôt et des déploiements) ; dates des annonces et bandeaux saisies en heure de Paris.
 - Animations lissées : cartes « Notre histoire » (survol sur un calque séparé), flou d'en-tête allégé, formes pastel moins coûteuses (2 sur mobile), transitions ciblées.
 
 ## En cours / à configurer par KODA
+- Stripe (bac à sable, gratuit) : créer le compte, copier `pk_test_…` dans `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` et `sk_test_…` dans `STRIPE_SECRET_KEY` (Vercel, projet web) ; enregistrer le domaine dans Stripe → Domaines de moyens de paiement, et déposer le fichier Apple Pay dans `apps/web/public/.well-known/` (voir le README de ce dossier).
 - Domaine final à brancher sur Vercel (puis `NEXT_PUBLIC_SITE_URL` à mettre à jour), Google Search Console (sitemap) et Merchant Center (flux).
 - Admin → Catalogue → « Importer le catalogue de la boutique » (une fois le déploiement passé) : les fiches deviennent éditables.
 - Admin → Réglages → Boîte d'envoi : smtp.gmail.com / bcorre.work@gmail.com / mot de passe d'application, puis « Envoyer le test ».
@@ -50,7 +53,7 @@ Suivi des idées et de leur état. Mis à jour à chaque lot livré.
 
 ## À faire
 
-- Paiement Stripe Checkout (Apple Pay / Google Pay inclus), commandes relues par webhook.
+- Paiement Stripe du panier complet (le checkout classique reste une précommande sans débit), webhook pour relire les paiements.
 - Migration Shopify : produits (déjà importés en données), clients (invitation), commandes (CSV → `orders`, source shopify).
 - Produits et bannières éditables depuis l'admin (plus de fichier de données).
 - Serveur MCP exposé par l'admin pour automatiser la création de contenu avec des IA (fiches, bannières, posts, campagnes).

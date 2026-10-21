@@ -16,6 +16,8 @@ import {
   productGroupJsonLd,
 } from "@/slices/catalog/public-server";
 import { ProductCard, ProductConfigurator, ProductConfiguratorFromUrl } from "@/slices/catalog/public-ui";
+import { stripeConfigured, stripePublishableKey } from "@/slices/checkout/public-server";
+import { ExpressCheckout } from "@/slices/checkout/public-ui";
 
 interface Props {
   params: Promise<{ locale: Locale; slug: string }>;
@@ -64,6 +66,8 @@ export default async function ProductPage({ params }: Props) {
   const t = await getTranslations("catalog.product");
   const tc = await getTranslations("common");
   const url = pathFor(locale, "/produits/[slug]", { slug });
+  /* Apple Pay / Google Pay dès que les clés Stripe sont là ; sinon la fiche reste telle quelle. */
+  const express = stripeConfigured() ? <ExpressCheckout publishableKey={stripePublishableKey()} /> : null;
 
   return (
     <div className="container-k pt-10 pb-[clamp(72px,10vw,128px)]">
@@ -86,8 +90,8 @@ export default async function ProductPage({ params }: Props) {
         <span aria-hidden="true">/</span>
         <span aria-current="page">{product.name}</span>
       </nav>
-      <Suspense fallback={<ProductConfigurator product={product} />}>
-        <ProductConfiguratorFromUrl product={product} />
+      <Suspense fallback={<ProductConfigurator product={product} express={express} />}>
+        <ProductConfiguratorFromUrl product={product} express={express} />
       </Suspense>
       <section className="mt-24" aria-labelledby="related-title">
         <div className="mb-11 flex flex-wrap items-end justify-between gap-6">

@@ -38,6 +38,7 @@ export async function placeOrder(input: PlaceOrderInput, deps: Deps): Promise<Pl
       now: (deps.now ?? (() => new Date()))(),
     }),
     userId: input.userId ?? null,
+    paymentRef: input.paymentRef ?? null,
   };
   await deps.orders.save(order);
   return { ok: true, order };

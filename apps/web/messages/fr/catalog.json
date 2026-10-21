@@ -17,7 +17,16 @@
     "open": "{name}, {color}",
     "flip": "Autre vue",
     "prev": "Photo précédente",
-    "next": "Photo suivante"
+    "next": "Photo suivante",
+    "quickAdd": "Ajout rapide",
+    "quickAddFor": "Ajouter {name} au panier",
+    "chooseSize": "Choisis ta taille",
+    "sizes": "Tailles",
+    "addSize": "Ajouter en taille {size}",
+    "add": "Ajouter · {price}",
+    "added": "Ajouté",
+    "soldOut": "{size} épuisé",
+    "close": "Fermer"
   },
   "product": {
     "eyebrow": "{sub}",

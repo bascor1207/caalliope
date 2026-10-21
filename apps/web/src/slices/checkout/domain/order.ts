@@ -33,6 +33,8 @@ export interface Order extends Totals {
   createdAt: string;
   /** Compte client rattaché, s'il était connecté au moment de la commande. */
   userId?: string | null;
+  /** Référence du paiement chez le prestataire (PaymentIntent Stripe), pour les remboursements. */
+  paymentRef?: string | null;
 }
 
 export type OrderStatus = "pending" | "paid" | "shipped" | "delivered" | "cancelled" | "refunded";
@@ -58,6 +60,7 @@ export type ErrorCode =
   | "unavailable-color"
   | "unavailable-size"
   | "invalid-qty"
+  | "payment-failed"
   | "network";
 
 export type ValidationErrors = Partial<Record<CustomerField | "cart", ErrorCode>>;
