@@ -41,7 +41,7 @@ Suivi des idées et de leur état. Mis à jour à chaque lot livré.
 - Animations lissées : cartes « Notre histoire » (survol sur un calque séparé), flou d'en-tête allégé, formes pastel moins coûteuses (2 sur mobile), transitions ciblées.
 
 ## En cours / à configurer par KODA
-- Stripe (bac à sable, gratuit) : créer le compte, copier `pk_test_…` dans `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` et `sk_test_…` dans `STRIPE_SECRET_KEY` (Vercel, projet web) ; enregistrer le domaine dans Stripe → Domaines de moyens de paiement, et déposer le fichier Apple Pay dans `apps/web/public/.well-known/` (voir le README de ce dossier).
+- Stripe : clés de test en place sur Vercel, domaine `kodaclothing.vercel.app` validé (Apple Pay, Google Pay, Link actifs). Pour encaisser pour de vrai : activer le compte Stripe, remplacer les deux clés par les clés `live`, et ajouter le domaine final.
 - Domaine final à brancher sur Vercel (puis `NEXT_PUBLIC_SITE_URL` à mettre à jour), Google Search Console (sitemap) et Merchant Center (flux).
 - Admin → Catalogue → « Importer le catalogue de la boutique » (une fois le déploiement passé) : les fiches deviennent éditables.
 - Admin → Réglages → Boîte d'envoi : smtp.gmail.com / bcorre.work@gmail.com / mot de passe d'application, puis « Envoyer le test ».
