@@ -203,7 +203,7 @@ function ExpressButtons({ selection, totals, locale }: { selection: Selection; t
         options={{
           buttonType: { applePay: "buy", googlePay: "buy" },
           buttonHeight: 48,
-          layout: { maxColumns: 1, maxRows: 2, overflow: "never" },
+          layout: { maxColumns: 1, maxRows: 2, overflow: "auto" },
           paymentMethods: { paypal: "never", amazonPay: "never", klarna: "never" },
           emailRequired: true,
           shippingAddressRequired: true,
