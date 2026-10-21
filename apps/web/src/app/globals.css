@@ -516,17 +516,11 @@
 }
 
 @layer utilities {
-  /* Curseur maison « agrandir » (pastille crème, +) et « réduire » (−) : plus parlant que la loupe du navigateur. */
+  /* Curseur maison « agrandir » (pastille crème, +) sur la photo produit ; la visionneuse garde le curseur normal. */
   .cursor-expand {
     cursor:
       url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'><circle cx='22' cy='22' r='20' fill='%23F6F1EA' stroke='%23141414' stroke-width='1.5'/><path d='M14 22h16M22 14v16' stroke='%23141414' stroke-width='2.2' stroke-linecap='round'/></svg>")
       22 22,
       zoom-in;
-  }
-  .cursor-shrink {
-    cursor:
-      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'><circle cx='22' cy='22' r='20' fill='%23F6F1EA' stroke='%23141414' stroke-width='1.5'/><path d='M14 22h16' stroke='%23141414' stroke-width='2.2' stroke-linecap='round'/></svg>")
-      22 22,
-      zoom-out;
   }
 }

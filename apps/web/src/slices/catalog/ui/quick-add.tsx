@@ -112,8 +112,8 @@ export function QuickAdd({ product, colorKey }: Props) {
         data-track={single ? "card.quick-add" : undefined}
         onClick={() => (single ? add(single) : setOpen(true))}
         className={cn(
-          "absolute bottom-2 left-2 z-2 grid size-9 place-items-center rounded-full shadow-[0_6px_18px_-8px_rgba(20,20,20,.5)] transition-colors duration-200 lg:hidden",
-          justAdded ? "bg-success text-white" : "bg-white/92 text-ink backdrop-blur",
+          "absolute bottom-2 left-2 z-2 grid size-9 place-items-center rounded-full text-white shadow-[0_6px_18px_-8px_rgba(20,20,20,.5)] backdrop-blur transition-colors duration-200 lg:hidden",
+          justAdded ? "bg-success" : "bg-ink/55",
         )}
       >
         {justAdded ? <CheckIcon className="size-4" aria-hidden="true" /> : <PlusIcon className="size-4" />}
