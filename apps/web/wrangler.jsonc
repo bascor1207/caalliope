@@ -20,6 +20,6 @@
   "migrations": [{ "tag": "v1", "new_sqlite_classes": ["DOQueueHandler", "DOShardedTagCache"] }],
   // Variables publiques (les secrets sont posés par le workflow via `wrangler secret`).
   "vars": {
-    "NEXT_PUBLIC_SITE_URL": "https://kodaclothing.vercel.app"
+    "NEXT_PUBLIC_SITE_URL": "https://kodaclothing.kodaclothing.workers.dev"
   }
 }

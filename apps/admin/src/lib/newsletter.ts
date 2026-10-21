@@ -56,7 +56,7 @@ const toCampaign = (r: CampaignRow): Campaign => ({
   sentAt: r.sent_at ? new Date(r.sent_at).toISOString() : null,
 });
 
-export const shopUrl = () => process.env.SHOP_URL ?? "https://kodaclothing.vercel.app";
+export const shopUrl = () => process.env.SHOP_URL ?? "https://kodaclothing.kodaclothing.workers.dev";
 export const renderOptionsFor = (token: string, outlook = false) => ({
   shopUrl: shopUrl(),
   unsubscribeUrl: `${shopUrl()}/newsletter/desinscription?token=${encodeURIComponent(token)}`,

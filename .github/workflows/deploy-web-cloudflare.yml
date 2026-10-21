@@ -60,7 +60,7 @@ jobs:
         working-directory: apps/web
         env:
           # Les NEXT_PUBLIC_* sont figées dans le bundle au moment du build.
-          NEXT_PUBLIC_SITE_URL: ${{ vars.SHOP_URL || 'https://kodaclothing.vercel.app' }}
+          NEXT_PUBLIC_SITE_URL: ${{ vars.SHOP_URL || 'https://kodaclothing.kodaclothing.workers.dev' }}
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY }}
@@ -75,7 +75,7 @@ jobs:
       - name: Déployer le worker
         if: steps.config.outputs.ready == 'true'
         working-directory: apps/web
-        run: pnpm exec wrangler deploy --var NEXT_PUBLIC_SITE_URL:"${{ vars.SHOP_URL || 'https://kodaclothing.vercel.app' }}"
+        run: pnpm exec wrangler deploy --var NEXT_PUBLIC_SITE_URL:"${{ vars.SHOP_URL || 'https://kodaclothing.kodaclothing.workers.dev' }}"
 
       - name: Poser les secrets du worker
         if: steps.config.outputs.ready == 'true'
