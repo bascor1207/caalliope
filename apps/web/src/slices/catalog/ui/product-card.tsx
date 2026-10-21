@@ -115,11 +115,12 @@ export function ProductCard({ product, delay }: { product: Product; delay?: 1 | 
             </Button>
           </div>
         </div>
-        <div className="grid gap-2 p-3 sm:gap-2.5 sm:px-[18px] sm:pt-4 sm:pb-[18px]">
-          <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+        {/* Colonne bornée (minmax 0) : un nom long se coupe sur deux lignes au lieu d'élargir la carte. */}
+        <div className="grid min-w-0 grid-cols-[minmax(0,1fr)] gap-2 p-3 sm:gap-2.5 sm:px-[18px] sm:pt-4 sm:pb-[18px]">
+          <div className="flex min-w-0 flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
             <div className="min-w-0">
               {/* Garde-fou : deux lignes maximum, puis points de suspension (noms longs sur mobile). */}
-              <h3 className="line-clamp-2 break-words text-[13px] font-bold tracking-[-0.01em] leading-tight sm:text-base">
+              <h3 className="line-clamp-2 min-w-0 text-[13px] font-bold tracking-[-0.01em] leading-tight [overflow-wrap:anywhere] sm:text-base">
                 <Link href={href}>{product.name}</Link>
               </h3>
               <p className="mt-0.5 truncate text-xs text-muted sm:mt-[3px] sm:text-[13px]">{product.sub}</p>
