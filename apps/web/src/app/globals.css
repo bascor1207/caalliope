@@ -516,10 +516,10 @@
 }
 
 @layer utilities {
-  /* Curseur maison « agrandir » (pastille crème, +) sur la photo produit ; la visionneuse garde le curseur normal. */
+  /* Curseur maison « agrandir » (pastille noire translucide, + blanc) sur la photo produit ; la visionneuse garde le curseur normal. */
   .cursor-expand {
     cursor:
-      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'><circle cx='22' cy='22' r='20' fill='%23F6F1EA' stroke='%23141414' stroke-width='1.5'/><path d='M14 22h16M22 14v16' stroke='%23141414' stroke-width='2.2' stroke-linecap='round'/></svg>")
+      url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'><circle cx='22' cy='22' r='20' fill='%23141414' fill-opacity='0.55'/><path d='M14 22h16M22 14v16' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round'/></svg>")
       22 22,
       zoom-in;
   }
