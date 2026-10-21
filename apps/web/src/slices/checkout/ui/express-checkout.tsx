@@ -86,6 +86,9 @@ function ExpressButtons({ selection, totals, locale }: { selection: Selection; t
   const [available, setAvailable] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  /** Diagnostic (`?debug` dans l'URL) : état du composant Stripe et portefeuilles détectés. */
+  const [diag, setDiag] = useState("chargement…");
+  const debug = typeof window !== "undefined" && new URLSearchParams(window.location.search).has("debug");
   const shippingRate = {
     id: "standard",
     amount: toCents(totals.shipping),
@@ -168,7 +171,7 @@ function ExpressButtons({ selection, totals, locale }: { selection: Selection; t
   };
 
   return (
-    <div className={available ? "grid gap-2" : "h-0 overflow-hidden"} aria-busy={busy}>
+    <div className="grid gap-2" aria-busy={busy} data-express={available ? "ready" : "none"}>
       {available && (
         <p className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.1em] text-muted before:h-px before:flex-1 before:bg-line after:h-px after:flex-1 after:bg-line">
           {t("title")}
@@ -185,7 +188,18 @@ function ExpressButtons({ selection, totals, locale }: { selection: Selection; t
           allowedShippingCountries: ["FR"],
           shippingRates: [shippingRate],
         }}
-        onReady={(e) => setAvailable(Boolean(e.availablePaymentMethods))}
+        onReady={(e) => {
+          setAvailable(Boolean(e.availablePaymentMethods));
+          setDiag(
+            e.availablePaymentMethods
+              ? `prêt · ${Object.entries(e.availablePaymentMethods)
+                  .filter(([, on]) => on)
+                  .map(([k]) => k)
+                  .join(", ")}`
+              : "prêt · aucun portefeuille disponible dans ce navigateur",
+          );
+        }}
+        onLoadError={(e) => setDiag(`erreur de chargement · ${e.error?.message ?? "inconnue"}`)}
         onClick={onClick}
         onConfirm={onConfirm}
         onShippingAddressChange={(e) => e.resolve({ shippingRates: [shippingRate] })}
@@ -198,6 +212,11 @@ function ExpressButtons({ selection, totals, locale }: { selection: Selection; t
         </p>
       )}
       {available && <p className="text-xs text-muted">{t("hint")}</p>}
+      {debug && (
+        <p className="rounded-[10px] bg-sand px-3 py-2 font-mono text-xs text-ink-2">
+          stripe express · {diag} · {navigator.userAgent.slice(0, 90)}
+        </p>
+      )}
     </div>
   );
 }
